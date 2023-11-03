@@ -1,0 +1,9 @@
+body {
+  --pui-color-primary: #0079d0;
+  --pui-color-danger: #fb4747;
+  --pui-color-normal: #383838;
+  --pui-large-border-radius: 26px;
+  --pui-padding-x: 20px;
+  --pui-padding-y: 4.5px;
+  --pui-border-radius: 20px;
+}

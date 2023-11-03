@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>test Button</title>
+    <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.30/dist/ofa.min.js"></script>
+    <!-- <link rel="stylesheet" href="../css/public.css" /> -->
+    <style>
+      body {
+        font: 400 1em/1.8 -apple-system, BlinkMacSystemFont, Segoe UI,
+          Microsoft Yahei, Helvetica, Arial, sans-serif, Apple Color Emoji,
+          Segoe UI Emoji;
+      }
+      *:not(:defined) {
+        display: none;
+      }
+      div {
+        padding: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <l-m src="./p-button.html"></l-m>
+    <div>
+      <p-button variant="contained">Contained</p-button>
+      <p-button variant="outline">Outline</p-button>
+      <p-button variant="text">Text</p-button>
+    </div>
+    <div>
+      <p-button variant="contained" type="primary">Contained primary</p-button>
+      <p-button variant="outline" type="primary">Outline primary</p-button>
+      <p-button variant="text" type="primary">Text primary</p-button>
+    </div>
+    <div>
+      <p-button variant="contained" type="danger">Contained danger</p-button>
+      <p-button variant="outline" type="danger">Outline danger</p-button>
+      <p-button variant="text" type="danger">Text danger</p-button>
+    </div>
+    <div>
+      <p-button variant="contained" size="small">size small</p-button>
+      <p-button variant="contained">size Normal</p-button>
+      <p-button variant="contained" size="large">size large</p-button>
+    </div>
+  </body>
+</html>

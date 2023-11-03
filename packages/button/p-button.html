@@ -1,0 +1,65 @@
+<template component>
+  <style>
+    :host {
+      display: inline-block;
+      --main-color: var(--pui-color-normal, #383838);
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      border-radius: var(--pui-border-radius);
+      padding: var(--pui-padding-y) var(--pui-padding-x);
+      cursor: pointer;
+      user-select: none;
+      font-size: 16px;
+      border: var(--main-color) solid 1px;
+      color: var(--main-color);
+    }
+
+    .container[variant="contained"] {
+      background-color: var(--main-color);
+      color: #fff;
+      border: var(--main-color) solid 1px;
+    }
+
+    .container[variant="text"] {
+      background-color: transparent;
+      border-color: transparent;
+    }
+
+    .container[size="small"] {
+      font-size: 12px;
+    }
+    .container[size="large"] {
+      font-size: 22px;
+      border-radius: var(--pui-large-border-radius);
+    }
+  </style>
+  <div class="container" attr:variant="variant" attr:size="size" type="type">
+    <slot></slot>
+  </div>
+  <script>
+    import "../others/init.js";
+    import { isDark } from "../others/data.js";
+    export default {
+      attrs: {
+        variant: "contained",
+        size: "",
+        type: "",
+      },
+      watch: {
+        type(type) {
+          if (type) {
+            this.style.setProperty("--main-color", `var(--pui-color-${type})`);
+          }
+        },
+      },
+      data: {
+        isDark: {},
+      },
+    };
+  </script>
+</template>
