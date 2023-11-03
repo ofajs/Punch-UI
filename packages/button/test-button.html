@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>test Button</title>
-    <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.30/dist/ofa.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.31/dist/ofa.min.js"></script>
     <!-- <link rel="stylesheet" href="../css/public.css" /> -->
     <style>
       body {
@@ -21,8 +21,39 @@
     </style>
   </head>
   <body>
+    <l-m src="../../ancillary/comp-shower.html"></l-m>
     <l-m src="./p-button.html"></l-m>
-    <div>
+    <comp-shower>
+      <template>
+        <p-button>Test Button</p-button>
+      </template>
+      <label>
+        variant:
+        <select name="variant">
+          <option>contained</option>
+          <option>outline</option>
+          <option>text</option>
+        </select>
+      </label>
+      <label>
+        type:
+        <select name="type">
+          <option>primary</option>
+          <option>danger</option>
+          <option>normal</option>
+        </select>
+      </label>
+      <label>
+        size:
+        <select name="size">
+          <option>normal</option>
+          <option>small</option>
+          <option>large</option>
+        </select>
+      </label>
+    </comp-shower>
+
+    <!-- <div>
       <p-button variant="contained">Contained</p-button>
       <p-button variant="outline">Outline</p-button>
       <p-button variant="text">Text</p-button>
@@ -41,6 +72,6 @@
       <p-button variant="contained" size="small">size small</p-button>
       <p-button variant="contained">size Normal</p-button>
       <p-button variant="contained" size="large">size large</p-button>
-    </div>
+    </div> -->
   </body>
 </html>

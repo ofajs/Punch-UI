@@ -1,0 +1,87 @@
+<template component>
+  <style>
+    :host {
+      display: block;
+      min-height: 300px;
+      border: #808080 solid 1px;
+    }
+    .top {
+      display: flex;
+      padding: 8px;
+      border-bottom: #808080 solid 1px;
+    }
+    .top-right {
+      margin-left: auto;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+    }
+    .main {
+      padding: 8px;
+    }
+    ::slotted(label) {
+      margin-right: 16px;
+    }
+  </style>
+  <div class="container">
+    <div class="top">
+      <div style="display: contents">
+        <slot></slot>
+      </div>
+      <!-- <div class="top-right">
+        <label
+          >render all: <input type="checkbox" sync:checked="isRenderAll"
+        /></label>
+      </div> -->
+    </div>
+    <div class="main"></div>
+  </div>
+  <script>
+    export default {
+      data: {
+        isRenderAll: false,
+      },
+      watch: {
+        isRenderAll(bool) {
+          if (bool) {
+            this.renderAll();
+          } else {
+            this.refreshUI();
+          }
+        },
+      },
+      proto: {
+        renderAll() {
+          const $e = $(this.$("template").html);
+
+          this.all("select").forEach((e) => {
+            const opts = e.all("option");
+
+            opts.forEach((option) => {
+
+            });
+          });
+        },
+        refreshUI() {
+          const $e = $(this.$("template").html);
+
+          this.all("select").forEach((e) => {
+            const { name, value } = e;
+            $e.attr(name, value);
+          });
+
+          this.shadow.$(".main").html = "";
+          this.shadow.$(".main").push($e);
+        },
+      },
+      attached() {
+        // this.refreshUI();
+
+        this.on("change", () => {
+          this.refreshUI();
+        });
+      },
+    };
+  </script>
+</template>

@@ -1,7 +1,7 @@
 (async () => {
   lm.config({
     alias: {
-      "@pui": "/packages",
+      "@pui": "/",
     },
   });
 
