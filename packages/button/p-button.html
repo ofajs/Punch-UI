@@ -2,7 +2,6 @@
   <style>
     :host {
       display: inline-block;
-      --main-color: var(--pui-color-normal, #383838);
     }
 
     .container {
@@ -15,12 +14,11 @@
       cursor: pointer;
       user-select: none;
       font-size: 16px;
-      color: var(--main-color);
+      color: var(--font-color);
     }
 
     .container[variant="contained"] {
       background-color: var(--main-color);
-      color: #fff;
     }
 
     .container[variant="outline"]:after {
@@ -36,6 +34,11 @@
     .container[variant="text"] {
       background-color: transparent;
       border-color: transparent;
+    }
+
+    .container[variant="outline"],
+    .container[variant="text"] {
+      color: var(--main-color);
     }
 
     .container[size="small"] {
@@ -65,9 +68,6 @@
       background-color: var(--main-hover-color);
     }
   </style>
-  <x-if :value="isDark.value">
-    <style></style>
-  </x-if>
   <div
     class="container"
     attr:variant="variant"
@@ -85,13 +85,17 @@
       attrs: {
         variant: "contained",
         size: "",
-        type: "",
+        type: "normal",
         disabled: null,
       },
       watch: {
         type(type) {
           if (type) {
-            this.style.setProperty("--main-color", `var(--pui-color-${type})`);
+            this.style.setProperty("--main-color", `var(--pui-${type}-color)`);
+            this.style.setProperty(
+              "--font-color",
+              `var(--pui-${type}-font-color)`
+            );
           }
         },
       },

@@ -9,11 +9,9 @@
     import { isDark } from "../packages/commons/data.js";
 
     const darkStyle = $(`<style>
-    html,body{
-        background-color:#000;
-        color:#fff;
-    }
+    html,body{background-color:#000;color:#fff;}
     </style>`);
+
     export default {
       data: {
         isDark: { value: false },
@@ -22,10 +20,12 @@
         isDark(isDark) {
           if (isDark.value) {
             $("head").push(darkStyle);
+            $("html").classList.add("dark");
           } else {
             if (darkStyle.parent) {
               darkStyle.remove();
             }
+            $("html").classList.remove("dark");
           }
         },
       },
