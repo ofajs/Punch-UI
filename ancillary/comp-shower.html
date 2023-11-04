@@ -23,24 +23,39 @@
     ::slotted(label) {
       margin-right: 16px;
     }
+    .selector-con {
+      display: contents;
+    }
+    .hide {
+      display: none;
+    }
+    .block {
+      display: block;
+      padding: 8px;
+      margin: 8px;
+      border: #aaa solid 1px;
+    }
+    .block code {
+      display: block;
+    }
   </style>
   <div class="container">
     <div class="top">
-      <div style="display: contents">
+      <div class="selector-con" class:hide="isRenderAll">
         <slot></slot>
       </div>
-      <!-- <div class="top-right">
+      <div class="top-right">
         <label
           >render all: <input type="checkbox" sync:checked="isRenderAll"
         /></label>
-      </div> -->
+      </div>
     </div>
     <div class="main"></div>
   </div>
   <script>
     export default {
       data: {
-        isRenderAll: false,
+        isRenderAll: true,
       },
       watch: {
         isRenderAll(bool) {
@@ -53,14 +68,47 @@
       },
       proto: {
         renderAll() {
-          const $e = $(this.$("template").html);
+          const $origin = $(this.$("template").html);
 
+          const arr = [];
+
+          this.shadow.$(".main").html = "";
+
+          // 防止性能问题，还是直接将属性和值拿出来再进行排列组合
           this.all("select").forEach((e) => {
+            const obj = {
+              name: e.name,
+              opts: [],
+            };
+
             const opts = e.all("option");
 
             opts.forEach((option) => {
-
+              obj.opts.push(option.value);
             });
+
+            arr.push(obj);
+          });
+
+          const allComp = comb(...arr);
+
+          allComp.forEach((e) => {
+            const values = e.split("----");
+
+            const $el = $origin.clone();
+
+            values.forEach((value, index) => {
+              $el.attr(arr[index].name, value);
+            });
+
+            const block = $(
+              `<div class="block"><code>${convertSpecialCharactersToHTML(
+                $el.ele.outerHTML.trim()
+              )}</code></div>`
+            );
+            block.push($el);
+
+            this.shadow.$(".main").push(block);
           });
         },
         refreshUI() {
@@ -83,5 +131,39 @@
         });
       },
     };
+
+    function comb(...args) {
+      if (args.length === 1) {
+        const target = args[0];
+        return target.opts;
+      }
+
+      const [firstTarget, ...others] = args;
+      const othersCombs = comb(...others);
+      const firstOpts = firstTarget.opts;
+
+      const combinations = [];
+      for (const element of firstOpts) {
+        for (const combination of othersCombs) {
+          const currentCombination = `${element}----${combination}`;
+          combinations.push(currentCombination);
+        }
+      }
+
+      return combinations;
+    }
+
+    function convertSpecialCharactersToHTML(str) {
+      const htmlMap = {
+        " ": "&nbsp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "&": "&amp;",
+        '"': "&quot;",
+        "'": "&#39;",
+      };
+
+      return str.replace(/[<>&"']/g, (match) => htmlMap[match]);
+    }
   </script>
 </template>
