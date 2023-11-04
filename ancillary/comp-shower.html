@@ -35,8 +35,10 @@
       margin: 8px;
       border: #aaa solid 1px;
     }
-    .block code {
+    code {
       display: block;
+      margin: 8px 0;
+      padding: 8px;
       background-color: #eee;
     }
   </style>
@@ -119,12 +121,20 @@
           const $e = $(this.$("template").html);
 
           this.all("select").forEach((e) => {
-            const { name, value } = e;
+            let { name, value } = e;
+            if (value === "null") {
+              value = null;
+            }
             $e.attr(name, value);
           });
 
           this.shadow.$(".main").html = "";
           this.shadow.$(".main").push($e);
+          this.shadow
+            .$(".main")
+            .push(
+              `<code>${convertSpecialCharactersToHTML($e.ele.outerHTML)}</code>`
+            );
         },
       },
       attached() {

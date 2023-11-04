@@ -1,29 +1,36 @@
 <template component>
   <style>
     :host {
-      position: relative;
       display: inline-block;
       --main-color: var(--pui-color-normal, #383838);
     }
 
     .container {
+      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
-      box-sizing: border-box;
       border-radius: var(--pui-border-radius);
       padding: var(--pui-padding-y) var(--pui-padding-x);
       cursor: pointer;
       user-select: none;
       font-size: 16px;
-      border: var(--main-color) solid 1px;
       color: var(--main-color);
     }
 
     .container[variant="contained"] {
       background-color: var(--main-color);
       color: #fff;
+    }
+
+    .container[variant="outline"]:after {
+      display: block;
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
       border: var(--main-color) solid 1px;
+      border-radius: var(--pui-border-radius);
     }
 
     .container[variant="text"] {
@@ -36,11 +43,24 @@
     }
     .container[size="large"] {
       font-size: 22px;
-      border-radius: var(--pui-large-border-radius);
     }
     .disabled {
       opacity: 0.5;
       cursor: not-allowed;
+    }
+    .container:before {
+      display: block;
+      content: "";
+      box-sizing: border-box;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+    }
+    .container:hover:before {
+      background-color: rgba(250, 250, 250, 0.15);
     }
   </style>
   <div
