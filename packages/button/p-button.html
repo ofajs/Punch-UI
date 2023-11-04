@@ -10,11 +10,12 @@
       justify-content: center;
       align-items: center;
       border-radius: var(--pui-border-radius);
-      padding: var(--pui-padding-y) var(--pui-padding-x);
+      padding: calc(var(--pui-space-y) * 2) calc(var(--pui-space-x) * 3);
       cursor: pointer;
       user-select: none;
       font-size: 16px;
       color: var(--font-color);
+      font-size: 14px;
     }
 
     .container[variant="contained"] {
@@ -42,10 +43,12 @@
     }
 
     .container[size="small"] {
-      font-size: 12px;
+      padding: calc(var(--pui-space-y) * 1) calc(var(--pui-space-x) * 2);
+      font-size: 13px;
     }
     .container[size="large"] {
-      font-size: 22px;
+      padding: calc(var(--pui-space-y) * 3) calc(var(--pui-space-x) * 5);
+      font-size: 15px;
     }
     .disabled {
       opacity: 0.5;

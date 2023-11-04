@@ -5,9 +5,9 @@ html {
   --pui-primary-font-color: #fff;
   --pui-danger-color: #d32f2f;
   --pui-danger-font-color: #fff;
+  --pui-space-x: 6px;
+  --pui-space-y: 3.5px;
   --pui-border-radius: 5px;
-  --pui-padding-x: 18px;
-  --pui-padding-y: 5.5px;
 }
 html.dark {
   --pui-normal-color: #cfcfcf;

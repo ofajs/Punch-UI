@@ -5,9 +5,12 @@ html {
   --pui-primary-font-color: #fff;
   --pui-danger-color: #d32f2f;
   --pui-danger-font-color: #fff;
-  --pui-border-radius: 5px;
-  --pui-padding-x: 18px;
-  --pui-padding-y: 5.5px;
+
+  --pui-space-x: 6px; // 横向的间距
+  --pui-space-y: 3.5px; // 纵向的标准间距
+
+  --pui-border-radius: 5px; // 普通风格
+  // --pui-border-radius: calc(var(--pui-space-x) * 4);  // 变成圆角风格
 }
 html.dark {
   --pui-normal-color: rgb(207, 207, 207);
