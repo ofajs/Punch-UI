@@ -53,16 +53,21 @@
       content: "";
       box-sizing: border-box;
       position: absolute;
+      border-radius: var(--pui-border-radius);
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
       z-index: 2;
+      transition: all ease 0.2s;
     }
     .container:hover:before {
-      background-color: rgba(250, 250, 250, 0.15);
+      background-color: var(--main-hover-color);
     }
   </style>
+  <x-if :value="isDark.value">
+    <style></style>
+  </x-if>
   <div
     class="container"
     attr:variant="variant"
@@ -99,6 +104,12 @@
       },
       data: {
         isDark: {},
+      },
+      attached() {
+        this.isDark = isDark;
+      },
+      detached() {
+        this.isDark = {};
       },
     };
   </script>

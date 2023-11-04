@@ -51,6 +51,9 @@
         <label
           >render all: <input type="checkbox" sync:checked="isRenderAll"
         /></label>
+        <label
+          >show code: <input type="checkbox" sync:checked="showCode"
+        /></label>
       </div>
     </div>
     <div class="main"></div>
@@ -59,10 +62,18 @@
     export default {
       data: {
         isRenderAll: true,
+        showCode: false,
       },
       watch: {
         isRenderAll(bool) {
           if (bool) {
+            this.renderAll();
+          } else {
+            this.refreshUI();
+          }
+        },
+        showCode() {
+          if (this.isRenderAll) {
             this.renderAll();
           } else {
             this.refreshUI();
@@ -107,14 +118,18 @@
               $el.attr(arr[index].name, value);
             });
 
-            const block = $(
-              `<div class="block"><code>${convertSpecialCharactersToHTML(
-                $el.ele.outerHTML.trim()
-              )}</code></div>`
-            );
-            block.push($el);
-
-            this.shadow.$(".main").push(block);
+            if (this.showCode) {
+              const block = $(
+                `<div class="block"><code>${convertSpecialCharactersToHTML(
+                  $el.ele.outerHTML.trim()
+                )}</code></div>`
+              );
+              block.push($el);
+              this.shadow.$(".main").push(block);
+            } else {
+              $el.css.margin = "8px";
+              this.shadow.$(".main").push($el);
+            }
           });
         },
         refreshUI() {
@@ -130,11 +145,15 @@
 
           this.shadow.$(".main").html = "";
           this.shadow.$(".main").push($e);
-          this.shadow
-            .$(".main")
-            .push(
-              `<code>${convertSpecialCharactersToHTML($e.ele.outerHTML)}</code>`
-            );
+          if (this.showCode) {
+            this.shadow
+              .$(".main")
+              .push(
+                `<code>${convertSpecialCharactersToHTML(
+                  $e.ele.outerHTML
+                )}</code>`
+              );
+          }
         },
       },
       attached() {

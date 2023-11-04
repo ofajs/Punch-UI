@@ -4,9 +4,9 @@ UI component library based on ofa.js development
 
 ## 目录结构
 
-组件全部源代码都放在 packages 里；出组件外的功用代码放在 packages/others里；
-
-辅助开发的组件放在 ancillary 里；
+- packages: 组件全部源代码都放在这里
+  - packages/others: 除了组件外的功用代码放这里
+- ancillary: 放辅助开发的组件；
 
 ### 注意事项
 
