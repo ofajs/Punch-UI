@@ -1,4 +1,5 @@
 (async () => {
+  // 初始化逻辑
   lm.config({
     alias: {
       "@pui": "/",

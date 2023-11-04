@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>test Button</title>
-    <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.31/dist/ofa.min.js" debug></script>
+    <script
+      src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.31/dist/ofa.min.js"
+      debug
+    ></script>
     <!-- <link rel="stylesheet" href="../css/public.css" /> -->
     <style>
       body {
@@ -23,6 +26,14 @@
   <body>
     <l-m src="../../ancillary/comp-shower.html"></l-m>
     <l-m src="./p-button.html"></l-m>
+<!-- 
+    <p-button variant="contained" id="aaa" disabled>Test</p-button>
+    <script>
+      $("#aaa").on("click", () => {
+        console.log("asdasd");
+      });
+    </script> -->
+
     <comp-shower>
       <template>
         <p-button>Test Button</p-button>
@@ -46,9 +57,16 @@
       <label>
         size:
         <select name="size">
-          <option>normal</option>
+          <option>default</option>
           <option>small</option>
           <option>large</option>
+        </select>
+      </label>
+      <label>
+        disabled:
+        <select name="disabled">
+          <option>null</option>
+          <option></option>
         </select>
       </label>
     </comp-shower>

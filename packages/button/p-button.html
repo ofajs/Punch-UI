@@ -1,6 +1,7 @@
 <template component>
   <style>
     :host {
+      position: relative;
       display: inline-block;
       --main-color: var(--pui-color-normal, #383838);
     }
@@ -37,23 +38,42 @@
       font-size: 22px;
       border-radius: var(--pui-large-border-radius);
     }
+    .disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
   </style>
-  <div class="container" attr:variant="variant" attr:size="size" type="type">
+  <div
+    class="container"
+    attr:variant="variant"
+    attr:size="size"
+    type="type"
+    class:disabled="typeof disabled === 'string'"
+    on:click="clickCon"
+  >
     <slot></slot>
   </div>
   <script>
-    import "../others/init.js";
-    import { isDark } from "../others/data.js";
+    import "../commons/init.js";
+    import { isDark } from "../commons/data.js";
     export default {
       attrs: {
         variant: "contained",
         size: "",
         type: "",
+        disabled: null,
       },
       watch: {
         type(type) {
           if (type) {
             this.style.setProperty("--main-color", `var(--pui-color-${type})`);
+          }
+        },
+      },
+      proto: {
+        clickCon(e) {
+          if (typeof this.disabled === "string") {
+            e.stopImmediatePropagation();
           }
         },
       },

@@ -37,6 +37,7 @@
     }
     .block code {
       display: block;
+      background-color: #eee;
     }
   </style>
   <div class="container">
@@ -98,6 +99,9 @@
             const $el = $origin.clone();
 
             values.forEach((value, index) => {
+              if (value === "null") {
+                value = null;
+              }
               $el.attr(arr[index].name, value);
             });
 
