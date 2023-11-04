@@ -19,6 +19,16 @@
 
     .container[variant="contained"] {
       background-color: var(--main-color);
+      box-shadow: var(--contained-shadow);
+      transition: all ease 0.2s;
+    }
+
+    .container[variant="contained"]:hover {
+      box-shadow: var(--contained-hover-shadow);
+    }
+
+    .container[variant="contained"]:active {
+      box-shadow: var(--contained-active-shadow);
     }
 
     .container[variant="outline"]:after {
