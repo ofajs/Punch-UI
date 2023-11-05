@@ -1,4 +1,5 @@
 <template component>
+  <l-m src="../wave/p-wave.html"></l-m>
   <style>
     :host {
       display: inline-block;
@@ -60,7 +61,7 @@
       font-size: 17px;
     }
     .container.disabled {
-      opacity: 0.5;
+      opacity: 0.6;
       cursor: not-allowed;
       box-shadow: none !important;
     }
@@ -92,6 +93,7 @@
     class:disabled="typeof disabled === 'string'"
     on:click="clickCon"
   >
+    <p-wave></p-wave>
     <slot></slot>
   </div>
   <script>
