@@ -32,14 +32,19 @@
       box-shadow: var(--contained-active-shadow);
     }
 
-    .container[variant="outline"]:after {
+    .container[variant="outline"] .fake-border {
       display: block;
       content: "";
       position: absolute;
       width: 100%;
       height: 100%;
+      left: 0;
+      top: 0;
       border: var(--main-color) solid 0.5px;
       border-radius: var(--pui-border-radius);
+    }
+    .container[variant="outline"]:hover .fake-border {
+      border-width: 1px;
     }
 
     .container[variant="text"] {
@@ -81,9 +86,6 @@
     .container:hover:before {
       background-color: var(--main-hover-color);
     }
-    .container[variant="outline"]:hover:after {
-      border-width: 1px;
-    }
   </style>
   <div
     class="container"
@@ -98,6 +100,7 @@
       <p-wave></p-wave>
     </x-if>
     <slot></slot>
+    <div class="fake-border" part="border"></div>
   </div>
   <script>
     import "../commons/init.js";

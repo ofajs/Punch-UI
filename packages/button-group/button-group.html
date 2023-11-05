@@ -1,28 +1,44 @@
 <template component>
   <l-m src="../button/p-button.html"></l-m>
-  <inject-host>
-    <style>
-      button-group p-button::part(container) {
-        border-radius: 0;
-      }
-
-      button-group p-button:first-child::part(container) {
-        border-radius: var(--pui-border-radius) 0 0 var(--pui-border-radius);
-      }
-
-      button-group p-button:last-child::part(container) {
-        border-radius: 0 var(--pui-border-radius) var(--pui-border-radius) 0;
-      }
-    </style>
-  </inject-host>
   <style>
     :host {
-      display: block;
+      display: inline-block;
+      border-radius: var(--pui-border-radius);
     }
     .container {
       display: flex;
     }
   </style>
+  <inject-host>
+    <style>
+      button-group p-button::part(container),
+      button-group p-button::part(border) {
+        border-radius: 0;
+      }
+
+      button-group p-button:first-child::part(container),
+      button-group p-button:first-child::part(border) {
+        border-radius: var(--pui-border-radius) 0 0 var(--pui-border-radius);
+      }
+
+      button-group p-button:last-child::part(container),
+      button-group p-button:last-child::part(border) {
+        border-radius: 0 var(--pui-border-radius) var(--pui-border-radius) 0;
+      }
+
+      button-group p-button::part(border) {
+        border-width: 0;
+        border-right-width: 1px;
+      }
+      button-group p-button:last-child::part(border) {
+        border-right: none;
+      }
+
+      /* button-group[variant="outline"] {
+        border: red solid 1px;
+      } */
+    </style>
+  </inject-host>
   <div class="container">
     <slot></slot>
   </div>
@@ -32,6 +48,8 @@
       attrs: {
         type: "",
         variant: "",
+        size: "",
+        disabled: null,
       },
       watch: {
         type(val) {
@@ -40,10 +58,42 @@
               e.type = val;
             }
           });
+
+          if (this.variant === "outline") {
+            this.css.border = `var(--pui-${val}-color) solid 1px`;
+          }
+        },
+        variant(val) {
+          this.forEach((e) => {
+            if (e.tag === "p-button") {
+              e.variant = val;
+            }
+          });
+        },
+        size(val) {
+          this.forEach((e) => {
+            if (e.tag === "p-button") {
+              e.size = val;
+            }
+          });
+        },
+        disabled(val) {
+          this.forEach((e) => {
+            if (e.tag === "p-button") {
+              e.disabled = val;
+            }
+          });
         },
       },
       attached() {
-        console.log("asdasd");
+        console.log("groups attached");
+      },
+      ready() {
+        this.style.display = "none";
+      },
+      loaded() {
+        this.style.display = "";
+        console.log("groups loaded");
       },
     };
   </script>

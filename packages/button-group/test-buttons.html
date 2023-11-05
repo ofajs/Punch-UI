@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>button group</title>
+    <link rel="stylesheet" href="../css/public.css">
     <script
       src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.31/dist/ofa.min.js"
       debug
@@ -19,11 +20,56 @@
   </head>
   <body>
     <l-m src="./button-group.html"></l-m>
-    <button-group type="primary">
+    <l-m src="../../ancillary/comp-shower.html"></l-m>
+    <l-m src="../../ancillary/dark-switch.html"></l-m>
+    
+    <!-- <button-group type="primary">
       <p-button>aaa</p-button>
       <p-button>bbb</p-button>
       <p-button>ccc</p-button>
       <p-button>dddd</p-button>
-    </button-group>
+    </button-group> -->
+
+    <comp-shower>
+      <template>
+        <button-group>
+          <p-button>aaa</p-button>
+          <p-button>bbb</p-button>
+          <p-button>ccc</p-button>
+          <p-button>dddd</p-button>
+        </button-group>
+      </template>
+      <label>
+        disabled:
+        <select name="disabled">
+          <option>null</option>
+          <option value="">Empty</option>
+        </select>
+      </label>
+      <label>
+        size:
+        <select name="size">
+          <option>default</option>
+          <option>small</option>
+          <option>large</option>
+        </select>
+      </label>
+      <label>
+        type:
+        <select name="type">
+          <option>primary</option>
+          <option>danger</option>
+          <option>normal</option>
+        </select>
+      </label>
+      <label>
+        variant:
+        <select name="variant">
+          <option>contained</option>
+          <option>outline</option>
+          <option>text</option>
+        </select>
+      </label>
+    </comp-shower>
   </body>
 </html>
