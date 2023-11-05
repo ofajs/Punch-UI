@@ -1,0 +1,50 @@
+<template component>
+  <l-m src="../button/p-button.html"></l-m>
+  <inject-host>
+    <style>
+      button-group p-button::part(container) {
+        border-radius: 0;
+      }
+
+      button-group p-button:first-child::part(container) {
+        border-radius: var(--pui-border-radius) 0 0 var(--pui-border-radius);
+      }
+
+      button-group p-button:last-child::part(container) {
+        border-radius: 0 var(--pui-border-radius) var(--pui-border-radius) 0;
+      }
+    </style>
+  </inject-host>
+  <style>
+    :host {
+      display: block;
+    }
+    .container {
+      display: flex;
+    }
+  </style>
+  <div class="container">
+    <slot></slot>
+  </div>
+  <script>
+    export default {
+      tag: "button-group",
+      attrs: {
+        type: "",
+        variant: "",
+      },
+      watch: {
+        type(val) {
+          this.forEach((e) => {
+            if (e.tag === "p-button") {
+              e.type = val;
+            }
+          });
+        },
+      },
+      attached() {
+        console.log("asdasd");
+      },
+    };
+  </script>
+</template>
