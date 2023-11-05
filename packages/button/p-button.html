@@ -93,7 +93,9 @@
     class:disabled="typeof disabled === 'string'"
     on:click="clickCon"
   >
-    <p-wave></p-wave>
+    <x-if :value="disabled === null">
+      <p-wave></p-wave>
+    </x-if>
     <slot></slot>
   </div>
   <script>
