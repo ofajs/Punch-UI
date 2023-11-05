@@ -1,9 +1,25 @@
-body {
-  --pui-color-primary: #0079d0;
-  --pui-color-danger: #fb4747;
-  --pui-color-normal: #383838;
-  --pui-large-border-radius: 26px;
-  --pui-padding-x: 20px;
-  --pui-padding-y: 4.5px;
-  --pui-border-radius: 20px;
+html {
+  --pui-normal-color: #383838;
+  --pui-normal-font-color: #fff;
+  --pui-primary-color: #0079d0;
+  --pui-primary-font-color: #fff;
+  --pui-danger-color: #d32f2f;
+  --pui-danger-font-color: #fff;
+  --pui-space-x: 6px;
+  --pui-space-y: 3.5px;
+  --pui-border-radius: 5px;
+  --contained-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px,
+    rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
+  --contained-hover-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px,
+    rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+  --contained-active-shadow: rgba(0, 0, 0, 0.2) 0px 0px 0px -1px,
+    rgba(0, 0, 0, 0.14) 0px 1px 2px 0px, rgba(0, 0, 0, 0.2) 0px 0 9px inset;
+}
+html.dark {
+  --pui-normal-color: #cfcfcf;
+  --pui-normal-font-color: #000;
+  --pui-primary-color: #8ccbf8;
+  --pui-primary-font-color: #000;
+  --pui-danger-color: #fb4747;
+  --pui-danger-font-color: #fff;
 }

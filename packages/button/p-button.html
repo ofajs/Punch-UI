@@ -1,29 +1,45 @@
 <template component>
+  <l-m src="../wave/p-wave.html"></l-m>
   <style>
     :host {
-      position: relative;
       display: inline-block;
-      --main-color: var(--pui-color-normal, #383838);
     }
 
     .container {
+      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
-      box-sizing: border-box;
       border-radius: var(--pui-border-radius);
-      padding: var(--pui-padding-y) var(--pui-padding-x);
+      padding: calc(var(--pui-space-y) * 2) calc(var(--pui-space-x) * 3);
       cursor: pointer;
       user-select: none;
-      font-size: 16px;
-      border: var(--main-color) solid 1px;
-      color: var(--main-color);
+      font-size: 15px;
+      color: var(--font-color);
     }
 
     .container[variant="contained"] {
       background-color: var(--main-color);
-      color: #fff;
-      border: var(--main-color) solid 1px;
+      box-shadow: var(--contained-shadow);
+      transition: all ease 0.2s;
+    }
+
+    .container[variant="contained"]:hover {
+      box-shadow: var(--contained-hover-shadow);
+    }
+
+    .container[variant="contained"]:active {
+      box-shadow: var(--contained-active-shadow);
+    }
+
+    .container[variant="outline"]:after {
+      display: block;
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: var(--main-color) solid 0.5px;
+      border-radius: var(--pui-border-radius);
     }
 
     .container[variant="text"] {
@@ -31,16 +47,42 @@
       border-color: transparent;
     }
 
+    .container[variant="outline"],
+    .container[variant="text"] {
+      color: var(--main-color);
+    }
+
     .container[size="small"] {
-      font-size: 12px;
+      padding: calc(var(--pui-space-y) * 1) calc(var(--pui-space-x) * 2);
+      font-size: 13px;
     }
     .container[size="large"] {
-      font-size: 22px;
-      border-radius: var(--pui-large-border-radius);
+      padding: calc(var(--pui-space-y) * 2) calc(var(--pui-space-x) * 4);
+      font-size: 17px;
     }
-    .disabled {
-      opacity: 0.5;
+    .container.disabled {
+      opacity: 0.6;
       cursor: not-allowed;
+      box-shadow: none !important;
+    }
+    .container:before {
+      display: block;
+      content: "";
+      box-sizing: border-box;
+      position: absolute;
+      border-radius: var(--pui-border-radius);
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      transition: all ease 0.2s;
+    }
+    .container:hover:before {
+      background-color: var(--main-hover-color);
+    }
+    .container[variant="outline"]:hover:after {
+      border-width: 1px;
     }
   </style>
   <div
@@ -51,23 +93,36 @@
     class:disabled="typeof disabled === 'string'"
     on:click="clickCon"
   >
+    <x-if :value="disabled === null">
+      <p-wave></p-wave>
+    </x-if>
     <slot></slot>
   </div>
   <script>
     import "../commons/init.js";
     import { isDark } from "../commons/data.js";
+    import { convertToRGBA, adjustBrightness } from "../commons/util.js";
     export default {
       attrs: {
         variant: "contained",
         size: "",
-        type: "",
+        type: "normal",
         disabled: null,
       },
       watch: {
         type(type) {
           if (type) {
-            this.style.setProperty("--main-color", `var(--pui-color-${type})`);
+            this.style.setProperty("--main-color", `var(--pui-${type}-color)`);
+            this.style.setProperty(
+              "--font-color",
+              `var(--pui-${type}-font-color)`
+            );
           }
+        },
+        isDark() {
+          setTimeout(() => {
+            this.refreshHoverColor();
+          }, 100);
         },
       },
       proto: {
@@ -76,9 +131,26 @@
             e.stopImmediatePropagation();
           }
         },
+        refreshHoverColor() {
+          const color = getComputedStyle(this.ele).getPropertyValue(
+            `--main-color`
+          );
+
+          if (color) {
+            const newColor = convertToRGBA(color);
+
+            this.style.setProperty("--main-hover-color", newColor);
+          }
+        },
       },
       data: {
         isDark: {},
+      },
+      attached() {
+        this.isDark = isDark;
+      },
+      detached() {
+        this.isDark = {};
       },
     };
   </script>

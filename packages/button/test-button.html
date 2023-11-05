@@ -25,8 +25,10 @@
   </head>
   <body>
     <l-m src="../../ancillary/comp-shower.html"></l-m>
+    <l-m src="../../ancillary/dark-switch.html"></l-m>
     <l-m src="./p-button.html"></l-m>
-<!-- 
+    <dark-switch></dark-switch>
+    <!-- 
     <p-button variant="contained" id="aaa" disabled>Test</p-button>
     <script>
       $("#aaa").on("click", () => {
@@ -39,19 +41,10 @@
         <p-button>Test Button</p-button>
       </template>
       <label>
-        variant:
-        <select name="variant">
-          <option>contained</option>
-          <option>outline</option>
-          <option>text</option>
-        </select>
-      </label>
-      <label>
-        type:
-        <select name="type">
-          <option>primary</option>
-          <option>danger</option>
-          <option>normal</option>
+        disabled:
+        <select name="disabled">
+          <option>null</option>
+          <option value="">Empty</option>
         </select>
       </label>
       <label>
@@ -63,10 +56,19 @@
         </select>
       </label>
       <label>
-        disabled:
-        <select name="disabled">
-          <option>null</option>
-          <option></option>
+        type:
+        <select name="type">
+          <option>primary</option>
+          <option>danger</option>
+          <option>normal</option>
+        </select>
+      </label>
+      <label>
+        variant:
+        <select name="variant">
+          <option>contained</option>
+          <option>outline</option>
+          <option>text</option>
         </select>
       </label>
     </comp-shower>

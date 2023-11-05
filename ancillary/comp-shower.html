@@ -35,8 +35,10 @@
       margin: 8px;
       border: #aaa solid 1px;
     }
-    .block code {
+    code {
       display: block;
+      margin: 8px 0;
+      padding: 8px;
       background-color: #eee;
     }
   </style>
@@ -49,6 +51,9 @@
         <label
           >render all: <input type="checkbox" sync:checked="isRenderAll"
         /></label>
+        <label
+          >show code: <input type="checkbox" sync:checked="showCode"
+        /></label>
       </div>
     </div>
     <div class="main"></div>
@@ -57,10 +62,18 @@
     export default {
       data: {
         isRenderAll: true,
+        showCode: false,
       },
       watch: {
         isRenderAll(bool) {
           if (bool) {
+            this.renderAll();
+          } else {
+            this.refreshUI();
+          }
+        },
+        showCode() {
+          if (this.isRenderAll) {
             this.renderAll();
           } else {
             this.refreshUI();
@@ -105,26 +118,42 @@
               $el.attr(arr[index].name, value);
             });
 
-            const block = $(
-              `<div class="block"><code>${convertSpecialCharactersToHTML(
-                $el.ele.outerHTML.trim()
-              )}</code></div>`
-            );
-            block.push($el);
-
-            this.shadow.$(".main").push(block);
+            if (this.showCode) {
+              const block = $(
+                `<div class="block"><code>${convertSpecialCharactersToHTML(
+                  $el.ele.outerHTML.trim()
+                )}</code></div>`
+              );
+              block.push($el);
+              this.shadow.$(".main").push(block);
+            } else {
+              $el.css.margin = "8px";
+              this.shadow.$(".main").push($el);
+            }
           });
         },
         refreshUI() {
           const $e = $(this.$("template").html);
 
           this.all("select").forEach((e) => {
-            const { name, value } = e;
+            let { name, value } = e;
+            if (value === "null") {
+              value = null;
+            }
             $e.attr(name, value);
           });
 
           this.shadow.$(".main").html = "";
           this.shadow.$(".main").push($e);
+          if (this.showCode) {
+            this.shadow
+              .$(".main")
+              .push(
+                `<code>${convertSpecialCharactersToHTML(
+                  $e.ele.outerHTML
+                )}</code>`
+              );
+          }
         },
       },
       attached() {
