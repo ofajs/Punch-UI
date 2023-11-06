@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>test Button</title>
+    <title>button group</title>
+    <link rel="stylesheet" href="../css/public.css" />
     <script
       src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.32/dist/ofa.min.js"
       debug
     ></script>
-    <link rel="stylesheet" href="../css/public.css" />
     <style>
       *:not(:defined) {
         display: none;
@@ -19,21 +19,26 @@
     </style>
   </head>
   <body>
+    <button-group>
+      <p-button type="primary" variant="outlined">aaa</p-button>
+      <p-button type="primary" variant="outlined">bbb</p-button>
+      <p-button type="primary" variant="contained">ccc</p-button>
+      <p-button type="primary" variant="outlined">dddd</p-button>
+    </button-group>
+
+    <l-m src="./button-group.html"></l-m>
     <l-m src="../../ancillary/comp-shower.html"></l-m>
     <l-m src="../../ancillary/dark-switch.html"></l-m>
-    <l-m src="./p-button.html"></l-m>
     <dark-switch></dark-switch>
-    <!-- 
-    <p-button variant="contained" id="aaa" disabled>Test</p-button>
-    <script>
-      $("#aaa").on("click", () => {
-        console.log("asdasd");
-      });
-    </script> -->
 
     <comp-shower>
       <template>
-        <p-button>Test Button</p-button>
+        <button-group>
+          <p-button>aaa</p-button>
+          <p-button>bbb</p-button>
+          <p-button>ccc</p-button>
+          <p-button>dddd</p-button>
+        </button-group>
       </template>
       <label>
         disabled:
@@ -67,26 +72,5 @@
         </select>
       </label>
     </comp-shower>
-
-    <!-- <div>
-      <p-button variant="contained">Contained</p-button>
-      <p-button variant="outlined">outlined</p-button>
-      <p-button variant="text">Text</p-button>
-    </div>
-    <div>
-      <p-button variant="contained" type="primary">Contained primary</p-button>
-      <p-button variant="outlined" type="primary">outlined primary</p-button>
-      <p-button variant="text" type="primary">Text primary</p-button>
-    </div>
-    <div>
-      <p-button variant="contained" type="danger">Contained danger</p-button>
-      <p-button variant="outlined" type="danger">outlined danger</p-button>
-      <p-button variant="text" type="danger">Text danger</p-button>
-    </div>
-    <div>
-      <p-button variant="contained" size="small">size small</p-button>
-      <p-button variant="contained">size Normal</p-button>
-      <p-button variant="contained" size="large">size large</p-button>
-    </div> -->
   </body>
 </html>

@@ -65,22 +65,24 @@
         showCode: false,
       },
       watch: {
-        isRenderAll(bool) {
-          if (bool) {
-            this.renderAll();
-          } else {
-            this.refreshUI();
-          }
+        isRenderAll() {
+          this.refresh();
         },
         showCode() {
-          if (this.isRenderAll) {
-            this.renderAll();
-          } else {
-            this.refreshUI();
-          }
+          this.refresh();
         },
       },
       proto: {
+        refresh() {
+          clearTimeout(this._timer);
+          this._timer = setTimeout(() => {
+            if (this.isRenderAll) {
+              this.renderAll();
+            } else {
+              this.refreshUI();
+            }
+          }, 0);
+        },
         renderAll() {
           const $origin = $(this.$("template").html);
 
