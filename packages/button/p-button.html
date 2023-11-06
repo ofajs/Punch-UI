@@ -86,6 +86,14 @@
     .container:hover .hover-place {
       background-color: var(--main-hover-color);
     }
+
+    .text-place {
+      display: none;
+    }
+
+    .container[variant="text"] .text-place {
+      display: block;
+    }
   </style>
   <div
     class="container"
@@ -99,7 +107,7 @@
     <slot></slot>
     <div class="fake-border" part="border"></div>
     <div class="hover-place" part="hover"></div>
-    <div class="outlined"></div>
+    <div class="text-place" part="text-place"></div>
     <x-if :value="disabled === null">
       <p-wave style="z-index: 2"></p-wave>
     </x-if>

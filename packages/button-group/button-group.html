@@ -33,7 +33,18 @@
         border-width: 0;
         border-right-width: 1px;
       }
-      button-group p-button:last-child::part(border) {
+
+      button-group p-button::part(text-place) {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 1px;
+        height: 100%;
+        border-right: var(--main-color) solid 1px;
+      }
+
+      button-group p-button:last-child::part(border),
+      button-group p-button:last-child::part(text-place) {
         border-right: none;
       }
 
