@@ -36,14 +36,16 @@
       display: block;
       content: "";
       position: absolute;
-      width: 100%;
-      height: 100%;
+      width: calc(100% - 1px);
+      height: calc(100% - 1px);
       left: 0;
       top: 0;
       border: var(--main-color) solid 0.5px;
       border-radius: var(--pui-border-radius);
     }
     .container[variant="outlined"]:hover .fake-border {
+      left: -0.5px;
+      top: -0.5px;
       border-width: 1px;
     }
 
@@ -87,11 +89,27 @@
       background-color: var(--main-hover-color);
     }
 
+    .outlined-place {
+      display: none;
+    }
+
+    .container[variant="outlined"] .outlined-place {
+      display: block;
+    }
+
     .text-place {
       display: none;
     }
 
     .container[variant="text"] .text-place {
+      display: block;
+    }
+
+    .contained-place {
+      display: none;
+    }
+
+    .container[variant="contained"] .contained-place {
       display: block;
     }
   </style>
@@ -105,9 +123,10 @@
     part="container"
   >
     <slot></slot>
-    <div class="fake-border" part="border"></div>
+    <div class="fake-border outlined-place" part="outlined"></div>
     <div class="hover-place" part="hover"></div>
     <div class="text-place" part="text-place"></div>
+    <div class="contained-place" part="contained-place"></div>
     <x-if :value="disabled === null">
       <p-wave style="z-index: 2"></p-wave>
     </x-if>

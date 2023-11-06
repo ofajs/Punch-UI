@@ -12,26 +12,37 @@
   <inject-host>
     <style>
       button-group p-button::part(container),
-      button-group p-button::part(border),
+      button-group p-button::part(outlined),
       button-group p-button::part(hover) {
         border-radius: 0;
       }
 
+      button-group[variant="contained"] {
+        box-shadow: var(--contained-shadow);
+      }
+
+      button-group[variant="contained"] p-button::part(container) {
+        box-shadow: none;
+      }
+
+      button-group[variant="contained"] p-button:hover::part(container) {
+        box-shadow: var(--contained-hover-shadow);
+      }
+
+      button-group[variant="contained"] p-button:active::part(container) {
+        box-shadow: var(--contained-active-shadow);
+      }
+
       button-group p-button:first-child::part(container),
-      button-group p-button:first-child::part(border),
+      button-group p-button:first-child::part(outlined),
       button-group p-button:first-child::part(hover) {
         border-radius: var(--pui-border-radius) 0 0 var(--pui-border-radius);
       }
 
       button-group p-button:last-child::part(container),
-      button-group p-button:last-child::part(border),
+      button-group p-button:last-child::part(outlined),
       button-group p-button:last-child::part(hover) {
         border-radius: 0 var(--pui-border-radius) var(--pui-border-radius) 0;
-      }
-
-      button-group p-button::part(border) {
-        border-width: 0;
-        border-right-width: 1px;
       }
 
       button-group p-button::part(text-place) {
@@ -43,14 +54,22 @@
         border-right: var(--main-color) solid 1px;
       }
 
-      button-group p-button:last-child::part(border),
       button-group p-button:last-child::part(text-place) {
         border-right: none;
       }
 
-      /* button-group[variant="outlined"] {
-        border: red solid 1px;
-      } */
+      button-group p-button::part(contained-place) {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 1px;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.154);
+      }
+
+      button-group p-button:last-child::part(contained-place) {
+        display: none;
+      }
     </style>
   </inject-host>
   <div class="container">
@@ -67,36 +86,44 @@
       },
       watch: {
         type(val) {
-          this.forEach((e) => {
-            if (e.tag === "p-button") {
-              e.type = val;
-            }
-          });
-
-          if (this.variant === "outlined") {
-            this.css.border = `var(--pui-${val}-color) solid 1px`;
+          if (val) {
+            this.forEach((e) => {
+              if (e.tag === "p-button") {
+                e.type = val;
+              }
+            });
           }
+
+          // if (this.variant === "outlined") {
+          //   this.css.border = `var(--pui-${val}-color) solid 1px`;
+          // }
         },
         variant(val) {
-          this.forEach((e) => {
-            if (e.tag === "p-button") {
-              e.variant = val;
-            }
-          });
+          if (val) {
+            this.forEach((e) => {
+              if (e.tag === "p-button") {
+                e.variant = val;
+              }
+            });
+          }
         },
         size(val) {
-          this.forEach((e) => {
-            if (e.tag === "p-button") {
-              e.size = val;
-            }
-          });
+          if (val) {
+            this.forEach((e) => {
+              if (e.tag === "p-button") {
+                e.size = val;
+              }
+            });
+          }
         },
         disabled(val) {
-          this.forEach((e) => {
-            if (e.tag === "p-button") {
-              e.disabled = val;
-            }
-          });
+          if (val) {
+            this.forEach((e) => {
+              if (e.tag === "p-button") {
+                e.disabled = val;
+              }
+            });
+          }
         },
       },
       attached() {
