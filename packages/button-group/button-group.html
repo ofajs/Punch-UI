@@ -12,17 +12,20 @@
   <inject-host>
     <style>
       button-group p-button::part(container),
-      button-group p-button::part(border) {
+      button-group p-button::part(border),
+      button-group p-button::part(hover) {
         border-radius: 0;
       }
 
       button-group p-button:first-child::part(container),
-      button-group p-button:first-child::part(border) {
+      button-group p-button:first-child::part(border),
+      button-group p-button:first-child::part(hover) {
         border-radius: var(--pui-border-radius) 0 0 var(--pui-border-radius);
       }
 
       button-group p-button:last-child::part(container),
-      button-group p-button:last-child::part(border) {
+      button-group p-button:last-child::part(border),
+      button-group p-button:last-child::part(hover) {
         border-radius: 0 var(--pui-border-radius) var(--pui-border-radius) 0;
       }
 
@@ -34,7 +37,7 @@
         border-right: none;
       }
 
-      /* button-group[variant="outline"] {
+      /* button-group[variant="outlined"] {
         border: red solid 1px;
       } */
     </style>
@@ -59,7 +62,7 @@
             }
           });
 
-          if (this.variant === "outline") {
+          if (this.variant === "outlined") {
             this.css.border = `var(--pui-${val}-color) solid 1px`;
           }
         },
