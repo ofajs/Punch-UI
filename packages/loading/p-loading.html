@@ -1,0 +1,60 @@
+<template component>
+    <style>
+        :host {
+            display: inline-block;
+        }
+
+        .container {
+            width: var(--size);
+            height: var(--size);
+            position: relative;
+            border-radius: 50%;
+        }
+
+        .loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border-top: 4px solid var(--main-color);
+            border-right: 4px solid transparent;
+            animation: loading-anim 1.2s ease-in-out infinite;
+        }
+
+        @keyframes loading-anim {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <div  class="container">
+        <div class="loading"></div>
+    </div>
+    <script>
+        export default {
+            tag: 'p-loading',
+            attrs: {
+                size: "3rem",//默认 3rem
+                type: "primary",
+            },
+            watch: {
+                type(type) {
+                    if (type) {
+                        this.style.setProperty("--main-color", `var(--pui-${type}-color)`);
+                    }
+                },
+                size(size){
+                    if(size){
+                        this.style.setProperty("--size", size);
+                    }
+                }
+            }
+        }
+    </script>
+</template>

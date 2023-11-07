@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p-loading</title>
+    <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.32/dist/ofa.min.js"></script>
+    <link rel="stylesheet" href="../css/public.css" />
+</head>
+
+<body>
+    <l-m src="./p-loading.html"></l-m>
+    <l-m src="../../ancillary/comp-shower.html"></l-m>
+    <l-m src="../../ancillary/dark-switch.html"></l-m>
+    <dark-switch></dark-switch>
+    <div>
+        <p-loading></p-loading>
+    </div>
+    <comp-shower>
+        <template>
+            <p-loading></p-loading>
+        </template>
+        <label>
+            size:
+            <select name="size">
+                <option>3rem</option>
+                <option>6rem</option>
+                <option>9rem</option>
+            </select>
+        </label>
+        <label>
+            type:
+            <select name="type">
+                <option>primary</option>
+                <option>danger</option>
+                <option>normal</option>
+            </select>
+        </label>
+    </comp-shower>
+</body>
+
+</html>
