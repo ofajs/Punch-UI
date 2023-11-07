@@ -5,8 +5,8 @@
         }
 
         .container {
-            width: var(--size);
-            height: var(--size);
+            width: var(--loading-size);
+            height: var(--loading-size);
             position: relative;
             border-radius: 50%;
         }
@@ -51,7 +51,7 @@
                 },
                 size(size){
                     if(size){
-                        this.style.setProperty("--size", size);
+                        this.style.setProperty("--loading-size", size);
                     }
                 }
             }
