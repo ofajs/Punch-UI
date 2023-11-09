@@ -112,11 +112,28 @@
       /* width: 100%; */
       width: calc(100% - var(--pui-border-radius));
     }
-    
+
+    .editor {
+      box-sizing: border-box;
+      padding: calc(var(--pui-space-y) * 3) calc(var(--pui-space-x) * 2);
+      font-size: 16px;
+      outline: none;
+      overflow-y: auto;
+      line-height: calc(var(--pui-space-y) * 6);
+    }
   </style>
   <div class="container" attr:variant="variant">
     <div class="bottom-line"></div>
-    <input type="text" class="inputer" sync:value="value" />
+    <x-if :value="typeof multiline === 'string'">
+      <div
+        class="editor inputer"
+        contenteditable="plaintext-only"
+        on:input="changeText"
+      ></div>
+    </x-if>
+    <x-else>
+      <input type="text" class="inputer" sync:value="value" :text="value" />
+    </x-else>
     <div>
       <div class="placeholder" class:not-empty="!!value">
         <slot></slot>
@@ -133,11 +150,29 @@
         helperText: "",
         defaultValue: "",
         error: null,
-        multiline: null,
         variant: null,
+        multiline: null,
+        maxRows: null,
+        rows: null,
       },
       data: {
         value: "",
+      },
+      watch: {
+        rows(rows) {
+          if (typeof this.multiline === "string") {
+            if (rows) {
+              rows = parseInt(rows);
+            } else {
+            }
+          }
+        },
+      },
+      proto: {
+        changeText(e) {
+          const { innerText } = e.target;
+          this.value = innerText;
+        },
       },
     };
   </script>

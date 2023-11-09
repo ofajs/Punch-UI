@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Text Field</title>
-    <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.32/dist/ofa.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.32/dist/ofa.min.js"
+      debug
+    ></script>
     <link rel="stylesheet" href="../css/public.css" />
     <style>
       *:not(:defined) {
@@ -25,7 +28,15 @@
         <label>Label</label>
       </text-field>
       <text-field variant="filled">
-        <label>Label2</label>
+        <label>filled</label>
+      </text-field>
+      <br />
+      <br />
+      <text-field multiline>
+        <label>multiline</label>
+      </text-field>
+      <text-field multiline rows="3">
+        <label>multiline</label>
       </text-field>
     </div>
   </body>
