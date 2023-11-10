@@ -22,7 +22,8 @@
       outline: none;
       box-sizing: border-box;
       width: 100%;
-      height: calc(var(--pui-space-y) * 12);
+      /* height: calc(var(--pui-space-y) * 12); */
+      height: 2.5em;
       padding: 0 calc(var(--pui-space-x) * 2);
       background-color: transparent;
       color: var(--pui-font-color);
@@ -114,12 +115,13 @@
     }
 
     .editor {
-      box-sizing: border-box;
+      /* box-sizing: border-box; */
       padding: calc(var(--pui-space-y) * 3) calc(var(--pui-space-x) * 2);
       font-size: 16px;
       outline: none;
       overflow-y: auto;
-      line-height: calc(var(--pui-space-y) * 6);
+      /* line-height: calc(var(--pui-space-y) * 6); */
+      line-height: 1.2em;
     }
   </style>
   <div class="container" attr:variant="variant">
@@ -129,6 +131,8 @@
         class="editor inputer"
         contenteditable="plaintext-only"
         on:input="changeText"
+        :css.height="editorHeight"
+        :css.max-height="editorMaxHeight"
       ></div>
     </x-if>
     <x-else>
@@ -158,20 +162,19 @@
       data: {
         value: "",
       },
-      watch: {
-        rows(rows) {
-          if (typeof this.multiline === "string") {
-            if (rows) {
-              rows = parseInt(rows);
-            } else {
-            }
+      proto: {
+        get editorHeight() {
+          if (typeof this.multiline === "string" && this.rows) {
+            return 1.2 * parseInt(this.rows) + "em";
           }
         },
-      },
-      proto: {
+        get editorMaxHeight() {
+          if (typeof this.multiline === "string" && this.maxRows) {
+            return 1.2 * parseInt(this.maxRows) + "em";
+          }
+        },
         changeText(e) {
-          const { innerText } = e.target;
-          this.value = innerText;
+          this.value = e.target.innerText;
         },
       },
     };
