@@ -2,6 +2,7 @@
   <style>
     :host {
       display: inline-block;
+      vertical-align: top;
       width: 200px;
     }
     ::slotted(*) {
@@ -63,6 +64,7 @@
       color: var(--pui-normal-color);
       transition: all ease 0.3s, background-color ease 0s, color ease 0s;
       border-radius: 5px;
+      pointer-events: none;
     }
 
     .inputer:focus + div .border {
@@ -147,13 +149,14 @@
       <div
         class="editor inputer"
         contenteditable="plaintext-only"
-        on:input="changeText"
         :css.height="editorHeight"
         :css.max-height="editorMaxHeight"
+        :text="value"
+        on:input="changeText"
       ></div>
     </x-if>
     <x-else>
-      <input type="text" class="inputer" sync:value="value" :text="value" />
+      <input type="text" class="inputer" sync:value="value" />
     </x-else>
     <div>
       <div class="placeholder" class:not-empty="!!value">
