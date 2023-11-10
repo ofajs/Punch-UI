@@ -15,6 +15,19 @@
       position: relative;
       font-size: 15px;
     }
+    .container.disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    .container.disabled:after {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      content: "";
+      z-index: 3;
+    }
 
     input {
       display: block;
@@ -124,7 +137,11 @@
       line-height: 1.2em;
     }
   </style>
-  <div class="container" attr:variant="variant">
+  <div
+    class="container"
+    attr:variant="variant"
+    class:disabled="typeof disabled === 'string'"
+  >
     <div class="bottom-line"></div>
     <x-if :value="typeof multiline === 'string'">
       <div
@@ -158,9 +175,18 @@
         multiline: null,
         maxRows: null,
         rows: null,
+        disabled: null,
+        defaultValue: null,
       },
       data: {
         value: "",
+      },
+      watch: {
+        defaultValue(val) {
+          if (val) {
+            this.value = val;
+          }
+        },
       },
       proto: {
         get editorHeight() {
