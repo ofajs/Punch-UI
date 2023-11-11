@@ -2,28 +2,18 @@
     <style>
         :host {
             display: inline-block;
+            --loading-size: 3rem;
         }
 
-        .container {
+        .p-loading {
             width: var(--loading-size);
             height: var(--loading-size);
+            display: block;
             position: relative;
-            border-radius: 50%;
+            overflow: hidden;
         }
 
-        .loading {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border-top: 4px solid var(--main-color);
-            border-right: 4px solid transparent;
-            animation: loading-anim 1.2s ease-in-out infinite;
-        }
-
-        @keyframes loading-anim {
+        @keyframes p-loading-anim {
             0% {
                 transform: rotate(0deg);
             }
@@ -32,15 +22,25 @@
                 transform: rotate(360deg);
             }
         }
+
+        .p-loading div {
+            position: absolute;
+            width: calc(var(--loading-size)*0.8);
+            height: calc(var(--loading-size)*0.8);
+            border: calc(var(--loading-size)/10*0.8) solid var(--main-color);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: p-loading-anim 1s linear infinite;
+            box-sizing: content-box;
+        }
     </style>
-    <div  class="container">
-        <div class="loading"></div>
+    <div class="p-loading">
+        <div></div>
     </div>
     <script>
         export default {
             tag: 'p-loading',
             attrs: {
-                size: "3rem",//默认 3rem
                 type: "primary",
             },
             watch: {
@@ -49,11 +49,6 @@
                         this.style.setProperty("--main-color", `var(--pui-${type}-color)`);
                     }
                 },
-                size(size){
-                    if(size){
-                        this.style.setProperty("--loading-size", size);
-                    }
-                }
             }
         }
     </script>

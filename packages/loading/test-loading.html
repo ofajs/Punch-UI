@@ -14,21 +14,13 @@
     <l-m src="../../ancillary/comp-shower.html"></l-m>
     <l-m src="../../ancillary/dark-switch.html"></l-m>
     <dark-switch></dark-switch>
-    <div>
         <p-loading></p-loading>
-    </div>
+        <p-loading style="--loading-size:6rem"></p-loading>
+        <p-loading style="--loading-size:10rem"></p-loading>
     <comp-shower>
         <template>
-            <p-loading></p-loading>
+            <p-loading style="--loading-size:5rem"></p-loading>
         </template>
-        <label>
-            size:
-            <select name="size">
-                <option>3rem</option>
-                <option>6rem</option>
-                <option>9rem</option>
-            </select>
-        </label>
         <label>
             type:
             <select name="type">
