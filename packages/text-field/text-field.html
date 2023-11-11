@@ -35,6 +35,9 @@
     <div class="helper-text">
       <slot name="helper"></slot>
     </div>
+    <div class="suffix" class:not-empty="!!value">
+      <slot name="suffix"></slot>
+    </div>
   </div>
   <script>
     export default {

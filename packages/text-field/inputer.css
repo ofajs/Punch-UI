@@ -7,7 +7,8 @@
   display: none;
 }
 .container {
-  display: block;
+  display: flex;
+  align-items: center;
   position: relative;
   font-size: 15px;
 }
@@ -64,6 +65,7 @@ input {
   position: relative;
 }
 .editor {
+  width: 100%;
   padding: calc(var(--pui-space-y) * 3) calc(var(--pui-space-x) * 2);
   font-size: 16px;
   outline: none;
@@ -73,7 +75,14 @@ input {
 }
 .helper-text {
   position: absolute;
+  bottom: -20px;
   font-size: 12px;
+}
+.suffix {
+  padding-right: var(--pui-space-x);
+  white-space: nowrap;
+  transition: all ease 0.2s;
+  color: var(--pui-normal-color);
 }
 .inputer:focus + div .border {
   border-width: 2px;
@@ -100,7 +109,7 @@ input {
   border: none;
 }
 .container[variant="filled"] .inputer {
-  top: 6px;
+  top: var(--pui-space-x);
 }
 .container[variant="filled"] .inputer:focus + div .placeholder,
 .container[variant="filled"] .placeholder.not-empty {
@@ -125,6 +134,9 @@ input {
 }
 .container[variant="filled"] .inputer:focus + div .bottom-line-active {
   width: calc(100% - var(--pui-border-radius));
+}
+.container[variant="filled"] .suffix.not-empty {
+  padding-top: 12px;
 }
 .container.error .border,
 .container.error .inputer:focus + div .border {
