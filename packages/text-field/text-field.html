@@ -10,7 +10,11 @@
     attr:variant="variant"
     class:disabled="typeof disabled === 'string'"
     class:error="typeof error === 'string'"
+    class:hasprefix="hasprefix"
   >
+    <div class="prefix">
+      <slot name="prefix"></slot>
+    </div>
     <div class="bottom-line"></div>
     <x-if :value="typeof multiline === 'string'">
       <div
@@ -55,6 +59,7 @@
       },
       data: {
         value: "",
+        hasprefix: false,
       },
       watch: {
         defaultValue(val) {
@@ -77,6 +82,17 @@
         changeText(e) {
           this.value = e.target.innerText;
         },
+      },
+      ready() {
+        this.shadow.on("slotchange", () => {
+          let hasprefix = false;
+          this.forEach((e) => {
+            if (e.attr("slot") === "prefix") {
+              hasprefix = true;
+            }
+          });
+          this.hasprefix = hasprefix;
+        });
       },
       loaded() {
         this.shadow.$("#waiter").remove();

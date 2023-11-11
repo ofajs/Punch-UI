@@ -33,7 +33,7 @@ input {
   width: 100%;
   /* height: calc(var(--pui-space-y) * 12); */
   height: 2.5em;
-  padding: 0 calc(var(--pui-space-x) * 2);
+  padding: 0 calc(var(--pui-space-x) * 1);
   background-color: transparent;
   color: var(--pui-font-color);
   font-size: 16px;
@@ -66,7 +66,7 @@ input {
 }
 .editor {
   width: 100%;
-  padding: calc(var(--pui-space-y) * 3) calc(var(--pui-space-x) * 2);
+  padding: calc(var(--pui-space-y) * 3) calc(var(--pui-space-x) * 1);
   font-size: 16px;
   outline: none;
   overflow-y: auto;
@@ -77,6 +77,12 @@ input {
   position: absolute;
   bottom: -20px;
   font-size: 12px;
+}
+.prefix {
+  padding-left: var(--pui-space-x);
+  white-space: nowrap;
+  transition: all ease 0.2s;
+  color: var(--pui-normal-color);
 }
 .suffix {
   padding-right: var(--pui-space-x);
@@ -92,7 +98,8 @@ input {
   color: var(--pui-primary-color);
 }
 .inputer:focus + div .placeholder,
-.placeholder.not-empty {
+.placeholder.not-empty,
+.container.hasprefix .placeholder {
   position: absolute;
   z-index: 2;
   top: -10px;
@@ -112,7 +119,8 @@ input {
   top: var(--pui-space-x);
 }
 .container[variant="filled"] .inputer:focus + div .placeholder,
-.container[variant="filled"] .placeholder.not-empty {
+.container[variant="filled"] .placeholder.not-empty,
+.container[variant="filled"].hasprefix .placeholder {
   top: 0px;
   background-color: transparent;
 }
@@ -134,6 +142,9 @@ input {
 }
 .container[variant="filled"] .inputer:focus + div .bottom-line-active {
   width: calc(100% - var(--pui-border-radius));
+}
+.container[variant="filled"] .prefix {
+  padding-top: 12px;
 }
 .container[variant="filled"] .suffix.not-empty {
   padding-top: 12px;
