@@ -13,9 +13,6 @@
       *:not(:defined) {
         display: none;
       }
-      div {
-        padding: 24px;
-      }
     </style>
   </head>
   <body>
@@ -25,6 +22,7 @@
     <dark-switch></dark-switch>
     <div style="padding: 24px">
       <text-field>
+        <div>asdasd</div>
         <label>Label</label>
       </text-field>
       <text-field variant="filled">
@@ -56,6 +54,30 @@
         default-value="Default value disabled"
       >
         <label>disabled true</label>
+      </text-field>
+      <br />
+      <br />
+      <text-field>
+        <label>Label</label>
+        <div slot="helper">I am helper 1</div>
+      </text-field>
+      <text-field variant="filled">
+        <label>filled</label>
+        <div slot="helper">I am helper 2</div>
+      </text-field>
+      <text-field disabled>
+        <label>disabled</label>
+        <div slot="helper">I am helper 3</div>
+      </text-field>
+      <br /><br />
+
+      <text-field error>
+        <label>Error Label</label>
+        <div slot="helper">I am helper 1</div>
+      </text-field>
+      <text-field variant="filled" error default-value="Error Val">
+        <label>Error filled</label>
+        <div slot="helper">I am helper 2</div>
       </text-field>
     </div>
   </body>

@@ -5,19 +5,19 @@
       vertical-align: top;
       width: 200px;
     }
-    ::slotted(*) {
+    ::slotted(*:not(label, [slot])) {
       display: none;
     }
-    ::slotted(label) {
+    /* ::slotted(label) {
       display: block;
-    }
+    } */
     .container {
       display: block;
       position: relative;
       font-size: 15px;
     }
     .container.disabled {
-      opacity: 0.7;
+      opacity: 0.6;
       cursor: not-allowed;
     }
     .container.disabled:after {
@@ -138,11 +138,31 @@
       /* line-height: calc(var(--pui-space-y) * 6); */
       line-height: 1.2em;
     }
+
+    .helper-text {
+      position: absolute;
+      font-size: 12px;
+    }
+
+    .container.error .border {
+      border-color: var(--pui-danger-color) !important;
+    }
+    .container.error .placeholder {
+      color: var(--pui-danger-color) !important ;
+    }
+    .container.error[variant="filled"] .bottom-line,
+    .container.error[variant="filled"] .bottom-line-active {
+      background-color: var(--pui-danger-color) !important;
+    }
+    .container.error .helper-text {
+      color: var(--pui-danger-color);
+    }
   </style>
   <div
     class="container"
     attr:variant="variant"
     class:disabled="typeof disabled === 'string'"
+    class:error="typeof error === 'string'"
   >
     <div class="bottom-line"></div>
     <x-if :value="typeof multiline === 'string'">
@@ -165,13 +185,15 @@
       <div class="border"></div>
       <div class="bottom-line-active"></div>
     </div>
+    <div class="helper-text">
+      <slot name="helper"></slot>
+    </div>
   </div>
   <script>
     export default {
       tag: "text-field",
       attrs: {
         label: "",
-        helperText: "",
         defaultValue: "",
         error: null,
         variant: null,
