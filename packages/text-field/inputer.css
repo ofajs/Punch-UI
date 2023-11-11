@@ -38,6 +38,12 @@ input {
   color: var(--pui-font-color);
   font-size: 16px;
 }
+input[type="time"],
+input[type="date"],
+input[type="datetime-local"] {
+  padding-top: 0.75em;
+  padding-bottom: 0.75em;
+}
 .border {
   position: absolute;
   left: 0;
@@ -76,6 +82,7 @@ input {
 .helper-text {
   position: absolute;
   bottom: -20px;
+  left: calc(var(--pui-space-x) * 2);
   font-size: 12px;
 }
 .prefix {
@@ -99,7 +106,10 @@ input {
 }
 .inputer:focus + div .placeholder,
 .placeholder.not-empty,
-.container.hasprefix .placeholder {
+.container.hasprefix .placeholder,
+[type="time"] .placeholder,
+[type="date"] .placeholder,
+[type="datetime-local"] .placeholder {
   position: absolute;
   z-index: 2;
   top: -10px;
@@ -120,7 +130,10 @@ input {
 }
 .container[variant="filled"] .inputer:focus + div .placeholder,
 .container[variant="filled"] .placeholder.not-empty,
-.container[variant="filled"].hasprefix .placeholder {
+.container[variant="filled"].hasprefix .placeholder,
+.container[variant="filled"][type="time"] .placeholder,
+.container[variant="filled"][type="date"] .placeholder,
+.container[variant="filled"][type="datetime-local"] .placeholder {
   top: 0px;
   background-color: transparent;
 }

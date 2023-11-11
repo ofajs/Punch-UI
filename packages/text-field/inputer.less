@@ -41,6 +41,12 @@ input {
   background-color: transparent;
   color: var(--pui-font-color);
   font-size: 16px;
+  &[type="time"],
+  &[type="date"],
+  &[type="datetime-local"] {
+    padding-top: 0.75em;
+    padding-bottom: 0.75em;
+  }
 }
 .border {
   position: absolute;
@@ -83,6 +89,7 @@ input {
 .helper-text {
   position: absolute;
   bottom: -20px;
+  left: calc(var(--pui-space-x) * 2);
   font-size: 12px;
 }
 
@@ -111,7 +118,10 @@ input {
 
 .inputer:focus + div .placeholder,
 .placeholder.not-empty,
-.container.hasprefix .placeholder {
+.container.hasprefix .placeholder,
+[type="time"] .placeholder,
+[type="date"] .placeholder,
+[type="datetime-local"] .placeholder {
   position: absolute;
   z-index: 2;
   top: -10px;
@@ -132,7 +142,10 @@ input {
   }
   .inputer:focus + div .placeholder,
   .placeholder.not-empty,
-  &.hasprefix .placeholder {
+  &.hasprefix .placeholder,
+  &[type="time"] .placeholder,
+  &[type="date"] .placeholder,
+  &[type="datetime-local"] .placeholder {
     top: 0px;
     background-color: transparent;
   }
