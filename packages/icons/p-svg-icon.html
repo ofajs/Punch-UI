@@ -16,13 +16,14 @@
         }
 
         ::slotted(svg) {
+            display: block;
             color: var(--icon-color);
             width: var(--icon-size);
             height: var(--icon-size);
         }
     </style>
     <div class="container">
-        <slot class="children"></slot>
+        <slot></slot>
     </div>
     <script>
         export default {
