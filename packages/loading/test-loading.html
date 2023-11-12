@@ -1,35 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>p-loading</title>
     <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.32/dist/ofa.min.js"></script>
     <link rel="stylesheet" href="../css/public.css" />
-</head>
+  </head>
 
-<body>
+  <body>
     <l-m src="./p-loading.html"></l-m>
     <l-m src="../../ancillary/comp-shower.html"></l-m>
     <l-m src="../../ancillary/dark-switch.html"></l-m>
     <dark-switch></dark-switch>
-        <p-loading></p-loading>
-        <p-loading style="--loading-size:6rem"></p-loading>
-        <p-loading style="--loading-size:10rem"></p-loading>
+    <p-loading></p-loading>
+    <p-loading style="--loading-size: 6rem"></p-loading>
+    <p-loading style="--loading-size: 10rem"></p-loading>
     <comp-shower>
-        <template>
-            <p-loading style="--loading-size:5rem"></p-loading>
-        </template>
-        <label>
-            type:
-            <select name="type">
-                <option>primary</option>
-                <option>danger</option>
-                <option>normal</option>
-            </select>
-        </label>
+      <template>
+        <p-loading style="--loading-size: 5rem"></p-loading>
+      </template>
+      <label>
+        type:
+        <select name="type">
+          <option>primary</option>
+          <option>danger</option>
+          <option>normal</option>
+        </select>
+      </label>
     </comp-shower>
-</body>
-
+  </body>
 </html>
