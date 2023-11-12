@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p-icon</title>
+    <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.32/dist/ofa.min.js"></script>
+    <link rel="stylesheet" href="../css/public.css" />
+</head>
+
+<body>
+    <l-m src="./p-icon.html"></l-m>
+    <l-m src="./p-svg-icon.html"></l-m>
+    <div>
+        <p>
+            p-icon:
+            <p-icon name="git" size="small" color="danger"></p-icon>
+            <p-icon name="google"></p-icon>
+            <p-icon name="ghost" size="large" color="success"></p-icon>
+        </p>
+        <p>
+            p-icon custom style by `--icon-size` and `--icon-color`:
+            <p-icon name="car" style="--icon-size:50px;--icon-color:hotpink"></p-icon>
+        </p>
+        <p>
+            Custom Icon svg-icon:
+            <p-svg-icon size="large" color="success">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M6 15h1.5V9H5v1.5h1V15Zm3.5 0H12q.425 0 .713-.288T13 14v-4q0-.425-.288-.713T12 9H9.5q-.425 0-.713.288T8.5 10v4q0 .425.288.713T9.5 15Zm.5-1.5v-3h1.5v3H10Zm4 1.5h1.5v-2.25L17.25 15H19l-2.25-3L19 9h-1.75l-1.75 2.25V9H14v6Zm-9 6q-.825 0-1.413-.588T3 19V5q0-.825.588-1.413T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.588 1.413T19 21H5Z" />
+                </svg>
+            </p-svg-icon>
+        </p>
+    </div>
+
+
+
+</body>
+
+</html>

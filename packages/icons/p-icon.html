@@ -1,0 +1,49 @@
+<template component>
+    <inject-host>
+        <link rel="stylesheet" href="./icon-font/iconfont.css">
+    </inject-host>
+    <style>
+        :host {
+            display: inline-block;
+            --pui-small-size: 1.25rem;
+            --pui-normal-size: 1.5rem;
+            --pui-large-size: 2.1rem;
+            --icon-color: --pui-normal-color;
+            --icon-size: --pui-normal-size;
+        }
+
+        .container {
+            display: block;
+        }
+
+        .iconfont {
+            color: var(--icon-color);
+            font-size: var(--icon-size);
+        }
+    </style>
+    <div class="container">
+        <span attr:class="`iconfont icon-${name}`"></span>
+    </div>
+    <script>
+        export default {
+            tag: "p-icon",
+            attrs: {
+                color: "",
+                size: "",
+                name: null,
+            },
+            watch: {
+                color(color) {
+                    if (color) {
+                        this.style.setProperty("--icon-color", `var(--pui-${color}-color)`);
+                    }
+                },
+                size(size) {
+                    if (size) {
+                        this.style.setProperty("--icon-size", `var(--pui-${size}-size)`);
+                    }
+                },
+            }
+        }
+    </script>
+</template>
