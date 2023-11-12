@@ -5,11 +5,6 @@
       display: none;
     }
   </style>
-  <style>
-    textarea {
-      /* transition: height ease 0.1s; */
-    }
-  </style>
   <div
     class="container"
     attr:type="type"
@@ -26,14 +21,6 @@
       :value="typeof multiline === 'string' && (type === null || type === 'text')"
       on:rendered="afterTextarea"
     >
-      <!-- <div
-        class="editor inputer"
-        contenteditable="plaintext-only"
-        :css.height="editorHeight"
-        :css.max-height="editorMaxHeight"
-        :text="value"
-        on:input="changeText"
-      ></div> -->
       <textarea
         class="inputer"
         sync:value="value"
