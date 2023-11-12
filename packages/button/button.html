@@ -117,7 +117,6 @@
     class="container"
     attr:variant="variant"
     attr:size="size"
-    type="type"
     class:disabled="typeof disabled === 'string'"
     on:click="clickCon"
     part="container"
@@ -140,16 +139,16 @@
       attrs: {
         variant: "contained",
         size: "",
-        type: "normal",
+        color: "normal",
         disabled: null,
       },
       watch: {
-        type(type) {
-          if (type) {
-            this.style.setProperty("--main-color", `var(--pui-${type}-color)`);
+        color(color) {
+          if (color) {
+            this.style.setProperty("--main-color", `var(--pui-${color}-color)`);
             this.style.setProperty(
               "--font-color",
-              `var(--pui-${type}-font-color)`
+              `var(--pui-${color}-font-color)`
             );
           }
         },

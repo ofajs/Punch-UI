@@ -1,5 +1,10 @@
 <template component>
   <l-m src="./button.html"></l-m>
+  <style id="default-style">
+    :host {
+      display: none !important;
+    }
+  </style>
   <style>
     :host {
       display: inline-block;
@@ -76,20 +81,21 @@
     <slot></slot>
   </div>
   <script>
+    import "../commons/init.js";
     export default {
       tag: "p-button-group",
       attrs: {
-        type: "",
+        color: "",
         variant: "",
         size: "",
         disabled: null,
       },
       watch: {
-        type(val) {
+        color(val) {
           if (val) {
             this.forEach((e) => {
               if (e.tag === "p-button") {
-                e.type = val;
+                e.color = val;
               }
             });
           }
@@ -126,15 +132,8 @@
           }
         },
       },
-      attached() {
-        console.log("groups attached");
-      },
-      ready() {
-        this.style.display = "none";
-      },
       loaded() {
-        this.style.display = "";
-        console.log("groups loaded");
+        this.shadow.$("#default-style").remove();
       },
     };
   </script>
