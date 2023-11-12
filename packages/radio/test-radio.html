@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Button</title>
+    <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.34/dist/ofa.min.js"></script>
+    <link rel="stylesheet" href="../css/public.css" />
+    <style>
+      *:not(:defined) {
+        display: none;
+      }
+      div {
+        padding: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <l-m src="../../ancillary/comp-shower.html"></l-m>
+    <l-m src="../../ancillary/dark-switch.html"></l-m>
+    <l-m src="./group.html"></l-m>
+    <l-m src="./radio.html"></l-m>
+    <p-radio-group>
+      <p-radio value="female">Female</p-radio>
+      <p-radio value="male">Male</p-radio>
+      <p-radio value="other">Other</p-radio>
+    </p-radio-group>
+  </body>
+</html>
