@@ -1,0 +1,37 @@
+<template page>
+    <l-m src="./p-icon.html"></l-m>
+    <l-m src="../../ancillary/comp-shower.html"></l-m>
+    <p-icon name="git" color="danger"></p-icon>
+    <comp-shower>
+        <template>
+            <p-icon></p-icon>
+        </template>
+        <label>
+            name:
+            <select name="name">
+                <template is="replace-temp">
+                    <x-fill :value="iconList">
+                        <option>{{$data.name}}</option>
+                    </x-fill>
+                </template>
+            </select>
+        </label>
+    </comp-shower>
+    <script>
+        export default async ({ load }) => {
+            const { glyphs } = await load("./icon-font/iconfont.json");
+            return {
+                data: {
+                    iconList: [],
+                },
+                ready() {
+                    this.iconList = glyphs;
+                },
+                detached() {
+                    this.iconList = []
+                },
+            }
+
+        }
+    </script>
+</template>
