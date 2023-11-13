@@ -8,8 +8,8 @@
             --pui-small-size: 1.25rem;
             --pui-normal-size: 1.5rem;
             --pui-large-size: 2.1rem;
-            --icon-color: --pui-normal-color;
-            --icon-size: --pui-normal-size;
+            --icon-color: var(--pui-normal-color);
+            --icon-size: var(--pui-normal-size);
         }
 
         .container {
@@ -27,6 +27,7 @@
         <span attr:class="`iconfont icon-${name}`"></span>
     </div>
     <script>
+        $('head').push(`<link rel="stylesheet" href="./icon-font/iconfont.css">`);
         export default {
             tag: "p-icon",
             attrs: {
