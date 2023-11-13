@@ -3,8 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Button</title>
-    <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.34/dist/ofa.min.js"></script>
+    <title>Radio</title>
+    <script
+      src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.34/dist/ofa.min.js"
+      debug
+    ></script>
     <link rel="stylesheet" href="../css/public.css" />
     <style>
       *:not(:defined) {
@@ -13,17 +16,45 @@
       div {
         padding: 24px;
       }
+
+      #test p-radio {
+        border: #aaa solid 1px;
+      }
     </style>
   </head>
   <body>
+    <l-m src="../../ancillary/dark-switch.html"></l-m>
+    <dark-switch></dark-switch>
+
     <l-m src="../../ancillary/comp-shower.html"></l-m>
     <l-m src="../../ancillary/dark-switch.html"></l-m>
     <l-m src="./group.html"></l-m>
     <l-m src="./radio.html"></l-m>
-    <p-radio-group>
-      <p-radio value="female">Female</p-radio>
-      <p-radio value="male">Male</p-radio>
-      <p-radio value="other">Other</p-radio>
-    </p-radio-group>
+    <div id="test">
+      <p-radio-group name="test1">
+        <p-radio value="female">Female</p-radio>
+        <p-radio value="male" checked placement="top">Male</p-radio>
+        <p-radio value="other" placement="bottom">Other</p-radio>
+        <p-radio placement="end">Other 2</p-radio>
+      </p-radio-group>
+      <div id="log"></div>
+    </div>
+    <script>
+      // $("p-radio-group").watch(() => {
+      //   $("#log").text = $("p-radio-group").value;
+      // });
+      $("[name='test1']").on("change", () => {
+        $("#log").text = $("p-radio-group").value;
+      });
+    </script>
+
+    <div style="display: flex;flex-direction: column;">
+      <p-radio-group value="other" name="test2">
+        <p-radio value="female">Female</p-radio>
+        <p-radio value="male">Male</p-radio>
+        <p-radio value="other">Other</p-radio>
+        <p-radio value="other2">Other 2</p-radio>
+      </p-radio-group>
+    </div>
   </body>
 </html>

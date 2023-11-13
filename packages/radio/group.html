@@ -1,15 +1,61 @@
 <template component>
-  <style></style>
-  <div>
-    bbb
-    <slot></slot>
-  </div>
+  <style>
+    :host {
+      display: contents;
+    }
+  </style>
+  <slot></slot>
   <script>
     export default {
       tag: "p-radio-group",
       attrs: {
         name: null,
         defaultValue: null,
+      },
+      data: {
+        value: null,
+      },
+      watch: {
+        value(e) {
+          this.emit("change");
+        },
+      },
+      proto: {
+        _refreshValue() {
+          let value = null;
+          this.all("p-radio").forEach((e) => {
+            if (value !== null) {
+              e.checked = null;
+              return;
+            }
+            if (typeof e.checked === "string") {
+              value = e.value !== null ? e.value : e.text;
+            }
+          });
+          this.value = value;
+        },
+        _setChecked(target) {
+          this.all("p-radio").forEach((e) => {
+            if (e.ele !== target) {
+              e.checked = null;
+            }
+          });
+        },
+      },
+      ready() {
+        this.on("checked-p-radio", (e) => {
+          this._setChecked(e.target);
+          e.stopImmediatePropagation();
+          this._refreshValue();
+        });
+        this.on("add-p-radio", (e) => {
+          e.stopImmediatePropagation();
+          this._refreshValue();
+        });
+        this._refreshValue();
+      },
+      attached() {
+        this._refreshValue();
       },
     };
   </script>
