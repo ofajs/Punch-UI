@@ -59,6 +59,12 @@
         <p-radio value="other">Other</p-radio>
         <p-radio value="other2">Other 2</p-radio>
       </p-radio-group>
+      <div id="log2"></div>
+      <script>
+        $("[name='test2']").on("change", () => {
+          $("#log2").text = $("[name='test2']").value;
+        });
+      </script>
     </div>
   </body>
 </html>
