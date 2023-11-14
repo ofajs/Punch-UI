@@ -11,9 +11,10 @@
       attrs: {
         name: null,
         defaultValue: null,
+        value: null,
       },
       data: {
-        value: null,
+        // value: null,
       },
       watch: {
         value(e) {
@@ -43,6 +44,14 @@
         },
       },
       ready() {
+        if (this.value) {
+          this.all("p-radio").forEach((e) => {
+            const value = e.attr("value") || e.text;
+            if (value === this.value) {
+              e.checked = "";
+            }
+          });
+        }
         this.on("checked-p-radio", (e) => {
           this._setChecked(e.target);
           e.stopImmediatePropagation();

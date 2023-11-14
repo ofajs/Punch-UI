@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Radio</title>
     <script
-      src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.34/dist/ofa.min.js"
+      src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.35/dist/ofa.min.js"
       debug
     ></script>
+    <!-- <script
+      src="http://127.0.0.1:5513/packages/ofa/main.mjs"
+      type="module"
+    ></script> -->
     <link rel="stylesheet" href="../css/public.css" />
     <style>
       *:not(:defined) {
@@ -39,7 +43,7 @@
       </p-radio-group>
       <div id="log"></div>
     </div>
-    <script>
+    <script type="module">
       // $("p-radio-group").watch(() => {
       //   $("#log").text = $("p-radio-group").value;
       // });
@@ -48,7 +52,7 @@
       });
     </script>
 
-    <div style="display: flex;flex-direction: column;">
+    <div style="display: flex; flex-direction: column">
       <p-radio-group value="other" name="test2">
         <p-radio value="female">Female</p-radio>
         <p-radio value="male">Male</p-radio>
