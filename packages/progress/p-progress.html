@@ -133,6 +133,17 @@
                     this.circlePosition = circleSize / 2
                     this.circleDasharray = dasharray;
                     this.circleDashoffset = dasharray * ((100 - this.value) / 100)
+                },
+                checkNumberInRange(num) {
+                    if (typeof num !== 'number') {
+                        return 0;
+                    }
+
+                    if (num >= 0 && num <= 100) {
+                        return num;
+                    } else {
+                        return 0;
+                    }
                 }
             },
             watch: {
@@ -149,6 +160,7 @@
                 },
                 value(value) {
                     if (value) {
+                        this.value = this.checkNumberInRange(value);
                         this.renderCom()
                     }
                 },
