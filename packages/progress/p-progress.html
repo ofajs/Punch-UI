@@ -5,6 +5,8 @@
             --line-font-size: 14px;
             --circle-size: 100;
             --circle-font-size: 24;
+            --progress-color: var(--pui-primary-color);
+            --progress-animation: all 0.4s linear 0s;
             display: block;
             width: 100%;
         }
@@ -24,7 +26,7 @@
         .p-progress-line {
             position: absolute;
             height: var(--line-size);
-            transition: all 0.4s linear 0s;
+            transition: var(--progress-animation);
             width: 0%;
             background-color: var(--progress-color);
         }
@@ -55,9 +57,8 @@
             transform: translateY(-50%);
         }
 
-        /* 圆圈形进度条的动画效果 */
         .p-progress-circle {
-            transition: all 0.4s linear 0s;
+            transition: var(--progress-animation);
         }
     </style>
     <x-if :value="type==='line'">
@@ -65,7 +66,7 @@
             <div class="line-outer">
                 <div class="p-progress-line" attr:style="`width:${value}%`"></div>
             </div>
-            <x-if :value="showInfo">
+            <x-if :value="showInfo === 'display'">
                 <span class="line-text">{{value}}%</span>
             </x-if>
         </div>
@@ -83,7 +84,7 @@
                     attr:stroke-dasharray="`${circleDasharray}px`">
                 </circle>
             </svg>
-            <x-if :value="showInfo">
+            <x-if :value="showInfo=== 'display'">
                 <span class="circle-text">{{value}}%</span>
             </x-if>
 
@@ -95,9 +96,9 @@
             attrs: {
                 type: "line",// line circle 
                 size: "normal",// normal small 
-                color: 'primary',// normal primary danger success
+                color: null,// normal primary danger success
                 value: 0,
-                showInfo: true
+                showInfo: 'display'
             },
             data: {
                 circleSize: 100,
@@ -150,7 +151,7 @@
                     if (value) {
                         this.renderCom()
                     }
-                }
+                },
             }
         }
     </script>
