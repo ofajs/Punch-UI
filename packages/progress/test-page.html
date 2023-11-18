@@ -1,65 +1,73 @@
 <template page>
-    <style>
-        .progress-group {
-            width: 800px;
-        }
+  <style>
+    .progress-group {
+      width: 800px;
+    }
 
-        p-progress {
-            margin: 5px;
-        }
-    </style>
-    <l-m src="./p-progress.html"></l-m>
-    <l-m src="../../ancillary/comp-shower.html"></l-m>
-    <l-m src="../../ancillary/dark-switch.html"></l-m>
-    <p>p-progress:</p>
-    <dark-switch></dark-switch>
-    <div class="progress-group">
-        <p-progress style="--progress-color: pink" size="small" type="line" :value="value"></p-progress>
-        <p-progress show-info="disabled" style="--progress-color: pink" type="line" :value="value"></p-progress>
-        <p-progress size="small" type="circle" :value="value"></p-progress>
-    </div>
-    <comp-shower>
-        <template>
-            <p-progress value="50"></p-progress>
-        </template>
-        <label>
-            type:
-            <select name="size">
-                <option>normal</option>
-                <option>small</option>
-            </select>
-            <select name="type">
-                <option>line</option>
-                <option>circle</option>
-            </select>
-            <select name="show-info">
-                <option>disabled</option>
-                <option>display</option>
-            </select>
-            <select name="color">
-                <option>primary</option>
-                <option>danger</option>
-                <option>normal</option>
-                <option>success</option>
-            </select>
-        </label>
-    </comp-shower>
-    <script>
-        export default async ({ load }) => {
-            return {
-                data: {
-                    value: 10,
-                },
-                attached() {
-                    const intervalId = setInterval(() => {
-                        this.value += 10;
-                        if (this.value >= 100) {
-                            clearInterval(intervalId);
-                        }
-                    }, 500)
-                },
+    p-progress {
+      margin: 5px;
+    }
+  </style>
+  <l-m src="./p-progress.html"></l-m>
+  <l-m src="../../ancillary/comp-shower.html"></l-m>
+  <l-m src="../../ancillary/dark-switch.html"></l-m>
+  <p>p-progress:</p>
+  <dark-switch></dark-switch>
+  <div class="progress-group">
+    <p-progress
+      size="small"
+      type="line"
+      :value="value"
+    ></p-progress>
+    <p-progress
+      show-info="disabled"
+      style="--progress-color: pink"
+      type="line"
+      :value="value"
+    ></p-progress>
+    <p-progress size="small" type="circle" :value="value"></p-progress>
+  </div>
+  <comp-shower>
+    <template>
+      <p-progress value="50"></p-progress>
+    </template>
+    <label>
+      type:
+      <select name="size">
+        <option>normal</option>
+        <option>small</option>
+      </select>
+      <select name="type">
+        <option>line</option>
+        <option>circle</option>
+      </select>
+      <select name="show-info">
+        <option>disabled</option>
+        <option>display</option>
+      </select>
+      <select name="color">
+        <option>primary</option>
+        <option>danger</option>
+        <option>normal</option>
+        <option>success</option>
+      </select>
+    </label>
+  </comp-shower>
+  <script>
+    export default async ({ load }) => {
+      return {
+        data: {
+          value: 10,
+        },
+        attached() {
+          const intervalId = setInterval(() => {
+            this.value += 10;
+            if (this.value >= 100) {
+              clearInterval(intervalId);
             }
-
-        }
-    </script>
+          }, 500);
+        },
+      };
+    };
+  </script>
 </template>
