@@ -81,11 +81,22 @@
       opacity: 0.5;
       cursor: not-allowed;
     }
+    .container.infocus {
+      outline: var(--pui-primary-color) solid 2px;
+    }
+    .fake-input-con {
+      overflow: hidden;
+      width: 0;
+      height: 0;
+      padding: 0;
+      margin: 0;
+    }
   </style>
   <div
     class="container"
     class:disabled="isDisabled"
     class:checked="typeof checked === 'string'"
+    class:infocus="infocus"
     attr:placement="placement"
     on:click="clickCheck"
   >
@@ -95,6 +106,15 @@
       </div>
     </div>
     <div class="label"><slot></slot></div>
+  </div>
+  <div class="fake-input-con">
+    <input
+      type="checkbox"
+      attr:disabled="disabled"
+      on:focus="infocus = true"
+      on:blur="infocus = null"
+      on:change="changeFakeCheckbox"
+    />
   </div>
   <script>
     import "../init.js";
@@ -108,7 +128,13 @@
         // placement: "start",
         placement: null,
       },
+      data: {
+        infocus: null,
+      },
       proto: {
+        changeFakeCheckbox(e) {
+          this.checked = e.target.checked ? "" : null;
+        },
         get isDisabled() {
           return typeof this.disabled === "string";
         },
@@ -125,6 +151,11 @@
           this.emit("checked-p-checkbox");
           this.emit("change");
         },
+      },
+      ready() {
+        if (typeof this.checked === "string") {
+          this.shadow.$("input[type='checkbox']").checked = true;
+        }
       },
       attached() {
         this.emit("add-p-checkbox");
