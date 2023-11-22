@@ -82,6 +82,3 @@ export default function myDestRewriter(svgName) {
 
   return fileName;
 }
-
-const result = myDestRewriter("signal_cellular_alt_1_bar_outlined_24px.svg");
-console.log("result", result);

@@ -39,11 +39,8 @@ function generateJSON(svgFiles) {
 }
 
 function cleanSvgPath(svgContent) {
-  // 移除含有 fill="none" 属性的 path 标签
   const processedSvg = svgContent.replace(/<path[^>]*fill="none"[^>]*>/g, "");
-  // 给剩余的 path 标签添加属性 fill="currentColor"
   const finalSvg = processedSvg.replace(/<path/g, '<path fill="currentColor"');
-  // 打印处理后的 SVG 内容
   return finalSvg;
 }
 
@@ -58,7 +55,7 @@ svgFiles.forEach((svgFile) => {
   const convertedName = myDestRewriter(svgFile);
   const svgContent = fs.readFileSync(svgFilePath, "utf8");
   const finalSvg = cleanSvgPath(svgContent);
-  
+
   const htmlContent = generateHTML(finalSvg, convertedName);
   const htmlFileName = `${convertedName}-icon.html`;
   const htmlFilePath = path.join(componentDirname, htmlFileName);
