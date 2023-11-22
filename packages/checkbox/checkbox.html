@@ -46,6 +46,8 @@
       position: relative;
       width: 100%;
       height: 100%;
+      transform: scale(0);
+      transition: all ease 0.2s;
     }
     .point:before {
       position: absolute;
@@ -54,11 +56,9 @@
       display: block;
       content: "";
       width: 2px;
-      /* height: 8px; */
-      height: 0;
-      background-color: #fff;
+      height: 8px;
+      background-color: var(--pui-bg-color);
       transform: rotate(-45deg);
-      /* transition: height ease .3s; */
     }
 
     .point:after {
@@ -68,18 +68,13 @@
       display: block;
       content: "";
       width: 2px;
-      /* height: 14px; */
-      height: 0;
-      background-color: #fff;
+      height: 14px;
+      background-color: var(--pui-bg-color);
       transform: rotate(45deg);
-      /* transition: height ease .3s; */
     }
 
-    .container.checked .point:before {
-      height: 8px;
-    }
-    .point:after {
-      height: 14px;
+    .container.checked .point {
+      transform: scale(1);
     }
   </style>
   <div
