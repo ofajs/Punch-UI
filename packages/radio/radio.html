@@ -51,9 +51,15 @@
       width: 12px;
       height: 12px;
     }
+
+    .container.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
   </style>
   <div
     class="container"
+    class:disabled="isDisabled"
     class:checked="typeof checked === 'string'"
     attr:placement="placement"
     on:click="clickCheck"
@@ -78,7 +84,13 @@
         placement: null,
       },
       proto: {
+        get isDisabled() {
+          return typeof this.disabled === "string";
+        },
         clickCheck() {
+          if (this.isDisabled) {
+            return;
+          }
           this.checked = "";
           this.emit("checked-p-radio");
         },

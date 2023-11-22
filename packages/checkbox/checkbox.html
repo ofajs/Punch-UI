@@ -76,9 +76,15 @@
     .container.checked .point {
       transform: scale(1);
     }
+
+    .container.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
   </style>
   <div
     class="container"
+    class:disabled="isDisabled"
     class:checked="typeof checked === 'string'"
     attr:placement="placement"
     on:click="clickCheck"
@@ -103,13 +109,21 @@
         placement: null,
       },
       proto: {
+        get isDisabled() {
+          return typeof this.disabled === "string";
+        },
         clickCheck() {
+          if (this.isDisabled) {
+            return;
+          }
+
           if (typeof this.checked === "string") {
             this.checked = null;
           } else {
             this.checked = "";
           }
           this.emit("checked-p-checkbox");
+          this.emit("change");
         },
       },
       attached() {
