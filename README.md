@@ -1,4 +1,4 @@
-# ofaUI
+# Punch UI
 
 UI component library based on ofa.js development
 
