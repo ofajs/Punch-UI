@@ -1,0 +1,47 @@
+<template component>
+  <style>
+    :host {
+      display: inline-block;
+      --pui-small-size: 1.25rem;
+      --pui-normal-size: 1.5rem;
+      --pui-large-size: 2.1rem;
+      --icon-color: --pui-normal-color;
+      --icon-size: --pui-normal-size;
+    }
+
+    .container {
+      display: block;
+    }
+
+    .container > svg {
+      display: block;
+      color: var(--icon-color);
+      width: var(--icon-size);
+      height: var(--icon-size);
+    }
+  </style>
+  <div class="container">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path fill="currentColor" d="M3 9h2V7H3v2zm0-4h2V3H3v2zm4 16h2v-2H7v2zm0-8h2v-2H7v2zm-4 0h2v-2H3v2zm0 8h2v-2H3v2zm0-4h2v-2H3v2zM7 5h2V3H7v2zm12 12h2v-2h-2v2zm-8 4h2V3h-2v18zm8 0h2v-2h-2v2zm0-8h2v-2h-2v2zm0-10v2h2V3h-2zm0 6h2V7h-2v2zm-4-4h2V3h-2v2zm0 16h2v-2h-2v2zm0-8h2v-2h-2v2z"/></svg>
+  </div>
+  <script>
+    export default {
+      tag: "border-vertical-icon",
+      attrs: {
+        color: "",
+        size: "",
+      },
+      watch: {
+        color(color) {
+          if (color) {
+            this.style.setProperty("--icon-color", `var(--pui-${color}-color)`);
+          }
+        },
+        size(size) {
+          if (size) {
+            this.style.setProperty("--icon-size", `var(--pui-${size}-size)`);
+          }
+        },
+      },
+    };
+  </script>
+</template>

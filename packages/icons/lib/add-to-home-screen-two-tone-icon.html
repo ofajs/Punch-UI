@@ -1,0 +1,47 @@
+<template component>
+  <style>
+    :host {
+      display: inline-block;
+      --pui-small-size: 1.25rem;
+      --pui-normal-size: 1.5rem;
+      --pui-large-size: 2.1rem;
+      --icon-color: --pui-normal-color;
+      --icon-size: --pui-normal-size;
+    }
+
+    .container {
+      display: block;
+    }
+
+    .container > svg {
+      display: block;
+      color: var(--icon-color);
+      width: var(--icon-size);
+      height: var(--icon-size);
+    }
+  </style>
+  <div class="container">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path fill="currentColor" d="M18 1.01L8 1c-1.1 0-2 .9-2 2v3h2V5h10v14H8v-1H6v3c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM10 15h2V8H5v2h3.59L3 15.59 4.41 17 10 11.41V15z"/></svg>
+  </div>
+  <script>
+    export default {
+      tag: "add-to-home-screen-two-tone-icon",
+      attrs: {
+        color: "",
+        size: "",
+      },
+      watch: {
+        color(color) {
+          if (color) {
+            this.style.setProperty("--icon-color", `var(--pui-${color}-color)`);
+          }
+        },
+        size(size) {
+          if (size) {
+            this.style.setProperty("--icon-size", `var(--pui-${size}-size)`);
+          }
+        },
+      },
+    };
+  </script>
+</template>

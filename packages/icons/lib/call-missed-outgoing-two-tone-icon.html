@@ -1,0 +1,47 @@
+<template component>
+  <style>
+    :host {
+      display: inline-block;
+      --pui-small-size: 1.25rem;
+      --pui-normal-size: 1.5rem;
+      --pui-large-size: 2.1rem;
+      --icon-color: --pui-normal-color;
+      --icon-size: --pui-normal-size;
+    }
+
+    .container {
+      display: block;
+    }
+
+    .container > svg {
+      display: block;
+      color: var(--icon-color);
+      width: var(--icon-size);
+      height: var(--icon-size);
+    }
+  </style>
+  <div class="container">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path fill="currentColor" d="M19 10.41V15h2V7h-8v2h4.59L12 14.59 4.41 7 3 8.41l9 9z"/></svg>
+  </div>
+  <script>
+    export default {
+      tag: "call-missed-outgoing-two-tone-icon",
+      attrs: {
+        color: "",
+        size: "",
+      },
+      watch: {
+        color(color) {
+          if (color) {
+            this.style.setProperty("--icon-color", `var(--pui-${color}-color)`);
+          }
+        },
+        size(size) {
+          if (size) {
+            this.style.setProperty("--icon-size", `var(--pui-${size}-size)`);
+          }
+        },
+      },
+    };
+  </script>
+</template>

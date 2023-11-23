@@ -1,0 +1,47 @@
+<template component>
+  <style>
+    :host {
+      display: inline-block;
+      --pui-small-size: 1.25rem;
+      --pui-normal-size: 1.5rem;
+      --pui-large-size: 2.1rem;
+      --icon-color: --pui-normal-color;
+      --icon-size: --pui-normal-size;
+    }
+
+    .container {
+      display: block;
+    }
+
+    .container > svg {
+      display: block;
+      color: var(--icon-color);
+      width: var(--icon-size);
+      height: var(--icon-size);
+    }
+  </style>
+  <div class="container">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path fill="currentColor" d="M12 23c1.1 0 1.99-.89 1.99-1.99h-3.98c0 1.1.89 1.99 1.99 1.99zm7-6v-6c0-3.35-2.36-6.15-5.5-6.83V1.5h-3v2.67C7.36 4.85 5 7.65 5 11v6l-2 2v1h18v-1l-2-2zm-6-1h-2v-2h2v2zm0-4h-2V8h2v4z"/></svg>
+  </div>
+  <script>
+    export default {
+      tag: "notification-important-sharp-icon",
+      attrs: {
+        color: "",
+        size: "",
+      },
+      watch: {
+        color(color) {
+          if (color) {
+            this.style.setProperty("--icon-color", `var(--pui-${color}-color)`);
+          }
+        },
+        size(size) {
+          if (size) {
+            this.style.setProperty("--icon-size", `var(--pui-${size}-size)`);
+          }
+        },
+      },
+    };
+  </script>
+</template>

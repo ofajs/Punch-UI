@@ -1,0 +1,47 @@
+<template component>
+  <style>
+    :host {
+      display: inline-block;
+      --pui-small-size: 1.25rem;
+      --pui-normal-size: 1.5rem;
+      --pui-large-size: 2.1rem;
+      --icon-color: --pui-normal-color;
+      --icon-size: --pui-normal-size;
+    }
+
+    .container {
+      display: block;
+    }
+
+    .container > svg {
+      display: block;
+      color: var(--icon-color);
+      width: var(--icon-size);
+      height: var(--icon-size);
+    }
+  </style>
+  <div class="container">
+    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><rect fill="none" height="24" width="24"/></g><g><g><g><path fill="currentColor" d="M12,8.5c-0.91,0-2.75,0.46-2.75,1.38v4.62h1.5V19h2.5v-4.5h1.5V9.88C14.75,8.97,12.91,8.5,12,8.5z"/><path fill="currentColor" d="M12,2C6.47,2,2,6.47,2,12s4.47,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,20c-4.42,0-8-3.58-8-8s3.58-8,8-8s8,3.58,8,8 S16.42,20,12,20z"/><circle cx="12" cy="6.5" r="1.5"/></g></g></g></svg>
+  </div>
+  <script>
+    export default {
+      tag: "attribution-icon",
+      attrs: {
+        color: "",
+        size: "",
+      },
+      watch: {
+        color(color) {
+          if (color) {
+            this.style.setProperty("--icon-color", `var(--pui-${color}-color)`);
+          }
+        },
+        size(size) {
+          if (size) {
+            this.style.setProperty("--icon-size", `var(--pui-${size}-size)`);
+          }
+        },
+      },
+    };
+  </script>
+</template>

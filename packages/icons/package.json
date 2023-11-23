@@ -1,0 +1,14 @@
+{
+  "name": "p-icons",
+  "version": "1.0.0",
+  "description": "We have built-in `10445` icons in the `material` style. For custom icons provided by the user, we have a separate component called `p-svg-icon`.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

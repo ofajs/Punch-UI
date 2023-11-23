@@ -9,23 +9,22 @@
   </head>
 
   <body>
-    <l-m src="./p-icon.html"></l-m>
     <l-m src="./p-svg-icon.html"></l-m>
     <l-m src="../../ancillary/dark-switch.html"></l-m>
+    <l-m src="./lib/delete-icon.html"></l-m>
     <div>
       <dark-switch></dark-switch>
       <p>
-        p-icon:
-        <p-icon name="git" color="danger"></p-icon>
-        <p-icon name="google" size="small"></p-icon>
-        <p-icon name="ghost" size="large" color="success"></p-icon>
+        Built-in ICONS:
+        <delete-icon></delete-icon>
+        <delete-icon size="small" color="danger"></delete-icon>
+        <delete-icon size="large" color="success"></delete-icon>
       </p>
       <p>
-        p-icon custom style by `--icon-size` and `--icon-color`:
-        <p-icon
-          name="car"
+        custom style by `--icon-size` and `--icon-color`:
+        <delete-icon
           style="--icon-size: 50px; --icon-color: hotpink"
-        ></p-icon>
+        ></delete-icon>
       </p>
       <p>
         Custom Icon svg-icon:
@@ -43,7 +42,6 @@
           </svg>
         </p-svg-icon>
       </p>
-      <o-page src="./test-page.html"></o-page>
     </div>
   </body>
 </html>
