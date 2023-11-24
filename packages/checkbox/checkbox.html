@@ -199,6 +199,8 @@
       proto: {
         changeFakeCheckbox(e) {
           this.checked = e.target.checked ? "" : null;
+          this.emit("checked-p-checkbox");
+          this.emit("change");
         },
         get isDisabled() {
           return typeof this.disabled === "string";

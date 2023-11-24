@@ -10,6 +10,10 @@
       align-items: center;
       cursor: pointer;
     }
+
+    .container.infocus {
+      outline: var(--pui-primary-color) solid 2px;
+    }
     [placement="top"] {
       flex-direction: column;
     }
@@ -50,6 +54,13 @@
       opacity: 0.5;
       cursor: not-allowed;
     }
+    .fake-input-con {
+      overflow: hidden;
+      width: 0;
+      height: 0;
+      padding: 0;
+      margin: 0;
+    }
 
     .radio {
       width: 20px;
@@ -85,6 +96,7 @@
     class="container"
     class:disabled="isDisabled"
     class:checked="typeof checked === 'string'"
+    class:infocus="infocus"
     attr:placement="placement"
     attr:size="size"
     on:click="clickCheck"
@@ -95,6 +107,16 @@
       </div>
     </div>
     <div class="label"><slot></slot></div>
+  </div>
+  <div class="fake-input-con">
+    <input
+      type="radio"
+      attr:disabled="disabled"
+      on:focus="infocus = true"
+      on:blur="infocus = null"
+      on:change="changeFakeradio"
+      :checked="typeof checked === 'string'"
+    />
   </div>
   <script>
     import "../init.js";
@@ -108,7 +130,15 @@
         // placement: "start",
         placement: null,
       },
+      data: {
+        infocus: null,
+      },
       proto: {
+        changeFakeradio(e) {
+          if (e.target.checked) {
+            this.clickCheck();
+          }
+        },
         get isDisabled() {
           return typeof this.disabled === "string";
         },
