@@ -32,8 +32,6 @@
       justify-content: center;
       align-items: center;
       box-sizing: border-box;
-      width: 24px;
-      height: 24px;
       border-radius: 13px;
       border: var(--pui-normal-color) solid 2px;
     }
@@ -47,14 +45,40 @@
     .container.checked .radio {
       border-color: var(--pui-primary-color);
     }
-    .container.checked .point {
-      width: 12px;
-      height: 12px;
-    }
 
     .container.disabled {
       opacity: 0.5;
       cursor: not-allowed;
+    }
+
+    .radio {
+      width: 20px;
+      height: 20px;
+    }
+
+    .container.checked .point {
+      width: 10px;
+      height: 10px;
+    }
+
+    .container[size="small"] .radio {
+      width: 16px;
+      height: 16px;
+    }
+
+    .container[size="small"].checked .point {
+      width: 7px;
+      height: 7px;
+    }
+
+    .container[size="large"] .radio {
+      width: 24px;
+      height: 24px;
+    }
+
+    .container[size="large"].checked .point {
+      width: 13px;
+      height: 13px;
     }
   </style>
   <div
@@ -62,6 +86,7 @@
     class:disabled="isDisabled"
     class:checked="typeof checked === 'string'"
     attr:placement="placement"
+    attr:size="size"
     on:click="clickCheck"
   >
     <div class="radio-con">
