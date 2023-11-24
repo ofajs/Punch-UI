@@ -1,0 +1,232 @@
+<template component>
+  <style>
+    :host {
+      display: inline-block;
+      vertical-align: center;
+    }
+    .container {
+      display: inline-flex;
+      vertical-align: center;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+    [placement="top"] {
+      flex-direction: column;
+    }
+    [placement="bottom"] {
+      flex-direction: column-reverse;
+    }
+    [placement="end"] {
+      flex-direction: row-reverse;
+    }
+    .checkbox-con {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      padding: 8px;
+    }
+    .checkbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      width: 24px;
+      height: 24px;
+      border-radius: 3px;
+      border: var(--pui-normal-color) solid 2px;
+      transition: background-color ease 0.1s;
+    }
+    .container.checked .checkbox {
+      border-color: var(--pui-primary-color);
+      background-color: var(--pui-primary-color);
+    }
+    .point {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform: scale(0);
+      transition: all cubic-bezier(0.25, 0.1, 0.36, 1.63) 0.2s;
+    }
+    .point:before,
+    .point:after {
+      position: absolute;
+      display: block;
+      content: "";
+      background-color: var(--pui-bg-color);
+      transform: rotate(-45deg);
+    }
+
+    .point:after {
+      transform: rotate(45deg);
+    }
+
+    .container.checked .point {
+      transform: scale(1);
+    }
+
+    .container.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .container.infocus {
+      outline: var(--pui-primary-color) solid 2px;
+    }
+    .fake-input-con {
+      overflow: hidden;
+      width: 0;
+      height: 0;
+      padding: 0;
+      margin: 0;
+    }
+
+    .checkbox {
+      width: 20px;
+      height: 20px;
+    }
+
+    .point:before {
+      left: 4px;
+      bottom: 3px;
+      width: 2px;
+      height: 6px;
+    }
+
+    .point:after {
+      left: 9px;
+      top: 2px;
+      width: 2px;
+      height: 12px;
+    }
+
+    .container[size="small"] .checkbox {
+      width: 16px;
+      height: 16px;
+    }
+
+    .container[size="small"] .point:before {
+      left: 2px;
+      bottom: 3px;
+      width: 2px;
+      height: 5px;
+    }
+
+    .container[size="small"] .point:after {
+      left: 7px;
+      top: 1px;
+      width: 2px;
+      height: 10px;
+    }
+
+    .container[size="large"] .checkbox {
+      width: 24px;
+      height: 24px;
+    }
+
+    .container[size="large"] .point:before {
+      left: 5px;
+      bottom: 4px;
+      width: 2px;
+      height: 8px;
+    }
+
+    .container[size="large"] .point:after {
+      left: 11.5px;
+      top: 3px;
+      width: 2px;
+      height: 14px;
+    }
+
+    /* .container[size="large"] .checkbox {
+      width: 28px;
+      height: 28px;
+    }
+    .container[size="large"] .point:before {
+      left: 5px;
+      bottom: 4px;
+      width: 2px;
+      height: 10px;
+    }
+
+    .container[size="large"] .point:after {
+      left: 14px;
+      top: 3.5px;
+      width: 2px;
+      height: 18px;
+    } */
+  </style>
+  <div
+    class="container"
+    class:disabled="isDisabled"
+    class:checked="typeof checked === 'string'"
+    class:infocus="infocus"
+    attr:size="size"
+    attr:placement="placement"
+    on:click="clickCheck"
+  >
+    <div class="checkbox-con">
+      <div class="checkbox">
+        <div class="point"></div>
+      </div>
+    </div>
+    <div class="label"><slot></slot></div>
+  </div>
+  <div class="fake-input-con">
+    <input
+      type="checkbox"
+      attr:disabled="disabled"
+      on:focus="infocus = true"
+      on:blur="infocus = null"
+      on:change="changeFakeCheckbox"
+    />
+  </div>
+  <script>
+    import "../init.js";
+    export default {
+      tag: "p-checkbox",
+      attrs: {
+        size: null,
+        disabled: null,
+        checked: null,
+        value: null,
+        // placement: "start",
+        placement: null,
+      },
+      data: {
+        infocus: null,
+      },
+      proto: {
+        changeFakeCheckbox(e) {
+          this.checked = e.target.checked ? "" : null;
+          this.emit("checked-p-checkbox");
+          this.emit("change");
+        },
+        get isDisabled() {
+          return typeof this.disabled === "string";
+        },
+        clickCheck() {
+          if (this.isDisabled) {
+            return;
+          }
+
+          if (typeof this.checked === "string") {
+            this.checked = null;
+          } else {
+            this.checked = "";
+          }
+          this.emit("checked-p-checkbox");
+          this.emit("change");
+        },
+      },
+      ready() {
+        if (typeof this.checked === "string") {
+          this.shadow.$("input[type='checkbox']").checked = true;
+        }
+      },
+      attached() {
+        this.emit("add-p-checkbox");
+      },
+    };
+  </script>
+</template>

@@ -10,6 +10,10 @@
       align-items: center;
       cursor: pointer;
     }
+
+    .container.infocus {
+      outline: var(--pui-primary-color) solid 2px;
+    }
     [placement="top"] {
       flex-direction: column;
     }
@@ -32,8 +36,6 @@
       justify-content: center;
       align-items: center;
       box-sizing: border-box;
-      width: 24px;
-      height: 24px;
       border-radius: 13px;
       border: var(--pui-normal-color) solid 2px;
     }
@@ -47,15 +49,56 @@
     .container.checked .radio {
       border-color: var(--pui-primary-color);
     }
+
+    .container.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .fake-input-con {
+      overflow: hidden;
+      width: 0;
+      height: 0;
+      padding: 0;
+      margin: 0;
+    }
+
+    .radio {
+      width: 20px;
+      height: 20px;
+    }
+
     .container.checked .point {
-      width: 12px;
-      height: 12px;
+      width: 10px;
+      height: 10px;
+    }
+
+    .container[size="small"] .radio {
+      width: 16px;
+      height: 16px;
+    }
+
+    .container[size="small"].checked .point {
+      width: 7px;
+      height: 7px;
+    }
+
+    .container[size="large"] .radio {
+      width: 24px;
+      height: 24px;
+    }
+
+    .container[size="large"].checked .point {
+      width: 13px;
+      height: 13px;
     }
   </style>
   <div
     class="container"
+    class:disabled="isDisabled"
     class:checked="typeof checked === 'string'"
+    class:infocus="infocus"
     attr:placement="placement"
+    attr:size="size"
     on:click="clickCheck"
   >
     <div class="radio-con">
@@ -64,6 +107,16 @@
       </div>
     </div>
     <div class="label"><slot></slot></div>
+  </div>
+  <div class="fake-input-con">
+    <input
+      type="radio"
+      attr:disabled="disabled"
+      on:focus="infocus = true"
+      on:blur="infocus = null"
+      on:change="changeFakeradio"
+      :checked="typeof checked === 'string'"
+    />
   </div>
   <script>
     import "../init.js";
@@ -77,8 +130,22 @@
         // placement: "start",
         placement: null,
       },
+      data: {
+        infocus: null,
+      },
       proto: {
+        changeFakeradio(e) {
+          if (e.target.checked) {
+            this.clickCheck();
+          }
+        },
+        get isDisabled() {
+          return typeof this.disabled === "string";
+        },
         clickCheck() {
+          if (this.isDisabled) {
+            return;
+          }
           this.checked = "";
           this.emit("checked-p-radio");
         },

@@ -28,12 +28,26 @@
   </head>
   <body>
     <l-m src="../../ancillary/dark-switch.html"></l-m>
-    <dark-switch></dark-switch>
-
     <l-m src="../../ancillary/comp-shower.html"></l-m>
     <l-m src="../../ancillary/dark-switch.html"></l-m>
     <l-m src="./group.html"></l-m>
     <l-m src="./radio.html"></l-m>
+    <dark-switch></dark-switch>
+    <div>
+      <p-radio>OK1?</p-radio>
+      <p-radio checked>OK2?</p-radio>
+      <p-radio disabled>OK1-dis</p-radio>
+      <p-radio checked disabled>OK2-dis</p-radio>
+    </div>
+    <div>
+      <p-radio size="small">size small</p-radio>
+      <p-radio>size normal</p-radio>
+      <p-radio size="large">size large</p-radio>
+      <p-radio size="small" checked>size small</p-radio>
+      <p-radio checked>size normal</p-radio>
+      <p-radio size="large" checked>size large</p-radio>
+    </div>
+
     <div id="test">
       <p-radio-group name="test1">
         <p-radio value="female">Female</p-radio>
@@ -53,10 +67,10 @@
     </script>
 
     <div style="display: flex; flex-direction: column">
-      <p-radio-group value="other" name="test2">
+      <p-radio-group name="test2">
         <p-radio value="female">Female</p-radio>
         <p-radio value="male">Male</p-radio>
-        <p-radio value="other">Other</p-radio>
+        <p-radio value="other" checked>Other</p-radio>
         <p-radio value="other2">Other 2</p-radio>
       </p-radio-group>
       <div id="log2"></div>

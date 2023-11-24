@@ -7,13 +7,13 @@
   <slot></slot>
   <script>
     export default {
-      tag: "p-radio-group",
+      tag: "p-checkbox-group",
       attrs: {
         name: null,
         defaultValue: null,
       },
       data: {
-        value: null,
+        value: [],
       },
       watch: {
         value(e) {
@@ -22,41 +22,29 @@
       },
       proto: {
         _refreshValue() {
-          let value = null;
-          this.all("p-radio").forEach((e) => {
-            if (value !== null) {
-              e.checked = null;
-              return;
-            }
+          let value = [];
+          this.all("p-checkbox").forEach((e) => {
             if (typeof e.checked === "string") {
-              value = e.value !== null ? e.value : e.text;
+              value.push(e.value !== null ? e.value : e.text);
             }
           });
           this.value = value;
         },
-        _setChecked(target) {
-          this.all("p-radio").forEach((e) => {
-            if (e.ele !== target) {
-              e.checked = null;
-            }
-          });
-        },
       },
       ready() {
         if (this.value) {
-          this.all("p-radio").forEach((e) => {
+          this.all("p-checkbox").forEach((e) => {
             const value = e.attr("value") || e.text;
             if (value === this.value) {
               e.checked = "";
             }
           });
         }
-        this.on("checked-p-radio", (e) => {
-          this._setChecked(e.target);
+        this.on("checked-p-checkbox", (e) => {
           e.stopImmediatePropagation();
           this._refreshValue();
         });
-        this.on("add-p-radio", (e) => {
+        this.on("add-p-checkbox", (e) => {
           e.stopImmediatePropagation();
           this._refreshValue();
         });
