@@ -52,7 +52,7 @@
         <iconify-icon icon="bx:copy" slot="prefix"></iconify-icon
         >Copy</p-menu-item
       >
-      <p-menu-item>
+      <p-menu-item disabled>
         <iconify-icon icon="clarity:paste-line" slot="prefix"></iconify-icon
         >Paste</p-menu-item
       >
@@ -113,7 +113,7 @@
       >
     </p-menu>
     <br />
-    <p-menu id="target-menu">
+    <p-menu class="test-visibility">
       <p-menu-item>
         <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
         Cut
@@ -135,10 +135,36 @@
         >Clipboard</p-menu-item
       >
     </p-menu>
+    <p-menu class="test-visibility" style="width: 200px">
+      <p-menu-item>
+        <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
+        Cut
+        <span slot="suffix"> ⌘X </span>
+      </p-menu-item>
+      <p-menu-item>
+        <iconify-icon icon="bx:copy" slot="prefix"></iconify-icon>
+        Copy
+        <span slot="suffix"> ⌘C </span>
+      </p-menu-item>
+      <p-menu-item>
+        <iconify-icon icon="clarity:paste-line" slot="prefix"></iconify-icon>
+        Paste
+        <span slot="suffix"> ⌘V </span>
+      </p-menu-item>
+      <hr />
+      <p-menu-item>
+        <iconify-icon
+          icon="fluent:board-28-regular"
+          slot="prefix"
+        ></iconify-icon
+        >Clipboard</p-menu-item
+      >
+    </p-menu>
     <script>
       setInterval(() => {
-        $("#target-menu").visibility =
-          $("#target-menu").visibility !== "hidden" ? "hidden" : "visible";
+        $.all(".test-visibility").forEach((e) => {
+          e.visibility = e.visibility !== "hidden" ? "hidden" : "visible";
+        });
       }, 2000);
     </script>
   </body>

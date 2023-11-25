@@ -5,6 +5,7 @@
       display: inline-block;
       font-size: 14px;
       vertical-align: top;
+      transition: opacity ease 0.3s;
     }
     .container {
       display: flex;
@@ -30,9 +31,6 @@
   </style>
   <inject-host>
     <style>
-      p-menu {
-        transition: opacity ease 0.3s;
-      }
       p-menu p-menu-item {
         overflow: hidden;
       }
@@ -56,6 +54,7 @@
 
       p-menu[visibility="hidden"] [slot="prefix"] {
         font-size: 0px;
+        line-height: 0;
       }
 
       p-menu[visibility="hidden"] hr {
@@ -92,13 +91,7 @@
         visibility: null,
       },
       data: {
-        hide: false,
         isDark: {},
-      },
-      proto: {
-        get isHide() {
-          return typeof this.hide === "string";
-        },
       },
       attached() {
         this.isDark = isDark;

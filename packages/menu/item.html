@@ -11,6 +11,12 @@
       display: flex;
       padding: calc(var(--pui-space-y) * 2) calc(var(--pui-space-x) * 2);
     }
+
+    :host([disabled]) .container {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
     .container:hover {
       background-color: rgba(181, 181, 181, 0.2);
     }
@@ -40,8 +46,20 @@
     ::slotted([slot="suffix"]) {
       margin-left: calc(var(--pui-space-x) * 2);
     }
+
+    .interdict {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      z-index: 3;
+    }
   </style>
   <div class="container" part="container">
+    <x-if :value="typeof disabled === 'string'">
+      <div class="interdict"></div>
+    </x-if>
     <p-wave></p-wave>
     <div class="prefix" part="prefix">
       <slot name="prefix"></slot>
@@ -54,6 +72,9 @@
   <script>
     export default {
       tag: "p-menu-item",
+      attrs: {
+        disabled: null,
+      },
     };
   </script>
 </template>
