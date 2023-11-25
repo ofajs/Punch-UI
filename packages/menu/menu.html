@@ -2,43 +2,23 @@
   <l-m src="./item.html"></l-m>
   <style>
     :host {
+      position: relative;
       display: inline-block;
       font-size: 14px;
       vertical-align: top;
+      border-radius: var(--pui-border-radius);
+      background-color: var(--menu-bg-light, #f3edf7);
+      box-shadow: var(--contained-shadow);
       transition: opacity ease 0.1s;
-      max-height: 80vh;
     }
 
     .container {
       position: relative;
       display: flex;
       flex-direction: column;
-      box-shadow: var(--contained-shadow);
       padding: var(--pui-space-y) 0;
-      border-radius: var(--pui-border-radius);
-      background-color: var(--menu-bg-light, #f3edf7);
       transition: padding ease 0.2s;
-      /* overflow-y: scroll;
-      overflow-x: visible; */
     }
-    /* 
-    .container::-webkit-scrollbar-track-piece {
-      background-color: transparent;
-      -webkit-border-radius: 0;
-    }
-    .container::-webkit-scrollbar {
-      width: 5px;
-    }
-    .container::-webkit-scrollbar-thumb {
-      background-color: rgba(150, 150, 150, 0.5);
-      border-radius: 4px;
-      outline-offset: -2px;
-    }
-    .container::-webkit-scrollbar-thumb:hover {
-      background-color: rgba(150, 150, 150, 1);
-      transition: all 1s;
-      border-radius: 4px;
-    } */
 
     ::slotted(hr) {
       display: block;
@@ -48,6 +28,7 @@
       border-top: var(--pui-normal-color) solid 0.5px;
       transition: all ease 0.2s;
     }
+
     :host([visibility="hidden"]) .container {
       padding-top: 0;
       padding-bottom: 0;
