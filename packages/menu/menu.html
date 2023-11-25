@@ -6,7 +6,9 @@
       font-size: 14px;
       vertical-align: top;
       transition: opacity ease 0.1s;
+      max-height: 80vh;
     }
+
     .container {
       position: relative;
       display: flex;
@@ -16,7 +18,28 @@
       border-radius: var(--pui-border-radius);
       background-color: var(--menu-bg-light, #f3edf7);
       transition: padding ease 0.2s;
+      /* overflow-y: scroll;
+      overflow-x: visible; */
     }
+    /* 
+    .container::-webkit-scrollbar-track-piece {
+      background-color: transparent;
+      -webkit-border-radius: 0;
+    }
+    .container::-webkit-scrollbar {
+      width: 5px;
+    }
+    .container::-webkit-scrollbar-thumb {
+      background-color: rgba(150, 150, 150, 0.5);
+      border-radius: 4px;
+      outline-offset: -2px;
+    }
+    .container::-webkit-scrollbar-thumb:hover {
+      background-color: rgba(150, 150, 150, 1);
+      transition: all 1s;
+      border-radius: 4px;
+    } */
+
     ::slotted(hr) {
       display: block;
       width: 100%;
@@ -131,6 +154,33 @@
       data: {
         isDark: {},
         isChild: false,
+      },
+      watch: {
+        visibility(val) {
+          if (val !== "hidden" && this.isChild) {
+            const { ele } = this;
+            // Correction of content that exceeds boundaries
+            const rect = ele.getClientRects()[0];
+            let dir = "";
+            if (rect.right > innerWidth) {
+              dir = "left";
+            }
+            setTimeout(() => {
+              const rect = ele.getClientRects()[0];
+              if (rect.bottom > innerHeight) {
+                dir += " bottom";
+              }
+              this.menuDir = dir;
+            }, 200);
+            if (dir) {
+              this.menuDir = dir;
+            }
+          } else if (this.menuDir) {
+            setTimeout(() => {
+              this.menuDir = null;
+            }, 200);
+          }
+        },
       },
       attached() {
         this.isDark = isDark;
