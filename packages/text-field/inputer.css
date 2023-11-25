@@ -59,7 +59,7 @@ input[type="datetime-local"] {
 .placeholder {
   position: absolute;
   left: 0;
-  top: calc(var(--pui-space-y) * 2);
+  top: calc(var(--pui-space-y) * 1.5);
   padding-left: calc(var(--pui-space-x) * 2);
   font-size: 16px;
   color: var(--pui-normal-color);

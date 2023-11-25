@@ -1,0 +1,111 @@
+<template component>
+  <l-m src="./item.html"></l-m>
+  <style>
+    :host {
+      display: inline-block;
+      font-size: 14px;
+      vertical-align: top;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--contained-shadow);
+      padding: var(--pui-space-y) 0;
+      border-radius: var(--pui-border-radius);
+      background-color: var(--menu-bg-light, #f3edf7);
+      transition: padding ease 0.3s;
+    }
+    ::slotted(hr) {
+      display: block;
+      width: 100%;
+      margin: var(--pui-space-y) 0;
+      border: none;
+      border-top: var(--pui-normal-color) solid 0.5px;
+      transition: all ease 0.3s;
+    }
+    :host([visibility="hidden"]) .container {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  </style>
+  <inject-host>
+    <style>
+      p-menu {
+        transition: opacity ease 0.3s;
+      }
+      p-menu p-menu-item {
+        overflow: hidden;
+      }
+      p-menu p-menu-item::part(container) {
+        transition: line-height ease 0.3s, padding ease 0.3s;
+      }
+      p-menu[visibility="hidden"] p-menu-item {
+        line-height: 0px !important;
+      }
+      p-menu[visibility="hidden"] p-menu-item::part(container) {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+      }
+
+      p-menu [slot="prefix"] {
+        transition: all ease 0.3s;
+      }
+      p-menu[visibility="hidden"] {
+        opacity: 0;
+      }
+
+      p-menu[visibility="hidden"] [slot="prefix"] {
+        font-size: 0px;
+      }
+
+      p-menu[visibility="hidden"] hr {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        border-width: 0;
+        opacity: 0;
+      }
+    </style>
+  </inject-host>
+  <x-if :value="isDark.value">
+    <style>
+      .container {
+        background-color: var(--menu-bg-dark, #2a2831);
+      }
+    </style>
+  </x-if>
+  <x-else>
+    <style>
+      .container {
+        --wave-color: rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </x-else>
+  <div class="container" part="container">
+    <slot></slot>
+  </div>
+  <script>
+    import { isDark } from "../commons/data.js";
+
+    export default {
+      tag: "p-menu",
+      attrs: {
+        visibility: null,
+      },
+      data: {
+        hide: false,
+        isDark: {},
+      },
+      proto: {
+        get isHide() {
+          return typeof this.hide === "string";
+        },
+      },
+      attached() {
+        this.isDark = isDark;
+      },
+      detached() {
+        this.isDark = {};
+      },
+    };
+  </script>
+</template>
