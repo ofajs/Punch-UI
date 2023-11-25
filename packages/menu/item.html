@@ -12,11 +12,6 @@
       padding: calc(var(--pui-space-y) * 2) calc(var(--pui-space-x) * 2);
     }
 
-    /* .menu {
-      position: absolute;
-      z-index: 3;
-    } */
-
     :host([disabled]) .container {
       opacity: 0.6;
       cursor: not-allowed;
@@ -71,7 +66,7 @@
       display: none;
       justify-content: flex-end;
       align-items: center;
-      width: 16px;
+      width: 18px;
     }
     .triangle:before {
       display: block;
@@ -80,7 +75,7 @@
       height: 0;
       border-top: solid 5px transparent;
       border-bottom: solid 5px transparent;
-      border-left: solid 5px var(--pui-normal-color);
+      border-left: solid 5px var(--triangle-color, var(--pui-normal-color));
     }
 
     .container.has-menu .triangle {

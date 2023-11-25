@@ -10,6 +10,7 @@
       background-color: var(--menu-bg-light, #f3edf7);
       box-shadow: var(--contained-shadow);
       transition: opacity ease 0.1s;
+      --triangle-color: #5f6368;
     }
 
     .container {
@@ -25,8 +26,8 @@
       width: 100%;
       margin: var(--pui-space-y) 0;
       border: none;
-      border-top: var(--pui-normal-color) solid 0.5px;
-      transition: all ease 0.2s;
+      border-top: #e7e0ec solid 1px;
+      transition: margin ease 0.2s;
     }
 
     :host([visibility="hidden"]) .container {
@@ -105,8 +106,11 @@
 
   <x-if :value="isDark.value">
     <style>
-      .container {
+      :host {
         background-color: var(--menu-bg-dark, #2a2831);
+      }
+      ::slotted(hr) {
+        border-top: #49454f solid 1px;
       }
     </style>
   </x-if>
