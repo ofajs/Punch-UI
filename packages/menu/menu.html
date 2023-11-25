@@ -8,6 +8,7 @@
       transition: opacity ease 0.3s;
     }
     .container {
+      position: relative;
       display: flex;
       flex-direction: column;
       box-shadow: var(--contained-shadow);
@@ -28,12 +29,20 @@
       padding-top: 0;
       padding-bottom: 0;
     }
+
+    .safearea {
+      display: block;
+      position: absolute;
+      left: -20px;
+      top: -20px;
+      width: calc(100% + 40px);
+      height: calc(100% + 40px);
+      background: transparent;
+      z-index: 0;
+    }
   </style>
   <inject-host>
     <style>
-      p-menu p-menu-item {
-        overflow: hidden;
-      }
       p-menu p-menu-item::part(container) {
         transition: line-height ease 0.3s, padding ease 0.3s;
       }
@@ -50,6 +59,7 @@
       }
       p-menu[visibility="hidden"] {
         opacity: 0;
+        pointer-events: none;
       }
 
       p-menu[visibility="hidden"] [slot="prefix"] {
@@ -81,6 +91,9 @@
   </x-else>
   <div class="container" part="container">
     <slot></slot>
+    <x-if :value="isChild">
+      <div class="safearea"></div>
+    </x-if>
   </div>
   <script>
     import { isDark } from "../commons/data.js";
@@ -92,6 +105,7 @@
       },
       data: {
         isDark: {},
+        isChild: false,
       },
       attached() {
         this.isDark = isDark;
@@ -99,6 +113,7 @@
       detached() {
         this.isDark = {};
       },
+      ready() {},
     };
   </script>
 </template>

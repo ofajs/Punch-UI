@@ -112,6 +112,37 @@
         >Clipboard</p-menu-item
       >
     </p-menu>
+    <p-menu>
+      <p-menu-item>
+        <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
+        item1
+      </p-menu-item>
+      <p-menu-item>
+        <iconify-icon icon="bx:copy" slot="prefix"></iconify-icon>
+        item2
+        <p-menu style="width: 150px">
+          <p-menu-item>
+            <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
+            item2-1
+          </p-menu-item>
+          <p-menu-item>
+            <iconify-icon icon="bx:copy" slot="prefix"></iconify-icon>
+            item2-2
+
+            <p-menu>
+              <p-menu-item>
+                <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
+                item2-2-1
+              </p-menu-item>
+              <p-menu-item>
+                <iconify-icon icon="bx:copy" slot="prefix"></iconify-icon>
+                item2-2-2
+              </p-menu-item>
+            </p-menu>
+          </p-menu-item>
+        </p-menu>
+      </p-menu-item>
+    </p-menu>
     <br />
     <p-menu class="test-visibility">
       <p-menu-item>
