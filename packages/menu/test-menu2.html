@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>menu2</title>
+    <script
+      src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.35/dist/ofa.min.js"
+      debug
+    ></script>
+    <!-- <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script> -->
+    <!-- <script
+      src="http://127.0.0.1:5513/packages/ofa/main.mjs"
+      type="module"
+    ></script> -->
+    <link rel="stylesheet" href="../css/public.css" />
+    <style>
+      *:not(:defined) {
+        display: none;
+      }
+      div {
+        padding: 24px;
+      }
+      p-menu {
+        margin: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <l-m src="../../ancillary/dark-switch.html"></l-m>
+    <l-m src="../../ancillary/comp-shower.html"></l-m>
+    <l-m src="../../ancillary/dark-switch.html"></l-m>
+    <l-m
+      src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"
+    ></l-m>
+    <l-m src="./menu.html"></l-m>
+    <dark-switch></dark-switch>
+
+    <br />
+
+    <button id="mybtn1" style="margin: 50vh 0 10vh 50vw">Click Me</button>
+
+    <p-menu anchor="#mybtn1">
+      <p-menu-item id="targetItem">
+        <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
+        Cut
+      </p-menu-item>
+    </p-menu>
+
+    <script>
+      $("#targetItem").on("click", () => {
+        console.log("click target");
+      });
+    </script>
+
+    <button id="mybtn2" style="margin: 50vh 0 10vh 50vw">Click Me 2</button>
+
+    <p-menu anchor="#mybtn2" popup-dir="left up">
+      <p-menu-item id="targetItem">
+        <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
+        Cut 2
+      </p-menu-item>
+    </p-menu>
+  </body>
+</html>

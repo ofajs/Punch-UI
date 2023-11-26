@@ -37,12 +37,18 @@
     <dark-switch></dark-switch>
 
     <p-menu>
-      <p-menu-item>Cut</p-menu-item>
+      <p-menu-item id="targetItem">Cut</p-menu-item>
       <p-menu-item>Copy</p-menu-item>
       <p-menu-item>Paste</p-menu-item>
       <hr />
       <p-menu-item>Clipboard</p-menu-item>
     </p-menu>
+
+    <script>
+      $("#targetItem").on("click", () => {
+        console.log("click cut");
+      });
+    </script>
     <p-menu>
       <p-menu-item>
         <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
@@ -52,7 +58,7 @@
         <iconify-icon icon="bx:copy" slot="prefix"></iconify-icon
         >Copy</p-menu-item
       >
-      <p-menu-item disabled>
+      <p-menu-item disabled id="targetItem2">
         <iconify-icon icon="clarity:paste-line" slot="prefix"></iconify-icon
         >Paste</p-menu-item
       >
@@ -65,6 +71,12 @@
         >Clipboard</p-menu-item
       >
     </p-menu>
+
+    <script>
+      $("#targetItem2").on("click", () => {
+        console.log("click cut");
+      });
+    </script>
     <p-menu style="width: 200px">
       <p-menu-item>
         <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
@@ -117,7 +129,7 @@
         <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
         item1
       </p-menu-item>
-      <p-menu-item>
+      <p-menu-item id="targetItem3">
         <iconify-icon icon="bx:copy" slot="prefix"></iconify-icon>
         item2
         <p-menu style="width: 150px">
@@ -128,8 +140,7 @@
           <p-menu-item>
             <iconify-icon icon="bx:copy" slot="prefix"></iconify-icon>
             item2-2
-
-            <p-menu menu-dir="bottom">
+            <p-menu>
               <p-menu-item>
                 <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
                 item2-2-1
@@ -148,6 +159,12 @@
       </p-menu-item>
     </p-menu>
 
+    <script>
+      $("#targetItem3").on("click", () => {
+        console.log("targetItem3");
+      });
+    </script>
+
     <p-menu style="height: 200px; overflow-y: auto">
       <p-menu-item>Item1</p-menu-item>
       <p-menu-item>Item2</p-menu-item>
@@ -160,6 +177,10 @@
       <p-menu-item>Item9</p-menu-item>
     </p-menu>
 
+    <br />
+
+    <br />
+    <br />
     <br />
     <p-menu class="test-visibility">
       <p-menu-item>

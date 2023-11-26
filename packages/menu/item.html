@@ -90,7 +90,7 @@
     on:mouseleave="leaveItem"
   >
     <x-if :value="typeof disabled === 'string'">
-      <div class="interdict"></div>
+      <div class="interdict" on:click="$event.stopImmediatePropagation()"></div>
     </x-if>
     <p-wave></p-wave>
     <div class="prefix" part="prefix">
@@ -129,6 +129,13 @@
           this.all("p-menu").forEach((e) => {
             e.visibility = "hidden";
             e.isChild = true;
+          });
+        });
+
+        this.on("click", (e) => {
+          e.stopPropagation();
+          this.emit("click-item", {
+            data: e.target,
           });
         });
       },
