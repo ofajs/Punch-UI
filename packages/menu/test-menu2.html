@@ -15,6 +15,10 @@
     ></script> -->
     <link rel="stylesheet" href="../css/public.css" />
     <style>
+      body {
+        overflow-y: auto;
+      }
+
       *:not(:defined) {
         display: none;
       }
@@ -38,7 +42,9 @@
 
     <br />
 
-    <button id="mybtn1" style="margin: 50vh 0 10vh 50vw">Click Me</button>
+    <button id="mybtn1" style="margin: 50vh 0 20vh 40vw">Click Me</button>
+
+    <br />
 
     <p-menu anchor="#mybtn1">
       <p-menu-item id="targetItem">
@@ -53,12 +59,20 @@
       });
     </script>
 
-    <button id="mybtn2" style="margin: 50vh 0 10vh 50vw">Click Me 2</button>
+    <button id="mybtn2" style="margin: 50vh 0 20vh 40vw">Click Me 2</button>
 
-    <p-menu anchor="#mybtn2" popup-dir="left up">
-      <p-menu-item id="targetItem">
+    <p-menu anchor="#mybtn2" popup-align="right">
+      <p-menu-item>
         <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
         Cut 2
+      </p-menu-item>
+      <p-menu-item>
+        <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
+        Cut 3
+      </p-menu-item>
+      <p-menu-item>
+        <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
+        Cut 4
       </p-menu-item>
     </p-menu>
   </body>

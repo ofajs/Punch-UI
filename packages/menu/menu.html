@@ -151,7 +151,7 @@
         visibility: null,
         subDir: null,
         anchor: null,
-        popupDir: null,
+        popupAlign: null,
       },
       data: {
         isDark: {},
@@ -162,9 +162,6 @@
       proto: {
         clickMask() {
           this.clearMask();
-        },
-        get isDirLeft() {
-          return this.popupDir && this.popupDir.split(" ").includes("left");
         },
         clearMask() {
           this.maskmode = false;
@@ -179,6 +176,47 @@
             this._scrollFun = null;
           }
         },
+        _fixPosition() {
+          const { ele } = this._anchorEl;
+          const anRect = ele.getBoundingClientRect();
+
+          console.log(ele, anRect);
+
+          this.maskmode = true;
+
+          let isUp = false;
+          let isRight = false;
+
+          if (this.popupAlign) {
+            const pArr = this.popupAlign.split(" ");
+            isUp = pArr.includes("up");
+            isRight = pArr.includes("right");
+          }
+
+          // It also pops up when it exceeds the height.
+          const count = this.all("p-menu-item").length;
+          if (count * 33 + anRect.bottom > innerHeight) {
+            isUp = true;
+          }
+
+          if (isUp) {
+            this.style.top = "";
+            this.style.bottom = `${innerHeight - anRect.top}px`;
+          } else {
+            this.style.top = anRect.top + anRect.height + "px";
+            this.style.bottom = "";
+          }
+
+          if (isRight) {
+            this.style.left = "";
+            this.style.right = `${innerWidth - anRect.right}px`;
+          } else {
+            this.style.left = anRect.left + "px";
+            this.style.right = "";
+          }
+
+          this.style.margin = "0px";
+        },
         initAnchor() {
           const { _anchorEl } = this;
 
@@ -189,33 +227,27 @@
           this.css.position = "fixed";
           this.visibility = "hidden";
 
-          _anchorEl.on("click", () => {
-            const { ele } = _anchorEl;
-            const rect = ele.getBoundingClientRect();
+          _anchorEl.on(
+            "click",
+            (this._bindAnchorFunc = () => {
+              this.visibility = "";
 
-            this.maskmode = true;
+              $(window).on(
+                "resize",
+                (this._resizeFun = () => {
+                  console.log("resize");
+                  this.clearMask();
+                })
+              );
 
-            this.css.margin = "0px";
-            this.css.top = rect.top + rect.height + "px";
-            this.css.left = rect.left + "px";
-
-            this.visibility = "";
-
-            $(window).on(
-              "resize",
-              (this._resizeFun = () => {
-                console.log("resize");
-                this.clearMask();
-              })
-            );
-
-            $(window).on(
-              "scroll",
-              (this._scrollFun = () => {
-                this.clearMask();
-              })
-            );
-          });
+              $(window).on(
+                "scroll",
+                (this._scrollFun = () => {
+                  this.clearMask();
+                })
+              );
+            })
+          );
         },
         findAnchor() {
           const { anchor, _anchorEl } = this;
@@ -227,9 +259,9 @@
           }
 
           if (target) {
-            if (this._anchorEl) {
+            if (this._anchorEl && this._bindAnchorFunc) {
               // revoke old
-              debugger;
+              this._anchorEl.off("click", _bindAnchorFunc);
             }
 
             this._anchorEl = target;
@@ -238,6 +270,10 @@
           }
 
           setTimeout(() => {
+            if (!this._anchorCount) {
+              this._anchorCount = 0;
+            }
+            this._anchorCount++;
             this.findAnchor();
           }, 100);
 
@@ -249,6 +285,9 @@
           this.findAnchor();
         },
         visibility(val) {
+          if (val !== "hidden") {
+            this._fixPosition();
+          }
           if (val !== "hidden" && this.isChild) {
             const { ele } = this;
             // Correction of content that exceeds boundaries
