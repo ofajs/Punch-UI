@@ -152,12 +152,15 @@
         subDir: null,
         anchor: null,
         popupAlign: null,
+        popupEvent: null,
+        palign: null,
       },
       data: {
         isDark: {},
         isChild: false,
         _anchorEl: null,
         maskmode: false,
+        _itemHeight: 33,
       },
       proto: {
         clickMask() {
@@ -166,15 +169,6 @@
         clearMask() {
           this.maskmode = false;
           this.visibility = "hidden";
-          if (this._resizeFun) {
-            $(window).off("resize", this._resizeFun);
-            this._resizeFun = null;
-          }
-
-          if (this._scrollFun) {
-            $(window).off("scroll", this._scrollFun);
-            this._scrollFun = null;
-          }
         },
         _fixPosition() {
           const { ele } = this._anchorEl;
@@ -195,7 +189,7 @@
 
           // It also pops up when it exceeds the height.
           const count = this.all("p-menu-item").length;
-          if (count * 33 + anRect.bottom > innerHeight) {
+          if (count * this._itemHeight + anRect.bottom > innerHeight) {
             isUp = true;
           }
 
@@ -227,27 +221,17 @@
           this.css.position = "fixed";
           this.visibility = "hidden";
 
-          _anchorEl.on(
-            "click",
-            (this._bindAnchorFunc = () => {
-              this.visibility = "";
-
-              $(window).on(
-                "resize",
-                (this._resizeFun = () => {
-                  console.log("resize");
-                  this.clearMask();
-                })
-              );
-
-              $(window).on(
-                "scroll",
-                (this._scrollFun = () => {
-                  this.clearMask();
-                })
-              );
-            })
-          );
+          console.log(this.popupEvent);
+          if (this.popupEvent === "hover") {
+            // debugger;
+          } else {
+            _anchorEl.on(
+              "click",
+              (this._bindAnchorFunc = () => {
+                this.visibility = "";
+              })
+            );
+          }
         },
         findAnchor() {
           const { anchor, _anchorEl } = this;
@@ -316,9 +300,42 @@
       },
       attached() {
         this.isDark = isDark;
+
+        $(window).on(
+          "resize",
+          (this._resizeFun = () => {
+            if (!this.maskmode) {
+              return;
+            }
+
+            console.log("resize");
+            this.clearMask();
+          })
+        );
+
+        $(window).on(
+          "scroll",
+          (this._scrollFun = () => {
+            if (!this.maskmode) {
+              return;
+            }
+
+            this.clearMask();
+          })
+        );
       },
       detached() {
         this.isDark = {};
+
+        if (this._resizeFun) {
+          $(window).off("resize", this._resizeFun);
+          this._resizeFun = null;
+        }
+
+        if (this._scrollFun) {
+          $(window).off("scroll", this._scrollFun);
+          this._scrollFun = null;
+        }
       },
       ready() {
         this.on("click-item", (e) => {
