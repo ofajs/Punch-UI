@@ -140,7 +140,7 @@
     </x-if>
   </div>
   <x-if :value="maskmode">
-    <div class="mask" part="mask" on:click="clickMask"></div>
+    <div class="mask" part="mask" on:click="clearMask"></div>
   </x-if>
   <script>
     import { isDark } from "../commons/data.js";
@@ -163,9 +163,6 @@
         _itemHeight: 33,
       },
       proto: {
-        clickMask() {
-          this.clearMask();
-        },
         clearMask() {
           this.maskmode = false;
           this.visibility = "hidden";
@@ -176,7 +173,7 @@
 
           console.log(ele, anRect);
 
-          this.maskmode = true;
+          // this.maskmode = true;
 
           let isUp = false;
           let isRight = false;
@@ -222,12 +219,34 @@
           this.visibility = "hidden";
 
           console.log(this.popupEvent);
+
+          let popdownTimer;
           if (this.popupEvent === "hover") {
             // debugger;
-          } else {
+            _anchorEl.on(
+              "mouseenter",
+              (this._bindAnchorFunc = () => {
+                clearTimeout(popdownTimer);
+                this.visibility = "";
+              })
+            );
+
+            _anchorEl.on(
+              "mouseleave",
+              (this._unbindAnchorFunc = () => {
+                popdownTimer = setTimeout(() => {
+                  this.visibility = "hidden";
+                }, 300);
+              })
+            );
+
+            this.on("mouseenter", this._bindAnchorFunc);
+            this.on("mouseleave", this._unbindAnchorFunc);
+          } else if (this.popupEvent === "click") {
             _anchorEl.on(
               "click",
               (this._bindAnchorFunc = () => {
+                this.maskmode = true;
                 this.visibility = "";
               })
             );
@@ -246,6 +265,9 @@
             if (this._anchorEl && this._bindAnchorFunc) {
               // revoke old
               this._anchorEl.off("click", _bindAnchorFunc);
+              this._anchorEl.off("mouseenter", _bindAnchorFunc);
+              this.off("mouseenter", this._bindAnchorFunc);
+              this.off("mouseleave", this._unbindAnchorFunc);
             }
 
             this._anchorEl = target;
@@ -270,6 +292,7 @@
         },
         visibility(val) {
           if (val !== "hidden") {
+            // this.maskmode = true;
             this._fixPosition();
           }
           if (val !== "hidden" && this.isChild) {
@@ -304,7 +327,7 @@
         $(window).on(
           "resize",
           (this._resizeFun = () => {
-            if (!this.maskmode) {
+            if (this.visibility === "hidden") {
               return;
             }
 
@@ -316,7 +339,7 @@
         $(window).on(
           "scroll",
           (this._scrollFun = () => {
-            if (!this.maskmode) {
+            if (this.visibility === "hidden") {
               return;
             }
 
