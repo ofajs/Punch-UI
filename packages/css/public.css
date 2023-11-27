@@ -5,13 +5,13 @@ html {
   --pui-primary-font-color: #fff;
   --pui-danger-color: #d32f2f;
   --pui-danger-font-color: #fff;
-  --pui-success-color: #2E7D32;
+  --pui-success-color: #2e7d32;
   /* 横向的间距 */
   --pui-space-x: 6px;
   /* 纵向的标准间距 */
-  --pui-space-y: 3.5px;
+  --pui-space-y: 4px;
   /* 普通风格 */
-  --pui-border-radius: 5px;
+  --pui-border-radius: 4px;
   /* 变成圆角风格 */
   /* --pui-border-radius: calc(var(--pui-space-x) * 5); */
 
@@ -36,17 +36,17 @@ html.dark {
   --pui-bg-color: #000;
   --pui-font-color: #fff;
 
-  /* // --contained-shadow: rgba(255, 255, 255, 0.2) 0px 3px 1px -2px,
-  //   rgba(255, 255, 255, 0.1) 0px 2px 2px 0px,
-  //   rgba(255, 255, 255, 0.07) 0px 1px 5px 0px;
+  /* --contained-shadow: rgba(255, 255, 255, 0.2) 0px 3px 1px -2px,
+    rgba(255, 255, 255, 0.1) 0px 2px 2px 0px,
+    rgba(255, 255, 255, 0.07) 0px 1px 5px 0px;
 
-  // --contained-hover-shadow: rgba(255, 255, 255, 0.2) 0px 2px 4px -1px,
-  //   rgba(255, 255, 255, 0.1) 0px 4px 5px 0px,
-  //   rgba(255, 255, 255, 0.07) 0px 1px 10px 0px;
+  --contained-hover-shadow: rgba(255, 255, 255, 0.2) 0px 2px 4px -1px,
+    rgba(255, 255, 255, 0.1) 0px 4px 5px 0px,
+    rgba(255, 255, 255, 0.07) 0px 1px 10px 0px;
 
-  // --contained-active-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px -1px,
-  //   rgba(255, 255, 255, 0.1) 0px 4px 5px 0px,
-  //   rgba(255, 255, 255, 0.2) 0px 0 9px inset; */
+  --contained-active-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px -1px,
+    rgba(255, 255, 255, 0.1) 0px 4px 5px 0px,
+    rgba(255, 255, 255, 0.2) 0px 0 9px inset; */
 }
 
 body {

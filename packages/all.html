@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Component</title>
+    <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.38/dist/ofa.min.js"></script>
+    <link rel="stylesheet" href="./css/public.css" />
+    <style>
+      *:not(:defined) {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <l-m src="./button/button.html"></l-m>
+    <l-m src="./checkbox/checkbox.html"></l-m>
+    <l-m src="./radio/radio.html"></l-m>
+    <l-m src="./text-field/text-field.html"></l-m>
+    <div>
+      <p-button>Test Button</p-button>
+      <p-button color="primary">Test Primary Button</p-button>
+      <p-button size="small">Test Button</p-button>
+      <p-button color="primary" size="large">Test Primary Button</p-button>
+    </div>
+    <br />
+    <div>
+      <p-checkbox size="small">size small</p-checkbox>
+      <p-checkbox>size normal</p-checkbox>
+      <p-checkbox size="large">size large</p-checkbox>
+      <p-checkbox size="small" checked>size small</p-checkbox>
+      <p-checkbox checked>size normal</p-checkbox>
+      <p-checkbox size="large" checked>size large</p-checkbox>
+    </div>
+    <br />
+    <div>
+      <p-radio size="small">size small</p-radio>
+      <p-radio>size normal</p-radio>
+      <p-radio size="large">size large</p-radio>
+      <p-radio size="small" checked>size small</p-radio>
+      <p-radio checked>size normal</p-radio>
+      <p-radio size="large" checked>size large</p-radio>
+    </div>
+    <br />
+    <div>
+      <p-text-field>
+        <label>Label</label>
+      </p-text-field>
+      <p-text-field variant="filled">
+        <label>filled</label>
+      </p-text-field>
+      <p-text-field default-value="Default value haha">
+        <label>add default</label>
+      </p-text-field>
+    </div>
+  </body>
+</html>

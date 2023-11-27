@@ -1,0 +1,373 @@
+<template component>
+  <l-m src="./item.html"></l-m>
+  <style>
+    :host {
+      position: relative;
+      display: inline-block;
+      font-size: 14px;
+      vertical-align: top;
+      border-radius: var(--pui-border-radius);
+      background-color: var(--menu-bg-light, #f3edf7);
+      box-shadow: var(--contained-shadow);
+      transition: opacity ease 0.1s;
+      --triangle-color: #5f6368;
+    }
+
+    .container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: var(--pui-space-y) 0;
+      transition: padding ease 0.2s;
+    }
+
+    ::slotted(hr) {
+      display: block;
+      width: 100%;
+      margin: var(--pui-space-y) 0;
+      border: none;
+      border-top: #e7e0ec solid 1px;
+      transition: margin ease 0.2s;
+    }
+
+    :host([visibility="hidden"]) .container {
+      padding-top: 0;
+      padding-bottom: 0;
+      transition: opacity ease 0.2s;
+    }
+
+    .safearea {
+      display: block;
+      position: absolute;
+      left: -20px;
+      top: -20px;
+      width: calc(100% + 40px);
+      height: calc(100% + 40px);
+      background: transparent;
+      z-index: 0;
+    }
+
+    .container.maskmode {
+      z-index: 101;
+    }
+    .mask {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 100;
+    }
+  </style>
+  <inject-host>
+    <style>
+      p-menu p-menu-item::part(container) {
+        transition: line-height ease 0.2s, padding ease 0.2s;
+      }
+      p-menu[visibility="hidden"] p-menu-item {
+        line-height: 0px !important;
+      }
+      p-menu[visibility="hidden"] p-menu-item::part(container) {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+      }
+
+      p-menu [slot="prefix"] {
+        transition: all ease 0.2s;
+      }
+      p-menu[visibility="hidden"] {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      p-menu[visibility="hidden"] [slot="prefix"] {
+        font-size: 0px;
+        line-height: 0;
+      }
+
+      p-menu[visibility="hidden"] hr {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        border-width: 0;
+        opacity: 0;
+      }
+    </style>
+  </inject-host>
+
+  <x-if :value="isChild">
+    <style>
+      :host {
+        position: absolute;
+        left: 100%;
+        top: 0;
+        margin: 0 !important;
+        white-space: nowrap;
+      }
+
+      :host([sub-dir~="left"]) {
+        left: auto;
+        right: 100%;
+      }
+
+      :host([sub-dir~="up"]) {
+        top: auto;
+        bottom: 0;
+      }
+    </style>
+  </x-if>
+
+  <x-if :value="isDark.value">
+    <style>
+      :host {
+        background-color: var(--menu-bg-dark, #2a2831);
+      }
+      ::slotted(hr) {
+        border-top: #49454f solid 1px;
+      }
+    </style>
+  </x-if>
+  <x-else>
+    <style>
+      .container {
+        --wave-color: rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </x-else>
+  <div class="container" part="container" class:maskmode="maskmode">
+    <slot></slot>
+    <x-if :value="isChild">
+      <div class="safearea"></div>
+    </x-if>
+  </div>
+  <x-if :value="maskmode">
+    <div class="mask" part="mask" on:click="clearMask"></div>
+  </x-if>
+  <script>
+    import { isDark } from "../commons/data.js";
+
+    export default {
+      tag: "p-menu",
+      attrs: {
+        visibility: null,
+        subDir: null,
+        anchor: null,
+        popupAlign: null,
+        popupEvent: null,
+        palign: null,
+      },
+      data: {
+        isDark: {},
+        isChild: false,
+        _anchorEl: null,
+        maskmode: false,
+        _itemHeight: 33,
+      },
+      proto: {
+        clearMask() {
+          this.maskmode = false;
+          this.visibility = "hidden";
+        },
+        _fixPosition() {
+          const { ele } = this._anchorEl;
+          const anRect = ele.getBoundingClientRect();
+
+          console.log(ele, anRect);
+
+          // this.maskmode = true;
+
+          let isUp = false;
+          let isRight = false;
+
+          if (this.popupAlign) {
+            const pArr = this.popupAlign.split(" ");
+            isUp = pArr.includes("up");
+            isRight = pArr.includes("right");
+          }
+
+          // It also pops up when it exceeds the height.
+          const count = this.all("p-menu-item").length;
+          if (count * this._itemHeight + anRect.bottom > innerHeight) {
+            isUp = true;
+          }
+
+          if (isUp) {
+            this.style.top = "";
+            this.style.bottom = `${innerHeight - anRect.top}px`;
+          } else {
+            this.style.top = anRect.top + anRect.height + "px";
+            this.style.bottom = "";
+          }
+
+          if (isRight) {
+            this.style.left = "";
+            this.style.right = `${innerWidth - anRect.right}px`;
+          } else {
+            this.style.left = anRect.left + "px";
+            this.style.right = "";
+          }
+
+          this.style.margin = "0px";
+        },
+        initAnchor() {
+          const { _anchorEl } = this;
+
+          if (!_anchorEl) {
+            throw `anchor element not found`;
+          }
+
+          this.css.position = "fixed";
+          this.visibility = "hidden";
+
+          console.log(this.popupEvent);
+
+          let popdownTimer;
+          if (this.popupEvent === "hover") {
+            // debugger;
+            _anchorEl.on(
+              "mouseenter",
+              (this._bindAnchorFunc = () => {
+                clearTimeout(popdownTimer);
+                this.visibility = "";
+              })
+            );
+
+            _anchorEl.on(
+              "mouseleave",
+              (this._unbindAnchorFunc = () => {
+                popdownTimer = setTimeout(() => {
+                  this.visibility = "hidden";
+                }, 300);
+              })
+            );
+
+            this.on("mouseenter", this._bindAnchorFunc);
+            this.on("mouseleave", this._unbindAnchorFunc);
+          } else if (this.popupEvent === "click") {
+            _anchorEl.on(
+              "click",
+              (this._bindAnchorFunc = () => {
+                this.maskmode = true;
+                this.visibility = "";
+              })
+            );
+          }
+        },
+        findAnchor() {
+          const { anchor, _anchorEl } = this;
+
+          const target = this.root.$(anchor);
+
+          if (target === this._anchorEl) {
+            return;
+          }
+
+          if (target) {
+            if (this._anchorEl && this._bindAnchorFunc) {
+              // revoke old
+              this._anchorEl.off("click", _bindAnchorFunc);
+              this._anchorEl.off("mouseenter", _bindAnchorFunc);
+              this.off("mouseenter", this._bindAnchorFunc);
+              this.off("mouseleave", this._unbindAnchorFunc);
+            }
+
+            this._anchorEl = target;
+            this.initAnchor();
+            return;
+          }
+
+          setTimeout(() => {
+            if (!this._anchorCount) {
+              this._anchorCount = 0;
+            }
+            this._anchorCount++;
+            this.findAnchor();
+          }, 100);
+
+          return;
+        },
+      },
+      watch: {
+        anchor(anchor) {
+          this.findAnchor();
+        },
+        visibility(val) {
+          if (val !== "hidden") {
+            // this.maskmode = true;
+            this._fixPosition();
+          }
+          if (val !== "hidden" && this.isChild) {
+            const { ele } = this;
+            // Correction of content that exceeds boundaries
+            const rect = ele.getBoundingClientRect();
+            let dir = "";
+            if (rect.right > innerWidth) {
+              dir = "left";
+            }
+            setTimeout(() => {
+              const rect = ele.getBoundingClientRect();
+              if (rect.bottom > innerHeight) {
+                dir += " up";
+              }
+              this.subDir = dir;
+            }, 200);
+
+            if (dir) {
+              this.subDir = dir;
+            }
+          } else if (this.subDir) {
+            setTimeout(() => {
+              this.subDir = null;
+            }, 200);
+          }
+        },
+      },
+      attached() {
+        this.isDark = isDark;
+
+        $(window).on(
+          "resize",
+          (this._resizeFun = () => {
+            if (this.visibility === "hidden") {
+              return;
+            }
+
+            console.log("resize");
+            this.clearMask();
+          })
+        );
+
+        $(window).on(
+          "scroll",
+          (this._scrollFun = () => {
+            if (this.visibility === "hidden") {
+              return;
+            }
+
+            this.clearMask();
+          })
+        );
+      },
+      detached() {
+        this.isDark = {};
+
+        if (this._resizeFun) {
+          $(window).off("resize", this._resizeFun);
+          this._resizeFun = null;
+        }
+
+        if (this._scrollFun) {
+          $(window).off("scroll", this._scrollFun);
+          this._scrollFun = null;
+        }
+      },
+      ready() {
+        this.on("click-item", (e) => {
+          if (this._anchorEl) {
+            this.clearMask();
+          }
+          e.stopPropagation();
+        });
+      },
+    };
+  </script>
+</template>
