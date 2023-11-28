@@ -1,7 +1,7 @@
 html {
   --pui-normal-color: #383838;
   --pui-normal-font-color: #fff;
-  --pui-primary-color: #0079d0;
+  --pui-primary-color: #6652a2;
   --pui-primary-font-color: #fff;
   --pui-danger-color: #d32f2f;
   --pui-danger-font-color: #fff;
@@ -29,7 +29,7 @@ html {
 html.dark {
   --pui-normal-color: #cfcfcf;
   --pui-normal-font-color: #000;
-  --pui-primary-color: #8ccbf8;
+  --pui-primary-color: #cfbdfd;
   --pui-primary-font-color: #000;
   --pui-danger-color: #fb4747;
   --pui-danger-font-color: #fff;

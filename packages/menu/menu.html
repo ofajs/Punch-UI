@@ -168,10 +168,12 @@
           this.visibility = "hidden";
         },
         _fixPosition() {
+          if (!this._anchorEl) {
+            return;
+          }
+          
           const { ele } = this._anchorEl;
           const anRect = ele.getBoundingClientRect();
-
-          console.log(ele, anRect);
 
           // this.maskmode = true;
 

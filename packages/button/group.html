@@ -3,12 +3,19 @@
   <style id="default-style">
     :host {
       display: none !important;
+      --pui-border-radius: 30px;
     }
   </style>
   <style>
     :host {
       display: inline-block;
       border-radius: var(--pui-border-radius);
+    }
+
+    :host([variant="contained"]) {
+      box-shadow: var(--contained-shadow);
+      /* border-radius: var(--pui-border-radius); */
+      border-radius: 30px;
     }
     .container {
       display: flex;
@@ -20,10 +27,6 @@
       p-button-group p-button::part(outlined),
       p-button-group p-button::part(hover) {
         border-radius: 0;
-      }
-
-      p-button-group[variant="contained"] {
-        box-shadow: var(--contained-shadow);
       }
 
       p-button-group[variant="contained"] p-button::part(container) {
