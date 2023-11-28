@@ -3,6 +3,7 @@
   <style>
     :host {
       display: inline-block;
+      --pui-border-radius: 30px;
     }
 
     .container {
@@ -11,10 +12,13 @@
       justify-content: center;
       align-items: center;
       border-radius: var(--pui-border-radius);
-      padding: calc(var(--pui-space-y) * 2) calc(var(--pui-space-x) * 3);
+      box-sizing: border-box;
+      height: 36px;
+      font-size: 14px;
+      /* padding: calc(var(--pui-space-y) * 2 ) calc(var(--pui-space-x) * 4); */
+      padding: 0 calc(var(--pui-space-x) * 2.8);
       cursor: pointer;
       user-select: none;
-      font-size: 15px;
       color: var(--font-color);
       border: transparent solid 0px;
       background-color: transparent;
@@ -62,12 +66,16 @@
     }
 
     .container[size="small"] {
-      padding: calc(var(--pui-space-y) * 1) calc(var(--pui-space-x) * 2);
-      font-size: 13px;
+      /* padding: calc(var(--pui-space-y) * 1) calc(var(--pui-space-x) * 2); */
+      padding: 0 calc(var(--pui-space-x) * 2.5);
+      height: 30px;
+      font-size: 12px;
     }
     .container[size="large"] {
-      padding: calc(var(--pui-space-y) * 2) calc(var(--pui-space-x) * 4);
-      font-size: 17px;
+      /* padding: calc(var(--pui-space-y) * 2) calc(var(--pui-space-x) * 4); */
+      padding: 0 calc(var(--pui-space-x) * 3);
+      height: 42px;
+      font-size: 18px;
     }
     .container.disabled {
       opacity: 0.6;
@@ -114,6 +122,24 @@
     .container[variant="contained"] .contained-place {
       display: block;
     }
+
+    ::slotted([slot="prefix"]) {
+      font-size: 18px;
+      margin-right: var(--pui-space-x);
+    }
+    ::slotted([slot="suffix"]) {
+      font-size: 18px;
+      margin-left: var(--pui-space-x);
+    }
+
+    :host([size="large"]) ::slotted([slot="prefix"]),
+    :host([size="large"]) ::slotted([slot="suffix"]) {
+      font-size: 24px;
+    }
+    :host([size="small"]) ::slotted([slot="prefix"]),
+    :host([size="small"]) ::slotted([slot="suffix"]) {
+      font-size: 16px;
+    }
   </style>
   <button
     class="container"
@@ -124,7 +150,9 @@
     part="container"
     attr:disabled="disabled"
   >
+    <slot name="prefix"></slot>
     <slot></slot>
+    <slot name="suffix"></slot>
     <div class="fake-border outlined-place" part="outlined"></div>
     <div class="hover-place" part="hover"></div>
     <div class="text-place" part="text-place"></div>
@@ -132,7 +160,7 @@
     <x-if :value="disabled === null">
       <p-wave style="z-index: 2"></p-wave>
     </x-if>
-  </button˝>
+  </button>
   <script>
     import "../init.js";
     import { isDark } from "../commons/data.js";
@@ -141,7 +169,7 @@
       tag: "p-button",
       attrs: {
         variant: "contained",
-        size: "",
+        size: null,
         color: "normal",
         disabled: null,
       },
