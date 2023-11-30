@@ -1,0 +1,57 @@
+<template component>
+  <!-- https://www.figma.com/community/plugin/1034969338659738588/material-theme-builder -->
+  <style>
+    .color-container {
+      display: flex;
+    }
+    .color-block {
+      text-align: center;
+      font-size: 16px;
+      width: 50px;
+      height: 100px;
+      margin: 10px 1px;
+
+      /* color: rgb(124, 105, 186); */
+    }
+  </style>
+  <div>color-wheel</div>
+  primary <br />
+  <div class="color-container">
+    <x-fill :value="primarys">
+      <div class="color-block" :css.background-color="$data.bgcolor" :css.color="$data.num <= 50 ? 'white' : ''">
+        {{$data.num}}
+      </div>
+    </x-fill>
+  </div>
+  <script>
+    import { rgbToHsl, hslToRgb } from "../../packages/commons/util.js";
+    import { generateTonalPalette } from "../../packages/commons/palette.js";
+
+    export default {
+      tag: "color-wheel",
+      data: {
+        primarys: [],
+      },
+      ready() {
+        const points = [100, 98, 95, 90, 80, 70, 60, 50, 40, 30, 20, 10, 0];
+
+        // const primaryColor = [124, 105, 186];
+        const primaryHSL = rgbToHsl(124, 105, 186);
+
+        const primarys = [];
+        points.forEach((num) => {
+          const colorObj = hslToRgb(primaryHSL.h, primaryHSL.s, num);
+
+          // console.log(colorObj);
+
+          primarys.push({
+            num,
+            bgcolor: `rgb(${colorObj.r},${colorObj.g},${colorObj.b})`,
+          });
+        });
+
+        this.primarys = primarys;
+      },
+    };
+  </script>
+</template>
