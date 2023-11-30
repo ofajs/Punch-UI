@@ -1,0 +1,87 @@
+<template component>
+  <style>
+    :host {
+      display: inline-block;
+      --circle-color: #79747e;
+      ---bg-color: #e7e0ec;
+    }
+    .switch {
+      position: relative;
+      display: block;
+      box-sizing: border-box;
+      width: 52px;
+      height: 32px;
+      background-color: var(---bg-color);
+      transition: background-color 0.4s;
+      border-radius: 34px;
+      cursor: pointer;
+    }
+
+    .border {
+      position: absolute;
+      box-sizing: border-box;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 34px;
+      border: var(--circle-color) solid 2px;
+      transition: all ease 0.2s;
+    }
+
+    .slider {
+      position: absolute;
+      height: 24px;
+      width: 24px;
+      left: 4px;
+      bottom: 4px;
+      background-color: var(--circle-color);
+      transition: all 0.3s ease;
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    .switch.checked .border {
+      background-color: var(--pui-primary-color);
+      border: var(--pui-primary-color) solid 16px;
+    }
+
+    .switch.checked .slider {
+      transform: translateX(20px);
+      background-color: #fff;
+    }
+  </style>
+
+  <x-if :value="isDark.value">
+    <style>
+      :host {
+        --circle-color: #938f99;
+        ---bg-color: #49454f;
+      }
+      .switch.checked .slider {
+        /* background-color: var(--pui-primary-color); */
+        background-color: #362170;
+      }
+    </style>
+  </x-if>
+  <div class="switch" class:checked="checked" on:click="checked = !checked">
+    <span class="slider"></span>
+    <div class="border"></div>
+  </div>
+  <script>
+    import { isDark } from "../commons/data.js";
+    export default {
+      tag: "p-switch",
+      data: {
+        checked: false,
+        isDark: {},
+      },
+      attached() {
+        this.isDark = isDark;
+      },
+      detached() {
+        this.isDark = {};
+      },
+    };
+  </script>
+</template>
