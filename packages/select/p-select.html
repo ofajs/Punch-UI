@@ -1,13 +1,45 @@
 <template component>
-  <link rel="stylesheet" href="./inputer.css" />
+  <link rel="stylesheet" href="../text-field/inputer.css" />
   <style id="default-style">
     :host {
       display: none !important;
     }
   </style>
+  <style>
+    :host {
+      width: 150px;
+    }
+    .fake-input {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex: 1;
+      height: 40px;
+      margin-left: var(--pui-space-x);
+      white-space: nowrap;
+    }
+    select {
+      position: absolute !important;
+      left: 0;
+      top: 0;
+      display: block;
+      width: 100%;
+      height: 40px;
+      border: none;
+      opacity: 0;
+    }
+    .triangle {
+      margin-left: auto;
+      margin-right: calc(var(--pui-space-x) * 2);
+      width: 0;
+      height: 0;
+      border-top: 5px var(--pui-normal-color) solid;
+      border-left: 5px transparent solid;
+      border-right: 5px transparent solid;
+    }
+  </style>
   <div
     class="container"
-    attr:type="type"
     attr:variant="variant"
     class:disabled="typeof disabled === 'string'"
     class:error="typeof error === 'string'"
@@ -17,25 +49,8 @@
       <slot name="prefix"></slot>
     </div>
     <div class="bottom-line"></div>
-    <x-if
-      :value="typeof multiline === 'string' && (type === null || type === 'text')"
-      on:rendered="afterTextarea"
-    >
-      <textarea
-        class="inputer"
-        sync:value="value"
-        on:input="changeEditor"
-        :css.max-height="editorMaxHeight"
-      >
-      </textarea>
-    </x-if>
-    <x-else>
-      <input
-        attr:type="type === null ? 'text' : type"
-        class="inputer"
-        sync:value="value"
-      />
-    </x-else>
+    <div class="fake-input inputer">{{targetOptionText}}</div>
+    <select sync:value="value" class="inputer"></select>
     <div>
       <div class="placeholder" class:not-empty="!!value">
         <slot></slot>
@@ -49,21 +64,20 @@
     <div class="suffix" class:not-empty="!!value">
       <slot name="suffix"></slot>
     </div>
+    <div class="triangle"></div>
   </div>
   <script>
     import "../init.js";
     export default {
-      tag: "p-text-field",
+      tag: "p-select",
       attrs: {
         name: null,
         error: null,
         variant: null,
-        multiline: null,
         maxRows: null,
         rows: null,
         disabled: null,
         defaultValue: null,
-        type: null,
       },
       data: {
         value: "",
@@ -77,46 +91,42 @@
         },
       },
       proto: {
-        get editorHeight() {
-          if (typeof this.multiline === "string" && this.rows) {
-            return 1.2 * parseInt(this.rows) + "em";
+        onfocus() {
+          debugger;
+        },
+        get targetOptionText() {
+          const target = this.find((e) => {
+            if (e.tag === "option" && e.value === this.value) {
+              return true;
+            }
+          });
+
+          if (target) {
+            return target.text || target.value;
           }
 
-          return null;
-        },
-        get editorMaxHeight() {
-          if (typeof this.multiline === "string" && this.maxRows) {
-            return 1.2 * parseInt(this.maxRows) + "em";
-          }
-          return null;
-        },
-        afterTextarea() {
-          if (this.rows) {
-            this.shadow.$("textarea").css.height = `${1.2 * this.rows}em`;
-          }
-        },
-        changeEditor(e) {
-          if (this.rows === null) {
-            let wrapCount = e.target.value.match(/\n/g);
-            wrapCount = wrapCount ? wrapCount.length : 0;
-            if (wrapCount) {
-              console.log(wrapCount);
-              e.target.style.height = 16 * 1.2 * (wrapCount + 1) + "px";
-            } else {
-              // e.target.style.height = "19.2px";
-              e.target.style.height = "";
-            }
-          }
+          return "";
         },
       },
       ready() {
         this.shadow.on("slotchange", () => {
           let hasprefix = false;
+          let hasOption = 0;
+          const options = document.createDocumentFragment();
           this.forEach((e) => {
             if (e.attr("slot") === "prefix") {
               hasprefix = true;
+            } else if (e.tag === "option") {
+              hasOption = 1;
+              options.appendChild(e.clone().ele);
             }
           });
+
+          if (hasOption) {
+            const selector = this.shadow.$("select");
+            selector.html = "";
+            selector.push(options);
+          }
           this.hasprefix = hasprefix;
         });
       },
