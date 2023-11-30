@@ -96,6 +96,7 @@ textarea {
   color: var(--pui-normal-color);
 }
 .suffix {
+  margin-left: auto;
   padding-right: var(--pui-space-x);
   white-space: nowrap;
   transition: all ease 0.2s;
