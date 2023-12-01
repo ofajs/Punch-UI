@@ -1,8 +1,6 @@
 @import url(./theme.css);
 
 html {
-  --pui-normal-color: #383838;
-  --pui-normal-font-color: #fff;
   /* 横向的间距 */
   --pui-space-x: 6px;
   /* 纵向的标准间距 */
@@ -24,8 +22,6 @@ html {
 }
 
 html.dark {
-  --pui-normal-color: #cfcfcf;
-  --pui-normal-font-color: #000;
   --pui-bg-color: #000;
   --pui-font-color: #fff;
 
