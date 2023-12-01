@@ -7,7 +7,7 @@
       font-size: 14px;
       vertical-align: top;
       border-radius: var(--pui-border-radius);
-      background-color: var(--menu-bg-light, #f3edf7);
+      background-color: var(--menu-bg-light, var(--md-ref-palette-primary98));
       box-shadow: var(--contained-shadow);
       transition: opacity ease 0.1s;
       --triangle-color: #5f6368;
@@ -26,7 +26,7 @@
       width: 100%;
       margin: var(--pui-space-y) 0;
       border: none;
-      border-top: #e7e0ec solid 1px;
+      border-top: var(--md-ref-palette-normal90) solid 1px;
       transition: margin ease 0.2s;
     }
 
@@ -119,10 +119,10 @@
   <x-if :value="isDark.value">
     <style>
       :host {
-        background-color: var(--menu-bg-dark, #2a2831);
+        background-color: var(--menu-bg-dark, var(--md-ref-palette-normal10));
       }
       ::slotted(hr) {
-        border-top: #49454f solid 1px;
+        border-top: var(--md-ref-palette-normal30) solid 1px;
       }
     </style>
   </x-if>
@@ -171,7 +171,7 @@
           if (!this._anchorEl) {
             return;
           }
-          
+
           const { ele } = this._anchorEl;
           const anRect = ele.getBoundingClientRect();
 

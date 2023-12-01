@@ -5,7 +5,7 @@
       --line-font-size: 14px;
       --circle-size: 100;
       --circle-font-size: 24;
-      --progress-color: var(--pui-primary-color);
+      --progress-color: var(--md-sys-color-primary);
       --progress-animation: all 0.4s linear 0s;
       display: block;
       width: 100%;
@@ -173,7 +173,7 @@
           if (color) {
             this.style.setProperty(
               "--progress-color",
-              `var(--pui-${color}-color)`
+              `var(--md-sys-color-${color})`
             );
           }
         },
