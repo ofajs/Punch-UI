@@ -4,7 +4,7 @@
   "description": "copy from https://github.com/material-foundation/material-color-utilities/tree/main/typescript",
   "main": "index.js",
   "scripts": {
-    "build": "tsc index.ts --target esnext"
+    "build-ts": "tsc hct/hct.ts --target esnext"
   },
   "author": "",
   "license": "MIT"
