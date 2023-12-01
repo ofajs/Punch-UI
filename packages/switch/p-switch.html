@@ -137,6 +137,15 @@
       height: 5px;
       background-color: var(--md-sys-color-on-primary-container);
     }
+
+    :host([size="small"]) .switch {
+      transform-origin: 0 0;
+      transform: scale(0.8);
+    }
+    :host([size="small"]) .container {
+      width: 41.6px;
+      height: 25.6px;
+    }
   </style>
 
   <div class="container" class:infocus="infocus">
@@ -159,9 +168,11 @@
       attrs: {
         name: null,
         checked: null,
+        size: null,
+        color: null,
       },
       data: {
-        value: true,
+        value: false,
         infocus: false,
       },
       watch: {
