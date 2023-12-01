@@ -1,118 +1,83 @@
-export function generateTonalPalette(mainColor) {
-  // 将主色转换为HSL颜色表示
-  const hslMainColor = hexToHsl(mainColor);
+export function rgbToLCH(rgbColor) {
+  const r = rgbColor[0] / 255;
+  const g = rgbColor[1] / 255;
+  const b = rgbColor[2] / 255;
 
-  // 定义生成调色板的步长
-  const step = 10;
+  const x = 0.4124564 * r + 0.3575761 * g + 0.1804375 * b;
+  const y = 0.2126729 * r + 0.7151522 * g + 0.072175 * b;
+  const z = 0.0193339 * r + 0.119192 * g + 0.9503041 * b;
 
-  // 生成调色板
-  const tonalPalette = [];
-  for (let i = 0; i <= 120; i += step) {
-    // 明度逐步调整，生成较亮和较暗的变体
-    const lightenedColor = adjustLightness(hslMainColor, i);
-    const darkenedColor = adjustLightness(hslMainColor, -i);
+  const xDivXn = x / 0.95047;
+  const yDivYn = y / 1.0;
+  const zDivZn = z / 1.08883;
 
-    // 添加生成的颜色到调色板
-    tonalPalette.push(hslToHex(lightenedColor));
-    tonalPalette.push(hslToHex(darkenedColor));
-  }
+  const fX =
+    xDivXn > 0.008856 ? Math.pow(xDivXn, 1 / 3) : (903.3 * xDivXn + 16) / 116;
+  const fY =
+    yDivYn > 0.008856 ? Math.pow(yDivYn, 1 / 3) : (903.3 * yDivYn + 16) / 116;
+  const fZ =
+    zDivZn > 0.008856 ? Math.pow(zDivZn, 1 / 3) : (903.3 * zDivZn + 16) / 116;
 
-  return tonalPalette;
+  const l = Math.max(0, 116 * fY - 16);
+  const a = (fX - fY) * 500;
+  const bValue = (fY - fZ) * 200;
+
+  const c = Math.sqrt(a * a + bValue * bValue);
+  let h = (Math.atan2(bValue, a) * 180) / Math.PI;
+  h = h < 0 ? h + 360 : h;
+
+  return { l: Math.round(l), c: Math.round(c), h: Math.round(h) };
 }
 
-// 辅助函数：将十六进制颜色转换为HSL颜色
-function hexToHsl(hex) {
-  const match = hex.match(/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i);
-  const r = parseInt(match[1], 16);
-  const g = parseInt(match[2], 16);
-  const b = parseInt(match[3], 16);
+// // 示例
+// const rgbColor = [80, 119, 26];
+// const lchColor = rgbToLCH(rgbColor);
+// console.log(lchColor);
 
-  const hsl = rgbToHsl(r, g, b);
-  return hsl;
+export function lchToRGB(lchColor) {
+  const l = lchColor.l;
+  const c = lchColor.c;
+  const h = lchColor.h;
+
+  // 将LCH转换为Lab
+  const hRadians = (h * Math.PI) / 180;
+  const a = c * Math.cos(hRadians);
+  const bValue = c * Math.sin(hRadians);
+
+  // 将Lab转换为XYZ
+  const y = (l + 16) / 116;
+  const x = a / 500 + y;
+  const z = y - bValue / 200;
+
+  const x3 = Math.pow(x, 3);
+  const y3 = Math.pow(y, 3);
+  const z3 = Math.pow(z, 3);
+
+  const xDivXn = x3 > 0.008856 ? x3 : (x - 16 / 116) / 7.787;
+  const yDivYn = y3 > 0.008856 ? y3 : (y - 16 / 116) / 7.787;
+  const zDivZn = z3 > 0.008856 ? z3 : (z - 16 / 116) / 7.787;
+
+  const xFinal = xDivXn * 0.95047;
+  const yFinal = yDivYn * 1.0;
+  const zFinal = zDivZn * 1.08883;
+
+  // 将XYZ转换为RGB
+  const r = 3.2404542 * xFinal - 1.5371385 * yFinal - 0.4985314 * zFinal;
+  const g = -0.969266 * xFinal + 1.8760108 * yFinal + 0.041556 * zFinal;
+  const b = 0.0556434 * xFinal - 0.2040259 * yFinal + 1.0572252 * zFinal;
+
+  // 根据RGB值的范围[0, 1]，进行范围调整
+  const adjust = (value) => Math.max(0, Math.min(1, value));
+  const adjustedR = adjust(r);
+  const adjustedG = adjust(g);
+  const adjustedB = adjust(b);
+
+  // 将RGB值映射回[0, 255]范围
+  const to255 = (value) => Math.round(value * 255);
+  return [to255(adjustedR), to255(adjustedG), to255(adjustedB)];
 }
 
-// 辅助函数：将RGB颜色转换为HSL颜色
-function rgbToHsl(r, g, b) {
-  r /= 255;
-  g /= 255;
-  b /= 255;
-
-  const max = Math.max(r, g, b);
-  const min = Math.min(r, g, b);
-  let h,
-    s,
-    l = (max + min) / 2;
-
-  if (max === min) {
-    h = s = 0; // achromatic
-  } else {
-    const d = max - min;
-    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-    switch (max) {
-      case r:
-        h = (g - b) / d + (g < b ? 6 : 0);
-        break;
-      case g:
-        h = (b - r) / d + 2;
-        break;
-      case b:
-        h = (r - g) / d + 4;
-        break;
-    }
-    h /= 6;
-  }
-
-  return [h, s, l];
-}
-
-// 辅助函数：将HSL颜色转换为十六进制颜色
-function hslToHex(hsl) {
-  const [h, s, l] = hsl;
-  const rgb = hslToRgb(h, s, l);
-  const hex = rgbToHex(rgb[0], rgb[1], rgb[2]);
-  return hex;
-}
-
-// 辅助函数：将HSL颜色转换为RGB颜色
-function hslToRgb(h, s, l) {
-  let r, g, b;
-
-  if (s === 0) {
-    r = g = b = l; // achromatic
-  } else {
-    const hue2rgb = (p, q, t) => {
-      if (t < 0) t += 1;
-      if (t > 1) t -= 1;
-      if (t < 1 / 6) return p + (q - p) * 6 * t;
-      if (t < 1 / 2) return q;
-      if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
-      return p;
-    };
-
-    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-    const p = 2 * l - q;
-
-    r = hue2rgb(p, q, h + 1 / 3);
-    g = hue2rgb(p, q, h);
-    b = hue2rgb(p, q, h - 1 / 3);
-  }
-
-  return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
-}
-
-// 辅助函数：将RGB颜色转换为十六进制颜色
-function rgbToHex(r, g, b) {
-  return `#${((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1)}`;
-}
-
-// 辅助函数：调整颜色的明度
-function adjustLightness(hsl, amount) {
-  const [h, s, l] = hsl;
-  const adjustedL = Math.max(0, Math.min(1, l + amount / 100));
-  return [h, s, adjustedL];
-}
-
-// 用法示例
-const mainColor = "#3498db"; // 你的主色
-const tonalPalette = generateTonalPalette(mainColor);
-console.log(tonalPalette);
+// // 示例
+// const lchColor2 = { l: 70, c: 50, h: 120 }; // 示例的LCH颜色
+// const rgbColor2 = lchToRGB(lchColor2);
+// console.log(rgbColor2);

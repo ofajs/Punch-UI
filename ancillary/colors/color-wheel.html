@@ -11,21 +11,29 @@
       height: 100px;
       margin: 10px 1px;
 
-      /* color: rgb(124, 105, 186); */
+      color: #6750a4;
+      color: #21005d;
+
+      color: #b3261e;
+      color: #410e0b;
     }
   </style>
   <div>color-wheel</div>
   primary <br />
   <div class="color-container">
     <x-fill :value="primarys">
-      <div class="color-block" :css.background-color="$data.bgcolor" :css.color="$data.num <= 50 ? 'white' : ''">
+      <div
+        class="color-block"
+        :css.background-color="$data.bgcolor"
+        :css.color="$data.num <= 50 ? 'white' : ''"
+      >
         {{$data.num}}
       </div>
     </x-fill>
   </div>
   <script>
     import { rgbToHsl, hslToRgb } from "../../packages/commons/util.js";
-    import { generateTonalPalette } from "../../packages/commons/palette.js";
+    import { rgbToLCH, lchToRGB } from "../../packages/commons/palette.js";
 
     export default {
       tag: "color-wheel",
@@ -35,23 +43,52 @@
       ready() {
         const points = [100, 98, 95, 90, 80, 70, 60, 50, 40, 30, 20, 10, 0];
 
+        const p1 = hexToRgb("#6750a4");
+        const p2 = hexToRgb("#21005d");
+        const c1 = hexToRgb("#b3261e");
+        const c2 = hexToRgb("#410e0b");
+
+        console.log(p1, p2, c1, c2);
+
+        // console.log(rgbToLCH([p1.r, p1.g, p1.b]), rgbToLCH([p2.r, p2.g, p2.b]));
+        console.log(rgbToHsl(p1.r, p1.g, p1.b), rgbToHsl(p2.r, p2.g, p2.b));
+
+        const primaryLCH = rgbToLCH([124, 105, 186]);
+
         // const primaryColor = [124, 105, 186];
-        const primaryHSL = rgbToHsl(124, 105, 186);
+        // const primaryHSL = rgbToHsl(124, 105, 186);
 
         const primarys = [];
-        points.forEach((num) => {
-          const colorObj = hslToRgb(primaryHSL.h, primaryHSL.s, num);
 
-          // console.log(colorObj);
+        points.forEach((num) => {
+          // const colorObj = hslToRgb(primaryHSL.h, primaryHSL.s, num);
+          const colorObj = lchToRGB({
+            l: num,
+            c: primaryLCH.c,
+            h: primaryLCH.h,
+          });
 
           primarys.push({
             num,
-            bgcolor: `rgb(${colorObj.r},${colorObj.g},${colorObj.b})`,
+            bgcolor: `rgb(${colorObj[0]},${colorObj[1]},${colorObj[2]})`,
           });
         });
 
         this.primarys = primarys;
       },
     };
+
+    function hexToRgb(color) {
+      // 移除颜色值前的 #
+      color = color.replace("#", "");
+
+      // 将颜色值拆分为 R、G、B 分量
+      var r = parseInt(color.substring(0, 2), 16);
+      var g = parseInt(color.substring(2, 4), 16);
+      var b = parseInt(color.substring(4, 6), 16);
+
+      // 返回 RGB 值
+      return { r, g, b };
+    }
   </script>
 </template>
