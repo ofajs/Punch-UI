@@ -1,0 +1,97 @@
+:root {
+  /* primary */
+  --md-ref-palette-primary100: #ffffff;
+  --md-ref-palette-primary98: #fdf7ff;
+  --md-ref-palette-primary95: #f6eeff;
+  --md-ref-palette-primary90: #e9ddff;
+  --md-ref-palette-primary80: #cfbcff;
+  --md-ref-palette-primary70: #b69df7;
+  --md-ref-palette-primary60: #9a83db;
+  --md-ref-palette-primary50: #8069bf;
+  --md-ref-palette-primary40: #6750a4;
+  --md-ref-palette-primary30: #4f378a;
+  --md-ref-palette-primary20: #381e72;
+  --md-ref-palette-primary10: #22005d;
+  --md-ref-palette-primary0: #000000;
+
+  /* error */
+  --md-ref-palette-error100: #ffffff;
+  --md-ref-palette-error98: #fff8f7;
+  --md-ref-palette-error95: #ffedeb;
+  --md-ref-palette-error90: #ffdad7;
+  --md-ref-palette-error80: #ffb3ad;
+  --md-ref-palette-error70: #ff8982;
+  --md-ref-palette-error60: #ff5451;
+  --md-ref-palette-error50: #e03336;
+  --md-ref-palette-error40: #bc1421;
+  --md-ref-palette-error30: #930013;
+  --md-ref-palette-error20: #68000a;
+  --md-ref-palette-error10: #410004;
+  --md-ref-palette-error0: #000000;
+
+  /* success */
+  --md-ref-palette-success100: #ffffff;
+  --md-ref-palette-success98: #ecffe4;
+  --md-ref-palette-success95: #c8ffbf;
+  --md-ref-palette-success90: #a3f69c;
+  --md-ref-palette-success80: #88d982;
+  --md-ref-palette-success70: #6dbd6a;
+  --md-ref-palette-success60: #53a252;
+  --md-ref-palette-success50: #38873a;
+  --md-ref-palette-success40: #1b6d24;
+  --md-ref-palette-success30: #005312;
+  --md-ref-palette-success20: #003909;
+  --md-ref-palette-success10: #002204;
+  --md-ref-palette-success0: #000000;
+
+  /* normal */
+  --md-ref-palette-normal100: #ffffff;
+  --md-ref-palette-normal98: #f9f9f9;
+  --md-ref-palette-normal95: #f1f1f1;
+  --md-ref-palette-normal90: #e2e2e2;
+  --md-ref-palette-normal80: #c6c6c6;
+  --md-ref-palette-normal70: #ababab;
+  --md-ref-palette-normal60: #919191;
+  --md-ref-palette-normal50: #777777;
+  --md-ref-palette-normal40: #5e5e5e;
+  --md-ref-palette-normal30: #474747;
+  --md-ref-palette-normal20: #303030;
+  --md-ref-palette-normal10: #1b1b1b;
+  --md-ref-palette-normal0: #000000;
+}
+:root {
+  --md-sys-color-primary: var(--md-ref-palette-primary40);
+  --md-sys-color-on-primary: var(--md-ref-palette-primary100);
+  --md-sys-color-primary-container: var(--md-ref-palette-primary90);
+  --md-sys-color-on-primary-container: var(--md-ref-palette-primary10);
+  --md-sys-color-error: var(--md-ref-palette-error40);
+  --md-sys-color-on-error: var(--md-ref-palette-error100);
+  --md-sys-color-error-container: var(--md-ref-palette-error90);
+  --md-sys-color-on-error-container: var(--md-ref-palette-error10);
+  --md-sys-color-success: var(--md-ref-palette-success40);
+  --md-sys-color-on-success: var(--md-ref-palette-success100);
+  --md-sys-color-success-container: var(--md-ref-palette-success90);
+  --md-sys-color-on-success-container: var(--md-ref-palette-success10);
+  --md-sys-color-normal: var(--md-ref-palette-normal40);
+  --md-sys-color-on-normal: var(--md-ref-palette-normal100);
+  --md-sys-color-normal-container: var(--md-ref-palette-normal90);
+  --md-sys-color-on-normal-container: var(--md-ref-palette-normal10);
+}
+:root.dark {
+  --md-sys-color-primary: var(--md-ref-palette-primary80);
+  --md-sys-color-on-primary: var(--md-ref-palette-primary20);
+  --md-sys-color-primary-container: var(--md-ref-palette-primary30);
+  --md-sys-color-on-primary-container: var(--md-ref-palette-primary90);
+  --md-sys-color-error: var(--md-ref-palette-error80);
+  --md-sys-color-on-error: var(--md-ref-palette-error20);
+  --md-sys-color-error-container: var(--md-ref-palette-error30);
+  --md-sys-color-on-error-container: var(--md-ref-palette-error90);
+  --md-sys-color-success: var(--md-ref-palette-success80);
+  --md-sys-color-on-success: var(--md-ref-palette-success20);
+  --md-sys-color-success-container: var(--md-ref-palette-success30);
+  --md-sys-color-on-success-container: var(--md-ref-palette-success90);
+  --md-sys-color-normal: var(--md-ref-palette-normal80);
+  --md-sys-color-on-normal: var(--md-ref-palette-normal20);
+  --md-sys-color-normal-container: var(--md-ref-palette-normal30);
+  --md-sys-color-on-normal-container: var(--md-ref-palette-normal90);
+}

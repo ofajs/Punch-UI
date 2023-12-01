@@ -26,6 +26,7 @@
 
     .container[variant="contained"] {
       background-color: var(--main-color);
+      color: var(--on-main-color);
       box-shadow: var(--contained-shadow);
       transition: all ease 0.2s;
     }
@@ -46,7 +47,7 @@
       height: calc(100% - 1px);
       left: 0;
       top: 0;
-      border: var(--main-color) solid 0.5px;
+      border: var(--on-main-color-container) solid 0.5px;
       border-radius: var(--pui-border-radius);
     }
     .container[variant="outlined"]:hover .fake-border {
@@ -97,6 +98,7 @@
     }
     .container:hover .hover-place {
       background-color: var(--main-hover-color);
+      /* background-color: var(--main-color-container); */
     }
 
     .outlined-place {
@@ -176,10 +178,22 @@
       watch: {
         color(color) {
           if (color) {
-            this.style.setProperty("--main-color", `var(--pui-${color}-color)`);
             this.style.setProperty(
-              "--font-color",
-              `var(--pui-${color}-font-color)`
+              "--main-color",
+              `var(--md-sys-color-${color})`
+            );
+            this.style.setProperty(
+              "--on-main-color",
+              `var(--md-sys-color-on-${color})`
+            );
+
+            this.style.setProperty(
+              "--main-color-container",
+              `var(--md-sys-color-${color}-container)`
+            );
+            this.style.setProperty(
+              "--on-main-color-container",
+              `var(--md-sys-color-on-${color}-container)`
             );
           }
         },

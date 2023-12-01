@@ -11,6 +11,12 @@
       height: 100px;
       margin: 10px 1px;
     }
+
+    .code {
+      padding: 10px;
+      font-size: 12px;
+      border: #aaa solid 1px;
+    }
   </style>
   <div>color-wheel</div>
 
@@ -34,26 +40,93 @@
     </div>
   </template>
 
+  <br />
+  <div class="code">
+    <b>theme code:</b>
+    <pre><div>{{getCode()}}</div></pre>
+  </div>
+
   <script>
     import { Hct, getColors } from "../../packages/commons/mcu-ts/index.js";
 
-    const primarys = getColors("#6750a4");
-    const errors = getColors("#fb4747");
+    const primary = getColors("#6750a4");
+    const error = getColors("#fb4747");
     const success = getColors("#2e7d32");
+    const normal = getColors("#000000");
+
+    const points = [100, 98, 95, 90, 80, 70, 60, 50, 40, 30, 20, 10, 0];
+
+    const getTokenCode = (colors) => {
+      let cssStr = "";
+
+      // add base tokens
+      colors.forEach(({ name, arr }) => {
+        cssStr += `\n/* ${name} */\n`;
+        arr.forEach((e) => {
+          cssStr += `--md-ref-palette-${name}${e.tone}: ${e.bgcolor};\n`;
+        });
+      });
+
+      return cssStr;
+    };
+
+    const addTypeCode = (colors, isDark) => {
+      let cssStr = "";
+
+      colors.forEach((e) => {
+        if (!isDark) {
+          cssStr += `\n--md-sys-color-${e.name}: var(--md-ref-palette-${e.name}40);
+--md-sys-color-on-${e.name}: var(--md-ref-palette-${e.name}100);
+--md-sys-color-${e.name}-container: var(--md-ref-palette-${e.name}90);
+--md-sys-color-on-${e.name}-container: var(--md-ref-palette-${e.name}10);`;
+        } else {
+          cssStr += `\n--md-sys-color-${e.name}: var(--md-ref-palette-${e.name}80);
+--md-sys-color-on-${e.name}: var(--md-ref-palette-${e.name}20);
+--md-sys-color-${e.name}-container: var(--md-ref-palette-${e.name}30);
+--md-sys-color-on-${e.name}-container: var(--md-ref-palette-${e.name}90);`;
+        }
+      });
+
+      return cssStr;
+    };
 
     export default {
       tag: "color-wheel",
       data: {
         colors: [],
       },
-      ready() {
-        const points = [100, 98, 95, 90, 80, 70, 60, 50, 40, 30, 20, 10, 0];
+      proto: {
+        getCode() {
+          if (!this.colors.length) {
+            return "";
+          }
 
+          let cssStr = "";
+
+          // add base tokens
+          const tokenCode = getTokenCode(this.colors);
+
+          cssStr += `:root{${tokenCode}}`;
+
+          // add color type code
+          // light
+          const lightCode = addTypeCode(this.colors);
+          cssStr += `\n:root{${lightCode}\n}`;
+
+          // dark
+          const darkCode = addTypeCode(this.colors, true);
+          cssStr += `\n:root.dark{${darkCode}\n}`;
+
+          return cssStr;
+        },
+      },
+      ready() {
         const colors = [];
         Object.entries({
-          primarys,
-          errors,
+          primary,
+          error,
           success,
+          normal,
         }).forEach(([name, values]) => {
           const obj = {
             name,
