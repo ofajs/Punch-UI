@@ -146,10 +146,15 @@
       width: 41.6px;
       height: 25.6px;
     }
+
+    :host([disabled]) .switch {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
   </style>
 
   <div class="container" class:infocus="infocus">
-    <div class="switch" class:checked="value" on:click="value = !value">
+    <div class="switch" class:checked="value" on:click="clickSwitch">
       <span class="slider">
         <div class="mark"></div>
       </span>
@@ -159,6 +164,7 @@
         sync:checked="value"
         on:focus="infocus = true"
         on:blur="infocus = false"
+        attr:disabled="disabled"
       />
     </div>
   </div>
@@ -169,7 +175,8 @@
         name: null,
         checked: null,
         size: null,
-        color: null,
+        // color: null,
+        disabled: null,
       },
       data: {
         value: false,
@@ -192,7 +199,15 @@
           }
         },
       },
-      proto: {},
+      proto: {
+        clickSwitch(e) {
+          if (this.disabled !== null) {
+            e.stopImmediatePropagation();
+            return;
+          }
+          this.value = !this.value;
+        },
+      },
     };
   </script>
 </template>
