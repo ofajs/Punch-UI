@@ -3,6 +3,17 @@
     :host {
       display: inline-block;
     }
+    .container {
+      display: block;
+    }
+    .container.infocus {
+      outline: var(--md-sys-color-primary) solid 2px;
+    }
+
+    input {
+      opacity: 0;
+    }
+
     .switch {
       position: relative;
       display: block;
@@ -128,11 +139,19 @@
     }
   </style>
 
-  <div class="switch" class:checked="value" on:click="value = !value">
-    <span class="slider">
-      <div class="mark"></div>
-    </span>
-    <div class="border"></div>
+  <div class="container" class:infocus="infocus">
+    <div class="switch" class:checked="value" on:click="value = !value">
+      <span class="slider">
+        <div class="mark"></div>
+      </span>
+      <div class="border"></div>
+      <input
+        type="checkbox"
+        sync:checked="value"
+        on:focus="infocus = true"
+        on:blur="infocus = false"
+      />
+    </div>
   </div>
   <script>
     export default {
@@ -142,7 +161,8 @@
         checked: null,
       },
       data: {
-        value: false,
+        value: true,
+        infocus: false,
       },
       watch: {
         value(val) {
@@ -161,7 +181,7 @@
           }
         },
       },
-      ready() {},
+      proto: {},
     };
   </script>
 </template>
