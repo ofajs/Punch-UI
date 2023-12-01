@@ -139,15 +139,29 @@
       tag: "p-switch",
       attrs: {
         name: null,
+        checked: null,
       },
       data: {
-        value: true,
+        value: false,
       },
       watch: {
-        value() {
+        value(val) {
+          if (val) {
+            this.checked = "";
+          } else {
+            this.checked = null;
+          }
           this.emit("change");
         },
+        checked(checked) {
+          if (checked !== null) {
+            this.value = true;
+          } else {
+            this.value = false;
+          }
+        },
       },
+      ready() {},
     };
   </script>
 </template>
