@@ -10,7 +10,7 @@
       width: 52px;
       height: 32px;
       background-color: var(--md-sys-color-normal-container);
-      transition: background-color 0.4s;
+      transition: background-color 0.3s;
       border-radius: 34px;
       cursor: pointer;
     }
@@ -39,11 +39,60 @@
       z-index: 2;
     }
 
+    .mark {
+      position: absolute;
+      left: 0;
+      top: 0;
+      transition: all ease 0.3s;
+    }
+
+    .mark::before,
+    .mark::after {
+      position: absolute;
+      display: block;
+      content: "";
+      transform-origin: 50% 50%;
+      transition: all ease 0.3s;
+    }
+
+    .mark::before {
+      top: 2.5px;
+      left: 7.5px;
+      width: 1px;
+      height: 11px;
+      background-color: var(--md-sys-color-normal-container);
+      transform: rotate(45deg);
+      opacity: 0;
+    }
+
+    .mark::after {
+      top: 4px;
+      left: 3.5px;
+      width: 1px;
+      height: 11px;
+      background-color: var(--md-sys-color-normal-container);
+      transform-origin: 50% 0;
+      transform: rotate(-45deg);
+      opacity: 0;
+    }
+
+    .switch:hover .mark {
+      left: 4px;
+      top: 4px;
+    }
+
     .switch:hover .slider {
       height: 24px;
       width: 24px;
       left: 4px;
       bottom: 4px;
+    }
+
+    .switch:hover .mark::before,
+    .switch:hover .mark::after,
+    .switch.checked .mark::before,
+    .switch.checked .mark::after {
+      opacity: 1;
     }
 
     .switch.checked .border {
@@ -59,17 +108,45 @@
       transform: translateX(20px);
       background-color: var(--md-sys-color-on-primary);
     }
+
+    .switch.checked .mark {
+      left: 4px;
+      top: 4px;
+    }
+
+    .switch.checked .mark::before {
+      top: 2.5px;
+      left: 9.5px;
+      height: 10px;
+      background-color: var(--md-sys-color-on-primary-container);
+    }
+    .switch.checked .mark::after {
+      top: 7.5px;
+      left: 3px;
+      height: 5px;
+      background-color: var(--md-sys-color-on-primary-container);
+    }
   </style>
 
-  <div class="switch" class:checked="checked" on:click="checked = !checked">
-    <span class="slider"></span>
+  <div class="switch" class:checked="value" on:click="value = !value">
+    <span class="slider">
+      <div class="mark"></div>
+    </span>
     <div class="border"></div>
   </div>
   <script>
     export default {
       tag: "p-switch",
+      attrs: {
+        name: null,
+      },
       data: {
-        checked: false,
+        value: true,
+      },
+      watch: {
+        value() {
+          this.emit("change");
+        },
       },
     };
   </script>
