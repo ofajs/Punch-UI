@@ -3,11 +3,6 @@
 html {
   --pui-normal-color: #383838;
   --pui-normal-font-color: #fff;
-  --pui-primary-color: #6652a2;
-  --pui-primary-font-color: #fff;
-  --pui-danger-color: #d32f2f;
-  --pui-danger-font-color: #fff;
-  --pui-success-color: #2e7d32;
   /* 横向的间距 */
   --pui-space-x: 6px;
   /* 纵向的标准间距 */
@@ -31,10 +26,6 @@ html {
 html.dark {
   --pui-normal-color: #cfcfcf;
   --pui-normal-font-color: #000;
-  --pui-primary-color: #cfbdfd;
-  --pui-primary-font-color: #000;
-  --pui-danger-color: #fb4747;
-  --pui-danger-font-color: #fff;
   --pui-bg-color: #000;
   --pui-font-color: #fff;
 
