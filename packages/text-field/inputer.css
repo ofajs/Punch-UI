@@ -35,7 +35,7 @@ input {
   height: 2.5em;
   padding: 0 calc(var(--pui-space-x) * 1);
   background-color: transparent;
-  color: var(--pui-font-color);
+  color: var(--md-sys-color-on-normal-container);
   font-size: 16px;
 }
 input[type="time"],
@@ -51,7 +51,7 @@ input[type="datetime-local"] {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  border: var(--pui-normal-color) solid 1px;
+  border: var(--md-sys-color-on-normal-container) solid 1px;
   border-radius: var(--pui-border-radius);
   pointer-events: none;
   transition: all ease 0.1s;
@@ -62,7 +62,7 @@ input[type="datetime-local"] {
   top: calc(var(--pui-space-y) * 1.5);
   padding-left: calc(var(--pui-space-x) * 2);
   font-size: 16px;
-  color: var(--pui-normal-color);
+  color: var(--md-sys-color-on-normal-container);
   transition: all ease 0.3s, background-color ease 0s, color ease 0s;
   border-radius: 5px;
   pointer-events: none;
@@ -81,7 +81,7 @@ textarea {
   padding-bottom: calc(var(--pui-space-y) * 3);
   outline: none;
   background-color: transparent;
-  color: var(--pui-font-color);
+  color: var(--md-sys-color-on-normal-container);
 }
 .helper-text {
   position: absolute;
@@ -93,21 +93,21 @@ textarea {
   padding-left: var(--pui-space-x);
   white-space: nowrap;
   transition: all ease 0.2s;
-  color: var(--pui-normal-color);
+  color: var(--md-sys-color-on-normal-container);
 }
 .suffix {
   margin-left: auto;
   padding-right: var(--pui-space-x);
   white-space: nowrap;
   transition: all ease 0.2s;
-  color: var(--pui-normal-color);
+  color: var(--md-sys-color-on-normal-container);
 }
 .inputer:focus + div .border {
   border-width: 2px;
-  border-color: var(--pui-primary-color);
+  border-color: var(--md-sys-color-primary);
 }
 .inputer:focus + div .placeholder {
-  color: var(--pui-primary-color);
+  color: var(--md-sys-color-primary);
 }
 .inputer:focus + div .placeholder,
 .placeholder.not-empty,
@@ -150,12 +150,12 @@ textarea {
   width: calc(100% - var(--pui-border-radius));
   height: 0.5px;
   z-index: 1;
-  background-color: var(--pui-normal-color);
+  background-color: var(--md-sys-color-on-normal-container);
 }
 .container[variant="filled"] .bottom-line-active {
   width: 0;
   height: 2px;
-  background-color: var(--pui-primary-color);
+  background-color: var(--md-sys-color-primary);
   transition: all ease 0.3s;
 }
 .container[variant="filled"] .inputer:focus + div .bottom-line-active {
@@ -169,22 +169,22 @@ textarea {
 }
 .container.error .border,
 .container.error .inputer:focus + div .border {
-  border-color: var(--pui-danger-color);
+  border-color: var(--md-sys-color-error);
 }
 .container.error .placeholder,
 .container.error .inputer:focus + div .placeholder {
-  color: var(--pui-danger-color);
+  color: var(--md-sys-color-error);
 }
 .container.error .container.error[variant="filled"] .bottom-line,
 .container.error .container.error[variant="filled"] .bottom-line-active {
-  background-color: var(--pui-danger-color);
+  background-color: var(--md-sys-color-error);
 }
 .container.error .helper-text {
-  color: var(--pui-danger-color);
+  color: var(--md-sys-color-error);
 }
 .container.error .bottom-line-active {
   width: 0;
   height: 2px;
-  background-color: var(--pui-danger-color);
+  background-color: var(--md-sys-color-error);
   transition: all ease 0.3s;
 }
