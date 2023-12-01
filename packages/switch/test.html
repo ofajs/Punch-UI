@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Select</title>
+    <script
+      src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.38/dist/ofa.min.js"
+      debug
+    ></script>
+    <link rel="stylesheet" href="../css/public.css" />
+    <style>
+      *:not(:defined) {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <l-m src="../../ancillary/dark-switch.html"></l-m>
+    <l-m src="./p-switch.html"></l-m>
+    <dark-switch></dark-switch>
+    <div>
+      <p-switch></p-switch>
+      <p-switch checked></p-switch>
+      <br>
+      <br>
+      <p-switch disabled></p-switch>
+      <p-switch disabled checked></p-switch>
+      <br>
+      <br>
+      <p-switch size="small"></p-switch>
+      <p-switch size="small" checked></p-switch>
+    </div>
+  </body>
+</html>
