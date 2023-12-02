@@ -27,33 +27,47 @@
     .container[variant="contained"] {
       background-color: var(--main-color);
       color: var(--on-main-color);
-      box-shadow: var(--contained-shadow);
+      --wave-color: rgba(255, 255, 255, 0.2);
       transition: all ease 0.2s;
     }
 
-    .container[variant="contained"]:hover {
+    .container[variant="tonal"] {
+      background-color: var(--main-color-container);
+      color: var(--on-main-color-container);
+    }
+
+    :host([elevate]) .container {
+      box-shadow: var(--contained-shadow);
+    }
+
+    :host([elevate]) .container:hover {
       box-shadow: var(--contained-hover-shadow);
     }
 
-    .container[variant="contained"]:active {
+    :host([elevate]) .container:active {
       box-shadow: var(--contained-active-shadow);
     }
 
-    .container[variant="outlined"] .fake-border {
+    .fake-border {
       display: block;
       content: "";
       position: absolute;
-      width: calc(100% - 1px);
-      height: calc(100% - 1px);
-      left: 0;
+      box-sizing: border-box;
+      width: calc(100% + 0.5px);
+      height: 100%;
+      left: -0.5px;
       top: 0;
-      border: var(--on-main-color-container) solid 0.5px;
+      /* border: var(--on-main-color-container) solid 0.5px; */
+      border: none;
       border-radius: var(--pui-border-radius);
+      transition: border ease 0.05s;
+    }
+
+    .container[variant="outlined"] .fake-border {
+      border: var(--on-main-color-container) solid 0.5px;
     }
     .container[variant="outlined"]:hover .fake-border {
-      width: calc(100% - 2px);
-      height: calc(100% - 2px);
-      border-width: 1px;
+      border: var(--main-color) solid 1px;
     }
 
     .container[variant="text"] {
@@ -93,20 +107,11 @@
       top: 0;
       width: 100%;
       height: 100%;
-      z-index: 2;
+      z-index: 0;
       transition: all ease 0.2s;
     }
     .container:hover .hover-place {
       background-color: var(--main-hover-color);
-      /* background-color: var(--main-color-container); */
-    }
-
-    .outlined-place {
-      display: none;
-    }
-
-    .container[variant="outlined"] .outlined-place {
-      display: block;
     }
 
     .text-place {
@@ -142,6 +147,13 @@
     :host([size="small"]) ::slotted([slot="suffix"]) {
       font-size: 16px;
     }
+    .solter {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   </style>
   <button
     class="container"
@@ -152,10 +164,12 @@
     part="container"
     attr:disabled="disabled"
   >
-    <slot name="prefix"></slot>
-    <slot></slot>
-    <slot name="suffix"></slot>
-    <div class="fake-border outlined-place" part="outlined"></div>
+    <div class="solter">
+      <slot name="prefix"></slot>
+      <slot></slot>
+      <slot name="suffix"></slot>
+    </div>
+    <div class="fake-border" part="outlined"></div>
     <div class="hover-place" part="hover"></div>
     <div class="text-place" part="text-place"></div>
     <div class="contained-place" part="contained-place"></div>
@@ -165,42 +179,21 @@
   </button>
   <script>
     import "../init.js";
-    import { isDark } from "../commons/data.js";
-    import { convertToRGBA } from "../commons/util.js";
+    import { setMainColor } from "../commons/util.js";
     export default {
       tag: "p-button",
       attrs: {
         variant: "contained",
+        elevate: null,
         size: null,
-        color: "normal",
+        color: "primary",
         disabled: null,
       },
       watch: {
         color(color) {
           if (color) {
-            this.style.setProperty(
-              "--main-color",
-              `var(--md-sys-color-${color})`
-            );
-            this.style.setProperty(
-              "--on-main-color",
-              `var(--md-sys-color-on-${color})`
-            );
-
-            this.style.setProperty(
-              "--main-color-container",
-              `var(--md-sys-color-${color}-container)`
-            );
-            this.style.setProperty(
-              "--on-main-color-container",
-              `var(--md-sys-color-on-${color}-container)`
-            );
+            setMainColor(this, color);
           }
-        },
-        isDark() {
-          setTimeout(() => {
-            this.refreshHoverColor();
-          }, 100);
         },
       },
       proto: {
@@ -209,26 +202,6 @@
             e.stopImmediatePropagation();
           }
         },
-        refreshHoverColor() {
-          const color = getComputedStyle(this.ele).getPropertyValue(
-            `--main-color`
-          );
-
-          if (color) {
-            const newColor = convertToRGBA(color);
-
-            this.style.setProperty("--main-hover-color", newColor);
-          }
-        },
-      },
-      data: {
-        isDark: {},
-      },
-      attached() {
-        this.isDark = isDark;
-      },
-      detached() {
-        this.isDark = {};
       },
     };
   </script>
