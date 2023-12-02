@@ -58,6 +58,16 @@
   --md-ref-palette-normal20: #303030;
   --md-ref-palette-normal10: #1b1b1b;
   --md-ref-palette-normal0: #000000;
+
+  /* translucent */
+  --md-ref-palette-translucent-primary60: rgba(154, 131, 219, 0.2);
+  --md-ref-palette-translucent-primary50: rgba(128, 105, 191, 0.2);
+  --md-ref-palette-translucent-error60: rgba(255, 84, 81, 0.2);
+  --md-ref-palette-translucent-error50: rgba(224, 51, 54, 0.2);
+  --md-ref-palette-translucent-success60: rgba(83, 162, 82, 0.2);
+  --md-ref-palette-translucent-success50: rgba(56, 135, 58, 0.2);
+  --md-ref-palette-translucent-normal60: rgba(145, 145, 145, 0.2);
+  --md-ref-palette-translucent-normal50: rgba(119, 119, 119, 0.2);
 }
 :root {
   --md-sys-color-primary: var(--md-ref-palette-primary40);

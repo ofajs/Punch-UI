@@ -27,6 +27,7 @@
     .container[variant="contained"] {
       background-color: var(--main-color);
       color: var(--on-main-color);
+      --wave-color: rgba(255, 255, 255, 0.2);
       transition: all ease 0.2s;
     }
 
@@ -55,9 +56,9 @@
       border-radius: var(--pui-border-radius);
       transition: border ease 0.05s;
     }
-    .container[variant="outlined"]:hover .fake-border {
+    /* .container[variant="outlined"]:hover .fake-border {
       border: var(--on-main-color-container) solid 1px;
-    }
+    } */
 
     .container[variant="text"] {
       background-color: transparent;
@@ -100,8 +101,12 @@
       transition: all ease 0.2s;
     }
     .container:hover .hover-place {
-      background-color: var(--main-color-container);
+      background-color: var(--main-hover-color);
     }
+
+    /* .container[variant="contained"]:hover .hover-place {
+      background-color: rgba(133, 133, 133, 0.2);
+    } */
 
     .outlined-place {
       display: none;
@@ -176,9 +181,7 @@
   </button>
   <script>
     import "../init.js";
-    // import { isDark } from "../commons/data.js";
-    import { convertToRGBA, setMainColor } from "../commons/util.js";
-    // import { setMainColor } from "../commons/util.js";
+    import { setMainColor } from "../commons/util.js";
     export default {
       tag: "p-button",
       attrs: {
@@ -194,11 +197,6 @@
             setMainColor(this, color);
           }
         },
-        // isDark() {
-        //   setTimeout(() => {
-        //     this.refreshHoverColor();
-        //   }, 100);
-        // },
       },
       proto: {
         clickCon(e) {
@@ -206,27 +204,7 @@
             e.stopImmediatePropagation();
           }
         },
-        // refreshHoverColor() {
-        //   const color = getComputedStyle(this.ele).getPropertyValue(
-        //     `--main-color`
-        //   );
-
-        //   if (color) {
-        //     const newColor = convertToRGBA(color);
-
-        //     this.style.setProperty("--main-hover-color", newColor);
-        //   }
-        // },
       },
-      // data: {
-      //   isDark: {},
-      // },
-      // attached() {
-      //   this.isDark = isDark;
-      // },
-      // detached() {
-      //   this.isDark = {};
-      // },
     };
   </script>
 </template>

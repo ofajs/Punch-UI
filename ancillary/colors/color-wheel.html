@@ -30,6 +30,7 @@
     </div>
   </x-fill>
 
+  <button on:click="clickCopy">Copy</button>
   <template name="color-block">
     <div
       class="color-block"
@@ -48,6 +49,7 @@
 
   <script>
     import { Hct, getColors } from "../../packages/commons/mcu-ts/index.js";
+    import { convertToRGBA } from "../../packages/commons/util.js";
 
     const primary = getColors("#6750a4");
     const error = getColors("#fb4747");
@@ -64,6 +66,18 @@
         cssStr += `\n/* ${name} */\n`;
         arr.forEach((e) => {
           cssStr += `--md-ref-palette-${name}${e.tone}: ${e.bgcolor};\n`;
+        });
+      });
+
+      cssStr += `\n/* translucent */\n`;
+      // Add translucent color
+      colors.forEach(({ name, arr }) => {
+        arr.forEach((e) => {
+          if (e.tone == 60 || e.tone == 50) {
+            cssStr += `--md-ref-palette-translucent-${name}${
+              e.tone
+            }: ${convertToRGBA(e.bgcolor)};\n`;
+          }
         });
       });
 
@@ -96,6 +110,21 @@
         colors: [],
       },
       proto: {
+        clickCopy() {
+          var tempTextArea = document.createElement("textarea");
+          Object.assign(tempTextArea.style, {
+            position: "absolute",
+            width: 0,
+            height: 0,
+            overflow: "hidden",
+          });
+          tempTextArea.value = this.getCode();
+          document.body.appendChild(tempTextArea);
+
+          tempTextArea.select();
+          document.execCommand("copy");
+          document.body.removeChild(tempTextArea);
+        },
         getCode() {
           if (!this.colors.length) {
             return "";
