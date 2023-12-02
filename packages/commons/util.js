@@ -22,3 +22,20 @@ export function convertToRGBA(colorString, opacity = "0.1") {
 
 // console.log(rgbaColor1); // 输出 "rgba(255, 87, 51, 0.1)"
 // console.log(rgbaColor2); // 输出 "rgba(120, 45, 200, 0.1)"
+
+export const setMainColor = (target, color) => {
+  target.style.setProperty("--main-color", `var(--md-sys-color-${color})`);
+  target.style.setProperty(
+    "--on-main-color",
+    `var(--md-sys-color-on-${color})`
+  );
+
+  target.style.setProperty(
+    "--main-color-container",
+    `var(--md-sys-color-${color}-container)`
+  );
+  target.style.setProperty(
+    "--on-main-color-container",
+    `var(--md-sys-color-on-${color}-container)`
+  );
+};

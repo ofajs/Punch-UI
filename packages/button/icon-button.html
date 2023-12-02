@@ -3,7 +3,7 @@
   <style>
     :host {
       display: inline-block;
-      font-size: 18px;
+      font-size: 20px;
     }
     .container {
       position: relative;
@@ -43,6 +43,8 @@
     </x-if>
   </div>
   <script>
+    import { setMainColor } from "../commons/util.js";
+
     export default {
       tag: "p-icon-button",
       attrs: {
@@ -53,11 +55,9 @@
       watch: {
         color(color) {
           if (color) {
-            this.style.setProperty("--main-color", `var(--pui-${color}-color)`);
-            this.style.setProperty(
-              "--font-color",
-              `var(--pui-${color}-font-color)`
-            );
+            if (color) {
+              setMainColor(this, color);
+            }
           }
         },
       },
