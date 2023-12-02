@@ -78,6 +78,10 @@
       p-button-group p-button:last-child::part(contained-place) {
         display: none;
       }
+
+      p-button-group p-button[variant="tonal"]::part(outlined) {
+        border: var(--on-main-color-container) solid 0.5px;
+      }
     </style>
   </inject-host>
   <div class="container">
@@ -88,9 +92,9 @@
     export default {
       tag: "p-button-group",
       attrs: {
-        color: "",
-        variant: "",
-        size: "",
+        color: null,
+        variant: null,
+        size: null,
         disabled: null,
       },
       watch: {
@@ -102,10 +106,6 @@
               }
             });
           }
-
-          // if (this.variant === "outlined") {
-          //   this.css.border = `var(--pui-${val}-color) solid 1px`;
-          // }
         },
         variant(val) {
           if (val) {

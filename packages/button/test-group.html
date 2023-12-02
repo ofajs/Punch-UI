@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>button group</title>
     <link rel="stylesheet" href="../css/public.css" />
-    <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.38/dist/ofa.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.41/dist/ofa.min.js"></script>
     <style>
       *:not(:defined) {
         display: none;
@@ -16,13 +16,6 @@
     </style>
   </head>
   <body>
-    <button-group>
-      <p-button type="primary" variant="outlined">aaa</p-button>
-      <p-button type="primary" variant="outlined">bbb</p-button>
-      <p-button type="primary" variant="contained">ccc</p-button>
-      <p-button type="primary" variant="outlined">dddd</p-button>
-    </button-group>
-
     <l-m src="./group.html"></l-m>
     <l-m src="../../ancillary/comp-shower.html"></l-m>
     <l-m src="../../ancillary/dark-switch.html"></l-m>
@@ -31,10 +24,10 @@
     <comp-shower>
       <template>
         <p-button-group>
-          <p-button>aaa</p-button>
-          <p-button>bbb</p-button>
-          <p-button>ccc</p-button>
-          <p-button>dddd</p-button>
+          <p-button>First</p-button>
+          <p-button>Second</p-button>
+          <p-button>Third</p-button>
+          <p-button>Four</p-button>
         </p-button-group>
       </template>
       <label>
@@ -64,11 +57,20 @@
         variant:
         <select name="variant">
           <option>contained</option>
+          <option>tonal</option>
           <option>outlined</option>
           <option>text</option>
         </select>
       </label>
     </comp-shower>
 
+    <br />
+
+    <p-button-group>
+      <p-button variant="tonal">First</p-button>
+      <p-button variant="outlined">Second</p-button>
+      <p-button variant="outlined">Third</p-button>
+      <p-button variant="outlined">Four</p-button>
+    </p-button-group>
   </body>
 </html>

@@ -48,7 +48,7 @@
       box-shadow: var(--contained-active-shadow);
     }
 
-    .container[variant="outlined"] .fake-border {
+    .fake-border {
       display: block;
       content: "";
       position: absolute;
@@ -57,13 +57,18 @@
       height: 100%;
       left: 0;
       top: 0;
-      border: var(--main-color) solid 1px;
+      /* border: var(--on-main-color-container) solid 0.5px; */
+      border: none;
       border-radius: var(--pui-border-radius);
       transition: border ease 0.05s;
     }
-    /* .container[variant="outlined"]:hover .fake-border {
-      border: var(--on-main-color-container) solid 1px;
-    } */
+
+    .container[variant="outlined"] .fake-border {
+      border: var(--on-main-color-container) solid 0.5px;
+    }
+    .container[variant="outlined"]:hover .fake-border {
+      border: var(--main-color) solid 1px;
+    }
 
     .container[variant="text"] {
       background-color: transparent;
@@ -107,18 +112,6 @@
     }
     .container:hover .hover-place {
       background-color: var(--main-hover-color);
-    }
-
-    /* .container[variant="contained"]:hover .hover-place {
-      background-color: rgba(133, 133, 133, 0.2);
-    } */
-
-    .outlined-place {
-      display: none;
-    }
-
-    .container[variant="outlined"] .outlined-place {
-      display: block;
     }
 
     .text-place {
@@ -176,7 +169,7 @@
       <slot></slot>
       <slot name="suffix"></slot>
     </div>
-    <div class="fake-border outlined-place" part="outlined"></div>
+    <div class="fake-border" part="outlined"></div>
     <div class="hover-place" part="hover"></div>
     <div class="text-place" part="text-place"></div>
     <div class="contained-place" part="contained-place"></div>

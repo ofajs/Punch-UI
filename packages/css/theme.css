@@ -31,17 +31,17 @@
 
   /* success */
   --md-ref-palette-success100: #ffffff;
-  --md-ref-palette-success98: #ecffe4;
-  --md-ref-palette-success95: #c8ffbf;
-  --md-ref-palette-success90: #a3f69c;
-  --md-ref-palette-success80: #88d982;
-  --md-ref-palette-success70: #6dbd6a;
-  --md-ref-palette-success60: #53a252;
-  --md-ref-palette-success50: #38873a;
-  --md-ref-palette-success40: #1b6d24;
-  --md-ref-palette-success30: #005312;
-  --md-ref-palette-success20: #003909;
-  --md-ref-palette-success10: #002204;
+  --md-ref-palette-success98: #edffdf;
+  --md-ref-palette-success95: #ccffb2;
+  --md-ref-palette-success90: #b9f29c;
+  --md-ref-palette-success80: #9ed583;
+  --md-ref-palette-success70: #83b96a;
+  --md-ref-palette-success60: #6a9e52;
+  --md-ref-palette-success50: #51833b;
+  --md-ref-palette-success40: #396a25;
+  --md-ref-palette-success30: #21510e;
+  --md-ref-palette-success20: #0e3900;
+  --md-ref-palette-success10: #052100;
   --md-ref-palette-success0: #000000;
 
   /* normal */
@@ -64,8 +64,8 @@
   --md-ref-palette-translucent-primary50: rgba(128, 105, 191, 0.2);
   --md-ref-palette-translucent-error60: rgba(255, 84, 81, 0.2);
   --md-ref-palette-translucent-error50: rgba(224, 51, 54, 0.2);
-  --md-ref-palette-translucent-success60: rgba(83, 162, 82, 0.2);
-  --md-ref-palette-translucent-success50: rgba(56, 135, 58, 0.2);
+  --md-ref-palette-translucent-success60: rgba(106, 158, 82, 0.2);
+  --md-ref-palette-translucent-success50: rgba(81, 131, 59, 0.2);
   --md-ref-palette-translucent-normal60: rgba(145, 145, 145, 0.2);
   --md-ref-palette-translucent-normal50: rgba(119, 119, 119, 0.2);
 }
