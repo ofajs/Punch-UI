@@ -27,15 +27,18 @@
     .container[variant="contained"] {
       background-color: var(--main-color);
       color: var(--on-main-color);
-      box-shadow: var(--contained-shadow);
       transition: all ease 0.2s;
     }
 
-    .container[variant="contained"]:hover {
+    :host([elevate]) .container {
+      box-shadow: var(--contained-shadow);
+    }
+
+    :host([elevate]) .container:hover {
       box-shadow: var(--contained-hover-shadow);
     }
 
-    .container[variant="contained"]:active {
+    :host([elevate]) .container:active {
       box-shadow: var(--contained-active-shadow);
     }
 
@@ -43,17 +46,17 @@
       display: block;
       content: "";
       position: absolute;
-      width: calc(100% - 1px);
-      height: calc(100% - 1px);
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
       left: 0;
       top: 0;
-      border: var(--on-main-color-container) solid 0.5px;
+      border: var(--main-color) solid 1px;
       border-radius: var(--pui-border-radius);
+      transition: border ease 0.05s;
     }
     .container[variant="outlined"]:hover .fake-border {
-      width: calc(100% - 2px);
-      height: calc(100% - 2px);
-      border-width: 1px;
+      border: var(--on-main-color-container) solid 1px;
     }
 
     .container[variant="text"] {
@@ -93,12 +96,11 @@
       top: 0;
       width: 100%;
       height: 100%;
-      z-index: 2;
+      z-index: 0;
       transition: all ease 0.2s;
     }
     .container:hover .hover-place {
-      background-color: var(--main-hover-color);
-      /* background-color: var(--main-color-container); */
+      background-color: var(--main-color-container);
     }
 
     .outlined-place {
@@ -142,6 +144,13 @@
     :host([size="small"]) ::slotted([slot="suffix"]) {
       font-size: 16px;
     }
+    .solter {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   </style>
   <button
     class="container"
@@ -152,9 +161,11 @@
     part="container"
     attr:disabled="disabled"
   >
-    <slot name="prefix"></slot>
-    <slot></slot>
-    <slot name="suffix"></slot>
+    <div class="solter">
+      <slot name="prefix"></slot>
+      <slot></slot>
+      <slot name="suffix"></slot>
+    </div>
     <div class="fake-border outlined-place" part="outlined"></div>
     <div class="hover-place" part="hover"></div>
     <div class="text-place" part="text-place"></div>
@@ -165,12 +176,14 @@
   </button>
   <script>
     import "../init.js";
-    import { isDark } from "../commons/data.js";
+    // import { isDark } from "../commons/data.js";
     import { convertToRGBA, setMainColor } from "../commons/util.js";
+    // import { setMainColor } from "../commons/util.js";
     export default {
       tag: "p-button",
       attrs: {
         variant: "contained",
+        elevate: null,
         size: null,
         color: "normal",
         disabled: null,
@@ -181,11 +194,11 @@
             setMainColor(this, color);
           }
         },
-        isDark() {
-          setTimeout(() => {
-            this.refreshHoverColor();
-          }, 100);
-        },
+        // isDark() {
+        //   setTimeout(() => {
+        //     this.refreshHoverColor();
+        //   }, 100);
+        // },
       },
       proto: {
         clickCon(e) {
@@ -193,27 +206,27 @@
             e.stopImmediatePropagation();
           }
         },
-        refreshHoverColor() {
-          const color = getComputedStyle(this.ele).getPropertyValue(
-            `--main-color`
-          );
+        // refreshHoverColor() {
+        //   const color = getComputedStyle(this.ele).getPropertyValue(
+        //     `--main-color`
+        //   );
 
-          if (color) {
-            const newColor = convertToRGBA(color);
+        //   if (color) {
+        //     const newColor = convertToRGBA(color);
 
-            this.style.setProperty("--main-hover-color", newColor);
-          }
-        },
+        //     this.style.setProperty("--main-hover-color", newColor);
+        //   }
+        // },
       },
-      data: {
-        isDark: {},
-      },
-      attached() {
-        this.isDark = isDark;
-      },
-      detached() {
-        this.isDark = {};
-      },
+      // data: {
+      //   isDark: {},
+      // },
+      // attached() {
+      //   this.isDark = isDark;
+      // },
+      // detached() {
+      //   this.isDark = {};
+      // },
     };
   </script>
 </template>

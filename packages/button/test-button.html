@@ -43,6 +43,13 @@
         </select>
       </label>
       <label>
+        elevate:
+        <select name="elevate">
+          <option>null</option>
+          <option value="">Empty</option>
+        </select>
+      </label>
+      <label>
         size:
         <select name="size">
           <option>default</option>
@@ -56,7 +63,7 @@
           <option>primary</option>
           <option>error</option>
           <option>normal</option>
-          <!-- <option>success</option> -->
+          <option>success</option>
         </select>
       </label>
       <label>
@@ -70,7 +77,7 @@
     </comp-shower>
 
     <div>
-      <p-button color="primary">
+      <p-button color="primary" elevate>
         <iconify-icon
           icon="material-symbols:delete-outline"
           slot="prefix"
