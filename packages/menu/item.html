@@ -96,7 +96,6 @@
     attr:disabled="disabled"
     on:focus="focusFakeBtn"
     on:blur="blurFakeBtn"
-    on:click="clickFakeBtn"
   ></button>
   <div
     class="container"
@@ -137,8 +136,6 @@
         blurFakeBtn() {
           this.infocus = false;
 
-          console.clear();
-
           setTimeout(() => {
             this.parents.some((e) => {
               if (!(e.tag === "p-menu" || e.tag === "p-menu-item")) {
@@ -160,9 +157,6 @@
               }
             });
           });
-        },
-        clickFakeBtn() {
-          debugger;
         },
         enterItem() {
           if (this.hasMenu) {
