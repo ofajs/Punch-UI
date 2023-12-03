@@ -17,7 +17,8 @@
       cursor: not-allowed;
     }
 
-    .container:hover {
+    .container:hover,
+    .container.focus {
       background-color: rgba(181, 181, 181, 0.2);
     }
 
@@ -75,16 +76,32 @@
       height: 0;
       border-top: solid 5px transparent;
       border-bottom: solid 5px transparent;
-      border-left: solid 5px var(--triangle-color, var(--md-sys-color-on-normal-container));
+      border-left: solid 5px
+        var(--triangle-color, var(--md-sys-color-on-normal-container));
     }
 
     .container.has-menu .triangle {
       display: flex;
     }
+
+    .fake-button {
+      position: absolute;
+      bottom: 0;
+      pointer-events: none;
+      opacity: 0;
+    }
   </style>
+  <button
+    class="fake-button"
+    attr:disabled="disabled"
+    on:focus="focusFakeBtn"
+    on:blur="blurFakeBtn"
+    on:click="clickFakeBtn"
+  ></button>
   <div
     class="container"
     part="container"
+    class:focus="infocus"
     class:has-menu="hasMenu"
     on:mouseenter="enterItem"
     on:mouseleave="leaveItem"
@@ -110,8 +127,43 @@
       },
       data: {
         hasMenu: false,
+        infocus: false,
       },
       proto: {
+        focusFakeBtn() {
+          this.infocus = true;
+          this.enterItem();
+        },
+        blurFakeBtn() {
+          this.infocus = false;
+
+          console.clear();
+
+          setTimeout(() => {
+            this.parents.some((e) => {
+              if (!(e.tag === "p-menu" || e.tag === "p-menu-item")) {
+                return true;
+              }
+
+              if (
+                e.tag === "p-menu" &&
+                e.parent &&
+                e.parent.tag === "p-menu-item"
+              ) {
+                const infocus = e.all("p-menu-item").some((item) => {
+                  return item.infocus;
+                });
+
+                if (!infocus) {
+                  e.visibility = "hidden";
+                }
+              }
+            });
+          });
+        },
+        clickFakeBtn() {
+          debugger;
+        },
         enterItem() {
           if (this.hasMenu) {
             this.$("p-menu").visibility = "";
