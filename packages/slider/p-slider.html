@@ -16,6 +16,16 @@
       border-radius: var(--pui-border-radius);
       background-color: var(--pui-main-color);
     }
+    .rang:before {
+      display: block;
+      content: "";
+      position: absolute;
+      left: 0;
+      top: -13px;
+      width: calc(100% + 10px);
+      height: 30px;
+      /* background-color: rgba(255, 0, 0, 0.244); */
+    }
     .cursor {
       position: absolute;
       right: 0;
@@ -66,7 +76,7 @@
       border-left: transparent solid 9.8px;
     }
 
-    .cursor:hover .bubble,
+    .rang:hover .bubble,
     .inmousedown .bubble {
       opacity: 1;
       transform: translate(-50%, 0);
