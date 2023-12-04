@@ -16,9 +16,9 @@
       border-radius: var(--pui-border-radius);
       background-color: var(--pui-main-color);
     }
-    .cursor-end {
+    .cursor {
       position: absolute;
-      right: 0%;
+      right: 0;
       top: -8px;
       width: 20px;
       height: 20px;
@@ -28,17 +28,52 @@
       cursor: pointer;
       box-shadow: var(--contained-shadow);
     }
-    .cursor-end:hover {
+    .cursor:hover {
       box-shadow: var(--contained-hover-shadow);
     }
-    .cursor-end:active {
+    .cursor:active {
       box-shadow: var(--contained-active-shadow);
     }
+
+    .bubble {
+      position: absolute;
+      left: -3px;
+      top: -38px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 14px;
+      font-size: 12px;
+      color: var(--pui-on-main-color);
+      background-color: var(--pui-main-color);
+      z-index: 2;
+      opacity: 0;
+      transform: translate(0, 10px);
+      transition: all ease 0.2s;
+    }
+    .bubble::after {
+      position: absolute;
+      bottom: -5px;
+      display: block;
+      content: "";
+      border-top: var(--pui-main-color) solid 10px;
+      border-right: transparent solid 10px;
+      border-left: transparent solid 10px;
+    }
+
+    .cursor:hover .bubble,
+    .inmousedown .bubble {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
   </style>
-  <div class="container">
-    <!-- <div class="rang" style="width: 50%"> -->
+  <div class="container" class:inmousedown="inmousedown">
     <div class="rang" attr:style="`width:${rangWidth}`">
-      <div class="cursor-end" on:mousedown="mousedown"></div>
+      <div class="cursor cursor-end" on:mousedown="mousedown">
+        <div class="bubble">{{value}}</div>
+      </div>
     </div>
   </div>
   <script>
@@ -47,12 +82,14 @@
     export default {
       attrs: {
         color: null,
-        min: -50,
+        min: 0,
         max: 100,
         step: 1,
         value: 50,
       },
-      data: {},
+      data: {
+        inmousedown: false,
+      },
       watch: {
         color(color) {
           if (color) {
@@ -78,10 +115,11 @@
           }
 
           const width = this.width;
+          this.inmousedown = true;
 
           let startValue = parseFloat(this.value);
           const totalValue = this.max - this.min;
-          console.log("mousedown", e);
+          // console.log("mousedown", e);
 
           const startX = e.screenX;
           $("body").on(
@@ -90,7 +128,9 @@
               const diffX = e2.screenX - startX;
               let value = startValue + (diffX / width) * totalValue;
 
-              console.log(value, diffX, width, totalValue, startX);
+              console.log(value);
+
+              // console.log(value, diffX, width, totalValue, startX);
 
               if (value > this.max) {
                 value = parseFloat(this.max);
@@ -110,6 +150,7 @@
               $("body").off("mouseup", this._upFun);
               $("body").off("mouseleave", this._upFun);
               this._upFun = null;
+              this.inmousedown = false;
             })
           );
 
