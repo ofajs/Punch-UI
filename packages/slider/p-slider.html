@@ -1,20 +1,56 @@
 <template component>
   <style>
     :host {
-      display: block;
+      display: inline-block;
+      width: 200px;
     }
     .container {
+      position: relative;
       height: 4px;
-      background-color: var(--pui-main-color, red);
+      border-radius: var(--pui-border-radius);
+      background-color: var(--pui-main-color-container);
+    }
+    .rang {
+      position: absolute;
+      height: 4px;
+      border-radius: var(--pui-border-radius);
+      background-color: var(--pui-main-color);
+    }
+    .cursor-end {
+      position: absolute;
+      right: 0%;
+      top: -8px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      transform: translate(50%, 0);
+      background-color: var(--pui-main-color);
+      cursor: pointer;
+      box-shadow: var(--contained-shadow);
+    }
+    .cursor-end:hover {
+      box-shadow: var(--contained-hover-shadow);
+    }
+    .cursor-end:active {
+      box-shadow: var(--contained-active-shadow);
     }
   </style>
-  <div class="container"></div>
+  <div class="container">
+    <!-- <div class="rang" style="width: 50%"> -->
+    <div class="rang" attr:style="`width:${rangWidth}`">
+      <div class="cursor-end" on:mousedown="mousedown"></div>
+    </div>
+  </div>
   <script>
     import "../init.js";
     import { setMainColor } from "../commons/util.js";
     export default {
       attrs: {
         color: null,
+        min: -50,
+        max: 100,
+        step: 1,
+        value: 50,
       },
       data: {},
       watch: {
@@ -22,6 +58,62 @@
           if (color) {
             setMainColor(this, color);
           }
+        },
+      },
+      proto: {
+        get rangWidth() {
+          let num = ((this.value - this.min) / (this.max - this.min)) * 100;
+          if (num > 100) {
+            num = 100;
+          } else if (num < 0) {
+            num = 0;
+          }
+
+          return num + "%";
+        },
+        mousedown(e) {
+          // clear old binding
+          if (this._upFun) {
+            this._upFun();
+          }
+
+          const width = this.width;
+
+          let startValue = parseFloat(this.value);
+          const totalValue = this.max - this.min;
+          console.log("mousedown", e);
+
+          const startX = e.screenX;
+          $("body").on(
+            "mousemove",
+            (this._moveFun = (e2) => {
+              const diffX = e2.screenX - startX;
+              let value = startValue + (diffX / width) * totalValue;
+
+              console.log(value, diffX, width, totalValue, startX);
+
+              if (value > this.max) {
+                value = parseFloat(this.max);
+              } else if (value < this.min) {
+                value = parseFloat(this.min);
+              }
+
+              this.value = value;
+            })
+          );
+
+          $("body").on(
+            "mouseup",
+            (this._upFun = (e3) => {
+              console.log("mouseup");
+              $("body").off("mousemove", this._moveFun);
+              $("body").off("mouseup", this._upFun);
+              $("body").off("mouseleave", this._upFun);
+              this._upFun = null;
+            })
+          );
+
+          $("body").on("mouseleave", this._upFun);
         },
       },
     };

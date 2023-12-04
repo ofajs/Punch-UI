@@ -10,6 +10,10 @@
     ></script>
     <link rel="stylesheet" href="../css/public.css" />
     <style>
+      html,
+      body {
+        height: 100%;
+      }
       *:not(:defined) {
         display: none;
       }
@@ -19,6 +23,8 @@
     <l-m src="../../ancillary/dark-switch.html"></l-m>
     <l-m src="./p-slider.html"></l-m>
     <dark-switch></dark-switch>
-    <p-slider></p-slider>
+    <div style="padding: 50px">
+      <p-slider></p-slider>
+    </div>
   </body>
 </html>
