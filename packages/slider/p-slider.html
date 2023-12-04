@@ -169,9 +169,10 @@
         },
         clickContainer(e) {
           const rect = e.target.getBoundingClientRect();
-          const diffX = e.screenX - rect.left;
+          const diffX = e.clientX - rect.left;
+          console.log(rect, e);
           const percent = diffX / rect.width;
-          let value = (this.max - this.min) * percent;
+          let value = (this.max - this.min) * percent + parseFloat(this.min);
 
           let ratio = value / parseFloat(this.step);
           ratio = Math.round(ratio);
@@ -193,11 +194,11 @@
           const totalValue = this.max - this.min;
           // console.log("mousedown", e);
 
-          const startX = e.screenX;
+          const startX = e.clientX;
           $("body").on(
             "mousemove",
             (this._moveFun = (e2) => {
-              const diffX = e2.screenX - startX;
+              const diffX = e2.clientX - startX;
               let value = startValue + (diffX / width) * totalValue;
 
               // console.log(value);
@@ -221,7 +222,6 @@
           $("body").on(
             "mouseup",
             (this._upFun = (e3) => {
-              console.log("mouseup");
               $("body").off("mousemove", this._moveFun);
               $("body").off("mouseup", this._upFun);
               $("body").off("mouseleave", this._upFun);
