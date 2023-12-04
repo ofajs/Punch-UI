@@ -81,10 +81,32 @@
       opacity: 1;
       transform: translate(-50%, 0);
     }
+
+    .mark {
+      position: absolute;
+      left: -10px;
+      top: -10px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--pui-main-hover-color);
+      transform: scale(0%);
+      opacity: 0.5;
+      transition: all ease 0.1s;
+    }
+
+    .cursor:hover .mark {
+      transform: scale(100%);
+    }
+    .cursor:active .mark {
+      opacity: 1;
+      transform: scale(100%);
+    }
   </style>
   <div class="container" class:inmousedown="inmousedown">
     <div class="rang" attr:style="`width:${rangWidth}`">
       <div class="cursor cursor-end" on:mousedown="mousedown">
+        <div class="mark"></div>
         <div class="bubble">{{value}}</div>
       </div>
     </div>
