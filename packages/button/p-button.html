@@ -4,6 +4,7 @@
     :host {
       display: inline-block;
       --pui-border-radius: 30px;
+      --wave-color: var(--md-ref-palette-translucent-primary50);
     }
 
     .container {
@@ -208,15 +209,13 @@
         variant: "contained",
         elevated: null,
         size: null,
-        color: "primary",
+        color: null,
         disabled: null,
         icon: null,
       },
       watch: {
         color(color) {
-          if (color) {
-            setMainColor(this, color);
-          }
+          setMainColor(this, color);
         },
       },
       proto: {

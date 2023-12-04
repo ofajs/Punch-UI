@@ -26,6 +26,16 @@ export function convertToRGBA(colorString, opacity = 20) {
 // console.log(rgbaColor2); // 输出 "rgba(120, 45, 200, 0.2)"
 
 export const setMainColor = (target, color) => {
+  if (!color) {
+    target.style.setProperty("--main-color", ``);
+    target.style.setProperty("--on-main-color", ``);
+    target.style.setProperty("--main-color-container", ``);
+    target.style.setProperty("--on-main-color-container", ``);
+    target.style.setProperty("--main-hover-color", ``);
+    target.style.setProperty("--wave-color", ``);
+    return;
+  }
+
   target.style.setProperty("--main-color", `var(--md-sys-color-${color})`);
   target.style.setProperty(
     "--on-main-color",

@@ -1,3 +1,29 @@
 <template component>
-  <div>asd</div>
+  <style>
+    :host {
+      display: block;
+    }
+    .container {
+      height: 4px;
+      background-color: var(--main-color, red);
+    }
+  </style>
+  <div class="container"></div>
+  <script>
+    import "../init.js";
+    import { setMainColor } from "../commons/util.js";
+    export default {
+      attrs: {
+        color: null,
+      },
+      data: {},
+      watch: {
+        color(color) {
+          if (color) {
+            setMainColor(this, color);
+          }
+        },
+      },
+    };
+  </script>
 </template>
