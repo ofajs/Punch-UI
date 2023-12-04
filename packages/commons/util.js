@@ -16,42 +16,33 @@ export function convertToRGBA(colorString, opacity = 20) {
   }
 }
 
-// const color1 = "#FF5733";
-// const color2 = "rgb(120, 45, 200)";
-
-// const rgbaColor1 = convertToRGBA(color1);
-// const rgbaColor2 = convertToRGBA(color2);
-
-// console.log(rgbaColor1); // 输出 "rgba(255, 87, 51, 0.2)"
-// console.log(rgbaColor2); // 输出 "rgba(120, 45, 200, 0.2)"
-
 export const setMainColor = (target, color) => {
   if (!color) {
-    target.style.setProperty("--main-color", ``);
-    target.style.setProperty("--on-main-color", ``);
-    target.style.setProperty("--main-color-container", ``);
-    target.style.setProperty("--on-main-color-container", ``);
-    target.style.setProperty("--main-hover-color", ``);
+    target.style.setProperty("--pui-main-color", ``);
+    target.style.setProperty("--pui-on-main-color", ``);
+    target.style.setProperty("--pui-main-color-container", ``);
+    target.style.setProperty("--pui-on-main-color-container", ``);
+    target.style.setProperty("--pui-main-hover-color", ``);
     target.style.setProperty("--wave-color", ``);
     return;
   }
 
-  target.style.setProperty("--main-color", `var(--md-sys-color-${color})`);
+  target.style.setProperty("--pui-main-color", `var(--md-sys-color-${color})`);
   target.style.setProperty(
-    "--on-main-color",
+    "--pui-on-main-color",
     `var(--md-sys-color-on-${color})`
   );
 
   target.style.setProperty(
-    "--main-color-container",
+    "--pui-main-color-container",
     `var(--md-sys-color-${color}-container)`
   );
   target.style.setProperty(
-    "--on-main-color-container",
+    "--pui-on-main-color-container",
     `var(--md-sys-color-on-${color}-container)`
   );
   target.style.setProperty(
-    "--main-hover-color",
+    "--pui-main-hover-color",
     `var(--md-ref-palette-translucent-${color}60)`
   );
   target.style.setProperty(

@@ -26,15 +26,15 @@
     }
 
     .container[variant="contained"] {
-      background-color: var(--main-color);
-      color: var(--on-main-color);
+      background-color: var(--pui-main-color);
+      color: var(--pui-on-main-color);
       --wave-color: rgba(255, 255, 255, 0.2);
       transition: all ease 0.2s;
     }
 
     .container[variant="tonal"] {
-      background-color: var(--main-color-container);
-      color: var(--on-main-color-container);
+      background-color: var(--pui-main-color-container);
+      color: var(--pui-on-main-color-container);
     }
 
     :host([elevated]) .container {
@@ -58,17 +58,17 @@
       height: 100%;
       left: -0.5px;
       top: 0;
-      /* border: var(--on-main-color-container) solid 0.5px; */
+      /* border: var(--pui-on-main-color-container) solid 0.5px; */
       border: none;
       border-radius: var(--pui-border-radius);
       transition: border ease 0.05s;
     }
 
     .container[variant="outlined"] .fake-border {
-      border: var(--on-main-color-container) solid 0.5px;
+      border: var(--pui-on-main-color-container) solid 0.5px;
     }
     .container[variant="outlined"]:hover .fake-border {
-      border: var(--main-color) solid 1px;
+      border: var(--pui-main-color) solid 1px;
     }
 
     .container[variant="text"] {
@@ -78,7 +78,7 @@
 
     .container[variant="outlined"],
     .container[variant="text"] {
-      color: var(--main-color);
+      color: var(--pui-main-color);
     }
 
     .container[size="small"] {
@@ -133,7 +133,7 @@
       transition: all ease 0.2s;
     }
     .container:hover .hover-place {
-      background-color: var(--main-hover-color);
+      background-color: var(--pui-main-hover-color);
     }
 
     .text-place {
