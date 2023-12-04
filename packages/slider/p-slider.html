@@ -97,8 +97,9 @@
         color: null,
         min: 0,
         max: 100,
-        step: 0.5,
+        step: 1,
         value: 50,
+        marks: null,
       },
       data: {
         inmousedown: false,
@@ -143,9 +144,9 @@
 
               // console.log(value);
 
-              let ratio = value / this.step;
+              let ratio = value / parseFloat(this.step);
               ratio = Math.round(ratio);
-              value = ratio * this.step;
+              value = ratio * parseFloat(this.step);
 
               // console.log(value, diffX, width, totalValue, startX);
 
