@@ -92,6 +92,27 @@
       height: 42px;
       font-size: 18px;
     }
+
+    .container.icon-btn {
+      box-sizing: border-box;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 18px;
+    }
+
+    .container.icon-btn[size="small"] {
+      width: 30px;
+      height: 30px;
+      font-size: 16px;
+    }
+
+    .container.icon-btn[size="large"] {
+      width: 42px;
+      height: 42px;
+      font-size: 22px;
+    }
+
     .container.disabled {
       opacity: 0.6;
       cursor: not-allowed;
@@ -163,6 +184,7 @@
     on:click="clickCon"
     part="container"
     attr:disabled="disabled"
+    class:icon-btn="typeof icon === 'string'"
   >
     <div class="solter">
       <slot name="prefix"></slot>
@@ -188,6 +210,7 @@
         size: null,
         color: "primary",
         disabled: null,
+        icon: null,
       },
       watch: {
         color(color) {

@@ -21,7 +21,6 @@
     <l-m src="../../ancillary/comp-shower.html"></l-m>
     <l-m src="../../ancillary/dark-switch.html"></l-m>
     <l-m src="./p-button.html"></l-m>
-    <l-m src="./icon-button.html"></l-m>
     <dark-switch></dark-switch>
     <!-- 
     <p-button variant="contained" id="aaa" disabled>Test</p-button>
@@ -31,9 +30,59 @@
       });
     </script> -->
 
-    <comp-shower>
+    <comp-shower name="button">
       <template>
         <p-button>Test Button</p-button>
+      </template>
+      <label>
+        disabled:
+        <select name="disabled">
+          <option>null</option>
+          <option value="">Empty</option>
+        </select>
+      </label>
+      <label>
+        elevated:
+        <select name="elevated">
+          <option>null</option>
+          <option value="">Empty</option>
+        </select>
+      </label>
+      <label>
+        size:
+        <select name="size">
+          <option>default</option>
+          <option>small</option>
+          <option>large</option>
+        </select>
+      </label>
+      <label>
+        color:
+        <select name="color">
+          <option>primary</option>
+          <option>error</option>
+          <option>normal</option>
+          <option>success</option>
+        </select>
+      </label>
+      <label>
+        variant:
+        <select name="variant">
+          <option>contained</option>
+          <option>tonal</option>
+          <option>outlined</option>
+          <option>text</option>
+        </select>
+      </label>
+    </comp-shower>
+
+    <br>
+
+    <comp-shower name="icon button">
+      <template>
+        <p-button icon>
+          <iconify-icon icon="material-symbols:delete-outline"></iconify-icon>
+        </p-button>
       </template>
       <label>
         disabled:
@@ -123,7 +172,7 @@
         Send
       </p-button>
     </div>
-    <div>
+    <!-- <div>
       <p-icon-button>
         <iconify-icon icon="material-symbols:delete-outline"></iconify-icon>
       </p-icon-button>
@@ -140,7 +189,7 @@
       <p-icon-button size="large">
         <iconify-icon icon="material-symbols:delete-outline"></iconify-icon>
       </p-icon-button>
-    </div>
+    </div> -->
 
     <!-- <div>
       <p-button variant="contained">Contained</p-button>
