@@ -37,36 +37,39 @@
 
     .bubble {
       position: absolute;
-      left: -3px;
+      left: 10px;
       top: -38px;
+      box-sizing: border-box;
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 26px;
+      min-width: 26px;
       height: 26px;
+      padding: 0 var(--pui-space-x);
       border-radius: 14px;
       font-size: 12px;
-      color: var(--pui-on-main-color);
-      background-color: var(--pui-main-color);
       z-index: 2;
       opacity: 0;
-      transform: translate(0, 10px);
+      color: var(--pui-on-main-color);
+      background-color: var(--pui-main-color);
+      user-select: none;
+      transform: translate(-50%, 10px);
       transition: all ease 0.2s;
     }
     .bubble::after {
       position: absolute;
-      bottom: -5px;
+      bottom: -6px;
       display: block;
       content: "";
       border-top: var(--pui-main-color) solid 10px;
-      border-right: transparent solid 10px;
-      border-left: transparent solid 10px;
+      border-right: transparent solid 9.8px;
+      border-left: transparent solid 9.8px;
     }
 
     .cursor:hover .bubble,
     .inmousedown .bubble {
       opacity: 1;
-      transform: translate(0, 0);
+      transform: translate(-50%, 0);
     }
   </style>
   <div class="container" class:inmousedown="inmousedown">
@@ -84,7 +87,7 @@
         color: null,
         min: 0,
         max: 100,
-        step: 1,
+        step: 0.5,
         value: 50,
       },
       data: {
@@ -128,7 +131,11 @@
               const diffX = e2.screenX - startX;
               let value = startValue + (diffX / width) * totalValue;
 
-              console.log(value);
+              // console.log(value);
+
+              let ratio = value / this.step;
+              ratio = Math.round(ratio);
+              value = ratio * this.step;
 
               // console.log(value, diffX, width, totalValue, startX);
 
