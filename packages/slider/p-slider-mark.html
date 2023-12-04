@@ -47,7 +47,9 @@
           }
         },
         clickMark() {
-          this.parent.value = parseFloat(this.value);
+          const { parent } = this;
+          parent.enableAnime = true;
+          parent.value = parseFloat(this.value);
         },
       },
       watch: {
