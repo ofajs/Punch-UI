@@ -73,6 +73,11 @@
         padding-bottom: 0 !important;
       }
 
+      p-menu[visibility="hidden"] p-menu-item::part(fake-button) {
+        /* Remove focus when hidden */
+        display: none !important;
+      }
+
       p-menu [slot="prefix"] {
         transition: all ease 0.2s;
       }
