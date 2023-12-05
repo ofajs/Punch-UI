@@ -1,0 +1,26 @@
+<template component>
+  <style>
+    :host {
+      display: block;
+      flex: 1;
+      flex-wrap: wrap;
+      padding: 0 calc(var(--pui-space-x) * 2);
+    }
+  </style>
+  <div class="container">
+    <slot></slot>
+  </div>
+  <script>
+    export default {
+      attrs: {
+        align: null,
+      },
+      watch: {
+        align() {
+          this.emit("change-cell-align");
+        },
+      },
+      attached() {},
+    };
+  </script>
+</template>

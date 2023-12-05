@@ -1,0 +1,59 @@
+<template component>
+  <l-m src="./p-table-row.html"></l-m>
+  <l-m src="./p-table-cell.html"></l-m>
+  <style>
+    .container {
+      display: flex;
+      flex-direction: column;
+      padding: var(--pui-space-y) 0;
+      color: var(--md-sys-color-on-normal-container);
+      border-radius: var(--pui-border-radius);
+      box-shadow: var(--contained-shadow);
+      background-color: var(--md-sys-color-on-normal);
+      font-size: 14px;
+    }
+
+    ::slotted(p-table-row:last-child) {
+      border-bottom: none;
+    }
+  </style>
+  <div class="container">
+    <slot></slot>
+  </div>
+  <script>
+    export default {
+      data: {},
+      proto: {
+        refreshAlign() {
+          const headRow = this.$("p-table-row[head]");
+          let styleStr = "";
+          headRow.forEach((e, index) => {
+            if (e.align) {
+              styleStr += `p-table[data-table-id="${
+                this._tableId
+              }"] p-table-cell:nth-child(${index + 1}){text-align:${e.align};}`;
+            }
+          });
+          this.__currentStyle.html = styleStr;
+        },
+      },
+      ready() {
+        const tid = (this._tableId = Math.random().toString(32).slice(2));
+        this.attr("data-table-id", tid);
+
+        this.on("change-cell-align", () => {
+          this.refreshAlign();
+        });
+      },
+      attached() {
+        const currentStyle = $(`<style table-id="${this._tableId}"></style>`);
+        this.__currentStyle = currentStyle;
+        const par = this.root.$("head") || this.root;
+        par.push(currentStyle);
+      },
+      detached() {
+        this.__currentStyle.remove();
+      },
+    };
+  </script>
+</template>

@@ -1,0 +1,37 @@
+<template component>
+  <style>
+    :host {
+      display: block;
+      border-bottom: var(--md-sys-color-normal-container) solid 1px;
+      padding: calc(var(--pui-space-y) * 1.5) 0;
+    }
+    .container {
+      display: flex;
+    }
+  </style>
+  <x-if :value="head!== null">
+    <style>
+      ::slotted(p-table-cell) {
+        font-weight: 600;
+      }
+    </style>
+  </x-if>
+  <div class="container">
+    <slot></slot>
+  </div>
+  <script>
+    export default {
+      attrs: {
+        head: null,
+      },
+      proto: {},
+      ready() {
+        this.on("change-cell-align", (e) => {
+          if (this.head === null) {
+            e.stopImmediatePropagation();
+          }
+        });
+      },
+    };
+  </script>
+</template>

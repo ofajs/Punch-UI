@@ -170,7 +170,6 @@
         clickContainer(e) {
           const rect = e.target.getBoundingClientRect();
           const diffX = e.clientX - rect.left;
-          console.log(rect, e);
           const percent = diffX / rect.width;
           let value = (this.max - this.min) * percent + parseFloat(this.min);
 
