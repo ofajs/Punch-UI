@@ -2,9 +2,15 @@
   <l-m src="./p-table-row.html"></l-m>
   <l-m src="./p-table-cell.html"></l-m>
   <style>
+    :host {
+      position: relative;
+      display: block;
+    }
     .container {
       display: flex;
       flex-direction: column;
+      height: 100%;
+      overflow: auto;
       padding: var(--pui-space-y) 0;
       color: var(--md-sys-color-on-normal-container);
       border-radius: var(--pui-border-radius);
