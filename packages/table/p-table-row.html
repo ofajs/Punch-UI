@@ -1,9 +1,12 @@
 <template component>
   <style>
     :host {
+      position: relative;
       display: block;
+      z-index: 1;
       border-bottom: var(--md-sys-color-normal-container) solid 1px;
     }
+
     .container {
       display: flex;
       padding: calc(var(--pui-space-y) * 1.5) 0;
@@ -14,26 +17,28 @@
       opacity: 0;
     }
 
-    :host([head][sticky]) .fake-block {
+    /* :host([head][sticky]) .fake-block {
       display: block;
-    }
+    } */
 
     :host([head][sticky]) {
-      border: none;
+      position: sticky;
+      top: 0;
+      background-color: var(--md-sys-color-on-normal);
+      z-index: 2;
+      /* border: none; */
     }
 
-    :host([head][sticky]) .container {
+    /* :host([head][sticky]) .container {
       position: absolute;
       width: 100%;
       left: 0;
       top: 0;
       z-index: 2;
-      /* overflow: auto; */
-      overflow: hidden;
       border-radius: var(--pui-border-radius) var(--pui-border-radius) 0 0;
       border-bottom: var(--md-sys-color-normal-container) solid 1px;
       background-color: var(--md-sys-color-on-normal);
-    }
+    } */
 
     :host([head][sticky]) .container::-webkit-scrollbar {
       height: 0;
@@ -46,7 +51,7 @@
       }
     </style>
   </x-if>
-  <div class="fake-block">p-table-row</div>
+  <!-- <div class="fake-block">p-table-row</div> -->
   <div class="container">
     <slot></slot>
   </div>
