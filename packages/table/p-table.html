@@ -6,8 +6,14 @@
       p-table-row:last-child {
         border-bottom: none;
       }
-      p-table-row:not([head]):hover {
-        background-color: rgba(128, 128, 128, 0.1);
+      p-table-row:not([head]):hover p-table-cell:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(128, 128, 128, 0.05);
       }
     </style>
   </inject-host>
@@ -94,7 +100,7 @@
               const isStickyRight = e.stickyRight !== null;
 
               if (isStickyLeft || isStickyRight) {
-                colStyle += "position:sticky;";
+                colStyle += "position:sticky;z-index:1;";
 
                 let isSetShadow = false;
                 if (isStickyLeft && isStickyRight) {
