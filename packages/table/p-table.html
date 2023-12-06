@@ -87,16 +87,30 @@
                 colStyle += `max-width:${fixPx(e.maxWidth)};`;
               }
 
-              if (e.stickyLeft !== null || e.stickyRight !== null) {
-                colStyle +=
-                  "position:sticky;box-shadow: 0px 0 4px rgba(128,128,128,.2);";
+              const isStickyLeft = e.stickyLeft !== null;
+              const isStickyRight = e.stickyRight !== null;
 
-                if (e.stickyLeft !== null) {
-                  colStyle += "left:0;";
+              if (isStickyLeft || isStickyRight) {
+                colStyle += "position:sticky;";
+
+                let isSetShadow = false;
+                if (isStickyLeft && isStickyRight) {
+                  colStyle += "box-shadow: 0px 0 4px rgba(128,128,128,.2);";
+                  isSetShadow = true;
                 }
 
-                if (e.stickyRight !== null) {
+                if (isStickyLeft) {
+                  colStyle += "left:0;";
+                  if (!isSetShadow) {
+                    colStyle += "box-shadow: 1px 0 2px rgba(128,128,128,.2);";
+                  }
+                }
+
+                if (isStickyRight) {
                   colStyle += "right:0;";
+                  if (!isSetShadow) {
+                    colStyle += "box-shadow: -1px 0 2px rgba(128,128,128,.2);";
+                  }
                 }
               }
 
@@ -109,19 +123,16 @@
 
             this.__currentStyle.html = styleStr;
 
-            this.refreshWidth();
-          }, 100);
-        },
-        refreshWidth() {
-          setTimeout(() => {
-            // Calculate row width
-            let rowWidth = 0;
-            this.$("p-table-row").forEach((e) => {
-              rowWidth += e.width;
-            });
+            setTimeout(() => {
+              // Calculate row width
+              let rowWidth = 0;
+              this.$("p-table-row").forEach((e) => {
+                rowWidth += e.width;
+              });
 
-            this.__currentStyle.html += `p-table[data-table-id="${this._tableId}"] {--table-row-width:${rowWidth}px;}`;
-          }, 50);
+              this.__currentStyle.html += `p-table[data-table-id="${this._tableId}"] {--table-row-width:${rowWidth}px;}`;
+            }, 50);
+          }, 100);
         },
       },
       ready() {
