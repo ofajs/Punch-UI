@@ -23,7 +23,7 @@
       border-bottom: none;
     }
   </style>
-  <div class="container">
+  <div class="container" on:scroll="bodyResize">
     <slot></slot>
   </div>
   <script>
@@ -92,6 +92,17 @@
             });
             this.__currentStyle.html = styleStr;
           }, 100);
+        },
+        bodyResize(e) {
+          const container = this.shadow.$(".container");
+          const left = container.ele.scrollLeft;
+
+          const headRow = this.$(`p-table-row[head][sticky]`);
+          if (headRow) {
+            headRow.scrollLeft = left;
+          }
+
+          // console.log("scroll => ", left, headRow);
         },
       },
       ready() {
