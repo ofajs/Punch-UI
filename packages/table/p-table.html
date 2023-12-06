@@ -3,8 +3,11 @@
   <l-m src="./p-table-cell.html"></l-m>
   <inject-host>
     <style>
-      p-table-row:last-child p-table-cell {
+      p-table-row:last-child {
         border-bottom: none;
+      }
+      p-table-row:not([head]):hover {
+        background-color: rgba(128, 128, 128, 0.1);
       }
     </style>
   </inject-host>
