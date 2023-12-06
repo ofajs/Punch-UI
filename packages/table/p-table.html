@@ -65,8 +65,23 @@
                 colStyle += `text-align:${e.align};justify-content:${jc};`;
               }
 
-              if (e.attr("width")) {
-                colStyle += `flex:0 0 ${e.attr("width")}`;
+              if (e.colWidth) {
+                colStyle += `flex:0 0 ${e.colWidth}`;
+              }
+
+              if (e.grow !== null) {
+                colStyle += `flex-grow:${e.grow};`;
+              }
+
+              if (e.shrink !== null) {
+                colStyle += `flex-shrink:${e.shrink};`;
+              }
+
+              if (e.minWidth) {
+                colStyle += `min-width:${e.minWidth}`;
+              }
+              if (e.maxWidth) {
+                colStyle += `max-width:${e.maxWidth}`;
               }
 
               if (colStyle) {
@@ -83,7 +98,7 @@
         const tid = (this._tableId = Math.random().toString(32).slice(2));
         this.attr("data-table-id", tid);
 
-        this.on("change-cell-align", () => {
+        this.on("change-cell-prop", () => {
           this.refreshSlefStyle();
         });
       },
