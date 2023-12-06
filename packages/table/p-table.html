@@ -68,7 +68,7 @@
               }
 
               if (e.colWidth) {
-                colStyle += `flex:0 0 ${fixPx(e.colWidth)}`;
+                colStyle += `flex:0 0 ${fixPx(e.colWidth)};`;
               }
 
               if (e.grow !== null) {
@@ -80,10 +80,14 @@
               }
 
               if (e.minWidth) {
-                colStyle += `min-width:${fixPx(e.minWidth)}`;
+                colStyle += `min-width:${fixPx(e.minWidth)};`;
               }
               if (e.maxWidth) {
-                colStyle += `max-width:${fixPx(e.maxWidth)}`;
+                colStyle += `max-width:${fixPx(e.maxWidth)};`;
+              }
+
+              if (e.stickyLeft !== null) {
+                colStyle += 'position:sticky;left:0;';
               }
 
               if (colStyle) {
@@ -109,6 +113,8 @@
         this.__currentStyle = currentStyle;
         const par = this.root.$("head") || this.root;
         par.push(currentStyle);
+
+        this.refreshSlefStyle();
 
         window.addEventListener(
           "resize",
