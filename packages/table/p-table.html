@@ -67,7 +67,7 @@
                 colStyle += `text-align:${e.align};justify-content:${jc};`;
               }
 
-              if (e.colWidth) {
+              if (e.colWidth !== null) {
                 colStyle += `flex:0 0 ${fixPx(e.colWidth)};`;
               }
 
@@ -79,15 +79,19 @@
                 colStyle += `flex-shrink:${e.shrink};`;
               }
 
-              if (e.minWidth) {
+              if (e.minWidth !== null) {
                 colStyle += `min-width:${fixPx(e.minWidth)};`;
               }
-              if (e.maxWidth) {
+              if (e.maxWidth !== null) {
                 colStyle += `max-width:${fixPx(e.maxWidth)};`;
               }
 
               if (e.stickyLeft !== null) {
-                colStyle += 'position:sticky;left:0;';
+                colStyle +=
+                  "position:sticky;left:0;box-shadow: 1px 0 4px rgba(128,128,128,.2);";
+              } else if (e.stickyRight !== null) {
+                colStyle +=
+                  "position:sticky;right:0;box-shadow: -1px 0 4px rgba(128,128,128,.2);";
               }
 
               if (colStyle) {
@@ -114,8 +118,6 @@
         const par = this.root.$("head") || this.root;
         par.push(currentStyle);
 
-        this.refreshSlefStyle();
-
         window.addEventListener(
           "resize",
           (this._resizeFun = (e) => {
@@ -128,6 +130,9 @@
         this.__currentStyle.remove();
 
         window.removeEventListener("resize", this._resizeFun);
+      },
+      loaded() {
+        this.refreshSlefStyle();
       },
     };
 
