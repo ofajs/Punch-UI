@@ -1,0 +1,38 @@
+<template page>
+  <l-m src="../button/p-button.html"></l-m>
+  <l-m src="./p-table.html"></l-m>
+  <div>
+    <p-table step="0.5" style="height: 300px">
+      <p-table-row head sticky>
+        <p-table-cell>Name</p-table-cell>
+        <p-table-cell>Mobile</p-table-cell>
+        <p-table-cell>Email</p-table-cell>
+        <p-table-cell>Remark</p-table-cell>
+        <p-table-cell align="center" width="150px">Operate</p-table-cell>
+      </p-table-row>
+      <x-fill :value="users">
+        <p-table-row>
+          <p-table-cell>{{$data.name}}</p-table-cell>
+          <p-table-cell>{{$data.mobile}}</p-table-cell>
+          <p-table-cell>{{$data.email}}</p-table-cell>
+          <p-table-cell>{{$data.remark}}</p-table-cell>
+          <p-table-cell>
+            <p-button color="error" size="small">Delete</p-button>
+          </p-table-cell>
+        </p-table-row>
+      </x-fill>
+    </p-table>
+  </div>
+  <script>
+    export default {
+      data: {
+        users: [],
+      },
+      async ready() {
+        const data = await fetch("./data.json").then((e) => e.json());
+
+        this.users = data;
+      },
+    };
+  </script>
+</template>

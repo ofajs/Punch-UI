@@ -34,11 +34,32 @@
           const headRow = this.$("p-table-row[head]");
           let styleStr = "";
           headRow.forEach((e, index) => {
+            let colStyle = "";
             if (e.align) {
-              styleStr += `p-table[data-table-id="${
-                this._tableId
-              }"] p-table-cell:nth-child(${index + 1}){text-align:${e.align};}`;
+              let jc = "";
+
+              switch (e.align) {
+                case "center":
+                  jc = "center";
+                  break;
+                case "right":
+                  jc = "flex-end";
+                  break;
+                case "left":
+                  jc = "flex-start";
+                  break;
+              }
+
+              colStyle += `text-align:${e.align};justify-content:${jc};`;
             }
+
+            if (e.attr("width")) {
+              colStyle += `flex:0 0 ${e.attr("width")}`;
+            }
+
+            styleStr += `p-table[data-table-id="${
+              this._tableId
+            }"] p-table-cell:nth-child(${index + 1}){${colStyle}}`;
           });
           this.__currentStyle.html = styleStr;
         },
