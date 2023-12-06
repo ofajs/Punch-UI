@@ -17,7 +17,13 @@
           <p-table-cell>{{$data.email}}</p-table-cell>
           <p-table-cell>{{$data.remark}}</p-table-cell>
           <p-table-cell>
-            <p-button color="error" size="small">Delete</p-button>
+            <p-button
+              color="error"
+              size="small"
+              variant="text"
+              on:click="$host.removeItem($index)"
+              >Delete</p-button
+            >
           </p-table-cell>
         </p-table-row>
       </x-fill>
@@ -27,6 +33,11 @@
     export default {
       data: {
         users: [],
+      },
+      proto: {
+        removeItem(index) {
+          this.users.splice(index, 1);
+        },
       },
       async ready() {
         const data = await fetch("./data.json").then((e) => e.json());

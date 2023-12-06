@@ -30,7 +30,7 @@
     export default {
       data: {},
       proto: {
-        refreshAlign() {
+        refreshSlefStyle() {
           const headRow = this.$("p-table-row[head]");
           let styleStr = "";
           headRow.forEach((e, index) => {
@@ -69,7 +69,7 @@
         this.attr("data-table-id", tid);
 
         this.on("change-cell-align", () => {
-          this.refreshAlign();
+          this.refreshSlefStyle();
         });
       },
       attached() {
