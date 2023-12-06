@@ -16,6 +16,7 @@
     .container {
       display: flex;
       flex-direction: column;
+      width: 100%;
       height: 100%;
       overflow: auto;
       color: var(--md-sys-color-on-normal-container);
@@ -86,12 +87,17 @@
                 colStyle += `max-width:${fixPx(e.maxWidth)};`;
               }
 
-              if (e.stickyLeft !== null) {
+              if (e.stickyLeft !== null || e.stickyRight !== null) {
                 colStyle +=
-                  "position:sticky;left:0;box-shadow: 1px 0 4px rgba(128,128,128,.2);";
-              } else if (e.stickyRight !== null) {
-                colStyle +=
-                  "position:sticky;right:0;box-shadow: -1px 0 4px rgba(128,128,128,.2);";
+                  "position:sticky;box-shadow: 0px 0 4px rgba(128,128,128,.2);";
+
+                if (e.stickyLeft !== null) {
+                  colStyle += "left:0;";
+                }
+
+                if (e.stickyRight !== null) {
+                  colStyle += "right:0;";
+                }
               }
 
               if (colStyle) {
@@ -100,8 +106,22 @@
                 }"] p-table-cell:nth-child(${index + 1}){${colStyle}}`;
               }
             });
+
             this.__currentStyle.html = styleStr;
+
+            this.refreshWidth();
           }, 100);
+        },
+        refreshWidth() {
+          setTimeout(() => {
+            // Calculate row width
+            let rowWidth = 0;
+            this.$("p-table-row").forEach((e) => {
+              rowWidth += e.width;
+            });
+
+            this.__currentStyle.html += `p-table[data-table-id="${this._tableId}"] {--table-row-width:${rowWidth}px;}`;
+          }, 50);
         },
       },
       ready() {

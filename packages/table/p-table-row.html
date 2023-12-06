@@ -4,10 +4,14 @@
       position: relative;
       display: block;
       z-index: 1;
+      border-bottom: var(--md-sys-color-normal-container) solid 1px;
+      width: var(--table-row-width, auto);
+      /* width: 100%; */
     }
 
     .container {
       display: flex;
+      flex-wrap: nowrap;
     }
     .fake-block {
       display: none;
