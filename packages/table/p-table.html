@@ -1,6 +1,13 @@
 <template component>
   <l-m src="./p-table-row.html"></l-m>
   <l-m src="./p-table-cell.html"></l-m>
+  <inject-host>
+    <style>
+      p-table-row:last-child p-table-cell {
+        border-bottom: none;
+      }
+    </style>
+  </inject-host>
   <style>
     :host {
       position: relative;
@@ -11,20 +18,14 @@
       flex-direction: column;
       height: 100%;
       overflow: auto;
-      padding: var(--pui-space-y) 0;
       color: var(--md-sys-color-on-normal-container);
       border-radius: var(--pui-border-radius);
       box-shadow: var(--contained-shadow);
       background-color: var(--md-sys-color-on-normal);
       font-size: 14px;
     }
-
-    ::slotted(p-table-row:last-child) {
-      border-bottom: none;
-    }
   </style>
   <div class="container">
-    <!-- <div class="container" on:scroll="bodyResize"> -->
     <slot></slot>
   </div>
   <script>
@@ -94,17 +95,6 @@
             this.__currentStyle.html = styleStr;
           }, 100);
         },
-        // bodyResize(e) {
-        //   const container = this.shadow.$(".container");
-        //   const left = container.ele.scrollLeft;
-
-        //   const headRow = this.$(`p-table-row[head][sticky]`);
-        //   if (headRow) {
-        //     headRow.scrollLeft = left;
-        //   }
-
-        //   // console.log("scroll => ", left, headRow);
-        // },
       },
       ready() {
         const tid = (this._tableId = Math.random().toString(32).slice(2));
