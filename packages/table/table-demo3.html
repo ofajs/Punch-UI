@@ -1,10 +1,14 @@
 <template page>
   <l-m src="../button/p-button.html"></l-m>
   <l-m src="./p-table.html"></l-m>
+  <l-m src="../checkbox/p-checkbox.html"></l-m>
 
   <div>
     <p-table step="0.5" style="height: 300px">
       <p-table-row head sticky>
+        <p-table-cell col-width="50">
+          <p-checkbox></p-checkbox>
+        </p-table-cell>
         <p-table-cell col-width="150"
           >Name
           <p-button
@@ -21,13 +25,16 @@
         <p-table-cell min-width="230">Birth</p-table-cell>
         <p-table-cell min-width="100">Money</p-table-cell>
         <p-table-cell min-width="100">Level</p-table-cell>
-        <p-table-cell min-width="200">Address</p-table-cell>
+        <p-table-cell min-width="200" align="center">Address</p-table-cell>
         <p-table-cell align="center" col-width="100" sticky-right
           >Operate</p-table-cell
         >
       </p-table-row>
       <x-fill :value="users">
         <p-table-row>
+          <p-table-cell>
+            <p-checkbox></p-checkbox>
+          </p-table-cell>
           <p-table-cell>{{$data.user_name}}</p-table-cell>
           <p-table-cell>{{$data.mobile}}</p-table-cell>
           <p-table-cell>{{$data.birth}}</p-table-cell>

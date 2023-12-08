@@ -12,8 +12,30 @@
       /* border-bottom: var(--md-sys-color-normal-container) solid 1px; */
       background-color: var(--md-sys-color-on-normal);
     }
+    .container {
+      width: 100%;
+      height: 100%;
+      display: inline-flex;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .fake-block {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
   </style>
-  <slot></slot>
+  <div class="container">
+    <slot></slot>
+  </div>
+  <div class="fake-block" part="fake-block"></div>
   <script>
     export default {
       attrs: {
