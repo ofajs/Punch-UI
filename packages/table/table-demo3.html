@@ -1,5 +1,6 @@
 <template page>
   <l-m src="../button/p-button.html"></l-m>
+  <l-m src="../menu/menu.html"></l-m>
   <l-m src="./p-table.html"></l-m>
   <l-m src="../checkbox/p-checkbox.html"></l-m>
 
@@ -20,13 +21,27 @@
             variant="text"
             color="normal"
             style="margin-left: auto"
+            id="sortBtn"
           >
-            <iconify-icon icon="majesticons:filter-line"></iconify-icon>
+            <iconify-icon icon="mingcute:menu-fill"></iconify-icon>
           </p-button>
         </p-table-cell>
         <p-table-cell min-width="120">Mobile</p-table-cell>
         <p-table-cell min-width="230">Birth</p-table-cell>
-        <p-table-cell min-width="100">Money</p-table-cell>
+        <p-table-cell min-width="100"
+          >Money
+
+          <p-button
+            icon
+            size="small"
+            variant="text"
+            :color="sortColor"
+            on:click="clickMoneySort"
+            style="margin-left: 8px"
+          >
+            <iconify-icon icon="uil:sort"></iconify-icon>
+          </p-button>
+        </p-table-cell>
         <p-table-cell min-width="100">Level</p-table-cell>
         <p-table-cell min-width="200" align="center">Address</p-table-cell>
         <p-table-cell align="center" col-width="100" sticky-right
@@ -58,13 +73,71 @@
         </p-table-row>
       </x-fill>
     </p-table>
+
+    <p-menu anchor="#sortBtn" popup-event="click" popup-align="right">
+      <p-menu-item>
+        <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
+        Test Item 1
+      </p-menu-item>
+      <p-menu-item>
+        <iconify-icon
+          icon="material-symbols:wind-power-sharp"
+          slot="prefix"
+        ></iconify-icon>
+        Test Item 2
+      </p-menu-item>
+      <p-menu-item>
+        <iconify-icon
+          icon="material-symbols:yard-outline-sharp"
+          slot="prefix"
+        ></iconify-icon>
+        Test Item 3
+      </p-menu-item>
+    </p-menu>
   </div>
   <script>
     export default {
       data: {
         users: [],
+        moneySort: 0,
       },
       proto: {
+        clickMoneySort() {
+          this.moneySort++;
+          if (this.moneySort > 2) {
+            this.moneySort = 0;
+          }
+
+          switch (this.moneySort) {
+            case 0:
+              this.users = this._originData;
+              break;
+            case 1: {
+              const datas = this._originData.slice().sort((a, b) => {
+                return a.money - b.money;
+              });
+              this.users = datas;
+              break;
+            }
+            case 2: {
+              const datas = this._originData.slice().sort((a, b) => {
+                return b.money - a.money;
+              });
+              this.users = datas;
+              break;
+            }
+          }
+        },
+        get sortColor() {
+          switch (this.moneySort) {
+            case 0:
+              return "normal";
+            case 1:
+              return "primary";
+            case 2:
+              return "error";
+          }
+        },
         changeCheckbox(event, data, index) {
           if (data === "title") {
             const checked = $(event.target).checked;
@@ -106,6 +179,7 @@
       },
       async ready() {
         const data = await fetch("./data2.json").then((e) => e.json());
+        this._originData = data;
 
         this.users = data;
       },
