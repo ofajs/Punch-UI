@@ -191,7 +191,7 @@
   <div
     class="container"
     class:disabled="isDisabled"
-    class:checked="typeof checked === 'string'"
+    class:checked="checked"
     class:infocus="infocus"
     class:indeterminate="indeterminate !== null"
     attr:size="size"
@@ -221,7 +221,7 @@
       attrs: {
         size: null,
         disabled: null,
-        checked: null,
+        // checked: null,
         value: null,
         indeterminate: null,
         // placement: "start",
@@ -229,6 +229,7 @@
       },
       data: {
         infocus: null,
+        checked: false,
       },
       proto: {
         changeFakeCheckbox(e) {
@@ -248,11 +249,8 @@
             this.indeterminate = null;
           }
 
-          if (typeof this.checked === "string") {
-            this.checked = null;
-          } else {
-            this.checked = "";
-          }
+          this.checked = !this.checked;
+
           this.emit("checked-p-checkbox");
           this.emit("change");
         },
@@ -260,6 +258,10 @@
       ready() {
         if (typeof this.checked === "string") {
           this.shadow.$("input[type='checkbox']").checked = true;
+        }
+
+        if (this.attr("checked") !== null) {
+          this.checked = true;
         }
       },
       attached() {

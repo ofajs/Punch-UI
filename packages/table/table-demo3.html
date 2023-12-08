@@ -7,7 +7,10 @@
     <p-table step="0.5" style="height: 300px">
       <p-table-row head sticky>
         <p-table-cell col-width="50">
-          <p-checkbox></p-checkbox>
+          <p-checkbox
+            on:change="changeCheckbox($event,'title')"
+            id="titleCheckbox"
+          ></p-checkbox>
         </p-table-cell>
         <p-table-cell col-width="150"
           >Name
@@ -33,7 +36,9 @@
       <x-fill :value="users">
         <p-table-row>
           <p-table-cell>
-            <p-checkbox></p-checkbox>
+            <p-checkbox
+              on:change="$host.changeCheckbox($event,$data,$index)"
+            ></p-checkbox>
           </p-table-cell>
           <p-table-cell>{{$data.user_name}}</p-table-cell>
           <p-table-cell>{{$data.mobile}}</p-table-cell>
@@ -60,6 +65,41 @@
         users: [],
       },
       proto: {
+        changeCheckbox(event, data, index) {
+          if (data === "title") {
+            const checked = $(event.target).checked;
+            this.shadow
+              .all("p-checkbox:not(#titleCheckbox)")
+              .forEach((e) => (e.checked = checked));
+            return;
+          }
+
+          let hasChecked = false;
+          let allChecked = true;
+
+          this.shadow.all("p-checkbox:not(#titleCheckbox)").forEach((e) => {
+            if (e.checked) {
+              hasChecked = true;
+            } else {
+              allChecked = false;
+            }
+          });
+
+          const titleCheckbox = this.shadow.$("#titleCheckbox");
+
+          if (hasChecked) {
+            if (allChecked) {
+              titleCheckbox.indeterminate = null;
+              titleCheckbox.checked = true;
+              return;
+            }
+            titleCheckbox.indeterminate = true;
+            return;
+          }
+
+          titleCheckbox.indeterminate = null;
+          titleCheckbox.checked = false;
+        },
         removeItem(index) {
           this.users.splice(index, 1);
         },
