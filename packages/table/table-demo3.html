@@ -110,20 +110,42 @@
 
           switch (this.moneySort) {
             case 0:
-              this.users = this._originData;
+              this.shadow.$("p-table").forEach((e, i) => {
+                if (i === 0) {
+                  return;
+                }
+                e.style.order = "";
+              });
+              // this.users = this._originData;
               break;
             case 1: {
-              const datas = this._originData.slice().sort((a, b) => {
-                return a.money - b.money;
+              this.shadow.$("p-table").forEach((e, i) => {
+                if (i === 0) {
+                  return;
+                }
+                e.style.order = Math.round(parseFloat(e[4].text) * 10000);
               });
-              this.users = datas;
+              // const datas = this._originData.slice().sort((a, b) => {
+              //   return a.money - b.money;
+              // });
+              // this.users = datas;
               break;
             }
             case 2: {
-              const datas = this._originData.slice().sort((a, b) => {
-                return b.money - a.money;
+              this.shadow.$("p-table").forEach((e, i) => {
+                if (i === 0) {
+                  e.style.order = -100000000;
+                  return;
+                }
+
+                e.style.order = -Math.round(
+                  parseFloat(e[4].text.trim()) * 10000
+                );
               });
-              this.users = datas;
+              // const datas = this._originData.slice().sort((a, b) => {
+              //   return b.money - a.money;
+              // });
+              // this.users = datas;
               break;
             }
           }
