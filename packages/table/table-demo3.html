@@ -96,115 +96,118 @@
     </p-menu>
   </div>
   <script>
-    export default {
-      data: {
-        users: [],
-        moneySort: 0,
-      },
-      proto: {
-        clickMoneySort() {
-          this.moneySort++;
-          if (this.moneySort > 2) {
-            this.moneySort = 0;
-          }
+    export default async ({ load }) => {
+      const data2 = await load("./data2.json");
 
-          switch (this.moneySort) {
-            case 0:
-              this.shadow.$("p-table").forEach((e, i) => {
-                if (i === 0) {
-                  return;
-                }
-                e.style.order = "";
-              });
-              // this.users = this._originData;
-              break;
-            case 1: {
-              this.shadow.$("p-table").forEach((e, i) => {
-                if (i === 0) {
-                  return;
-                }
-                e.style.order = Math.round(parseFloat(e[4].text) * 10000);
-              });
-              // const datas = this._originData.slice().sort((a, b) => {
-              //   return a.money - b.money;
-              // });
-              // this.users = datas;
-              break;
-            }
-            case 2: {
-              this.shadow.$("p-table").forEach((e, i) => {
-                if (i === 0) {
-                  e.style.order = -100000000;
-                  return;
-                }
-
-                e.style.order = -Math.round(
-                  parseFloat(e[4].text.trim()) * 10000
-                );
-              });
-              // const datas = this._originData.slice().sort((a, b) => {
-              //   return b.money - a.money;
-              // });
-              // this.users = datas;
-              break;
-            }
-          }
+      return {
+        data: {
+          users: [],
+          moneySort: 0,
         },
-        get sortColor() {
-          switch (this.moneySort) {
-            case 0:
-              return "normal";
-            case 1:
-              return "primary";
-            case 2:
-              return "error";
-          }
-        },
-        changeCheckbox(event, data, index) {
-          if (data === "title") {
-            const checked = $(event.target).checked;
-            this.shadow
-              .all("p-checkbox:not(#titleCheckbox)")
-              .forEach((e) => (e.checked = checked));
-            return;
-          }
-
-          let hasChecked = false;
-          let allChecked = true;
-
-          this.shadow.all("p-checkbox:not(#titleCheckbox)").forEach((e) => {
-            if (e.checked) {
-              hasChecked = true;
-            } else {
-              allChecked = false;
+        proto: {
+          clickMoneySort() {
+            this.moneySort++;
+            if (this.moneySort > 2) {
+              this.moneySort = 0;
             }
-          });
 
-          const titleCheckbox = this.shadow.$("#titleCheckbox");
+            switch (this.moneySort) {
+              case 0:
+                this.shadow.$("p-table").forEach((e, i) => {
+                  if (i === 0) {
+                    return;
+                  }
+                  e.style.order = "";
+                });
+                // this.users = this._originData;
+                break;
+              case 1: {
+                this.shadow.$("p-table").forEach((e, i) => {
+                  if (i === 0) {
+                    return;
+                  }
+                  e.style.order = Math.round(parseFloat(e[4].text) * 10000);
+                });
+                // const datas = this._originData.slice().sort((a, b) => {
+                //   return a.money - b.money;
+                // });
+                // this.users = datas;
+                break;
+              }
+              case 2: {
+                this.shadow.$("p-table").forEach((e, i) => {
+                  if (i === 0) {
+                    e.style.order = -100000000;
+                    return;
+                  }
 
-          if (hasChecked) {
-            if (allChecked) {
-              titleCheckbox.indeterminate = null;
-              titleCheckbox.checked = true;
+                  e.style.order = -Math.round(
+                    parseFloat(e[4].text.trim()) * 10000
+                  );
+                });
+                // const datas = this._originData.slice().sort((a, b) => {
+                //   return b.money - a.money;
+                // });
+                // this.users = datas;
+                break;
+              }
+            }
+          },
+          get sortColor() {
+            switch (this.moneySort) {
+              case 0:
+                return "normal";
+              case 1:
+                return "primary";
+              case 2:
+                return "error";
+            }
+          },
+          changeCheckbox(event, data, index) {
+            if (data === "title") {
+              const checked = $(event.target).checked;
+              this.shadow
+                .all("p-checkbox:not(#titleCheckbox)")
+                .forEach((e) => (e.checked = checked));
               return;
             }
-            titleCheckbox.indeterminate = true;
-            return;
-          }
 
-          titleCheckbox.indeterminate = null;
-          titleCheckbox.checked = false;
-        },
-        removeItem(index) {
-          this.users.splice(index, 1);
-        },
-      },
-      async ready() {
-        const data = await fetch("./data2.json").then((e) => e.json());
-        this._originData = data;
+            let hasChecked = false;
+            let allChecked = true;
 
-        this.users = data;
-      },
+            this.shadow.all("p-checkbox:not(#titleCheckbox)").forEach((e) => {
+              if (e.checked) {
+                hasChecked = true;
+              } else {
+                allChecked = false;
+              }
+            });
+
+            const titleCheckbox = this.shadow.$("#titleCheckbox");
+
+            if (hasChecked) {
+              if (allChecked) {
+                titleCheckbox.indeterminate = null;
+                titleCheckbox.checked = true;
+                return;
+              }
+              titleCheckbox.indeterminate = true;
+              return;
+            }
+
+            titleCheckbox.indeterminate = null;
+            titleCheckbox.checked = false;
+          },
+          removeItem(index) {
+            this.users.splice(index, 1);
+          },
+        },
+        async ready() {
+          this._originData = data2;
+
+          this.users = data2;
+        },
+      };
     };
   </script>
 </template>
