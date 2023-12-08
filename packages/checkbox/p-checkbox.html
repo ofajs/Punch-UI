@@ -38,7 +38,8 @@
       border: var(--md-sys-color-on-normal-container) solid 2px;
       transition: background-color ease 0.1s;
     }
-    .container.checked .checkbox {
+    .container.checked .checkbox,
+    .container.indeterminate .checkbox {
       border-color: var(--md-sys-color-primary);
       background-color: var(--md-sys-color-primary);
     }
@@ -54,7 +55,7 @@
       position: absolute;
       display: block;
       content: "";
-      background-color: var(--pui-bg-color);
+      background-color: var(--md-sys-color-on-primary);
       transform: rotate(-45deg);
     }
 
@@ -62,7 +63,8 @@
       transform: rotate(45deg);
     }
 
-    .container.checked .point {
+    .container.checked .point,
+    .container.indeterminate .point {
       transform: scale(1);
     }
 
@@ -82,20 +84,20 @@
     }
 
     .checkbox {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
     }
 
     .point:before {
-      left: 4px;
-      bottom: 3px;
+      left: 3px;
+      bottom: 1.5px;
       width: 2px;
-      height: 6px;
+      height: 7px;
     }
 
     .point:after {
-      left: 9px;
-      top: 2px;
+      left: 8.5px;
+      top: 1.5px;
       width: 2px;
       height: 12px;
     }
@@ -107,13 +109,13 @@
 
     .container[size="small"] .point:before {
       left: 2px;
-      bottom: 3px;
+      bottom: 2px;
       width: 2px;
-      height: 5px;
+      height: 5.5px;
     }
 
     .container[size="small"] .point:after {
-      left: 7px;
+      left: 6.5px;
       top: 1px;
       width: 2px;
       height: 10px;
@@ -138,6 +140,36 @@
       height: 14px;
     }
 
+    .container.indeterminate .point:before,
+    .container.indeterminate .point:after {
+      left: 2px;
+      top: 6px;
+      width: 10px;
+      height: 2px;
+      transform: rotate(0);
+    }
+
+    .container[size="small"].indeterminate .point:before,
+    .container[size="small"].indeterminate .point:after {
+      left: 1px;
+      top: 5px;
+      width: 10px;
+      height: 2px;
+    }
+
+    .container[size="large"].indeterminate .point:before,
+    .container[size="large"].indeterminate .point:after {
+      left: 2px;
+      top: 8px;
+      width: 16px;
+      height: 3px;
+    }
+
+    /* .container.indeterminate .checkbox {
+      border-color: var(--md-sys-color-primary);
+      background-color: var(--md-sys-color-primary);
+    } */
+
     /* .container[size="large"] .checkbox {
       width: 28px;
       height: 28px;
@@ -161,6 +193,7 @@
     class:disabled="isDisabled"
     class:checked="typeof checked === 'string'"
     class:infocus="infocus"
+    class:indeterminate="indeterminate !== null"
     attr:size="size"
     attr:placement="placement"
     on:click="clickCheck"
@@ -190,6 +223,7 @@
         disabled: null,
         checked: null,
         value: null,
+        indeterminate: null,
         // placement: "start",
         placement: null,
       },
@@ -208,6 +242,10 @@
         clickCheck() {
           if (this.isDisabled) {
             return;
+          }
+
+          if (this.indeterminate !== null) {
+            this.indeterminate = null;
           }
 
           if (typeof this.checked === "string") {
