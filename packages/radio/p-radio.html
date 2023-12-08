@@ -95,7 +95,7 @@
   <div
     class="container"
     class:disabled="isDisabled"
-    class:checked="typeof checked === 'string'"
+    class:checked="checked"
     class:infocus="infocus"
     attr:placement="placement"
     attr:size="size"
@@ -125,12 +125,13 @@
       attrs: {
         size: null,
         disabled: null,
-        checked: null,
+        // checked: null,
         value: null,
         // placement: "start",
         placement: null,
       },
       data: {
+        checked: false,
         infocus: null,
       },
       proto: {
@@ -146,12 +147,17 @@
           if (this.isDisabled) {
             return;
           }
-          this.checked = "";
+          this.checked = true;
           this.emit("checked-p-radio");
         },
       },
       attached() {
         this.emit("add-p-radio");
+      },
+      ready() {
+        if (this.attr("checked") !== null) {
+          this.checked = true;
+        }
       },
     };
   </script>

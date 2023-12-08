@@ -63,7 +63,7 @@
           Four
         </p-button>
       </p-button-group>
-      <script>
+      <script type="module">
         $("#switcher").on("click", (e) => {
           const { target } = e;
           const $target = $(target);
@@ -139,6 +139,10 @@
     <br />
     <div style="padding: 20px">
       <p-slider min="0" max="150" style="width: 200px"> </p-slider>
+    </div>
+    <br />
+    <div style="padding: 20px; width: 50%">
+      <o-page src="../packages/table/table-demo3.html"></o-page>
     </div>
   </body>
 </html>
