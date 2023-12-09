@@ -2,7 +2,7 @@
   <style>
     :host {
       display: inline-block;
-      --loading-size: 3rem;
+      --loading-size: 1rem;
     }
 
     .p-loading {
@@ -27,7 +27,7 @@
       position: absolute;
       width: calc(var(--loading-size) * 0.8);
       height: calc(var(--loading-size) * 0.8);
-      border: calc(var(--loading-size) / 10 * 0.8) solid var(--pui-main-color);
+      border: calc(var(--loading-size) / 10) solid var(--pui-main-color);
       border-top-color: transparent;
       border-radius: 50%;
       animation: p-loading-anim 1s linear infinite;
@@ -43,7 +43,7 @@
     export default {
       tag: "p-loading",
       attrs: {
-        color: "primary",
+        color: null,
       },
       watch: {
         color(color) {
