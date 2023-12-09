@@ -8,17 +8,13 @@
       margin: 5px;
     }
   </style>
-  <l-m src="./p-progress.html"></l-m>
+  <l-m src="./progress.html"></l-m>
   <l-m src="../../ancillary/comp-shower.html"></l-m>
   <l-m src="../../ancillary/dark-switch.html"></l-m>
   <p>p-progress:</p>
   <dark-switch></dark-switch>
   <div class="progress-group">
-    <p-progress
-      size="small"
-      type="line"
-      :value="value"
-    ></p-progress>
+    <p-progress size="small" type="line" :value="value"></p-progress>
     <p-progress
       show-info="disabled"
       style="--progress-color: pink"
@@ -56,6 +52,7 @@
   <script>
     export default async ({ load }) => {
       return {
+        tag: "p-progress",
         data: {
           value: 10,
         },
