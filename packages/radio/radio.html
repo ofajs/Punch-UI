@@ -15,22 +15,40 @@
     .container.infocus {
       outline: var(--md-sys-color-primary) solid 2px;
     }
+
+    .label {
+      margin-left: 8px;
+    }
     [placement="top"] {
       flex-direction: column;
+    }
+    [placement="top"] .label {
+      margin-left: 0;
+      margin-top: 8px;
     }
     [placement="bottom"] {
       flex-direction: column-reverse;
     }
+    [placement="bottom"] .label {
+      margin-left: 0;
+      margin-bottom: 8px;
+    }
     [placement="end"] {
       flex-direction: row-reverse;
     }
+    [placement="end"] .label {
+      margin-left: 0;
+      margin-right: 8px;
+    }
+    :host(:empty) .label {
+      margin: 0;
+    }
+
     .radio-con {
       display: flex;
       justify-content: center;
       align-items: center;
       box-sizing: border-box;
-      width: 40px;
-      height: 40px;
     }
     .radio {
       display: flex;
