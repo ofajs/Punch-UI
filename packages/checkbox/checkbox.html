@@ -251,7 +251,7 @@
       },
       proto: {
         changeFakeCheckbox(e) {
-          this.checked = e.target.checked ? "" : null;
+          this.checked = e.target.checked;
           this.emit("checked-p-checkbox");
           this.emit("change");
         },

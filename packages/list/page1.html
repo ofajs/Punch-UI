@@ -284,7 +284,7 @@
           ></iconify-icon>
           Headline {{$data}}
           <span secondary>Supporting text {{$data}}</span>
-          <p-checkbox slot="suffix"></p-checkbox>
+          <p-checkbox slot="suffix" attr:disabled="$index === 2 ? '' : null"></p-checkbox>
         </p-list-item>
       </x-fill>
     </p-list>
@@ -297,7 +297,7 @@
           <p-list-item button="prefix" attr:disabled="$index === 2 ? '' : null">
             Headline {{$data}}
             <span secondary>Supporting text {{$data}}</span>
-            <p-radio slot="prefix"></p-radio>
+            <p-radio slot="prefix" attr:disabled="$index === 2 ? '' : null"></p-radio>
           </p-list-item>
         </x-fill>
       </p-list>
@@ -316,7 +316,7 @@
           Headline {{$data}}
           <span secondary>Supporting text {{$data}}</span>
           <!-- <p-checkbox slot="suffix"></p-checkbox> -->
-          <p-switch slot="suffix"></p-switch>
+          <p-switch slot="suffix" attr:disabled="$index === 2 ? '' : null"></p-switch>
         </p-list-item>
       </x-fill>
     </p-list>
