@@ -1,0 +1,48 @@
+<template component>
+  <style>
+    .container {
+      display: flex;
+      padding: calc(var(--pui-space-y) * 2) 0;
+      padding-right: calc(var(--pui-space-x) * 2);
+      font-size: 14px;
+      background-color: transparent;
+      color: var(--md-sys-color-on-normal-container);
+      /* border-bottom: red solid 1px; */
+    }
+    .content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      line-height: 1.2em;
+      margin-left: calc(var(--pui-space-x) * 2);
+      min-height: 30px;
+    }
+
+    .avatar {
+      display: flex;
+      align-items: center;
+    }
+
+    ::slotted([secondary]) {
+      font-size: 12px;
+      color: var(--md-sys-color-normal);
+    }
+
+    ::slotted([slot="avatar"]) {
+      margin-left: calc(var(--pui-space-x) * 2);
+    }
+  </style>
+  <div class="container">
+    <div class="avatar">
+      <slot name="avatar"></slot>
+    </div>
+    <div class="content">
+      <slot></slot>
+    </div>
+  </div>
+  <script>
+    export default {
+      tag: "p-list-item",
+    };
+  </script>
+</template>

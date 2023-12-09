@@ -1,0 +1,17 @@
+<template component>
+  <l-m src="./list-item.html"></l-m>
+  <style>
+    :host {
+      display: flex;
+      flex-direction: column;
+      background-color: var(--md-ref-palette-primary98);
+      overflow: auto;
+    }
+  </style>
+  <slot></slot>
+  <script>
+    export default {
+      tag: "p-list",
+    };
+  </script>
+</template>

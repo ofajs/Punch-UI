@@ -1,0 +1,74 @@
+<template page>
+  <style>
+    .case {
+      display: inline-block;
+      padding: 20px;
+      width: 300px;
+      vertical-align: top;
+    }
+
+    p-list {
+      max-height: 400px;
+    }
+
+    .test-avatar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: rgba(255, 0, 0, 0.205);
+    }
+  </style>
+  <div class="case">
+    <p-list>
+      <x-fill :value="arr">
+        <p-list-item> Headline {{$data}}</p-list-item>
+      </x-fill>
+    </p-list>
+  </div>
+  <div class="case">
+    <p-list>
+      <x-fill :value="arr">
+        <p-list-item>
+          <div slot="avatar" class="test-avatar">{{$data}}</div>
+          Headline {{$data}}
+        </p-list-item>
+      </x-fill>
+    </p-list>
+  </div>
+  <div class="case">
+    <p-list>
+      <x-fill :value="arr">
+        <p-list-item>
+          Headline {{$data}}
+          <span secondary>Supporting text {{$data}}</span>
+        </p-list-item>
+      </x-fill>
+    </p-list>
+  </div>
+  <div class="case">
+    <p-list>
+      <x-fill :value="arr">
+        <p-list-item>
+          <div slot="avatar" class="test-avatar">{{$data}}</div>
+          Headline {{$data}}
+          <span secondary>Supporting text {{$data}}</span>
+        </p-list-item>
+      </x-fill>
+    </p-list>
+  </div>
+  <script>
+    export default {
+      data: {
+        arr: [],
+      },
+      ready() {
+        for (let i = 1; i < 50; i++) {
+          this.arr.push(i);
+        }
+      },
+    };
+  </script>
+</template>
