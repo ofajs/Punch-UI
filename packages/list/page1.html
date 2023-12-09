@@ -1,5 +1,7 @@
 <template page>
   <l-m src="../checkbox/checkbox.html"></l-m>
+  <l-m src="../radio/radio.html"></l-m>
+  <l-m src="../radio/radio-group.html"></l-m>
   <style>
     .case {
       display: inline-block;
@@ -287,17 +289,19 @@
     </p-list>
   </div>
 
-  <div class="case">
-    <p-list>
-      <x-fill :value="arr">
-        <p-list-item button="prefix" attr:disabled="$index === 2 ? '' : null">
-          Headline {{$data}}
-          <span secondary>Supporting text {{$data}}</span>
-          <p-checkbox slot="prefix"></p-checkbox>
-        </p-list-item>
-      </x-fill>
-    </p-list>
-  </div>
+  <p-radio-group>
+    <div class="case">
+      <p-list>
+        <x-fill :value="arr">
+          <p-list-item button="prefix" attr:disabled="$index === 2 ? '' : null">
+            Headline {{$data}}
+            <span secondary>Supporting text {{$data}}</span>
+            <p-radio slot="prefix"></p-radio>
+          </p-list-item>
+        </x-fill>
+      </p-list>
+    </div>
+  </p-radio-group>
 
   <script>
     export default {
