@@ -168,9 +168,12 @@
   <div class="case">
     <p-list>
       <x-fill :value="arr">
-        <p-list-item>
+        <p-list-item attr:align-top="$index === 0 ? '' : null">
           Headline {{$data}}
-          <span secondary>Supporting line text lorem ipsum dolor sit amet, consectetur {{$data}}</span>
+          <span secondary
+            >Supporting line text lorem ipsum dolor sit amet, consectetur
+            {{$data}}</span
+          >
         </p-list-item>
       </x-fill>
     </p-list>
@@ -179,14 +182,17 @@
   <div class="case">
     <p-list>
       <x-fill :value="arr">
-        <p-list-item>
+        <p-list-item attr:align-top="$index === 0 ? '' : null">
           <iconify-icon
             icon="mdi:user-outline"
             slot="prefix"
             style="font-size: 22px"
           ></iconify-icon>
           Headline {{$data}}
-          <span secondary>Supporting line text lorem ipsum dolor sit amet, consectetur {{$data}}</span>
+          <span secondary
+            >Supporting line text lorem ipsum dolor sit amet, consectetur
+            {{$data}}</span
+          >
         </p-list-item>
       </x-fill>
     </p-list>
@@ -195,10 +201,13 @@
   <div class="case">
     <p-list>
       <x-fill :value="arr">
-        <p-list-item>
+        <p-list-item attr:align-top="$index === 0 ? '' : null">
           <div slot="prefix" class="test-avatar">{{$data}}</div>
           Headline {{$data}}
-          <span secondary>Supporting line text lorem ipsum dolor sit amet, consectetur {{$data}}</span>
+          <span secondary
+            >Supporting line text lorem ipsum dolor sit amet, consectetur
+            {{$data}}</span
+          >
           <p-checkbox slot="suffix"></p-checkbox>
         </p-list-item>
       </x-fill>
@@ -208,10 +217,13 @@
   <div class="case">
     <p-list>
       <x-fill :value="arr">
-        <p-list-item>
+        <p-list-item attr:align-top="$index === 0 ? '' : null">
           <div class="avatar-pic" slot="prefix"></div>
           Headline {{$data}}
-          <span secondary>Supporting line text lorem ipsum dolor sit amet, consectetur {{$data}}</span>
+          <span secondary
+            >Supporting line text lorem ipsum dolor sit amet, consectetur
+            {{$data}}</span
+          >
           <span slot="suffix">{{$data}}+</span>
         </p-list-item>
       </x-fill>
@@ -221,14 +233,17 @@
   <div class="case">
     <p-list>
       <x-fill :value="arr">
-        <p-list-item>
+        <p-list-item attr:align-top="$index === 0 ? '' : null">
           <div
             class="avatar-pic"
             slot="prefix"
             style="margin-left: 0; width: 80px; height: 56px"
           ></div>
           Headline {{$data}}
-          <span secondary>Supporting line text lorem ipsum dolor sit amet, consectetur {{$data}}</span>
+          <span secondary
+            >Supporting line text lorem ipsum dolor sit amet, consectetur
+            {{$data}}</span
+          >
           <span slot="suffix">{{$data}}+</span>
         </p-list-item>
       </x-fill>
@@ -238,7 +253,11 @@
   <div class="case">
     <p-list>
       <x-fill :value="arr">
-        <p-list-item button attr:disabled="$index === 2 ? '' : null">
+        <p-list-item
+          button
+          attr:disabled="$index === 2 ? '' : null"
+          on:click="$host.clickItem($index)"
+        >
           <iconify-icon
             icon="mdi:user-outline"
             slot="prefix"
@@ -255,6 +274,11 @@
     export default {
       data: {
         arr: [],
+      },
+      proto: {
+        clickItem(index) {
+          console.log("click Headline " + (index + 1));
+        },
       },
       ready() {
         for (let i = 1; i < 15; i++) {
