@@ -270,6 +270,35 @@
     </p-list>
   </div>
 
+  <div class="case">
+    <p-list>
+      <x-fill :value="arr">
+        <p-list-item button="suffix" attr:disabled="$index === 2 ? '' : null">
+          <iconify-icon
+            icon="mdi:user-outline"
+            slot="prefix"
+            style="font-size: 22px"
+          ></iconify-icon>
+          Headline {{$data}}
+          <span secondary>Supporting text {{$data}}</span>
+          <p-checkbox slot="suffix"></p-checkbox>
+        </p-list-item>
+      </x-fill>
+    </p-list>
+  </div>
+
+  <div class="case">
+    <p-list>
+      <x-fill :value="arr">
+        <p-list-item button="prefix" attr:disabled="$index === 2 ? '' : null">
+          Headline {{$data}}
+          <span secondary>Supporting text {{$data}}</span>
+          <p-checkbox slot="prefix"></p-checkbox>
+        </p-list-item>
+      </x-fill>
+    </p-list>
+  </div>
+
   <script>
     export default {
       data: {

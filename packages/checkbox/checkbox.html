@@ -196,7 +196,6 @@
     class:indeterminate="indeterminate !== null"
     attr:size="size"
     attr:placement="placement"
-    on:click="clickCheck"
   >
     <div class="checkbox-con">
       <div class="checkbox">
@@ -259,6 +258,8 @@
         if (typeof this.checked === "string") {
           this.shadow.$("input[type='checkbox']").checked = true;
         }
+
+        this.on("click", (e) => this.clickCheck(e));
 
         if (this.attr("checked") !== null) {
           this.checked = true;

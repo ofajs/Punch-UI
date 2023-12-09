@@ -78,6 +78,15 @@
       cursor: not-allowed;
     }
 
+    :host([button][disabled]) .fake-mask {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
     :host([align-top]) .avatar {
       align-items: flex-start;
     }
@@ -99,6 +108,7 @@
     <x-if :value="button !== null && disabled === null">
       <p-wave style="z-index: 2"></p-wave>
     </x-if>
+    <div class="fake-mask"></div>
   </div>
   <script>
     export default {
@@ -112,6 +122,13 @@
         clickItem(e) {
           if (this.disabled !== null) {
             e.stopImmediatePropagation();
+            return;
+          }
+
+          if (this.button === "suffix") {
+            this.$("[slot='suffix']").ele.click();
+          } else if (this.button === "prefix") {
+            this.$("[slot='prefix']").ele.click();
           }
         },
       },

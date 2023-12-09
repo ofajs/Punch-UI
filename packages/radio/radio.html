@@ -99,7 +99,6 @@
     class:infocus="infocus"
     attr:placement="placement"
     attr:size="size"
-    on:click="clickCheck"
   >
     <div class="radio-con">
       <div class="radio">
@@ -158,6 +157,8 @@
         if (this.attr("checked") !== null) {
           this.checked = true;
         }
+
+        this.on("click", (e) => this.clickCheck(e));
       },
     };
   </script>
