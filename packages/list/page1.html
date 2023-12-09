@@ -46,7 +46,7 @@
         <p-list-item>
           <iconify-icon
             icon="mdi:user-outline"
-            slot="avatar"
+            slot="prefix"
             style="font-size: 22px"
           ></iconify-icon>
           Headline {{$data}}
@@ -59,7 +59,7 @@
     <p-list>
       <x-fill :value="arr">
         <p-list-item>
-          <div slot="avatar" class="test-avatar">{{$data}}</div>
+          <div slot="prefix" class="test-avatar">{{$data}}</div>
           Headline {{$data}}
           <p-checkbox slot="suffix"></p-checkbox>
         </p-list-item>
@@ -71,7 +71,7 @@
     <p-list>
       <x-fill :value="arr">
         <p-list-item>
-          <div class="avatar-pic" slot="avatar"></div>
+          <div class="avatar-pic" slot="prefix"></div>
           Headline {{$data}}
           <span slot="suffix">{{$data}}+</span>
         </p-list-item>
@@ -85,7 +85,7 @@
         <p-list-item>
           <div
             class="avatar-pic"
-            slot="avatar"
+            slot="prefix"
             style="margin-left: 0; width: 80px; height: 56px"
           ></div>
           Headline {{$data}}
@@ -112,7 +112,7 @@
         <p-list-item>
           <iconify-icon
             icon="mdi:user-outline"
-            slot="avatar"
+            slot="prefix"
             style="font-size: 22px"
           ></iconify-icon>
           Headline {{$data}}
@@ -126,9 +126,10 @@
     <p-list>
       <x-fill :value="arr">
         <p-list-item>
-          <div slot="avatar" class="test-avatar">{{$data}}</div>
+          <div slot="prefix" class="test-avatar">{{$data}}</div>
           Headline {{$data}}
           <span secondary>Supporting text {{$data}}</span>
+          <p-checkbox slot="suffix"></p-checkbox>
         </p-list-item>
       </x-fill>
     </p-list>
@@ -138,7 +139,7 @@
     <p-list>
       <x-fill :value="arr">
         <p-list-item>
-          <div class="avatar-pic" slot="avatar"></div>
+          <div class="avatar-pic" slot="prefix"></div>
           Headline {{$data}}
           <span secondary>Supporting text {{$data}}</span>
           <span slot="suffix">{{$data}}+</span>
@@ -153,7 +154,7 @@
         <p-list-item>
           <div
             class="avatar-pic"
-            slot="avatar"
+            slot="prefix"
             style="margin-left: 0; width: 80px; height: 56px"
           ></div>
           Headline {{$data}}
@@ -163,13 +164,100 @@
       </x-fill>
     </p-list>
   </div>
+
+  <div class="case">
+    <p-list>
+      <x-fill :value="arr">
+        <p-list-item>
+          Headline {{$data}}
+          <span secondary>Supporting line text lorem ipsum dolor sit amet, consectetur {{$data}}</span>
+        </p-list-item>
+      </x-fill>
+    </p-list>
+  </div>
+
+  <div class="case">
+    <p-list>
+      <x-fill :value="arr">
+        <p-list-item>
+          <iconify-icon
+            icon="mdi:user-outline"
+            slot="prefix"
+            style="font-size: 22px"
+          ></iconify-icon>
+          Headline {{$data}}
+          <span secondary>Supporting line text lorem ipsum dolor sit amet, consectetur {{$data}}</span>
+        </p-list-item>
+      </x-fill>
+    </p-list>
+  </div>
+
+  <div class="case">
+    <p-list>
+      <x-fill :value="arr">
+        <p-list-item>
+          <div slot="prefix" class="test-avatar">{{$data}}</div>
+          Headline {{$data}}
+          <span secondary>Supporting line text lorem ipsum dolor sit amet, consectetur {{$data}}</span>
+          <p-checkbox slot="suffix"></p-checkbox>
+        </p-list-item>
+      </x-fill>
+    </p-list>
+  </div>
+
+  <div class="case">
+    <p-list>
+      <x-fill :value="arr">
+        <p-list-item>
+          <div class="avatar-pic" slot="prefix"></div>
+          Headline {{$data}}
+          <span secondary>Supporting line text lorem ipsum dolor sit amet, consectetur {{$data}}</span>
+          <span slot="suffix">{{$data}}+</span>
+        </p-list-item>
+      </x-fill>
+    </p-list>
+  </div>
+
+  <div class="case">
+    <p-list>
+      <x-fill :value="arr">
+        <p-list-item>
+          <div
+            class="avatar-pic"
+            slot="prefix"
+            style="margin-left: 0; width: 80px; height: 56px"
+          ></div>
+          Headline {{$data}}
+          <span secondary>Supporting line text lorem ipsum dolor sit amet, consectetur {{$data}}</span>
+          <span slot="suffix">{{$data}}+</span>
+        </p-list-item>
+      </x-fill>
+    </p-list>
+  </div>
+
+  <div class="case">
+    <p-list>
+      <x-fill :value="arr">
+        <p-list-item button attr:disabled="$index === 2 ? '' : null">
+          <iconify-icon
+            icon="mdi:user-outline"
+            slot="prefix"
+            style="font-size: 22px"
+          ></iconify-icon>
+          Headline {{$data}}
+          <span secondary>Supporting text {{$data}}</span>
+        </p-list-item>
+      </x-fill>
+    </p-list>
+  </div>
+
   <script>
     export default {
       data: {
         arr: [],
       },
       ready() {
-        for (let i = 1; i < 20; i++) {
+        for (let i = 1; i < 15; i++) {
           this.arr.push(i);
         }
       },
