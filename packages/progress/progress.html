@@ -1,12 +1,12 @@
 <template component>
   <style>
     :host {
-      --line-size: 8px;
+      --line-size: 2px;
       --line-font-size: 14px;
       --circle-size: 100;
       --circle-font-size: 24;
       --progress-color: var(--md-sys-color-primary);
-      --progress-animation: all 0.4s linear 0s;
+      --progress-animation: all 0.4s ease 0s;
       display: block;
       width: 100%;
     }
@@ -133,7 +133,7 @@
           let circleFontSize;
           const isSmall = size === "small";
           if (type === "line") {
-            this.style.setProperty("--line-size", isSmall ? "6px" : "8px");
+            this.style.setProperty("--line-size", isSmall ? "2px" : "4px");
             this.style.setProperty(
               "--line-font-size",
               isSmall ? "12px" : "14px"
