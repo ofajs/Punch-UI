@@ -8,7 +8,7 @@
       font-size: 14px;
       vertical-align: top;
       border-radius: var(--pui-border-radius);
-      background-color: var(--menu-bg-light, var(--md-ref-palette-primary98));
+      background-color: var(--pui-bg-light, var(--md-ref-palette-primary98));
       box-shadow: var(--contained-shadow);
       transition: opacity ease 0.1s;
       --triangle-color: #5f6368;
@@ -125,7 +125,7 @@
   <x-if :value="isDark.value">
     <style>
       :host {
-        background-color: var(--menu-bg-dark, var(--md-ref-palette-normal10));
+        background-color: var(--pui-bg-dark, var(--md-ref-palette-normal10));
       }
       ::slotted(hr) {
         border-top: var(--md-ref-palette-normal30) solid 1px;
