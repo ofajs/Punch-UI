@@ -168,7 +168,7 @@
   <div class="case">
     <p-list>
       <x-fill :value="arr">
-        <p-list-item attr:align-top="$index === 0 ? '' : null">
+        <p-list-item attr:align-top="$index < 2 ? '' : null">
           Headline {{$data}}
           <span secondary
             >Supporting line text lorem ipsum dolor sit amet, consectetur
@@ -182,7 +182,7 @@
   <div class="case">
     <p-list>
       <x-fill :value="arr">
-        <p-list-item attr:align-top="$index === 0 ? '' : null">
+        <p-list-item attr:align-top="$index < 2 ? '' : null">
           <iconify-icon
             icon="mdi:user-outline"
             slot="prefix"
@@ -201,7 +201,7 @@
   <div class="case">
     <p-list>
       <x-fill :value="arr">
-        <p-list-item attr:align-top="$index === 0 ? '' : null">
+        <p-list-item attr:align-top="$index < 2 ? '' : null">
           <div slot="prefix" class="test-avatar">{{$data}}</div>
           Headline {{$data}}
           <span secondary
@@ -217,7 +217,7 @@
   <div class="case">
     <p-list>
       <x-fill :value="arr">
-        <p-list-item attr:align-top="$index === 0 ? '' : null">
+        <p-list-item attr:align-top="$index < 2 ? '' : null">
           <div class="avatar-pic" slot="prefix"></div>
           Headline {{$data}}
           <span secondary
@@ -233,14 +233,14 @@
   <div class="case">
     <p-list>
       <x-fill :value="arr">
-        <p-list-item attr:align-top="$index === 0 ? '' : null">
+        <p-list-item attr:align-top="$index < 2 ? '' : null">
           <div
             class="avatar-pic"
             slot="prefix"
             style="margin-left: 0; width: 80px; height: 56px"
           ></div>
           Headline {{$data}}
-          <span secondary
+          <span secondary attr:ellipsis="$index + 1"
             >Supporting line text lorem ipsum dolor sit amet, consectetur
             {{$data}}</span
           >

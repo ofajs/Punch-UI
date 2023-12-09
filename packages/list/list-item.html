@@ -41,6 +41,26 @@
       color: var(--md-sys-color-normal);
     }
 
+    ::slotted([ellipsis]) {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    ::slotted([ellipsis="1"]) {
+      -webkit-line-clamp: 1;
+    }
+    ::slotted([ellipsis="2"]) {
+      -webkit-line-clamp: 2;
+    }
+    ::slotted([ellipsis="3"]) {
+      -webkit-line-clamp: 3;
+    }
+    ::slotted([ellipsis="4"]) {
+      -webkit-line-clamp: 4;
+    }
+
     ::slotted([slot="prefix"]) {
       margin-left: calc(var(--pui-space-x) * 2);
     }
