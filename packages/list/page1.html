@@ -2,6 +2,7 @@
   <l-m src="../checkbox/checkbox.html"></l-m>
   <l-m src="../radio/radio.html"></l-m>
   <l-m src="../radio/radio-group.html"></l-m>
+  <l-m src="../switch/switch.html"></l-m>
   <style>
     .case {
       display: inline-block;
@@ -277,7 +278,7 @@
       <x-fill :value="arr">
         <p-list-item button="suffix" attr:disabled="$index === 2 ? '' : null">
           <iconify-icon
-            icon="mdi:user-outline"
+            icon="icon-park:multi-triangular-two"
             slot="prefix"
             style="font-size: 22px"
           ></iconify-icon>
@@ -302,6 +303,24 @@
       </p-list>
     </div>
   </p-radio-group>
+
+  <div class="case">
+    <p-list>
+      <x-fill :value="arr">
+        <p-list-item button="suffix" attr:disabled="$index === 2 ? '' : null">
+          <iconify-icon
+            icon="icon-park:multi-function-knife"
+            slot="prefix"
+            style="font-size: 22px"
+          ></iconify-icon>
+          Headline {{$data}}
+          <span secondary>Supporting text {{$data}}</span>
+          <!-- <p-checkbox slot="suffix"></p-checkbox> -->
+          <p-switch slot="suffix"></p-switch>
+        </p-list-item>
+      </x-fill>
+    </p-list>
+  </div>
 
   <script>
     export default {
