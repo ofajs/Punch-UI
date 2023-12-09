@@ -38,15 +38,17 @@
     <div></div>
   </div>
   <script>
+    import { setMainColor } from "../commons/util.js";
+
     export default {
       tag: "p-loading",
       attrs: {
-        type: "primary",
+        color: "primary",
       },
       watch: {
-        type(type) {
-          if (type) {
-            this.style.setProperty("--pui-main-color", `var(--pui-${type}-color)`);
+        color(color) {
+          if (color) {
+            setMainColor(this, color);
           }
         },
       },
