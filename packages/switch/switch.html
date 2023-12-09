@@ -138,13 +138,31 @@
       background-color: var(--md-sys-color-on-primary-container);
     }
 
-    :host([size="small"]) .switch {
+    :host .switch {
       transform-origin: 0 0;
       transform: scale(0.8);
     }
-    :host([size="small"]) .container {
+    :host .container {
       width: 41.6px;
       height: 25.6px;
+    }
+
+    :host([size="large"]) .switch {
+      transform-origin: 0 0;
+      transform: scale(1);
+    }
+    :host([size="large"]) .container {
+      width: auto;
+      height: auto;
+    }
+
+    :host([size="small"]) .switch {
+      transform-origin: 0 0;
+      transform: scale(0.6);
+    }
+    :host([size="small"]) .container {
+      width: 31.2px;
+      height: 19.2px;
     }
 
     :host([disabled]) .switch {
@@ -154,7 +172,7 @@
   </style>
 
   <div class="container" class:infocus="infocus">
-    <div class="switch" class:checked="value" on:click="clickSwitch">
+    <div class="switch" class:checked="value">
       <span class="slider">
         <div class="mark"></div>
       </span>
@@ -207,6 +225,9 @@
           }
           this.value = !this.value;
         },
+      },
+      ready() {
+        this.on("click", (e) => this.clickSwitch(e));
       },
     };
   </script>

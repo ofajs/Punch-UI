@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Switch</title>
+    <title>Search Field</title>
     <script
       src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.41/dist/ofa.min.js"
       debug
@@ -16,23 +16,20 @@
     </style>
   </head>
   <body>
+    <l-m src="../../ancillary/comp-shower.html"></l-m>
     <l-m src="../../ancillary/dark-switch.html"></l-m>
-    <l-m src="./switch.html"></l-m>
+    <l-m src="./p-search-field.html"></l-m>
     <dark-switch></dark-switch>
-    <div>
-      <p-switch></p-switch>
-      <p-switch checked></p-switch>
-      <br />
-      <br />
-      <p-switch disabled></p-switch>
-      <p-switch disabled checked></p-switch>
-      <br />
-      <br />
-      <p-switch size="small"></p-switch>
-      <p-switch size="small" checked></p-switch>
-      <br />
-      <p-switch size="large"></p-switch>
-      <p-switch size="large" checked></p-switch>
+    <div style="padding: 50px">
+      <p-search-field>
+        <label>Label</label>
+      </p-search-field>
+      <p-search-field variant="filled">
+        <label>filled</label>
+      </p-search-field>
+      <p-search-field default-value="Default value haha">
+        <label>add default</label>
+      </p-search-field>
     </div>
   </body>
 </html>

@@ -3,13 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Switch</title>
+    <title>slider test</title>
     <script
       src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.41/dist/ofa.min.js"
       debug
     ></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
     <link rel="stylesheet" href="../css/public.css" />
     <style>
+      html,
+      body {
+        height: 100%;
+        padding: 0;
+        margin: 0;
+      }
       *:not(:defined) {
         display: none;
       }
@@ -17,22 +24,8 @@
   </head>
   <body>
     <l-m src="../../ancillary/dark-switch.html"></l-m>
-    <l-m src="./switch.html"></l-m>
+    <l-m src="./list.html"></l-m>
     <dark-switch></dark-switch>
-    <div>
-      <p-switch></p-switch>
-      <p-switch checked></p-switch>
-      <br />
-      <br />
-      <p-switch disabled></p-switch>
-      <p-switch disabled checked></p-switch>
-      <br />
-      <br />
-      <p-switch size="small"></p-switch>
-      <p-switch size="small" checked></p-switch>
-      <br />
-      <p-switch size="large"></p-switch>
-      <p-switch size="large" checked></p-switch>
-    </div>
+    <o-page src="./page1.html"></o-page>
   </body>
 </html>

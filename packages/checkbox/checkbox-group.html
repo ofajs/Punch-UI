@@ -24,7 +24,7 @@
         _refreshValue() {
           let value = [];
           this.all("p-checkbox").forEach((e) => {
-            if (typeof e.checked === "string") {
+            if (e.checked) {
               value.push(e.value !== null ? e.value : e.text);
             }
           });

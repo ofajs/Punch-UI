@@ -2,30 +2,49 @@
   <style>
     :host {
       display: inline-block;
-      vertical-align: center;
     }
     .container {
-      display: inline-flex;
+      /* display: inline-flex; */
+      display: flex;
       vertical-align: center;
       justify-content: center;
       align-items: center;
       cursor: pointer;
     }
+    .label {
+      margin-left: 8px;
+    }
     [placement="top"] {
       flex-direction: column;
+    }
+    [placement="top"] .label {
+      margin-left: 0;
+      margin-top: 8px;
     }
     [placement="bottom"] {
       flex-direction: column-reverse;
     }
+    [placement="bottom"] .label {
+      margin-left: 0;
+      margin-bottom: 8px;
+    }
     [placement="end"] {
       flex-direction: row-reverse;
+    }
+    [placement="end"] .label {
+      margin-left: 0;
+      margin-right: 8px;
+    }
+    :host(:empty) .label {
+      margin: 0;
     }
     .checkbox-con {
       display: flex;
       justify-content: center;
       align-items: center;
       box-sizing: border-box;
-      padding: 8px;
+      /* padding-right: 8px; */
+      /* padding: 8px; */
     }
     .checkbox {
       display: flex;
@@ -196,7 +215,6 @@
     class:indeterminate="indeterminate !== null"
     attr:size="size"
     attr:placement="placement"
-    on:click="clickCheck"
   >
     <div class="checkbox-con">
       <div class="checkbox">
@@ -233,7 +251,7 @@
       },
       proto: {
         changeFakeCheckbox(e) {
-          this.checked = e.target.checked ? "" : null;
+          this.checked = e.target.checked;
           this.emit("checked-p-checkbox");
           this.emit("change");
         },
@@ -259,6 +277,8 @@
         if (typeof this.checked === "string") {
           this.shadow.$("input[type='checkbox']").checked = true;
         }
+
+        this.on("click", (e) => this.clickCheck(e));
 
         if (this.attr("checked") !== null) {
           this.checked = true;

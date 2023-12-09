@@ -28,7 +28,7 @@
               e.checked = null;
               return;
             }
-            if (typeof e.checked === "string") {
+            if (e.checked) {
               value = e.value !== null ? e.value : e.text;
             }
           });

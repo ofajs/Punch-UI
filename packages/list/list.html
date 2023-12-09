@@ -1,0 +1,35 @@
+<template component>
+  <l-m src="./list-item.html"></l-m>
+  <style>
+    :host {
+      display: flex;
+      flex-direction: column;
+      background-color: var(--pui-bg-light, var(--md-ref-palette-primary98));
+      overflow: auto;
+    }
+  </style>
+  <x-if :value="isDark.value">
+    <style>
+      :host {
+        background-color: var(--pui-bg-dark, var(--md-ref-palette-normal10));
+      }
+    </style>
+  </x-if>
+  <slot></slot>
+  <script>
+    import { isDark } from "../commons/data.js";
+
+    export default {
+      tag: "p-list",
+      data: {
+        isDark: {},
+      },
+      attached() {
+        this.isDark = isDark;
+      },
+      detached() {
+        this.isDark = {};
+      },
+    };
+  </script>
+</template>

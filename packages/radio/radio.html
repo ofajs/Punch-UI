@@ -5,7 +5,8 @@
       vertical-align: top;
     }
     .container {
-      display: inline-flex;
+      /* display: inline-flex; */
+      display: flex;
       justify-content: center;
       align-items: center;
       cursor: pointer;
@@ -14,22 +15,40 @@
     .container.infocus {
       outline: var(--md-sys-color-primary) solid 2px;
     }
+
+    .label {
+      margin-left: 8px;
+    }
     [placement="top"] {
       flex-direction: column;
+    }
+    [placement="top"] .label {
+      margin-left: 0;
+      margin-top: 8px;
     }
     [placement="bottom"] {
       flex-direction: column-reverse;
     }
+    [placement="bottom"] .label {
+      margin-left: 0;
+      margin-bottom: 8px;
+    }
     [placement="end"] {
       flex-direction: row-reverse;
     }
+    [placement="end"] .label {
+      margin-left: 0;
+      margin-right: 8px;
+    }
+    :host(:empty) .label {
+      margin: 0;
+    }
+
     .radio-con {
       display: flex;
       justify-content: center;
       align-items: center;
       box-sizing: border-box;
-      width: 40px;
-      height: 40px;
     }
     .radio {
       display: flex;
@@ -99,7 +118,6 @@
     class:infocus="infocus"
     attr:placement="placement"
     attr:size="size"
-    on:click="clickCheck"
   >
     <div class="radio-con">
       <div class="radio">
@@ -115,7 +133,7 @@
       on:focus="infocus = true"
       on:blur="infocus = null"
       on:change="changeFakeradio"
-      :checked="typeof checked === 'string'"
+      :checked="checked"
     />
   </div>
   <script>
@@ -158,6 +176,8 @@
         if (this.attr("checked") !== null) {
           this.checked = true;
         }
+
+        this.on("click", (e) => this.clickCheck(e));
       },
     };
   </script>
