@@ -3,7 +3,8 @@
     :host {
       display: block;
       position: relative;
-      transition: all ease 0.3s;
+      --duration: 0.3s;
+      transition: all ease 0s;
     }
 
     .soltter {
@@ -45,11 +46,20 @@
       },
       watch: {
         hide(val) {
+          if (this.__not_first) {
+            this.style["transition-duration"] = "var(--duration)";
+            this.on("transitionend", () => {
+              this.style["transition-duration"] = "";
+            });
+          }
+
           this._refreshHeight();
+
+          this.__not_first = true;
         },
       },
-      ready() {
-        var ro = new ResizeObserver((entries) => {
+      attached() {
+        const ro = (this._ro = new ResizeObserver((entries) => {
           for (let entry of entries) {
             const cr = entry.contentRect;
             // console.log("Element:", entry.target);
@@ -57,9 +67,14 @@
             // console.log(`Element padding: ${cr.top}px ; ${cr.left}px`);
             this._refreshHeight(cr.height);
           }
-        });
+        }));
 
         ro.observe(this.shadow.$(".content").ele);
+      },
+      detached() {
+        if (this._ro) {
+          this._ro.disconnect();
+        }
       },
     };
   </script>

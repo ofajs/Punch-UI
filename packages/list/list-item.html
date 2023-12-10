@@ -1,5 +1,6 @@
 <template component>
   <l-m src="../wave/wave.html"></l-m>
+  <l-m src="../collapse/collapse.html"></l-m>
   <style>
     :host {
       position: relative;
@@ -122,7 +123,7 @@
     <div class="avatar">
       <slot name="prefix"></slot>
     </div>
-    <div class="content">
+    <div class="content" part="content">
       <slot></slot>
     </div>
     <div class="suffix">
@@ -132,7 +133,14 @@
     <div class="fake-mask"></div>
   </div>
   <div>
-    <slot name="childs"></slot>
+    <x-if :value="collapseChilds !== null">
+      <p-collapse :hide="collapseChilds === 'open' ? null : ''">
+        <slot name="childs"></slot>
+      </p-collapse>
+    </x-if>
+    <x-else>
+      <slot name="childs"></slot>
+    </x-else>
   </div>
   <x-if :value="button !== null && disabled === null">
     <p-wave style="z-index: 2"></p-wave>
