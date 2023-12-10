@@ -37,29 +37,6 @@
 
   <div class="case">
     <p-list>
-      <p-list-item> Headline 1</p-list-item>
-      <p-list-item> Headline 2</p-list-item>
-      <p-list-item collapse-childs="open">
-        Headline 3
-        <p-list slot="childs">
-          <p-list-item> Headline 3-1</p-list-item>
-          <p-list-item collapse-childs="open">
-            Headline 3-2
-            <p-list slot="childs">
-              <p-list-item> Headline 3-2-1</p-list-item>
-              <p-list-item> Headline 3-2-2</p-list-item>
-            </p-list>
-          </p-list-item>
-          <p-list-item> Headline 3-3</p-list-item>
-          <p-list-item> Headline 3-4</p-list-item>
-        </p-list>
-      </p-list-item>
-      <p-list-item> Headline 4</p-list-item>
-    </p-list>
-  </div>
-
-  <div class="case">
-    <p-list>
       <x-fill :value="arr">
         <p-list-item> Headline {{$data}}</p-list-item>
       </x-fill>
@@ -108,7 +85,7 @@
   <div class="case">
     <p-list>
       <x-fill :value="arr">
-        <p-list-item style="padding-left: 0">
+        <p-list-item style="--padding-left: 0">
           <div
             class="avatar-pic"
             slot="prefix"
@@ -177,7 +154,7 @@
   <div class="case">
     <p-list>
       <x-fill :value="arr">
-        <p-list-item style="padding-left: 0">
+        <p-list-item style="--padding-left: 0">
           <div
             class="avatar-pic"
             slot="prefix"
@@ -261,7 +238,7 @@
       <x-fill :value="arr">
         <p-list-item
           attr:align-top="$index < 2 ? '' : null"
-          style="padding-left: 0"
+          style="--padding-left: 0"
         >
           <div
             class="avatar-pic"
@@ -354,6 +331,31 @@
           ></p-switch>
         </p-list-item>
       </x-fill>
+    </p-list>
+  </div>
+
+  <div class="case">
+    <p-list>
+      <p-list-item> Headline 1</p-list-item>
+      <p-list-item> Headline 2</p-list-item>
+      <p-list-item button="suffix" collapse-childs>
+        Headline 3
+        <i collapse-triangle slot="suffix"></i>
+        <p-list slot="childs">
+          <p-list-item> Headline 3-1</p-list-item>
+          <p-list-item collapse-childs>
+            3-2 (click right triangle)
+            <i collapse-triangle slot="suffix"></i>
+            <p-list slot="childs">
+              <p-list-item> Headline 3-2-1</p-list-item>
+              <p-list-item> Headline 3-2-2</p-list-item>
+            </p-list>
+          </p-list-item>
+          <p-list-item> Headline 3-3</p-list-item>
+          <p-list-item> Headline 3-4</p-list-item>
+        </p-list>
+      </p-list-item>
+      <p-list-item> Headline 4</p-list-item>
     </p-list>
   </div>
 

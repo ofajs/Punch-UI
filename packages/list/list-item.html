@@ -5,16 +5,21 @@
     :host {
       position: relative;
       display: block;
-      padding: 0 calc(var(--pui-space-x) * 2);
       font-size: 14px;
       color: var(--md-sys-color-on-normal-container);
       --wave-color: var(--md-ref-palette-translucent-primary60);
+      --padding-top: calc(var(--pui-space-y) * 2);
+      --padding-bottom: calc(var(--pui-space-y) * 2);
+      --padding-left: calc(var(--pui-space-x) * 2);
+      --padding-right: calc(var(--pui-space-x) * 2);
       /* border-bottom: red solid 1px; */
     }
     .container {
+      position: relative;
       display: flex;
       background-color: transparent;
-      padding: calc(var(--pui-space-y) * 2) 0;
+      padding: var(--padding-top) var(--padding-right) var(--padding-bottom)
+        var(--padding-left);
     }
     .content {
       display: flex;
@@ -68,11 +73,11 @@
       margin-right: calc(var(--pui-space-x) * 2);
     }
 
-    :host([button]) {
+    :host([button]) .container {
       cursor: pointer;
     }
 
-    :host([button]:hover) {
+    :host([button]) .container:hover {
       background-color: rgba(128, 128, 128, 0.1);
     }
 
@@ -99,27 +104,20 @@
       margin: calc(var(--pui-space-y) / 2) 0;
     }
 
-    .triangle {
-      display: none;
-      border-top: 5px solid var(--md-sys-color-normal);
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
+    ::slotted([collapse-triangle]) {
+      cursor: pointer;
       transition: all ease 0.2s;
     }
 
-    :host([collapse-childs]) .triangle {
-      display: block;
+    ::slotted([collapse-triangle]:empty) {
+      position: relative;
+      border-top: 5px solid var(--md-sys-color-normal);
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
     }
 
-    :host([collapse-childs="open"]) .triangle {
-      transform: rotateX(180deg);
-    }
-
-    :host([collapse-childs]) .container {
-      cursor: pointer;
-    }
   </style>
-  <div class="container" part="container" on:click="clickContainer">
+  <div class="container" part="container">
     <div class="avatar">
       <slot name="prefix"></slot>
     </div>
@@ -128,9 +126,11 @@
     </div>
     <div class="suffix">
       <slot name="suffix"></slot>
-      <div class="triangle" part="triangle"></div>
     </div>
     <div class="fake-mask"></div>
+    <x-if :value="button !== null && disabled === null">
+      <p-wave style="z-index: 2"></p-wave>
+    </x-if>
   </div>
   <div>
     <x-if :value="collapseChilds !== null">
@@ -142,9 +142,6 @@
       <slot name="childs"></slot>
     </x-else>
   </div>
-  <x-if :value="button !== null && disabled === null">
-    <p-wave style="z-index: 2"></p-wave>
-  </x-if>
   <script>
     export default {
       tag: "p-list-item",
@@ -155,7 +152,7 @@
         collapseChilds: null,
       },
       proto: {
-        clickContainer(e) {
+        clickTriangle(e) {
           e.stopImmediatePropagation();
 
           this.emit("click-container", {
@@ -174,6 +171,11 @@
         clickItem(e) {
           if (this.disabled !== null) {
             e.stopImmediatePropagation();
+            return;
+          }
+
+          if (e.target.attributes.hasOwnProperty("collapse-triangle")) {
+            this.clickTriangle(e);
             return;
           }
 

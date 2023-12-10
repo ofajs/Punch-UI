@@ -9,6 +9,21 @@
       p-list-item > p-list > p-list-item:last-child {
         padding-bottom: 0;
       }
+
+      p-list-item[collapse-childs="open"] > [collapse-triangle] {
+        transform: rotateX(180deg);
+      }
+
+      p-list-item [collapse-triangle]:empty:after {
+        display: block;
+        content: "";
+        position: absolute;
+        left: -10px;
+        top: -13px;
+        width: 20px;
+        height: 20px;
+        /* background-color: rgba(255, 0, 0, 0.344); */
+      }
     </style>
   </inject-host>
 
@@ -36,9 +51,11 @@
       data: {
         isDark: {},
       },
-      // ready() {
-      //   this.shadow.on("slotchange", () => {});
-      // },
+      ready() {
+        this.on("click", (e) => {
+          e.stopPropagation();
+        });
+      },
       attached() {
         this.isDark = isDark;
       },
