@@ -97,8 +97,28 @@
       align-items: flex-start;
       margin: calc(var(--pui-space-y) / 2) 0;
     }
+
+    .triangle {
+      display: none;
+      border-top: 5px solid var(--md-sys-color-normal);
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      transition: all ease 0.2s;
+    }
+
+    :host([collapse-childs]) .triangle {
+      display: block;
+    }
+
+    :host([collapse-childs="open"]) .triangle {
+      transform: rotateX(180deg);
+    }
+
+    :host([collapse-childs]) .container {
+      cursor: pointer;
+    }
   </style>
-  <div class="container" part="container">
+  <div class="container" part="container" on:click="clickContainer">
     <div class="avatar">
       <slot name="prefix"></slot>
     </div>
@@ -107,6 +127,7 @@
     </div>
     <div class="suffix">
       <slot name="suffix"></slot>
+      <div class="triangle" part="triangle"></div>
     </div>
     <div class="fake-mask"></div>
   </div>
@@ -123,8 +144,25 @@
         button: null,
         disabled: null,
         alignTop: null,
+        collapseChilds: null,
       },
       proto: {
+        clickContainer(e) {
+          e.stopImmediatePropagation();
+
+          this.emit("click-container", {
+            bubbles: false,
+          });
+
+          if (this.collapseChilds !== null) {
+            if (this.collapseChilds === "open") {
+              this.collapseChilds = "";
+            } else {
+              this.collapseChilds = "open";
+            }
+            return;
+          }
+        },
         clickItem(e) {
           if (this.disabled !== null) {
             e.stopImmediatePropagation();
