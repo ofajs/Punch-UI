@@ -4,7 +4,7 @@
     :host {
       position: relative;
       display: block;
-      padding: calc(var(--pui-space-y) * 2) calc(var(--pui-space-x) * 2);
+      padding: 0 calc(var(--pui-space-x) * 2);
       font-size: 14px;
       color: var(--md-sys-color-on-normal-container);
       --wave-color: var(--md-ref-palette-translucent-primary60);
@@ -13,6 +13,7 @@
     .container {
       display: flex;
       background-color: transparent;
+      padding: calc(var(--pui-space-y) * 2) 0;
     }
     .content {
       display: flex;
@@ -97,7 +98,7 @@
       margin: calc(var(--pui-space-y) / 2) 0;
     }
   </style>
-  <div class="container">
+  <div class="container" part="container">
     <div class="avatar">
       <slot name="prefix"></slot>
     </div>
@@ -108,6 +109,9 @@
       <slot name="suffix"></slot>
     </div>
     <div class="fake-mask"></div>
+  </div>
+  <div>
+    <slot name="childs"></slot>
   </div>
   <x-if :value="button !== null && disabled === null">
     <p-wave style="z-index: 2"></p-wave>
