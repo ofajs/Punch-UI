@@ -15,12 +15,18 @@
   <dark-switch></dark-switch>
   <div class="progress-group">
     <p-progress size="small" type="line" :value="value"></p-progress>
+    <p-progress type="line" :value="value"></p-progress>
     <p-progress
-      show-info="disabled"
-      style="--progress-color: pink"
+      color="success"
       type="line"
       :value="value"
     ></p-progress>
+    <p-progress
+    show-info="disabled"
+    style="--progress-color: pink"
+    type="line"
+    :value="value"
+  ></p-progress>
     <p-progress size="small" type="circle" :value="value"></p-progress>
   </div>
   <comp-shower>

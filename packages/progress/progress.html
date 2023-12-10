@@ -13,11 +13,13 @@
 
     .line-container {
       line-height: 1em;
+      display: flex;
+      align-items: center;
     }
 
     .line-outer {
       display: inline-block;
-      width: 90%;
+      flex-grow: 1;
       height: var(--line-size);
       background-color: color-mix(in srgb, var(--progress-color) 25%, white);
       position: relative;
@@ -32,7 +34,12 @@
     }
 
     .line-text {
+      flex-shrink: 0; 
+      margin-left: 2px;
       font-size: var(--line-font-size);
+    }
+    .line-text[show-info="display"] {
+      display: none;
     }
 
     .circle-container {
@@ -63,7 +70,7 @@
   </style>
   <x-if :value="type==='line'">
     <div class="line-container">
-      <div class="line-outer">
+      <div class="line-outer" attr:show-info="showInfo">
         <div class="p-progress-line" attr:style="`width:${value}%`"></div>
       </div>
       <x-if :value="showInfo === 'display'">
