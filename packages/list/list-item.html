@@ -1,26 +1,34 @@
 <template component>
   <l-m src="../wave/wave.html"></l-m>
+  <l-m src="../collapse/collapse.html"></l-m>
   <style>
+    :host {
+      position: relative;
+      display: block;
+      font-size: 14px;
+      color: var(--md-sys-color-on-normal-container);
+      --wave-color: var(--md-ref-palette-translucent-primary60);
+      --padding-top: calc(var(--pui-space-y) * 2);
+      --padding-bottom: calc(var(--pui-space-y) * 2);
+      --padding-left: calc(var(--pui-space-x) * 2);
+      --padding-right: calc(var(--pui-space-x) * 2);
+      /* border-bottom: red solid 1px; */
+    }
     .container {
       position: relative;
       display: flex;
-      padding: calc(var(--pui-space-y) * 2) 0;
-      padding-right: calc(var(--pui-space-x) * 2);
-      font-size: 14px;
       background-color: transparent;
-      color: var(--md-sys-color-on-normal-container);
-      /* border-bottom: red solid 1px; */
-      --wave-color: var(--md-ref-palette-translucent-primary60);
+      padding: var(--padding-top) var(--padding-right) var(--padding-bottom)
+        var(--padding-left);
     }
     .content {
       display: flex;
       flex-direction: column;
       justify-content: center;
       line-height: 1.2em;
-      margin-left: calc(var(--pui-space-x) * 2);
-      margin-top: calc(var(--pui-space-y) / 2);
-      margin-bottom: calc(var(--pui-space-y) / 2);
+      margin: calc(var(--pui-space-y) / 2) 0;
       min-height: 32px;
+      /* background-color: rgba(255, 0, 0, 0.3); */
     }
 
     .avatar,
@@ -62,14 +70,14 @@
     }
 
     ::slotted([slot="prefix"]) {
-      margin-left: calc(var(--pui-space-x) * 2);
+      margin-right: calc(var(--pui-space-x) * 2);
     }
 
-    :host([button]) {
+    :host([button]) .container {
       cursor: pointer;
     }
 
-    :host([button]:hover) .container {
+    :host([button]) .container:hover {
       background-color: rgba(128, 128, 128, 0.1);
     }
 
@@ -95,21 +103,44 @@
       align-items: flex-start;
       margin: calc(var(--pui-space-y) / 2) 0;
     }
+
+    ::slotted([collapse-triangle]) {
+      cursor: pointer;
+      transition: all ease 0.2s;
+    }
+
+    ::slotted([collapse-triangle]:empty) {
+      position: relative;
+      border-top: 5px solid var(--md-sys-color-normal);
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+    }
+
   </style>
-  <div class="container" on:click="clickItem">
+  <div class="container" part="container">
     <div class="avatar">
       <slot name="prefix"></slot>
     </div>
-    <div class="content">
+    <div class="content" part="content">
       <slot></slot>
     </div>
     <div class="suffix">
       <slot name="suffix"></slot>
     </div>
+    <div class="fake-mask"></div>
     <x-if :value="button !== null && disabled === null">
       <p-wave style="z-index: 2"></p-wave>
     </x-if>
-    <div class="fake-mask"></div>
+  </div>
+  <div>
+    <x-if :value="collapseChilds !== null">
+      <p-collapse :hide="collapseChilds === 'open' ? null : ''">
+        <slot name="childs"></slot>
+      </p-collapse>
+    </x-if>
+    <x-else>
+      <slot name="childs"></slot>
+    </x-else>
   </div>
   <script>
     export default {
@@ -118,11 +149,33 @@
         button: null,
         disabled: null,
         alignTop: null,
+        collapseChilds: null,
       },
       proto: {
+        clickTriangle(e) {
+          e.stopImmediatePropagation();
+
+          this.emit("click-container", {
+            bubbles: false,
+          });
+
+          if (this.collapseChilds !== null) {
+            if (this.collapseChilds === "open") {
+              this.collapseChilds = "";
+            } else {
+              this.collapseChilds = "open";
+            }
+            return;
+          }
+        },
         clickItem(e) {
           if (this.disabled !== null) {
             e.stopImmediatePropagation();
+            return;
+          }
+
+          if (e.target.attributes.hasOwnProperty("collapse-triangle")) {
+            this.clickTriangle(e);
             return;
           }
 
@@ -132,6 +185,9 @@
             this.$("[slot='prefix']").ele.click();
           }
         },
+      },
+      ready() {
+        this.on("click", (e) => this.clickItem(e));
       },
     };
   </script>
