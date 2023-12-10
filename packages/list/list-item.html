@@ -1,26 +1,27 @@
 <template component>
   <l-m src="../wave/wave.html"></l-m>
   <style>
-    .container {
+    :host {
       position: relative;
-      display: flex;
-      padding: calc(var(--pui-space-y) * 2) 0;
-      padding-right: calc(var(--pui-space-x) * 2);
+      display: block;
+      padding: calc(var(--pui-space-y) * 2) calc(var(--pui-space-x) * 2);
       font-size: 14px;
-      background-color: transparent;
       color: var(--md-sys-color-on-normal-container);
-      /* border-bottom: red solid 1px; */
       --wave-color: var(--md-ref-palette-translucent-primary60);
+      /* border-bottom: red solid 1px; */
+    }
+    .container {
+      display: flex;
+      background-color: transparent;
     }
     .content {
       display: flex;
       flex-direction: column;
       justify-content: center;
       line-height: 1.2em;
-      margin-left: calc(var(--pui-space-x) * 2);
-      margin-top: calc(var(--pui-space-y) / 2);
-      margin-bottom: calc(var(--pui-space-y) / 2);
+      margin: calc(var(--pui-space-y) / 2) 0;
       min-height: 32px;
+      /* background-color: rgba(255, 0, 0, 0.3); */
     }
 
     .avatar,
@@ -62,14 +63,14 @@
     }
 
     ::slotted([slot="prefix"]) {
-      margin-left: calc(var(--pui-space-x) * 2);
+      margin-right: calc(var(--pui-space-x) * 2);
     }
 
     :host([button]) {
       cursor: pointer;
     }
 
-    :host([button]:hover) .container {
+    :host([button]:hover) {
       background-color: rgba(128, 128, 128, 0.1);
     }
 
@@ -96,7 +97,7 @@
       margin: calc(var(--pui-space-y) / 2) 0;
     }
   </style>
-  <div class="container" on:click="clickItem">
+  <div class="container">
     <div class="avatar">
       <slot name="prefix"></slot>
     </div>
@@ -106,11 +107,11 @@
     <div class="suffix">
       <slot name="suffix"></slot>
     </div>
-    <x-if :value="button !== null && disabled === null">
-      <p-wave style="z-index: 2"></p-wave>
-    </x-if>
     <div class="fake-mask"></div>
   </div>
+  <x-if :value="button !== null && disabled === null">
+    <p-wave style="z-index: 2"></p-wave>
+  </x-if>
   <script>
     export default {
       tag: "p-list-item",
@@ -132,6 +133,9 @@
             this.$("[slot='prefix']").ele.click();
           }
         },
+      },
+      ready() {
+        this.on("click", (e) => this.clickItem(e));
       },
     };
   </script>
