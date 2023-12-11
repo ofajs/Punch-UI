@@ -1,25 +1,19 @@
 <template component>
   <style>
     :host {
-      --line-size: 2px;
-      --line-font-size: 14px;
-      --circle-size: 100;
-      --circle-font-size: 24;
+      --line-size: 4px;
+      --circle-size: 40;
+      --variant: "indeterminate";
       --progress-color: var(--md-sys-color-primary);
       --progress-animation: all 0.4s ease 0s;
       display: block;
       width: 100%;
     }
-
-    .line-container {
-      line-height: 1em;
-      display: flex;
-      align-items: center;
-    }
-
-    .line-outer {
+    :host([type="circle"]) {
+      width: calc(var(--circle-size) * 1px);
       display: inline-block;
-      flex-grow: 1;
+    }
+    .line-outer {
       height: var(--line-size);
       background-color: color-mix(in srgb, var(--progress-color) 25%, white);
       position: relative;
@@ -33,135 +27,107 @@
       background-color: var(--progress-color);
     }
 
-    .line-text {
-      flex-shrink: 0; 
-      margin-left: 2px;
-      font-size: var(--line-font-size);
-    }
-    .line-text[show-info="display"] {
-      display: none;
-    }
-
     .circle-container {
-      position: relative;
-      font-size: calc(var(--circle-font-size) * 1px);
-      height: calc(var(--circle-size) * 1px);
-      overflow: hidden;
-    }
-
-    .circle-text {
-      position: absolute;
-      inset-block-start: 50%;
-      inset-inline-start: 0;
       width: calc(var(--circle-size) * 1px);
-      margin: 0;
-      padding: 0;
-      color: rgba(0, 0, 0, 0.88);
-      font-size: 1em;
-      line-height: 1;
-      white-space: normal;
-      text-align: center;
-      transform: translateY(-50%);
+      height: calc(var(--circle-size) * 1px);
+    }
+    .circle-container[variant="indeterminate"] {
+      animation: circle-container-indeterminate 1.4s linear infinite;
     }
 
-    .p-progress-circle {
+    .p-progress-circle[variant="determinate"] {
       transition: var(--progress-animation);
+    }
+    .p-progress-circle[variant="indeterminate"] {
+      animation: circle-indeterminate 1.4s ease-in-out infinite;
+    }
+
+    @keyframes circle-indeterminate {
+      0% {
+        stroke-dasharray: 1px, 200px;
+        stroke-dashoffset: 0;
+      }
+      50% {
+        stroke-dasharray: 100px, 200px;
+        stroke-dashoffset: -15px;
+      }
+      100% {
+        stroke-dasharray: 100px, 200px;
+        stroke-dashoffset: -125px;
+      }
+    }
+
+    @keyframes circle-container-indeterminate {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
     }
   </style>
   <x-if :value="type==='line'">
-    <div class="line-container">
-      <div class="line-outer" attr:show-info="showInfo">
-        <div class="p-progress-line" attr:style="`width:${value}%`"></div>
-      </div>
-      <x-if :value="showInfo === 'display'">
-        <span class="line-text">{{value}}%</span>
-      </x-if>
+    <div class="line-outer">
+      <div class="p-progress-line" attr:style="`width:${value}%`"></div>
     </div>
   </x-if>
   <x-else>
-    <div class="circle-container">
+    <div attr:variant="variant" class="circle-container">
       <svg
         slot=""
-        style="transform: rotate(-90deg)"
-        attr:width="`${circleSize}px`"
-        attr:height="`${circleSize}px`"
+        viewBox="22 22 44 44"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
+        style="transform: rotate(-90deg)"
       >
         <circle
-          attr:r="circleR"
-          attr:cx="`${circlePosition}`"
-          attr:cy="`${circlePosition}`"
-          fill="transparent"
-          stroke="#e0e0e0"
-          stroke-width="5"
-          attr:stroke-dasharray="`${circleDasharray}px`"
-          stroke-dashoffset="0"
-        ></circle>
-        <circle
           class="p-progress-circle"
-          attr:r="circleR"
-          attr:cx="`${circlePosition}`"
-          attr:cy="`${circlePosition}`"
+          attr:variant="variant"
+          cx="44"
+          cy="44"
+          r="20.2"
+          fill="none"
+          stroke-width="3.6"
           stroke="var(--progress-color)"
-          stroke-width="5"
-          stroke-linecap="butt"
           attr:stroke-dashoffset="`${circleDashoffset}px`"
-          fill="transparent"
           attr:stroke-dasharray="`${circleDasharray}px`"
         ></circle>
       </svg>
-      <x-if :value="showInfo=== 'display'">
-        <span class="circle-text">{{value}}%</span>
-      </x-if>
     </div>
   </x-else>
   <script>
     export default {
       tag: "p-progress",
       attrs: {
-        type: "line", // line circle
-        size: "normal", // normal small
+        type: "line", // line | circle
         color: null, // normal primary danger success
         value: 0,
-        showInfo: "display",
+        circleSize: 40,
+        variant: "indeterminate", // indeterminate | determinate
       },
       data: {
-        circleSize: 100,
-        circleR: 45,
-        circlePosition: 50,
-        circleDasharray: 298,
-        circleDashoffset: 298,
+        circleR: 20.2,
+        circleDasharray: 127,
+        circleDashoffset: 0,
       },
       proto: {
         renderCom() {
-          const { type, size } = this;
-          let circleSize;
-          let circleFontSize;
-          const isSmall = size === "small";
-          if (type === "line") {
-            this.style.setProperty("--line-size", isSmall ? "2px" : "4px");
-            this.style.setProperty(
-              "--line-font-size",
-              isSmall ? "12px" : "14px"
-            );
-          } else if (type === "circle") {
-            circleSize = isSmall ? 80 : 100;
-            circleFontSize = isSmall ? 16 : 24;
-            this.getComputedCircle(circleSize, circleFontSize);
+          const { type, circleSize, variant } = this;
+          if (type === "circle") {
+            this.style.setProperty("--circle-size", circleSize);
+            this.style.setProperty("--variant", variant);
+            this.getComputedCircle(circleSize);
           }
         },
-        getComputedCircle(circleSize, circleFontSize) {
-          const r = (circleSize - 10) / 2;
+        getComputedCircle(circleSize) {
+          const valueProportion = circleSize / 100;
+          const value = this.value * valueProportion;
+          const r = this.circleR;
           const dasharray = r * 2 * Math.PI;
-          this.style.setProperty("--circle-size", circleSize);
-          this.style.setProperty("--circle-font-size", circleFontSize);
-
           this.circleSize = circleSize;
-          this.circleR = r;
-          this.circlePosition = circleSize / 2;
           this.circleDasharray = dasharray;
-          this.circleDashoffset = dasharray * ((100 - this.value) / 100);
+          this.circleDashoffset =
+            dasharray * ((circleSize - value) / circleSize);
         },
         checkNumberInRange(num) {
           if (typeof num !== "number") {
@@ -187,7 +153,7 @@
         type(type) {
           this.renderCom();
         },
-        size(size) {
+        circleSize(circleSize) {
           this.renderCom();
         },
         value(value) {
@@ -195,6 +161,9 @@
             this.value = this.checkNumberInRange(value);
             this.renderCom();
           }
+        },
+        variant(variant) {
+          this.renderCom();
         },
       },
     };
