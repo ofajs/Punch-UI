@@ -64,6 +64,7 @@
     <div>
       <p-progress color="success" type="circle"></p-progress>
       <p-progress variant="determinate"  type="circle" :value="value"></p-progress>
+      <p> variant 属性控制动画效果:</p>
       <div class="circle-text-container">
         <p-progress
           variant="determinate"
@@ -81,7 +82,8 @@
           <span>{{value}}%</span>
         </div>
       </div>
-      <p-progress color="success" type="circle" :value="value"></p-progress>
+      <p>circle-size 属性控制圆圈大小</p>
+      <p-progress circle-size="300" color="success" type="circle" :value="value"></p-progress>
     </div>
   </div>
   <script>
