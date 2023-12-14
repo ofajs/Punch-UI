@@ -3,7 +3,6 @@
     :host {
       --line-size: 4px;
       --circle-size: 40;
-      --variant: "indeterminate";
       --progress-color: var(--md-sys-color-primary);
       --progress-animation: all 0.4s ease 0s;
       display: block;
@@ -68,7 +67,7 @@
   </style>
   <x-if :value="type==='line'">
     <div class="line-outer">
-      <div class="p-progress-line" attr:style="`width:${value}%`"></div>
+      <div class="p-progress-line" :style.width="value + '%'"></div>
     </div>
   </x-if>
   <x-else>
@@ -102,7 +101,6 @@
         type: "line", // line | circle
         color: null, // normal primary danger success
         value: 0,
-        circleSize: 40,
         variant: "indeterminate", // indeterminate | determinate
       },
       data: {
@@ -112,22 +110,17 @@
       },
       proto: {
         renderCom() {
-          const { type, circleSize, variant } = this;
+          const { type, variant } = this;
           if (type === "circle") {
-            this.style.setProperty("--circle-size", circleSize);
-            this.style.setProperty("--variant", variant);
-            this.getComputedCircle(circleSize);
+            this.getComputedCircle();
           }
         },
-        getComputedCircle(circleSize) {
-          const valueProportion = circleSize / 100;
-          const value = this.value * valueProportion;
+        getComputedCircle() {
           const r = this.circleR;
           const dasharray = r * 2 * Math.PI;
-          this.circleSize = circleSize;
           this.circleDasharray = dasharray;
           this.circleDashoffset =
-            dasharray * ((circleSize - value) / circleSize);
+            dasharray * ((100 - this.value) / 100);
         },
         checkNumberInRange(num) {
           if (typeof num !== "number") {
@@ -151,9 +144,6 @@
           }
         },
         type(type) {
-          this.renderCom();
-        },
-        circleSize(circleSize) {
           this.renderCom();
         },
         value(value) {
