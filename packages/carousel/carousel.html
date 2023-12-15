@@ -17,7 +17,6 @@
 
     ::slotted(*) {
       position: relative;
-      /* margin-right: var(--pui-space-x); */
       flex: 0 0 0;
       border-radius: var(--item-radio);
       cursor: pointer;
@@ -32,11 +31,6 @@
     ::slotted([pos="focus"]) {
       outline: red solid 4px;
     }
-
-    /* ::slotted([focus]),
-    ::slotted([shrink]) {
-      margin-right: var(--pui-space-x);
-    } */
 
     .prev,
     .next {
@@ -104,6 +98,7 @@
           }
           ::slotted([pos="medium"]){
             flex-basis:${oversize}px;
+            margin-right: ${this.spaceSize}px;
           }
           ::slotted([pos="focus"]),::slotted([pos="main"]){
             flex-basis: ${mainBasis}px;
@@ -125,10 +120,14 @@
               return;
             }
 
-            // if (this.currentId + oriActiveLen > this.length) {
-            //   e.attr("pos", "main");
-            //   // debugger;
-            // }
+            if (this.currentId + oriActiveLen >= this.length) {
+              if (index === this.length - oriActiveLen - 1) {
+                e.attr("pos", "medium");
+                return;
+              }
+
+              // debugger;
+            }
 
             if (
               index > this.currentId &&
