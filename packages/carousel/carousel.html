@@ -1,0 +1,160 @@
+<template component>
+  <l-m src="../wave/wave.html"></l-m>
+  <style>
+    :host {
+      display: block;
+      --item-radio: 30px;
+    }
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: stretch;
+      /* overflow: auto; */
+      overflow: hidden;
+    }
+
+    ::slotted(*) {
+      position: relative;
+      /* margin-right: var(--pui-space-x); */
+      flex: 0 0 0;
+      border-radius: var(--item-radio);
+      cursor: pointer;
+      overflow: hidden;
+      transition: all ease 0.3s;
+    }
+
+    ::slotted(*:last-child) {
+      margin-right: 0 !important;
+    }
+
+    ::slotted([pos="focus"]) {
+      outline: red solid 4px;
+    }
+
+    /* ::slotted([focus]),
+    ::slotted([shrink]) {
+      margin-right: var(--pui-space-x);
+    } */
+
+    .prev,
+    .next {
+      position: absolute;
+      top: 40%;
+      z-index: 2;
+    }
+    .prev {
+      left: 0;
+    }
+    .next {
+      right: 0;
+    }
+  </style>
+  <style id="target"></style>
+  <div class="container">
+    <slot></slot>
+    <button class="prev" on:click="toPrev">prev</button>
+    <button class="next" on:click="toNext">next</button>
+  </div>
+  <script>
+    export default {
+      tag: "p-carousel",
+      attrs: {
+        mainBasis: null, // 焦点窗口的大小
+      },
+      data: {
+        currentId: 0,
+        otherShrink: "60px", // 其他窗口缩小的比例
+        spaceSize: 6,
+        // activeLen: 1, // 可以处于激活态的窗口数量
+        // mediumSize: null, // 中间的尺寸
+        // smallSize: null, // 小块的尺寸
+      },
+      proto: {
+        refreshStyle() {
+          const styleContent = "";
+
+          // 计算激活宽度
+          let mainBasis = parseInt(this.mainBasis);
+
+          if (/%$/.test(this.mainBasis)) {
+            mainBasis = (this.width * parseInt(mainBasis)) / 100;
+          }
+
+          this._mainBasis = mainBasis;
+
+          // 可以共存的个数
+          let activeLen = Math.floor(this.width / mainBasis);
+          this._activeLen = activeLen;
+
+          // 剩余的尺寸，如果不足一半，填充为只有一个收缩的格
+          const oversize =
+            this.width - activeLen * (mainBasis + this.spaceSize);
+
+          this.shadow.$("#target").html = `
+          ::slotted([pos="shrink"]){
+            flex-basis:${oversize}px;
+          }
+          ::slotted([pos="focus"]),::slotted([pos="main"]){
+            flex-basis: ${mainBasis}px;
+            margin-right: ${this.spaceSize}px;
+          }
+          `;
+
+          this.refreshCurrent();
+
+          console.log("refreshStyle");
+        },
+        refreshCurrent() {
+          const oriActiveLen = this._activeLen;
+          let activeLen = oriActiveLen;
+          let inFocus = false;
+
+          this.forEach((e, index) => {
+            if (inFocus && activeLen > 0) {
+              activeLen--;
+              e.attr("pos", "main");
+              return;
+            }
+
+            if (this.currentId === index) {
+              e.attr("pos", "focus");
+              activeLen--;
+              inFocus = true;
+            } else if (this.currentId + oriActiveLen === index) {
+              e.attr("pos", "shrink");
+            } else {
+              e.attr("pos", null);
+            }
+          });
+        },
+        toNext() {
+          if (this.currentId <= this.length - 2) {
+            this.currentId++;
+            this.refreshCurrent();
+          }
+        },
+        toPrev() {
+          if (this.currentId > 0) {
+            this.currentId--;
+            this.refreshCurrent();
+          }
+        },
+      },
+      ready() {
+        this.shadow.on("slotchange", () => {
+          this.forEach((e) => {
+            if (!e.$("p-wave")) {
+              // 添加 wave 效果
+              e.push({ tag: "p-wave" });
+            }
+          });
+        });
+      },
+      attached() {
+        this.refreshStyle();
+      },
+    };
+  </script>
+</template>
