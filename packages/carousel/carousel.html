@@ -62,16 +62,22 @@
       tag: "p-carousel",
       attrs: {
         mainBasis: null, // 焦点窗口的大小
+        activeIndex: "0",
       },
       data: {
-        currentId: 0,
-        otherShrink: "60px", // 其他窗口缩小的比例
+        // currentId: 0,
         spaceSize: 6,
+        smallBasis: 60, // 小块的尺寸
         // activeLen: 1, // 可以处于激活态的窗口数量
         // mediumSize: null, // 中间的尺寸
-        // smallSize: null, // 小块的尺寸
       },
       proto: {
+        get currentId() {
+          return parseInt(this.activeIndex) || 0;
+        },
+        set currentId(val) {
+          this.activeIndex = String(val);
+        },
         refreshStyle() {
           const styleContent = "";
 
@@ -93,7 +99,10 @@
             this.width - activeLen * (mainBasis + this.spaceSize);
 
           this.shadow.$("#target").html = `
-          ::slotted([pos="shrink"]){
+          ::slotted([pos="small"]){
+            flex-basis:${this.smallBasis}px;
+          }
+          ::slotted([pos="medium"]){
             flex-basis:${oversize}px;
           }
           ::slotted([pos="focus"]),::slotted([pos="main"]){
@@ -102,43 +111,52 @@
           }
           `;
 
-          this.refreshCurrent();
+          this.repareCurrent();
 
           console.log("refreshStyle");
         },
-        refreshCurrent() {
+        repareCurrent() {
           const oriActiveLen = this._activeLen;
-          let activeLen = oriActiveLen;
-          let inFocus = false;
 
           this.forEach((e, index) => {
-            if (inFocus && activeLen > 0) {
-              activeLen--;
+            if (this.currentId === index) {
+              // 焦点的块
+              e.attr("pos", "focus");
+              return;
+            }
+
+            // if (this.currentId + oriActiveLen > this.length) {
+            //   e.attr("pos", "main");
+            //   // debugger;
+            // }
+
+            if (
+              index > this.currentId &&
+              index < this.currentId + oriActiveLen
+            ) {
+              // 在尺寸范围内，和焦点保持一致的块
               e.attr("pos", "main");
               return;
             }
 
-            if (this.currentId === index) {
-              e.attr("pos", "focus");
-              activeLen--;
-              inFocus = true;
-            } else if (this.currentId + oriActiveLen === index) {
-              e.attr("pos", "shrink");
-            } else {
-              e.attr("pos", null);
+            if (index === this.currentId + oriActiveLen) {
+              e.attr("pos", "medium");
+              return;
             }
+
+            e.attr("pos", null);
           });
         },
         toNext() {
           if (this.currentId <= this.length - 2) {
             this.currentId++;
-            this.refreshCurrent();
+            this.repareCurrent();
           }
         },
         toPrev() {
           if (this.currentId > 0) {
             this.currentId--;
-            this.refreshCurrent();
+            this.repareCurrent();
           }
         },
       },
@@ -153,6 +171,12 @@
         });
       },
       attached() {
+        let defaultActiveId = this.attr("default-active-index");
+
+        if (defaultActiveId) {
+          this.currentId = parseInt(defaultActiveId);
+        }
+
         this.refreshStyle();
       },
     };
