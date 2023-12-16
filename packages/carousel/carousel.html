@@ -121,6 +121,7 @@
             return;
           }
 
+          // console.clear();
           console.log("mainBasis:", mainBasis);
           console.log("activeId:", activeId);
           console.log("diffPrecent:", diffPrecent);
@@ -140,18 +141,30 @@
 
           target.attr("focus", "");
 
-          while (true) {
-            target.style.flexBasis = `${mainBasis}px`;
-            target.style.marginRight = `${this.spaceSize}px`;
+          let isFirst = true;
 
-            totalWidth += mainBasis;
-            totalWidth += this.spaceSize;
+          while (true) {
+            if (diffPrecent && isFirst) {
+              isFirst = false;
+
+              target.style.flexBasis = `${mainBasis * (1 - diffPrecent)}px`;
+              target.style.marginRight = `${this.spaceSize}px`;
+
+              totalWidth += mainBasis * (1 - diffPrecent);
+              totalWidth += this.spaceSize;
+            } else {
+              target.style.flexBasis = `${mainBasis}px`;
+              target.style.marginRight = `${this.spaceSize}px`;
+
+              totalWidth += mainBasis;
+              totalWidth += this.spaceSize;
+            }
 
             target.attr("visabled", "");
 
             if (totalWidth > containerWidth) {
               target.style.flexBasis = `${
-                containerWidth - (totalWidth - mainBasis)
+                containerWidth - (totalWidth - mainBasis) + this.spaceSize
               }px`;
               // target.style.marginRight = ``;
               break;
@@ -203,16 +216,16 @@
 
           diffWidth += e.deltaX;
 
-          console.log(diffWidth, diffWidth / 500);
+          // console.log(diffWidth, diffWidth / 500);
 
           let newIndex = this.currentId + diffWidth / 500;
           const notRun = newIndex < 0 || newIndex >= this.length - 1;
 
-          // if (notRun) {
-          //   this.attr("add-anime", "");
-          // } else {
-          //   this.attr("add-anime", null);
-          // }
+          if (notRun) {
+            this.attr("add-anime", "");
+          } else {
+            this.attr("add-anime", null);
+          }
 
           this.render(newIndex);
 
