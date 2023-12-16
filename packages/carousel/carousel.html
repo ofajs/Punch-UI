@@ -49,8 +49,8 @@
 
   <inject-host>
     <style>
-      p-carousel[no-anime] > * {
-        animation-duration: 0ms;
+      p-carousel[add-anime] > * {
+        transition: all ease 0.3s;
       }
     </style>
   </inject-host>
@@ -226,15 +226,21 @@
 
           // console.log(diffWidth, diffWidth / 500);
 
-          this.attr("no-anime", "");
           let newIndex = this.currentId + diffWidth / 500;
+          const notRun = newIndex < 0 || newIndex >= this.length - 1;
+
+          if (notRun) {
+            this.attr("add-anime", "");
+          } else {
+            this.attr("add-anime", null);
+          }
 
           this.render(newIndex);
 
           clearTimeout(timer);
           timer = setTimeout(
             () => {
-              this.attr("no-anime", null);
+              this.attr("add-anime", "");
 
               if (newIndex > 0) {
                 this.currentId = Math.floor(newIndex);
@@ -243,7 +249,7 @@
               }
               diffWidth = 0;
             },
-            newIndex < 0 || newIndex >= this.length ? 0 : 100
+            notRun ? 0 : 100
           );
         });
       },
