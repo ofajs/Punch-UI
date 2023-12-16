@@ -22,7 +22,7 @@
       cursor: pointer;
       overflow: hidden;
       color: transparent;
-      transition: all ease 0.3s;
+      /* transition: all ease 0.3s; */
     }
 
     ::slotted(*:last-child) {
@@ -46,6 +46,14 @@
       right: 0;
     }
   </style>
+
+  <inject-host>
+    <style>
+      p-carousel[no-anime] > * {
+        animation-duration: 0ms;
+      }
+    </style>
+  </inject-host>
   <div class="container">
     <slot></slot>
     <button class="prev" on:click="currentId--">prev</button>
@@ -85,7 +93,19 @@
           this.activeIndex = String(val);
         },
         // 根据index进度渲染页面
-        render(activeId) {
+        render(precent) {
+          console.log(precent);
+
+          if (precent < 0) {
+            precent = 0;
+          } else if (precent >= this.length) {
+            precent = this.length - 1;
+          }
+
+          const activeId = Math.floor(precent);
+          // const activeId = Math.ceil(precent);
+          const diffPrecent = precent - activeId;
+
           // 计算激活宽度
           let mainBasis = parseInt(this.mainBasis);
 
@@ -142,7 +162,6 @@
           let fixedActiveId = activeId;
           if (fixPrevLen) {
             // 向前面修补数量
-
             for (let i = fixPrevLen; i > 0; i--) {
               fixedActiveId--;
               const target = this[fixedActiveId];
@@ -160,6 +179,17 @@
             const nextEl = this[targetId];
 
             nextEl.style.flexBasis = `${oversize}px`;
+
+            if (diffPrecent) {
+              // 在最前面一个的时候，根据进度修正额度
+              const target = this[fixedActiveId];
+              let diffWidth = mainBasis * (1 - diffPrecent);
+              target.style.flexBasis = `${diffWidth}px`;
+
+              nextEl.style.flexBasis = `${
+                oversize + (mainBasis - diffWidth)
+              }px`;
+            }
           } else {
             // 后面没有元素，修正前一个元素
             const target = this[fixedActiveId - 1];
@@ -170,7 +200,7 @@
             target.attr("visible", "");
           }
 
-          console.log(mainBasis, activeLen, oversize, activeId);
+          // console.log(mainBasis, activeLen, oversize, activeId, diffPrecent);
         },
       },
       ready() {
@@ -181,6 +211,40 @@
               e.push({ tag: "p-wave" });
             }
           });
+        });
+
+        let diffWidth = 0;
+
+        let timer;
+
+        this.on("wheel", (e) => {
+          if (Math.abs(e.deltaX) > 0) {
+            e.preventDefault();
+          }
+
+          diffWidth += e.deltaX;
+
+          // console.log(diffWidth, diffWidth / 500);
+
+          this.attr("no-anime", "");
+          let newIndex = this.currentId + diffWidth / 500;
+
+          this.render(newIndex);
+
+          clearTimeout(timer);
+          timer = setTimeout(
+            () => {
+              this.attr("no-anime", null);
+
+              if (newIndex > 0) {
+                this.currentId = Math.floor(newIndex);
+              } else {
+                this.currentId = Math.ceil(newIndex);
+              }
+              diffWidth = 0;
+            },
+            newIndex < 0 || newIndex >= this.length ? 0 : 100
+          );
         });
       },
       attached() {
