@@ -21,6 +21,7 @@
       border-radius: var(--item-radio);
       cursor: pointer;
       overflow: hidden;
+      color: transparent;
       transition: all ease 0.3s;
     }
 
@@ -29,6 +30,7 @@
     }
 
     ::slotted([pos="focus"]) {
+      color: inherit;
       outline: red solid 4px;
     }
 
@@ -64,8 +66,13 @@
         smallBasis: 60, // 小块的尺寸
         // activeLen: 1, // 可以处于激活态的窗口数量
         // mediumSize: null, // 中间的尺寸
+        canShowSmall: false, // 是否可以出现小块
       },
       proto: {
+        get visoLastId() {
+          // 视觉上的最后一个id
+          return this.length - this._activeLen;
+        },
         get currentId() {
           return parseInt(this.activeIndex) || 0;
         },
@@ -126,7 +133,11 @@
                 return;
               }
 
-              // debugger;
+              if (index >= this.visoLastId) {
+                // 已经是尽头，调整前面几个的宽度保持一致
+                e.attr("pos", "main");
+                return;
+              }
             }
 
             if (
