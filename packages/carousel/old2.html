@@ -101,13 +101,9 @@
             precent = this.length - 1;
           }
 
-          const containerWidth = this.width;
-
-          if (!containerWidth) {
-            return;
-          }
-
           const activeId = Math.floor(precent);
+          console.log(precent, activeId);
+          // const activeId = Math.ceil(precent);
           const diffPrecent = precent - activeId;
 
           // 计算激活宽度
@@ -121,56 +117,104 @@
             return;
           }
 
-          console.log("mainBasis:", mainBasis);
-          console.log("activeId:", activeId);
-          console.log("diffPrecent:", diffPrecent);
-          console.log("containerWidth:", containerWidth);
+          // 可以共存的个数
+          let activeLen = Math.floor(this.width / mainBasis);
 
-          this.all("[visabled]").forEach((e) => {
+          // 视觉上的最后一个id
+          // const lastVisoId = this.length - activeLen;
+
+          // 剩余的尺寸
+          const oversize =
+            this.width - activeLen * (mainBasis + this.spaceSize);
+
+          // 向前修正的个数
+          let fixPrevLen = 0;
+          // 修正的激活id个数
+          let targetId = activeId;
+
+          this.all("[visible]").forEach((e) => {
             e.style.flexBasis = "";
             e.style.marginRight = "";
-            e.attr("visabled", null);
-            e.attr("focus", null);
           });
 
-          let totalWidth = 0;
+          const oldFocus = this.$("[focus]");
 
-          let target = this[activeId];
-          let isReverse = false;
+          if (oldFocus) {
+            oldFocus.attr("focus", null);
+          }
 
-          target.attr("focus", "");
+          this[activeId].attr("focus", "");
 
-          while (true) {
-            target.style.flexBasis = `${mainBasis}px`;
-            target.style.marginRight = `${this.spaceSize}px`;
+          for (let i = activeLen; i > 0; i--) {
+            const target = this[targetId];
 
-            totalWidth += mainBasis;
-            totalWidth += this.spaceSize;
-
-            target.attr("visabled", "");
-
-            if (totalWidth > containerWidth) {
-              target.style.flexBasis = `${
-                containerWidth - (totalWidth - mainBasis)
-              }px`;
-              // target.style.marginRight = ``;
-              break;
-            }
-
-            if (isReverse) {
-              target = target.prev;
-              continue;
-            }
-
-            const { next } = target;
-
-            if (next) {
-              target = next;
+            if (target) {
+              target.style.flexBasis = `${mainBasis}px`;
+              target.style.marginRight = `${this.spaceSize}px`;
+              target.attr("visible", "");
             } else {
-              target = this[activeId - 1];
-              isReverse = true;
+              fixPrevLen++;
+            }
+
+            targetId++;
+          }
+
+          let fixedActiveId = activeId;
+          if (fixPrevLen) {
+            // 向前面修补数量
+            for (let i = fixPrevLen; i > 0; i--) {
+              fixedActiveId--;
+              const target = this[fixedActiveId];
+
+              target.style.flexBasis = `${mainBasis}px`;
+              target.style.marginRight = `${this.spaceSize}px`;
+
+              target.attr("visible", "");
             }
           }
+
+          // 最前面的一个元素
+          const startBlock = this[fixedActiveId];
+          // 最后面的元素
+          const endBlock = this[targetId];
+
+          console.log("startBlock", startBlock.ele);
+          console.log("endBlock", endBlock?.ele);
+
+          if (!endBlock) {
+            // 后面没有元素，修正前一个元素
+            startBlock.prev.style.flexBasis = `${oversize}px`;
+            startBlock.prev.style.marginRight = `${this.spaceSize}px`;
+            startBlock.prev.attr("visible", "");
+          } else {
+            let nWidth = oversize + mainBasis * (1 - diffPrecent);
+
+            if (nWidth > mainBasis) {
+              // const { prev } = startBlock;
+              // if (prev) {
+              //   prev.style.flexBasis = `${
+              //     nWidth - mainBasis - this.spaceSize
+              //   }px`;
+              //   prev.style.marginRight = `${this.spaceSize}px`;
+              //   prev.attr("visible", "");
+              // }
+              // debugger;
+            }
+
+            startBlock.style.flexBasis = `${
+              nWidth > mainBasis ? mainBasis : nWidth
+            }px`;
+
+            if (diffPrecent) {
+            }
+
+            endBlock.style.flexBasis = `${oversize * diffPrecent}px`;
+
+            // endBlock.style.flexBasis = `${
+            //   mainBasis - mainBasis * (1 - diffPrecent)
+            // }px`;
+          }
+          // console.log(mainBasis, activeLen, oversize, activeId, diffPrecent);
         },
       },
       ready() {
@@ -203,16 +247,16 @@
 
           diffWidth += e.deltaX;
 
-          console.log(diffWidth, diffWidth / 500);
+          // console.log(diffWidth, diffWidth / 500);
 
           let newIndex = this.currentId + diffWidth / 500;
           const notRun = newIndex < 0 || newIndex >= this.length - 1;
 
-          // if (notRun) {
-          //   this.attr("add-anime", "");
-          // } else {
-          //   this.attr("add-anime", null);
-          // }
+          if (notRun) {
+            this.attr("add-anime", "");
+          } else {
+            this.attr("add-anime", null);
+          }
 
           this.render(newIndex);
 
