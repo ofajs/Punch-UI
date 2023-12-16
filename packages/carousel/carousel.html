@@ -112,7 +112,17 @@
           // 修正的激活id个数
           let targetId = activeId;
 
-          this.$("[focus]")?.attr("focus", null);
+          this.all("[visible]").forEach((e) => {
+            e.style.flexBasis = "";
+            e.style.marginRight = "";
+          });
+
+          const oldFocus = this.$("[focus]");
+
+          if (oldFocus) {
+            oldFocus.attr("focus", null);
+          }
+
           this[activeId].attr("focus", "");
 
           for (let i = activeLen; i > 0; i--) {
@@ -121,6 +131,7 @@
             if (target) {
               target.style.flexBasis = `${mainBasis}px`;
               target.style.marginRight = `${this.spaceSize}px`;
+              target.attr("visible", "");
             } else {
               fixPrevLen++;
             }
@@ -138,6 +149,8 @@
 
               target.style.flexBasis = `${mainBasis}px`;
               target.style.marginRight = `${this.spaceSize}px`;
+
+              target.attr("visible", "");
             }
           }
 
@@ -153,6 +166,8 @@
 
             target.style.flexBasis = `${oversize}px`;
             target.style.marginRight = `${this.spaceSize}px`;
+
+            target.attr("visible", "");
           }
 
           console.log(mainBasis, activeLen, oversize, activeId);
