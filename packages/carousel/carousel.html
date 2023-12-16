@@ -23,6 +23,7 @@
       overflow: hidden;
       color: transparent;
       /* transition: all ease 0.3s; */
+      transition: margin ease 0.3s;
     }
 
     ::slotted(*:last-child) {
@@ -94,8 +95,6 @@
         },
         // 根据index进度渲染页面
         render(precent) {
-          console.log(precent);
-
           if (precent < 0) {
             precent = 0;
           } else if (precent >= this.length) {
@@ -103,6 +102,7 @@
           }
 
           const activeId = Math.floor(precent);
+          console.log(precent, activeId);
           // const activeId = Math.ceil(precent);
           const diffPrecent = precent - activeId;
 
@@ -173,37 +173,48 @@
             }
           }
 
-          // 填充剩余的空间
-          if (this[targetId]) {
-            // 后面还有元素，修正后面的元素
-            const nextEl = this[targetId];
+          // 最前面的一个元素
+          const startBlock = this[fixedActiveId];
+          // 最后面的元素
+          const endBlock = this[targetId];
 
-            nextEl.style.flexBasis = `${oversize}px`;
+          console.log("startBlock", startBlock.ele);
+          console.log("endBlock", endBlock?.ele);
 
-            if (diffPrecent) {
-              // 在最前面一个的时候，根据进度修正额度
-              const target = this[fixedActiveId];
-              let diffWidth = mainBasis * (1 - diffPrecent);
-              target.style.flexBasis = `${diffWidth}px`;
-
-              nextEl.style.flexBasis = `${
-                oversize + (mainBasis - diffWidth)
-              }px`;
-            }
-          } else {
+          if (!endBlock) {
             // 后面没有元素，修正前一个元素
-            const target = this[fixedActiveId - 1];
+            startBlock.prev.style.flexBasis = `${oversize}px`;
+            startBlock.prev.style.marginRight = `${this.spaceSize}px`;
+            startBlock.prev.attr("visible", "");
+          } else {
+            let nWidth = oversize + mainBasis * (1 - diffPrecent);
 
-            target.style.flexBasis = `${oversize}px`;
-            target.style.marginRight = `${this.spaceSize}px`;
+            if (nWidth > mainBasis) {
+              const { prev } = startBlock;
+              if (prev) {
+                prev.style.flexBasis = `${
+                  nWidth - mainBasis - this.spaceSize
+                }px`;
+                prev.style.marginRight = `${this.spaceSize}px`;
+                prev.attr("visible", "");
+              }
+              // debugger;
+            }
 
-            target.attr("visible", "");
+            startBlock.style.flexBasis = `${
+              nWidth > mainBasis ? mainBasis : nWidth
+            }px`;
+
+            endBlock.style.flexBasis = `${
+              mainBasis - mainBasis * (1 - diffPrecent)
+            }px`;
           }
-
           // console.log(mainBasis, activeLen, oversize, activeId, diffPrecent);
         },
       },
       ready() {
+        this.attr("add-anime", "");
+
         // fix p-wave
         this.shadow.on("slotchange", () => {
           this.forEach((e) => {
@@ -214,6 +225,13 @@
         });
 
         let diffWidth = 0;
+
+        // this.on("touchstart", (e) => {
+        //   console.log("touchstart", e);
+        // });
+        // this.on("gestureend", (e) => {
+        //   console.log("gestureend", e);
+        // });
 
         let timer;
 
@@ -241,13 +259,16 @@
           timer = setTimeout(
             () => {
               this.attr("add-anime", "");
-
-              if (newIndex > 0) {
-                this.currentId = Math.floor(newIndex);
-              } else {
-                this.currentId = Math.ceil(newIndex);
-              }
               diffWidth = 0;
+
+              let id;
+              if (newIndex > 0) {
+                id = this.currentId = Math.floor(newIndex);
+              } else {
+                id = this.currentId = Math.ceil(newIndex);
+              }
+
+              this.render(id);
             },
             notRun ? 0 : 100
           );
