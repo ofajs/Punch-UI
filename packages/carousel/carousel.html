@@ -24,8 +24,6 @@
       cursor: pointer;
       overflow: hidden;
       color: transparent;
-      /* transition: all ease 0.3s; */
-      /* transition: margin ease 0.3s; */
     }
 
     ::slotted(*:last-child) {
@@ -34,7 +32,7 @@
 
     ::slotted([focus]) {
       color: inherit;
-      outline: green solid 4px;
+      /* outline: green solid 4px; */
     }
     .prev,
     .next {
@@ -68,6 +66,7 @@
       attrs: {
         mainBasis: null, // 焦点窗口的大小
         activeIndex: "0", // 激活中的id
+        autoplay: null,
         // align: "start", // start 左侧第一个为主要块；center 主要块为中间那个
       },
       data: {
@@ -75,6 +74,13 @@
         // smallBasis: 60, //小块的尺寸
       },
       watch: {
+        autoplay(val) {
+          if (val !== null) {
+            this._play();
+          } else {
+            clearTimeout(this._autoplayTimer);
+          }
+        },
         activeIndex() {
           if (this.currentId < 0) {
             this.currentId = 0;
@@ -94,6 +100,18 @@
         },
         set currentId(val) {
           this.activeIndex = String(val);
+        },
+        _play() {
+          clearTimeout(this._autoplayTimer);
+          // 自动播放
+          this._autoplayTimer = setTimeout(() => {
+            this.currentId++;
+
+            if (this.currentId > this._lastVisId) {
+              this.currentId = 0;
+            }
+            this._play();
+          }, parseInt(this.autoplay) || 2000);
         },
         // 根据index进度渲染页面
         render(precent) {
@@ -253,6 +271,7 @@
           startX = point.screenX;
           startTime = Date.now();
           console.log("this.currentId1", this.currentId);
+          clearTimeout(this._autoplayTimer);
         });
         this.on("touchmove", (e) => {
           const point = e?.changedTouches[0] || e.targetTouches[0];
@@ -292,6 +311,7 @@
           }
 
           this.render((this.currentId = Math.round(newIndex)));
+          this._play();
         });
 
         // 滚轮逻辑
@@ -316,7 +336,7 @@
           }
 
           this.render(newIndex);
-
+          clearTimeout(this._autoplayTimer);
           clearTimeout(timer);
           timer = setTimeout(
             () => {
@@ -327,6 +347,7 @@
                   newIndex > this._lastVisId ? this._lastVisId : newIndex
                 ))
               );
+              this._play();
             },
             notRun ? 0 : 100
           );
@@ -370,6 +391,8 @@
         if (this._ro) {
           this._ro.disconnect();
         }
+
+        clearTimeout(this._autoplayTimer);
       },
     };
   </script>
