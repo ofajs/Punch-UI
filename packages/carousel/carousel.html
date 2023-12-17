@@ -23,7 +23,7 @@
       overflow: hidden;
       color: transparent;
       /* transition: all ease 0.3s; */
-      transition: margin ease 0.3s;
+      /* transition: margin ease 0.3s; */
     }
 
     ::slotted(*:last-child) {
@@ -122,11 +122,28 @@
           }
 
           // console.clear();
-          console.log("mainBasis:", mainBasis);
-          console.log("activeId:", activeId);
-          console.log("diffPrecent:", diffPrecent);
-          console.log("containerWidth:", containerWidth);
+          // console.log("mainBasis:", mainBasis);
+          // console.log("activeId:", activeId);
+          // console.log("diffPrecent:", diffPrecent);
+          // console.log("containerWidth:", containerWidth);
 
+          const visLen = Math.floor(
+            containerWidth / (this.spaceSize + mainBasis)
+          );
+          // 计算在可视化下的最后一个id
+          const lastVisId = this.length - visLen;
+
+          console.log("lastVisId:", lastVisId);
+
+          const insufficient = this._renderByDir(activeId, diffPrecent);
+
+          console.log("insufficient:", insufficient);
+
+          if (insufficient) {
+            // this._renderByDir(this.length - 1, 1 - diffPrecent, "right");
+          }
+        },
+        _renderByDir(activeId, diffPrecent, dir = "left") {
           this.all("[visabled]").forEach((e) => {
             e.style.flexBasis = "";
             e.style.marginRight = "";
@@ -134,12 +151,8 @@
             e.attr("focus", null);
           });
 
-          const visLen = Math.floor(
-            containerWidth / (this.spaceSize + mainBasis)
-          );
-          // 计算在可视化下的最后一个id
-          const lastVisId = this.length - visLen;
-          console.log("lastVisId:", lastVisId);
+          let mainBasis = parseInt(this.mainBasis);
+          const containerWidth = this.width;
 
           let totalWidth = 0;
 
@@ -147,24 +160,12 @@
 
           target.attr("focus", "");
 
-          const isInLast = activeId >= lastVisId - 1;
-
-          // if (isInLast) {
-          //   target = this[lastVisId];
-          // }
-
           let isFirst = true;
 
-          let fixedActiveId = activeId;
+          // 没有填充完剩余的的区域
+          let insufficient = false;
 
           while (true) {
-            // if (activeId >= lastVisId) {
-            //   target.style.flexBasis = `${mainBasis}px`;
-            //   target.style.marginRight = `${this.spaceSize}px`;
-
-            //   totalWidth += mainBasis;
-            //   totalWidth += this.spaceSize;
-            // } else
             if (diffPrecent && isFirst) {
               isFirst = false;
 
@@ -191,20 +192,17 @@
               break;
             }
 
-            const { next } = target;
+            const nextTarget = dir === "left" ? target.next : target.prev;
 
-            if (next) {
-              target = next;
+            if (nextTarget) {
+              target = nextTarget;
             } else {
-              // if (isInLast) {
-              //   const prevBlock = this[lastVisId - 1];
-              //   prevBlock.style.flexBasis = `${containerWidth % mainBasis}px`;
-              //   prevBlock.style.marginRIght = `${this.spaceSize}px`;
-              //   // debugger;
-              // }
+              insufficient = true;
               break;
             }
           }
+
+          return insufficient;
         },
       },
       ready() {
