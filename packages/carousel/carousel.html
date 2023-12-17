@@ -172,12 +172,8 @@
             if (!largeThenlastVisId && diffPrecent && isFirst) {
               isFirst = false;
               basis = mainBasis * (1 - diffPrecent);
-
-              totalWidth += this.spaceSize;
             } else {
               basis = mainBasis;
-
-              totalWidth += this.spaceSize;
             }
 
             target.style.flexBasis = `${basis}px`;
