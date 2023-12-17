@@ -254,14 +254,14 @@
           timer = setTimeout(
             () => {
               this.attr("add-anime", "");
-              diffWidth = 0;
 
               let id;
-              if (newIndex > 0) {
-                id = this.currentId = Math.floor(newIndex);
-              } else {
+              if (diffWidth > 0) {
                 id = this.currentId = Math.ceil(newIndex);
+              } else {
+                id = this.currentId = Math.floor(newIndex);
               }
+              diffWidth = 0;
 
               this.render(id);
             },
