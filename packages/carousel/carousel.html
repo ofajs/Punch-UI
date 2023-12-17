@@ -59,8 +59,8 @@
   </inject-host>
   <div class="container">
     <slot></slot>
-    <button class="prev" on:click="currentId--">prev</button>
-    <button class="next" on:click="currentId++">next</button>
+    <!-- <button class="prev" on:click="currentId--">prev</button>
+    <button class="next" on:click="currentId++">next</button> -->
   </div>
   <script>
     export default {
@@ -123,19 +123,7 @@
             return;
           }
 
-          // console.clear();
-          // console.log("mainBasis:", mainBasis);
-          // console.log("activeId:", activeId);
-          // console.log("diffPrecent:", diffPrecent);
-          // console.log("containerWidth:", containerWidth);
-
-          const visLen = Math.floor(
-            containerWidth / (this.spaceSize + mainBasis)
-          );
-          // 计算在可视化下的最后一个id
-          const lastVisId = this.length - visLen;
-
-          // console.log("lastVisId:", lastVisId, activeId);
+          const lastVisId = this._lastVisId;
 
           this.all("[focus]").forEach((e) => e.attr("focus", null));
           this[activeId].attr("focus", "");
@@ -173,8 +161,6 @@
           let totalWidth = 0;
 
           let target = this[activeId];
-
-          // target.attr("focus", "");
 
           let isFirst = true;
 
@@ -255,6 +241,7 @@
           const diffX = point.screenX - startX;
 
           let newIndex = this.currentId - diffX / 200;
+          // const notRun = newIndex < 0 || newIndex >= this.length - 1;
           const notRun = newIndex < 0 || newIndex >= this.length - 1;
 
           if (notRun) {
@@ -301,7 +288,8 @@
           diffWidth += e.deltaX;
 
           let newIndex = this.currentId + diffWidth / 500;
-          const notRun = newIndex < 0 || newIndex >= this.length - 1;
+          // const notRun = newIndex < 0 || newIndex >= this.length - 1;
+          const notRun = newIndex < 0 || newIndex >= this._lastVisId;
 
           if (notRun) {
             this.attr("add-anime", "");
@@ -316,7 +304,11 @@
             () => {
               this.attr("add-anime", "");
               diffWidth = 0;
-              this.render((this.currentId = Math.round(newIndex)));
+              this.render(
+                (this.currentId = Math.round(
+                  newIndex > this._lastVisId ? this._lastVisId : newIndex
+                ))
+              );
             },
             notRun ? 0 : 100
           );
@@ -325,6 +317,27 @@
       attached() {
         let timer;
         const ro = (this._ro = new ResizeObserver((entries) => {
+          // 计算激活宽度
+          let mainBasis = parseInt(this.mainBasis);
+
+          if (/%$/.test(this.mainBasis)) {
+            mainBasis = (this.width * parseInt(mainBasis)) / 100;
+          }
+
+          if (!mainBasis) {
+            return;
+          }
+
+          this._mainBasis = mainBasis;
+
+          const visLen = Math.floor(this.width / (this.spaceSize + mainBasis));
+
+          this._visLen = visLen;
+
+          // 计算在可视化下的最后一个id
+          const lastVisId = this.length - visLen;
+          this._lastVisId = lastVisId;
+
           clearTimeout(timer);
           timer = setTimeout(() => {
             this.render(this.currentId);
@@ -334,8 +347,6 @@
         ro.observe(this.shadow.$(".container").ele);
 
         this._ro = ro;
-
-        this.render(this.currentId);
       },
       detached() {
         if (this._ro) {
