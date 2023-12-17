@@ -72,7 +72,7 @@
       },
       data: {
         spaceSize: 6,
-        smallBasis: 60, //小块的尺寸
+        // smallBasis: 60, //小块的尺寸
       },
       watch: {
         activeIndex() {
@@ -142,12 +142,14 @@
           mainBasis,
           dir = "left",
         }) {
-          this.all("[visabled]").forEach((e) => {
-            e.style.flexBasis = "";
-            e.style.marginRight = "";
-            e.attr("visabled", null);
-            // e.attr("focus", null);
-          });
+          // this.all("[visabled]").forEach((e) => {
+          //   e.style.flexBasis = "";
+          //   e.style.marginRight = "";
+          //   e.attr("visabled", null);
+          //   // e.attr("focus", null);
+          // });
+
+          const visables = new Set();
 
           // 超出可视的最后一个id
           const largeThenlastVisId = activeId >= lastVisId;
@@ -163,9 +165,6 @@
           let target = this[activeId];
 
           let isFirst = true;
-
-          // 没有填充完剩余的的区域
-          let insufficient = null;
 
           while (true) {
             if (!largeThenlastVisId && diffPrecent && isFirst) {
@@ -185,6 +184,7 @@
             }
 
             target.attr("visabled", "");
+            visables.add(target);
 
             if (totalWidth > containerWidth) {
               let bsize =
@@ -202,17 +202,29 @@
             if (nextTarget) {
               target = nextTarget;
             } else {
-              this[lastVisId - 1].style.flexBasis = `${
+              const newTarget = this[lastVisId - 1];
+              newTarget.style.flexBasis = `${
                 (containerWidth % mainBasis) -
                 Math.floor(containerWidth / mainBasis) * this.spaceSize
               }px`;
-              this[lastVisId - 1].style.marginRight = this.spaceSize + "px";
-
+              newTarget.style.marginRight = this.spaceSize + "px";
+              newTarget.attr("visabled", "");
+              visables.add(newTarget);
               break;
             }
           }
 
-          return insufficient;
+          if (this._visables) {
+            this._visables.forEach((e) => {
+              if (!visables.has(e)) {
+                e.style.flexBasis = "";
+                e.style.marginRight = "";
+                e.attr("visabled", null);
+              }
+            });
+          }
+
+          this._visables = visables;
         },
       },
       ready() {
