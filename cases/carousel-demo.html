@@ -14,9 +14,24 @@
       text-align: center;
       text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     }
-    h3 {
-      margin: 0;          
+
+    .con div {
+      color: rgba(255, 255, 255, 0);
+      transition: color ease 0.2s;
     }
+
+    .con[visabled="100"] div,
+    .con[visabled="90"] div,
+    .con[visabled="80"] div {
+      color: #fff;
+    }
+
+    .con[visabled="70"] div,
+    .con[visabled="60"] div,
+    .con[visabled="50"] div {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
     .con:nth-child(2n) {
       color: #fff;
       /* background-color: rgb(75, 92, 174); */
@@ -50,8 +65,8 @@
           class="con"
           :style.background-image="`url(https://source.unsplash.com/random/300×300?v${$data % 4})`"
         >
-          <h3>{{$data}}</h3>
-          Test Image
+          <div style="font-weight: bold; font-size: 20px">{{$data}}</div>
+          <div>Test Image</div>
         </div>
       </x-fill>
     </p-carousel>
