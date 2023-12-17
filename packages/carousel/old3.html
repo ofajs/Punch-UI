@@ -1,0 +1,265 @@
+<template component>
+  <l-m src="../wave/wave.html"></l-m>
+  <style>
+    :host {
+      display: block;
+      --item-radio: 30px;
+    }
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: stretch;
+      /* overflow: auto; */
+      overflow: hidden;
+    }
+
+    ::slotted(*) {
+      position: relative;
+      flex: 0 0 0;
+      border-radius: var(--item-radio);
+      cursor: pointer;
+      overflow: hidden;
+      color: transparent;
+      /* transition: all ease 0.3s; */
+      transition: margin ease 0.3s;
+    }
+
+    ::slotted(*:last-child) {
+      margin-right: 0 !important;
+    }
+
+    ::slotted([focus]) {
+      color: inherit;
+      outline: green solid 4px;
+    }
+    .prev,
+    .next {
+      position: absolute;
+      top: 40%;
+      z-index: 2;
+    }
+    .prev {
+      left: 0;
+    }
+    .next {
+      right: 0;
+    }
+  </style>
+
+  <inject-host>
+    <style>
+      p-carousel[add-anime] > * {
+        transition: all ease 0.3s;
+      }
+    </style>
+  </inject-host>
+  <div class="container">
+    <slot></slot>
+    <button class="prev" on:click="currentId--">prev</button>
+    <button class="next" on:click="currentId++">next</button>
+  </div>
+  <script>
+    export default {
+      tag: "p-carousel",
+      attrs: {
+        mainBasis: null, // 焦点窗口的大小
+        activeIndex: "0", // 激活中的id
+        align: "start", // start 左侧第一个为主要块；center 主要块为中间那个
+      },
+      data: {
+        spaceSize: 6,
+        smallBasis: 60, //小块的尺寸
+      },
+      watch: {
+        activeIndex() {
+          if (this.currentId < 0) {
+            this.currentId = 0;
+            return;
+          }
+
+          if (this.currentId >= this.length) {
+            this.currentId = this.length - 1;
+            return;
+          }
+          this.render(this.currentId);
+        },
+      },
+      proto: {
+        get currentId() {
+          return parseInt(this.activeIndex) || 0;
+        },
+        set currentId(val) {
+          this.activeIndex = String(val);
+        },
+        // 根据index进度渲染页面
+        render(precent) {
+          if (precent < 0) {
+            precent = 0;
+          } else if (precent >= this.length) {
+            precent = this.length - 1;
+          }
+
+          const containerWidth = this.width;
+
+          if (!containerWidth) {
+            return;
+          }
+
+          const activeId = Math.floor(precent);
+          let diffPrecent = precent - activeId;
+
+          // 计算激活宽度
+          let mainBasis = parseInt(this.mainBasis);
+
+          if (/%$/.test(this.mainBasis)) {
+            mainBasis = (this.width * parseInt(mainBasis)) / 100;
+          }
+
+          if (!mainBasis) {
+            return;
+          }
+
+          // console.clear();
+          // console.log("mainBasis:", mainBasis);
+          // console.log("activeId:", activeId);
+          // console.log("diffPrecent:", diffPrecent);
+          // console.log("containerWidth:", containerWidth);
+
+          this.all("[visabled]").forEach((e) => {
+            e.style.flexBasis = "";
+            e.style.marginRight = "";
+            e.attr("visabled", null);
+            e.attr("focus", null);
+          });
+
+          // 计算在可视化下的最后一个id
+          const lastVisId =
+            this.length -
+            Math.floor(containerWidth / (this.spaceSize + mainBasis));
+
+          let totalWidth = 0;
+
+          this[activeId].attr("focus", "");
+
+          let fixActiveId = activeId;
+
+          if (activeId >= lastVisId) {
+            fixActiveId = lastVisId;
+            // diffPrecent = 0;
+          }
+
+          console.log(lastVisId, fixActiveId, activeId, diffPrecent);
+
+          let target = this[fixActiveId];
+          let isReverse = false;
+
+          let isFirst = true;
+
+          while (true) {
+            if (diffPrecent && isFirst) {
+              isFirst = false;
+
+              target.style.flexBasis = `${mainBasis * (1 - diffPrecent)}px`;
+              target.style.marginRight = `${this.spaceSize}px`;
+
+              totalWidth += mainBasis * (1 - diffPrecent);
+              totalWidth += this.spaceSize;
+            } else {
+              target.style.flexBasis = `${mainBasis}px`;
+              target.style.marginRight = `${this.spaceSize}px`;
+
+              totalWidth += mainBasis;
+              totalWidth += this.spaceSize;
+            }
+
+            target.attr("visabled", "");
+
+            if (totalWidth > containerWidth) {
+              target.style.flexBasis = `${
+                containerWidth - (totalWidth - mainBasis) + this.spaceSize
+              }px`;
+              // target.style.marginRight = ``;
+              break;
+            }
+
+            const { next } = target;
+
+            if (next) {
+              target = next;
+            } else {
+              target = this[fixActiveId - 1];
+              isReverse = true;
+            }
+          }
+        },
+      },
+      ready() {
+        this.attr("add-anime", "");
+
+        // fix p-wave
+        this.shadow.on("slotchange", () => {
+          this.forEach((e) => {
+            if (!e.$("p-wave")) {
+              e.push({ tag: "p-wave" });
+            }
+          });
+        });
+
+        let diffWidth = 0;
+
+        // this.on("touchstart", (e) => {
+        //   console.log("touchstart", e);
+        // });
+        // this.on("gestureend", (e) => {
+        //   console.log("gestureend", e);
+        // });
+
+        let timer;
+
+        this.on("wheel", (e) => {
+          if (Math.abs(e.deltaX) > 0) {
+            e.preventDefault();
+          }
+
+          diffWidth += e.deltaX;
+
+          // console.log(diffWidth, diffWidth / 500);
+
+          let newIndex = this.currentId + diffWidth / 500;
+          const notRun = newIndex < 0 || newIndex >= this.length - 1;
+
+          if (notRun) {
+            this.attr("add-anime", "");
+          } else {
+            this.attr("add-anime", null);
+          }
+
+          this.render(newIndex);
+
+          clearTimeout(timer);
+          timer = setTimeout(
+            () => {
+              this.attr("add-anime", "");
+              diffWidth = 0;
+
+              let id;
+              if (newIndex > 0) {
+                id = this.currentId = Math.ceil(newIndex);
+              } else {
+                id = this.currentId = Math.floor(newIndex);
+              }
+
+              this.render(id);
+            },
+            notRun ? 0 : 100
+          );
+        });
+      },
+      attached() {
+        this.render(this.currentId);
+      },
+    };
+  </script>
+</template>
