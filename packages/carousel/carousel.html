@@ -1,11 +1,10 @@
 <template component>
   <l-m src="../wave/wave.html"></l-m>
+
   <style>
     :host {
       display: block;
       --item-radio: 30px;
-      -webkit-tap-highlight-color: transparent;
-      tap-highlight-color: transparent;
     }
     .container {
       position: relative;
@@ -13,8 +12,8 @@
       height: 100%;
       display: flex;
       align-items: stretch;
-      /* overflow: auto; */
-      overflow: hidden;
+      -webkit-tap-highlight-color: transparent;
+      tap-highlight-color: transparent;
     }
 
     ::slotted(*) {
@@ -32,7 +31,6 @@
 
     ::slotted([focus]) {
       color: inherit;
-      /* outline: green solid 4px; */
     }
     .prev,
     .next {
@@ -46,12 +44,23 @@
     .next {
       right: 0;
     }
+    .fake-input {
+      /* opacity: 0; */
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+    }
   </style>
 
   <inject-host>
     <style>
       p-carousel[add-anime] > * {
         transition: all ease 0.3s;
+      }
+
+      p-carousel[in-focus-mode] > [focus] {
+        outline: var(--md-sys-color-primary, green) solid 4px;
       }
     </style>
   </inject-host>
@@ -60,6 +69,9 @@
     <!-- <button class="prev" on:click="currentId--">prev</button>
     <button class="next" on:click="currentId++">next</button> -->
   </div>
+  <div class="fake-input">
+    <button on:focus="onFocus" on:blur="onBlur">carousel</button>
+  </div>
   <script>
     export default {
       tag: "p-carousel",
@@ -67,6 +79,7 @@
         mainBasis: null, // 焦点窗口的大小
         activeIndex: "0", // 激活中的id
         autoplay: null,
+        inFocusMode: null,
         // align: "start", // start 左侧第一个为主要块；center 主要块为中间那个
       },
       data: {
@@ -95,6 +108,29 @@
         },
       },
       proto: {
+        onFocus() {
+          this.inFocusMode = "";
+
+          document.addEventListener(
+            "keydown",
+            (this._keydownFunc = (e) => {
+              if (e.keyCode === 39) {
+                // right
+                this.currentId++;
+              } else if (e.keyCode === 37) {
+                // left
+                this.currentId--;
+              } else if (e.keyCode === 32) {
+                // space
+                this[this.currentId].ele.click();
+              }
+            })
+          );
+        },
+        onBlur() {
+          this.inFocusMode = null;
+          document.removeEventListener("keydown", this._keydownFunc);
+        },
         get currentId() {
           return parseInt(this.activeIndex) || 0;
         },
@@ -105,10 +141,13 @@
           clearTimeout(this._autoplayTimer);
           // 自动播放
           this._autoplayTimer = setTimeout(() => {
-            this.currentId++;
+            //聚焦的状态不需要自动播放
+            if (this.inFocusMode === null) {
+              this.currentId++;
 
-            if (this.currentId > this._lastVisId) {
-              this.currentId = 0;
+              if (this.currentId > this._lastVisId) {
+                this.currentId = 0;
+              }
             }
             this._play();
           }, parseInt(this.autoplay) || 2000);
@@ -252,8 +291,6 @@
         },
       },
       ready() {
-        this.attr("add-anime", "");
-
         // fix p-wave
         this.shadow.on("slotchange", () => {
           this.forEach((e) => {
@@ -380,6 +417,9 @@
           clearTimeout(timer);
           timer = setTimeout(() => {
             this.render(this.currentId);
+            setTimeout(() => {
+              this.attr("add-anime", "");
+            }, 50);
           }, 50);
         }));
 
@@ -393,6 +433,8 @@
         }
 
         clearTimeout(this._autoplayTimer);
+        this._keydownFunc &&
+          document.removeEventListener("keydown", this._keydownFunc);
       },
     };
   </script>
