@@ -279,23 +279,32 @@
           timer = setTimeout(
             () => {
               this.attr("add-anime", "");
-
-              let id;
-              if (diffWidth > 0) {
-                id = this.currentId = Math.floor(newIndex);
-              } else {
-                id = this.currentId = Math.ceil(newIndex);
-              }
               diffWidth = 0;
-
-              this.render(id);
+              this.render((this.currentId = Math.round(newIndex)));
             },
-            notRun ? 0 : 50
+            notRun ? 0 : 100
           );
         });
       },
       attached() {
+        let timer;
+        const ro = (this._ro = new ResizeObserver((entries) => {
+          clearTimeout(timer);
+          timer = setTimeout(() => {
+            this.render(this.currentId);
+          }, 50);
+        }));
+
+        ro.observe(this.shadow.$(".container").ele);
+
+        this._ro = ro;
+
         this.render(this.currentId);
+      },
+      detached() {
+        if (this._ro) {
+          this._ro.disconnect();
+        }
       },
     };
   </script>
