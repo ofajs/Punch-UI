@@ -133,40 +133,59 @@
           // 计算在可视化下的最后一个id
           const lastVisId = this.length - visLen;
 
-          console.log("lastVisId:", lastVisId);
+          // console.log("lastVisId:", lastVisId, activeId);
 
-          const insufficient = this._renderByDir(activeId, diffPrecent);
+          this.all("[focus]").forEach((e) => e.attr("focus", null));
+          this[activeId].attr("focus", "");
 
-          console.log("insufficient:", insufficient);
+          const insufficient = this._renderByDir({
+            activeId,
+            diffPrecent,
+            lastVisId,
+            mainBasis,
+          });
 
           if (insufficient) {
+            console.log("insufficient", insufficient);
             // this._renderByDir(this.length - 1, 1 - diffPrecent, "right");
           }
         },
-        _renderByDir(activeId, diffPrecent, dir = "left") {
+        _renderByDir({
+          activeId,
+          diffPrecent,
+          lastVisId,
+          mainBasis,
+          dir = "left",
+        }) {
           this.all("[visabled]").forEach((e) => {
             e.style.flexBasis = "";
             e.style.marginRight = "";
             e.attr("visabled", null);
-            e.attr("focus", null);
+            // e.attr("focus", null);
           });
 
-          let mainBasis = parseInt(this.mainBasis);
+          // 超出可视的最后一个id
+          const largeThenlastVisId = activeId >= lastVisId;
+
+          if (largeThenlastVisId) {
+            activeId = lastVisId;
+          }
+
           const containerWidth = this.width;
 
           let totalWidth = 0;
 
           let target = this[activeId];
 
-          target.attr("focus", "");
+          // target.attr("focus", "");
 
           let isFirst = true;
 
           // 没有填充完剩余的的区域
-          let insufficient = false;
+          let insufficient = null;
 
           while (true) {
-            if (diffPrecent && isFirst) {
+            if (!largeThenlastVisId && diffPrecent && isFirst) {
               isFirst = false;
 
               target.style.flexBasis = `${mainBasis * (1 - diffPrecent)}px`;
@@ -185,8 +204,11 @@
             target.attr("visabled", "");
 
             if (totalWidth > containerWidth) {
+              let bsize =
+                containerWidth - (totalWidth - mainBasis) + this.spaceSize;
+
               target.style.flexBasis = `${
-                containerWidth - (totalWidth - mainBasis) + this.spaceSize
+                bsize > mainBasis ? mainBasis : bsize
               }px`;
               // target.style.marginRight = ``;
               break;
@@ -197,7 +219,12 @@
             if (nextTarget) {
               target = nextTarget;
             } else {
-              insufficient = true;
+              this[lastVisId - 1].style.flexBasis = `${
+                (containerWidth % mainBasis) -
+                Math.floor(containerWidth / mainBasis) * this.spaceSize
+              }px`;
+              this[lastVisId - 1].style.marginRight = this.spaceSize + "px";
+
               break;
             }
           }
@@ -255,15 +282,15 @@
 
               let id;
               if (diffWidth > 0) {
-                id = this.currentId = Math.ceil(newIndex);
-              } else {
                 id = this.currentId = Math.floor(newIndex);
+              } else {
+                id = this.currentId = Math.ceil(newIndex);
               }
               diffWidth = 0;
 
               this.render(id);
             },
-            notRun ? 0 : 100
+            notRun ? 0 : 50
           );
         });
       },
