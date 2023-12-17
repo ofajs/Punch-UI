@@ -13,4 +13,4 @@ Some parts of the component styles use Less; you can install Easy LESS in VSCode
 
 Avoid overly complex Less usage; simple features like nesting are sufficient.
 
-[All Component](https://ofajs.github.io/Punch-UI/packages/all.html)
+[All Component](https://ofajs.github.io/Punch-UI/cases/all.html)
