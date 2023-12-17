@@ -167,32 +167,39 @@
           let isFirst = true;
 
           while (true) {
+            let basis = 0;
+
             if (!largeThenlastVisId && diffPrecent && isFirst) {
               isFirst = false;
+              basis = mainBasis * (1 - diffPrecent);
 
-              target.style.flexBasis = `${mainBasis * (1 - diffPrecent)}px`;
-              target.style.marginRight = `${this.spaceSize}px`;
-
-              totalWidth += mainBasis * (1 - diffPrecent);
               totalWidth += this.spaceSize;
             } else {
-              target.style.flexBasis = `${mainBasis}px`;
-              target.style.marginRight = `${this.spaceSize}px`;
+              basis = mainBasis;
 
-              totalWidth += mainBasis;
               totalWidth += this.spaceSize;
             }
 
-            target.attr("visabled", "");
+            target.style.flexBasis = `${basis}px`;
+            target.style.marginRight = `${this.spaceSize}px`;
+
+            totalWidth += basis;
+            totalWidth += this.spaceSize;
+
+            target.attr("visabled", Math.round((basis / mainBasis) * 10) * 10);
             visables.add(target);
 
             if (totalWidth > containerWidth) {
               let bsize =
                 containerWidth - (totalWidth - mainBasis) + this.spaceSize;
 
-              target.style.flexBasis = `${
-                bsize > mainBasis ? mainBasis : bsize
-              }px`;
+              const realSize = bsize > mainBasis ? mainBasis : bsize;
+
+              target.style.flexBasis = `${realSize}px`;
+              target.attr(
+                "visabled",
+                Math.round((realSize / mainBasis) * 10) * 10
+              );
               // target.style.marginRight = ``;
               break;
             }
@@ -203,12 +210,15 @@
               target = nextTarget;
             } else {
               const newTarget = this[lastVisId - 1];
-              newTarget.style.flexBasis = `${
+              const newBasis =
                 (containerWidth % mainBasis) -
-                Math.floor(containerWidth / mainBasis) * this.spaceSize
-              }px`;
+                Math.floor(containerWidth / mainBasis) * this.spaceSize;
+              newTarget.style.flexBasis = `${newBasis}px`;
               newTarget.style.marginRight = this.spaceSize + "px";
-              newTarget.attr("visabled", "");
+              newTarget.attr(
+                "visabled",
+                Math.round((newBasis / mainBasis) * 10) * 10
+              );
               visables.add(newTarget);
               break;
             }
