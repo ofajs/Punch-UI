@@ -34,13 +34,21 @@
     ::slotted([slot="bottom"]:last-child) {
       margin-right: 0;
     }
+    .main > * {
+      opacity: 0;
+      transition: opacity ease 0.2s;
+      transition-delay: 0.1s;
+    }
+    .showall.main > * {
+      opacity: 1;
+    }
   </style>
   <p-mask
     sync:open="open"
     sync:mask-id="maskId"
     on:click-mask="emit('click-mask',{bubbles:false})"
   >
-    <div class="main">
+    <div class="main" class:showall="open">
       <div class="tltle"><slot name="title"></slot></div>
       <div class="content"><slot></slot></div>
       <div class="bottom">
