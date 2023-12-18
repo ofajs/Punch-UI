@@ -1,0 +1,30 @@
+<template page>
+  <l-m src="./dialog.html"></l-m>
+  <l-m src="../button/button.html"></l-m>
+
+  <button on:click="open1 = true">Open Dialig</button>
+
+  <p-dialog :open="open1" on:click-mask="open1 = false">
+    <span slot="title">Basic dialog title</span>
+    A dialog is a type of modal window that appears in front of app content to
+    provide critical information, or ask for a decision.
+    <p-button slot="bottom" on:click="clickOK">OK</p-button>
+    <p-button variant="text" slot="bottom" on:click="open1 = false">
+      Cancel
+    </p-button>
+  </p-dialog>
+  <script>
+    export default {
+      data: {
+        open1: false,
+      },
+      proto: {
+        clickOK() {
+          console.log("ok");
+          this.open1 = false;
+        },
+      },
+      ready() {},
+    };
+  </script>
+</template>

@@ -1,0 +1,56 @@
+<template component>
+  <l-m src="./mask.html"></l-m>
+  <style>
+    :host {
+      display: block;
+      font-size: 14px;
+    }
+    .main {
+      /* padding: 24px; */
+      padding: calc(var(--pui-space-y) * 6) calc(var(--pui-space-x) * 4);
+      border-radius: var(--dialog-border-radius, 30px);
+      background-color: var(--md-sys-color-on-normal);
+      max-width: var(--dialog-max-width, 300px);
+    }
+    .tltle {
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1.2em;
+    }
+    .content {
+      margin-top: calc(var(--pui-space-y) * 3);
+      line-height: 1.6em;
+    }
+    .bottom {
+      display: flex;
+      justify-content: var(--bottom-align, flex-end);
+    }
+    ::slotted([slot="bottom"]) {
+      margin: calc(var(--pui-space-y) * 6) var(--pui-space-x) 0;
+    }
+    ::slotted([slot="bottom"]:first-child) {
+      margin-left: 0;
+    }
+    ::slotted([slot="bottom"]:last-child) {
+      margin-right: 0;
+    }
+  </style>
+  <p-mask sync:open="open" on:click-mask="emit('click-mask',{bubbles:false})">
+    <div class="main">
+      <div class="tltle"><slot name="title"></slot></div>
+      <div class="content"><slot></slot></div>
+      <div class="bottom">
+        <slot name="bottom"></slot>
+      </div>
+    </div>
+  </p-mask>
+  <script>
+    export default {
+      tag: "p-dialog",
+      proto: {},
+      data: {
+        open: false,
+      },
+    };
+  </script>
+</template>

@@ -1,0 +1,64 @@
+<template component>
+  <l-m src="./mask.html"></l-m>
+  <style>
+    :host {
+      display: block;
+      font-size: 14px;
+    }
+    .mask {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 200;
+      background-color: rgba(128, 128, 128, 0.5);
+      transition: all ease 0.3s;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .mask.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .container {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 201;
+      transition: all ease 0.3s;
+      opacity: 0;
+      transform: translate(0, -50px);
+      pointer-events: none;
+    }
+    .container.open {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+
+    ::slotted(*) {
+      pointer-events: auto;
+    }
+  </style>
+  <div
+    class="mask"
+    class:open="open"
+    on:click="emit('click-mask',{bubbles:false})"
+  ></div>
+  <div class="container" class:open="open">
+    <slot></slot>
+  </div>
+  <script>
+    export default {
+      tag: "p-mask",
+      data: {
+        open: false,
+      },
+    };
+  </script>
+</template>
