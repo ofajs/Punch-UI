@@ -11,7 +11,7 @@
       top: 0;
       width: 100%;
       height: 100%;
-      z-index: 200;
+      z-index: 1000;
       background-color: rgba(128, 128, 128, 0.5);
       transition: all ease 0.3s;
       opacity: 0;
@@ -30,7 +30,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 201;
+      z-index: 1001;
       transition: all ease 0.3s;
       opacity: 0;
       transform: translate(0, -50px);
@@ -49,15 +49,27 @@
     class="mask"
     class:open="open"
     on:click="emit('click-mask',{bubbles:false})"
+    :style.z-index="maskId"
   ></div>
-  <div class="container" class:open="open">
+  <div class="container" class:open="open" :style.z-index="maskId + 1">
     <slot></slot>
   </div>
   <script>
+    let total = 1001;
     export default {
       tag: "p-mask",
       data: {
         open: false,
+        maskId: total,
+      },
+      watch: {
+        open(val) {
+          if (val) {
+            if (this.maskId <= total) {
+              this.maskId = ++total;
+            }
+          }
+        },
       },
     };
   </script>
