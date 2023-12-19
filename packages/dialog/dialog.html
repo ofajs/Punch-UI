@@ -21,6 +21,8 @@
     .content {
       margin-top: calc(var(--pui-space-y) * 3);
       line-height: 1.6em;
+      max-height: calc(100vh - 200px);
+      overflow: auto;
     }
     .bottom {
       display: flex;
@@ -35,6 +37,14 @@
     ::slotted([slot="bottom"]:last-child) {
       margin-right: 0;
     }
+
+    .main {
+      pointer-events: none;
+    }
+    .showall.main {
+      pointer-events: auto;
+    }
+
     .main > * {
       opacity: 0;
       transition: opacity ease 0.2s;
@@ -64,7 +74,7 @@
         >
         <slot name="title"></slot>
       </div>
-      <div class="content"><slot></slot></div>
+      <div class="content" part="content"><slot></slot></div>
       <div class="bottom">
         <slot name="bottom"></slot>
       </div>
@@ -99,6 +109,10 @@
           display: flex;
           align-items: center;
           height: 50px;
+        }
+
+        .content {
+          max-height: calc(100vh - 150px);
         }
       }`;
           } else {

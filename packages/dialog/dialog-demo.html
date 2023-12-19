@@ -1,8 +1,10 @@
 <template page>
   <l-m src="./dialog.html"></l-m>
   <l-m src="../button/button.html"></l-m>
+  <l-m src="../list/list.html"></l-m>
 
   <button on:click="open1 = true">Open Dialig</button>
+  <button on:click="open2 = true">Open List Dialig</button>
 
   <p-dialog
     :open="open1"
@@ -19,10 +21,47 @@
       Cancel
     </p-button>
   </p-dialog>
+
+  <p-dialog
+    :open="open2"
+    on:click-mask="open2 = false"
+    on:click-close="open2 = false"
+    fullscreen="540"
+  >
+    <span slot="title">Basic dialog title</span>
+    <p-list>
+      <p-list-item> Headline 1</p-list-item>
+      <p-list-item> Headline 2</p-list-item>
+      <p-list-item button="suffix" collapse-childs>
+        Headline 3
+        <i collapse-triangle slot="suffix"></i>
+        <p-list slot="childs">
+          <p-list-item> Headline 3-1</p-list-item>
+          <p-list-item collapse-childs>
+            3-2 (click right triangle)
+            <i collapse-triangle slot="suffix"></i>
+            <p-list slot="childs">
+              <p-list-item> Headline 3-2-1</p-list-item>
+              <p-list-item> Headline 3-2-2</p-list-item>
+            </p-list>
+          </p-list-item>
+          <p-list-item> Headline 3-3</p-list-item>
+          <p-list-item> Headline 3-4</p-list-item>
+        </p-list>
+      </p-list-item>
+      <p-list-item> Headline 4</p-list-item>
+    </p-list>
+    <p-button slot="bottom" on:click="clickOK">OK</p-button>
+    <p-button variant="text" slot="bottom" on:click="open2 = false">
+      Cancel
+    </p-button>
+  </p-dialog>
+
   <script>
     export default {
       data: {
         open1: false,
+        open2: false,
       },
       proto: {
         clickOK() {
@@ -30,9 +69,7 @@
           this.open1 = false;
         },
       },
-      ready() {
-        this.open1 = true;
-      },
+      ready() {},
     };
   </script>
 </template>
