@@ -2,16 +2,30 @@ let maskId = 10001;
 
 const load = lm(import.meta.url);
 
-const appendDialog = (code, clickYes) => {
+const appendDialog = (code, clickYes, opened) => {
   return new Promise((resolve) => {
     const dialog = $(code);
 
+    let keyFunc;
+
     const closeDialog = () => {
       dialog.open = false;
+
+      document.removeEventListener("keydown", keyFunc);
       setTimeout(() => {
         dialog.remove();
       }, 400);
     };
+
+    document.addEventListener(
+      "keydown",
+      (keyFunc = (e) => {
+        if (e.code === "Enter") {
+          e.preventDefault();
+          dialog.$(".dialog-yes-btn").click();
+        }
+      })
+    );
 
     dialog.$(".dialog-yes-btn").on("click", () => {
       if (clickYes) {
@@ -35,14 +49,13 @@ const appendDialog = (code, clickYes) => {
       closeDialog();
     });
 
-    setTimeout(() => {
-      dialog.$(".dialog-yes-btn").focus();
-    }, 100);
-
     // setTimeout(, 100);
     requestAnimationFrame(() => {
       setTimeout(() => {
         dialog.open = true;
+        if (opened) {
+          opened({ dialog });
+        }
       }, 10);
     });
 
@@ -106,6 +119,9 @@ export default {
   </p-dialog>`,
       ({ dialog, resolve }) => {
         resolve(dialog.$("p-text-field").value);
+      },
+      ({ dialog }) => {
+        dialog.$("p-text-field").focus();
       }
     );
   },
