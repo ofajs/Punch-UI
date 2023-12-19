@@ -13,7 +13,7 @@ const appendDialog = (code, clickYes) => {
       }, 400);
     };
 
-    dialog.$(".dialog-yes").on("click", () => {
+    dialog.$(".dialog-yes-btn").on("click", () => {
       if (clickYes) {
         clickYes({ dialog, resolve });
       } else {
@@ -21,8 +21,8 @@ const appendDialog = (code, clickYes) => {
       }
       closeDialog();
     });
-    dialog.$(".dialog-cancel") &&
-      dialog.$(".dialog-cancel").on("click", () => {
+    dialog.$(".dialog-cancel-btn") &&
+      dialog.$(".dialog-cancel-btn").on("click", () => {
         resolve(false);
         closeDialog();
       });
@@ -34,6 +34,10 @@ const appendDialog = (code, clickYes) => {
       resolve(null);
       closeDialog();
     });
+
+    setTimeout(() => {
+      dialog.$(".dialog-yes-btn").focus();
+    }, 100);
 
     // setTimeout(, 100);
     requestAnimationFrame(() => {
@@ -60,10 +64,12 @@ export default {
   <p-dialog fullscreen="540">
     <span slot="title">${opts.title}</span>
     ${opts.content}
-    <p-button variant="text" class="dialog-cancel" slot="bottom">${
+    <p-button variant="text" class="dialog-cancel-btn" slot="bottom">${
       opts.cancel || "Cancel"
     }</p-button>
-    <p-button slot="bottom" class="dialog-yes">${opts.yes || "Yes"}</p-button>
+    <p-button slot="bottom" class="dialog-yes-btn">${
+      opts.yes || "Yes"
+    }</p-button>
   </p-dialog>`);
   },
   async alert(opts) {
@@ -73,7 +79,7 @@ export default {
   <p-dialog fullscreen="540">
     <span slot="title">${opts.title}</span>
     ${opts.content}
-    <p-button variant="text" class="dialog-yes" slot="bottom">${
+    <p-button variant="text" class="dialog-yes-btn" slot="bottom">${
       opts.ok || "OK"
     }</p-button>
   </p-dialog>`);
@@ -91,10 +97,12 @@ export default {
         ${opts.label ? `<label>${opts.label}</label>` : ""}
       </p-text-field>
     </div>
-    <p-button variant="text" class="dialog-cancel" slot="bottom">${
+    <p-button variant="text" class="dialog-cancel-btn" slot="bottom">${
       opts.cancel || "Cancel"
     }</p-button>
-    <p-button slot="bottom" class="dialog-yes">${opts.yes || "Yes"}</p-button>
+    <p-button slot="bottom" class="dialog-yes-btn">${
+      opts.yes || "Yes"
+    }</p-button>
   </p-dialog>`,
       ({ dialog, resolve }) => {
         resolve(dialog.$("p-text-field").value);

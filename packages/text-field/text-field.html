@@ -108,6 +108,10 @@
             }
           }
         },
+        focus() {
+          this.shadow.$("input,textarea") &&
+            this.shadow.$("input,textarea").ele.focus();
+        },
       },
       ready() {
         this.shadow.on("slotchange", () => {
