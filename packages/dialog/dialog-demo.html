@@ -5,6 +5,7 @@
 
   <button on:click="open1 = true">Open Dialog</button>
   <button on:click="open2 = true">Open List Dialog</button>
+  <button on:click="open3 = true">Open Dialog No Mask</button>
 
   <p-dialog
     :open="open1"
@@ -57,11 +58,28 @@
     </p-button>
   </p-dialog>
 
+  <p-dialog
+    :open="open3"
+    on:click-mask="open3 = false"
+    on:click-close="open3 = false"
+    no-mask
+  >
+    <!-- <span slot="icon">AA</span> -->
+    <span slot="title">Basic dialog title</span>
+    A dialog is a type of modal window that appears in front of app content to
+    provide critical information, or ask for a decision.
+    <p-button slot="bottom" on:click="clickOK">OK</p-button>
+    <p-button variant="text" slot="bottom" on:click="open3 = false">
+      Cancel
+    </p-button>
+  </p-dialog>
+
   <script>
     export default {
       data: {
         open1: false,
         open2: false,
+        open3: false,
       },
       proto: {
         clickOK() {

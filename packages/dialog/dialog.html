@@ -6,14 +6,15 @@
       font-size: 14px;
     }
     .main {
+      box-sizing: border-box;
       padding: calc(var(--pui-space-y) * 6) calc(var(--pui-space-x) * 4);
       border-radius: var(--dialog-border-radius, 30px);
       background-color: var(--md-sys-color-on-normal);
-      width: 100%;
-      max-width: var(--dialog-max-width, 300px);
-      /* transition: max-width ease 0.2s, height ease 0.2s; */
+      width: var(--dialog-width, 320px);
     }
     .tltle {
+      display: flex;
+      align-items: center;
       font-size: 20px;
       font-weight: 400;
       line-height: 1.2em;
@@ -62,12 +63,28 @@
 
   <style :html="fstyle"></style>
 
-  <p-mask
-    sync:open="open"
-    sync:mask-id="maskId"
-    on:click-mask="emit('click-mask',{bubbles:false})"
-  >
-    <div class="main" class:showall="open">
+  <x-if :value="noMask === null">
+    <p-mask
+      sync:open="open"
+      sync:mask-id="maskId"
+      on:click-mask="emit('click-mask',{bubbles:false})"
+    >
+      <div class="main" class:showall="open" part="main">
+        <div class="tltle">
+          <span class="close-btn" on:click="emit('click-close',{bubbles:false})"
+            >✕</span
+          >
+          <slot name="title"></slot>
+        </div>
+        <div class="content" part="content"><slot></slot></div>
+        <div class="bottom">
+          <slot name="bottom"></slot>
+        </div>
+      </div>
+    </p-mask>
+  </x-if>
+  <x-else-if :value="open">
+    <div class="main showall" part="main">
       <div class="tltle">
         <span class="close-btn" on:click="emit('click-close',{bubbles:false})"
           >✕</span
@@ -79,18 +96,22 @@
         <slot name="bottom"></slot>
       </div>
     </div>
-  </p-mask>
+  </x-else-if>
+
   <script>
     export default {
       tag: "p-dialog",
       attrs: {
         fullscreen: null,
+        autoclose: null,
+        noMask: null,
       },
       data: {
         maskId: 100,
         open: false,
         fstyle: "",
       },
+      proto: {},
       watch: {
         fullscreen(val) {
           if (val !== null) {
@@ -98,7 +119,8 @@
       @media screen and (max-width: ${val === "" ? "100vw" : val + "px"}) {
         .main {
           height: 100%;
-          max-width: 100%;
+          width: 100%;
+          border-radius:0;
         }
 
         .close-btn {
@@ -106,9 +128,6 @@
         }
 
         .tltle {
-          display: flex;
-          align-items: center;
-          height: 50px;
         }
 
         .content {
