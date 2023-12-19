@@ -6,26 +6,13 @@ const appendDialog = (code, clickYes, opened) => {
   return new Promise((resolve) => {
     const dialog = $(code);
 
-    let keyFunc;
-
     const closeDialog = () => {
       dialog.open = false;
 
-      document.removeEventListener("keydown", keyFunc);
       setTimeout(() => {
         dialog.remove();
       }, 400);
     };
-
-    document.addEventListener(
-      "keydown",
-      (keyFunc = (e) => {
-        if (e.code === "Enter") {
-          e.preventDefault();
-          dialog.$(".dialog-yes-btn").click();
-        }
-      })
-    );
 
     dialog.$(".dialog-yes-btn").on("click", () => {
       if (clickYes) {
@@ -55,6 +42,10 @@ const appendDialog = (code, clickYes, opened) => {
         dialog.open = true;
         if (opened) {
           opened({ dialog });
+        } else {
+          setTimeout(() => {
+            dialog.$(".dialog-yes-btn").focus();
+          }, 100);
         }
       }, 10);
     });
@@ -122,6 +113,12 @@ export default {
       },
       ({ dialog }) => {
         dialog.$("p-text-field").focus();
+
+        dialog.$("p-text-field").on("keydown", (e) => {
+          if (e.code === "Enter") {
+            dialog.$(".dialog-yes-btn").click();
+          }
+        });
       }
     );
   },

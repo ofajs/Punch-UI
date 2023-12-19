@@ -42,7 +42,11 @@
       transition: all ease 0.3s, opacity ease 0.2s;
     }
 
-    ::slotted(*) {
+    .inner {
+      display: contents;
+    }
+
+    .container.open .inner {
       pointer-events: auto;
     }
   </style>
@@ -53,7 +57,9 @@
     :style.z-index="maskId"
   ></div>
   <div class="container" class:open="open" :style.z-index="maskId + 1">
-    <slot></slot>
+    <div class="inner">
+      <slot></slot>
+    </div>
   </div>
   <script>
     import dialogUtil from "./util.js";
