@@ -6,6 +6,11 @@
   <button on:click="open1 = true">Open Dialog</button>
   <button on:click="open2 = true">Open List Dialog</button>
   <button on:click="open3 = true">Open Dialog No Mask</button>
+  <br />
+  <br />
+  <button on:click="confirmDemo">confirm demo</button>
+  <button on:click="alertDemo">alert demo</button>
+  <button on:click="promptDemo">prompt demo</button>
 
   <p-dialog
     :open="open1"
@@ -13,7 +18,6 @@
     on:click-close="open1 = false"
     fullscreen="540"
   >
-    <!-- <span slot="icon">AA</span> -->
     <span slot="title">Basic dialog title</span>
     A dialog is a type of modal window that appears in front of app content to
     provide critical information, or ask for a decision.
@@ -75,6 +79,8 @@
   </p-dialog>
 
   <script>
+    import dialogUtil from "./util.js";
+
     export default {
       data: {
         open1: false,
@@ -82,6 +88,35 @@
         open3: false,
       },
       proto: {
+        async confirmDemo() {
+          const data = await dialogUtil.confirm({
+            title: "Test Confirm Title",
+            content: "This is a test text for Confirm",
+            // yes: "是的",
+            // cancel: "取消",
+          });
+
+          console.log("confirm: ", data);
+        },
+        async alertDemo() {
+          const data = await dialogUtil.alert({
+            title: "Test Alert Title",
+            content: "This is a test text for Alert",
+            // ok: "好的",
+          });
+
+          console.log("confirm: ", data);
+        },
+        async promptDemo() {
+          const data = await dialogUtil.prompt({
+            title: "Test Prompt Title",
+            label: "prompt label",
+            // yes: "是的",
+            // cancel: "取消",
+          });
+
+          console.log("confirm: ", data);
+        },
         clickOK() {
           console.log("ok");
           this.open1 = false;

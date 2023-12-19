@@ -11,7 +11,7 @@
       top: 0;
       width: 100%;
       height: 100%;
-      z-index: 1000;
+      z-index: 10000;
       background-color: rgba(128, 128, 128, 0.5);
       transition: all ease 0.3s;
       opacity: 0;
@@ -56,19 +56,22 @@
     <slot></slot>
   </div>
   <script>
+    import dialogUtil from "./util.js";
+
     let total = 1001;
+
     export default {
       tag: "p-mask",
       data: {
         open: false,
-        maskId: total,
+        maskId: dialogUtil.maskId,
       },
       watch: {
         open(val) {
           if (val) {
-            if (this.maskId <= total) {
-              total = total + 2;
-              this.maskId = total;
+            if (this.maskId <= dialogUtil.maskId) {
+              dialogUtil.maskId = dialogUtil.maskId + 2;
+              this.maskId = dialogUtil.maskId;
             }
           }
         },
