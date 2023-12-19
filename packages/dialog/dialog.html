@@ -6,11 +6,12 @@
       font-size: 14px;
     }
     .main {
-      /* padding: 24px; */
       padding: calc(var(--pui-space-y) * 6) calc(var(--pui-space-x) * 4);
       border-radius: var(--dialog-border-radius, 30px);
       background-color: var(--md-sys-color-on-normal);
+      width: 100%;
       max-width: var(--dialog-max-width, 300px);
+      /* transition: max-width ease 0.2s, height ease 0.2s; */
     }
     .tltle {
       font-size: 20px;
@@ -37,19 +38,32 @@
     .main > * {
       opacity: 0;
       transition: opacity ease 0.2s;
-      transition-delay: 0.1s;
+      transition-delay: 0.2s;
     }
     .showall.main > * {
       opacity: 1;
     }
+
+    .close-btn {
+      display: none;
+      margin-right: calc(var(--pui-space-x) * 3);
+    }
   </style>
+
+  <style :html="fstyle"></style>
+
   <p-mask
     sync:open="open"
     sync:mask-id="maskId"
     on:click-mask="emit('click-mask',{bubbles:false})"
   >
     <div class="main" class:showall="open">
-      <div class="tltle"><slot name="title"></slot></div>
+      <div class="tltle">
+        <span class="close-btn" on:click="emit('click-close',{bubbles:false})"
+          >✕</span
+        >
+        <slot name="title"></slot>
+      </div>
       <div class="content"><slot></slot></div>
       <div class="bottom">
         <slot name="bottom"></slot>
@@ -59,10 +73,38 @@
   <script>
     export default {
       tag: "p-dialog",
-      proto: {},
+      attrs: {
+        fullscreen: null,
+      },
       data: {
         maskId: 100,
         open: false,
+        fstyle: "",
+      },
+      watch: {
+        fullscreen(val) {
+          if (val !== null) {
+            this.fstyle = `
+      @media screen and (max-width: ${val === "" ? "100vw" : val + "px"}) {
+        .main {
+          height: 100%;
+          max-width: 100%;
+        }
+
+        .close-btn {
+          display: block;
+        }
+
+        .tltle {
+          display: flex;
+          align-items: center;
+          height: 50px;
+        }
+      }`;
+          } else {
+            this.fstyle = "";
+          }
+        },
       },
     };
   </script>

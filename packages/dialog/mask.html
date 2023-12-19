@@ -67,7 +67,8 @@
         open(val) {
           if (val) {
             if (this.maskId <= total) {
-              this.maskId = ++total;
+              total = total + 2;
+              this.maskId = total;
             }
           }
         },

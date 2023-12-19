@@ -4,7 +4,13 @@
 
   <button on:click="open1 = true">Open Dialig</button>
 
-  <p-dialog :open="open1" on:click-mask="open1 = false">
+  <p-dialog
+    :open="open1"
+    on:click-mask="open1 = false"
+    on:click-close="open1 = false"
+    fullscreen="540"
+  >
+    <!-- <span slot="icon">AA</span> -->
     <span slot="title">Basic dialog title</span>
     A dialog is a type of modal window that appears in front of app content to
     provide critical information, or ask for a decision.
@@ -24,7 +30,9 @@
           this.open1 = false;
         },
       },
-      ready() {},
+      ready() {
+        this.open1 = true;
+      },
     };
   </script>
 </template>
