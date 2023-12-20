@@ -12,6 +12,7 @@
   --md-ref-palette-primary30: #4f378a;
   --md-ref-palette-primary20: #381e72;
   --md-ref-palette-primary10: #22005d;
+  --md-ref-palette-primary6: #190048;
   --md-ref-palette-primary0: #000000;
 
   /* error */
@@ -27,6 +28,7 @@
   --md-ref-palette-error30: #930013;
   --md-ref-palette-error20: #68000a;
   --md-ref-palette-error10: #410004;
+  --md-ref-palette-error6: #310002;
   --md-ref-palette-error0: #000000;
 
   /* success */
@@ -42,6 +44,7 @@
   --md-ref-palette-success30: #21510e;
   --md-ref-palette-success20: #0e3900;
   --md-ref-palette-success10: #052100;
+  --md-ref-palette-success6: #031800;
   --md-ref-palette-success0: #000000;
 
   /* normal */
@@ -57,6 +60,7 @@
   --md-ref-palette-normal30: #474747;
   --md-ref-palette-normal20: #303030;
   --md-ref-palette-normal10: #1b1b1b;
+  --md-ref-palette-normal6: #131313;
   --md-ref-palette-normal0: #000000;
 
   /* translucent */
@@ -86,6 +90,8 @@
   --md-sys-color-on-normal: var(--md-ref-palette-normal100);
   --md-sys-color-normal-container: var(--md-ref-palette-normal90);
   --md-sys-color-on-normal-container: var(--md-ref-palette-normal10);
+  --md-sys-color-surface: var(--md-ref-palette-normal98);
+  --md-sys-color-on-surface: var(--md-ref-palette-normal10);
 }
 :root.dark {
   --md-sys-color-primary: var(--md-ref-palette-primary80);
@@ -104,11 +110,6 @@
   --md-sys-color-on-normal: var(--md-ref-palette-normal20);
   --md-sys-color-normal-container: var(--md-ref-palette-normal30);
   --md-sys-color-on-normal-container: var(--md-ref-palette-normal90);
-}
-:root {
-  --pui-main-color: var(--md-sys-color-primary);
-  --pui-on-main-color: var(--md-sys-color-on-primary);
-  --pui-main-color-container: var(--md-sys-color-primary-container);
-  --pui-on-main-color-container: var(--md-sys-color-on-primary-container);
-  --pui-main-hover-color: var(--md-ref-palette-translucent-primary60);
+  --md-sys-color-surface: var(--md-ref-palette-normal6);
+  --md-sys-color-on-surface: var(--md-ref-palette-normal90);
 }
