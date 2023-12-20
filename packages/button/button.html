@@ -224,6 +224,12 @@
             e.stopImmediatePropagation();
           }
         },
+        click() {
+          this.ele.click();
+        },
+        focus() {
+          this.shadow.$("button").ele.focus();
+        },
       },
     };
   </script>
