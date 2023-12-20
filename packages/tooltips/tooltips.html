@@ -1,0 +1,64 @@
+<template component>
+  <style>
+    :host {
+      display: inline-block;
+    }
+    .container {
+      position: relative;
+      display: block;
+    }
+
+    .tips {
+      position: absolute;
+      left: 0;
+      top: 100%;
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+      color: var(--md-sys-color-normal-container);
+      background-color: var(--md-sys-color-on-normal-container);
+      transition: all ease 0.3s;
+      padding: var(--pui-space-x) var(--pui-space-y);
+      border-radius: var(--pui-border-radius);
+      font-size: 12px;
+      white-space: nowrap;
+      z-index: var(--tips-index, 1);
+    }
+
+    .tips.open {
+      opacity: 1;
+      pointer-events: auto;
+      visibility: visible;
+    }
+  </style>
+  <div
+    class="container"
+    part="container"
+    on:mouseenter="enter"
+    on:mouseleave="leave"
+  >
+    <div class="content">
+      <slot></slot>
+    </div>
+    <div class="tips" class:open="open">
+      <slot name="tips"></slot>
+    </div>
+  </div>
+  <script>
+    export default {
+      tag: "p-tooltips",
+      data: {
+        open: false,
+      },
+      proto: {
+        enter() {
+          this.open = true;
+        },
+        leave() {
+          this.open = false;
+        },
+      },
+      ready() {},
+    };
+  </script>
+</template>
