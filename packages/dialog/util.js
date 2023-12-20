@@ -1,6 +1,6 @@
 let maskId = 10001;
 
-const load = lm(import.meta.url);
+const load = lm(import.meta);
 
 const appendDialog = (code, clickYes, opened) => {
   return new Promise((resolve) => {
