@@ -47,12 +47,12 @@
 
     .inner {
       display: contents;
-      visibility: hidden;
+      /* visibility: hidden; */
     }
 
     .container.open .inner {
       pointer-events: auto;
-      visibility: visible;
+      /* visibility: visible; */
     }
   </style>
   <div
@@ -68,7 +68,7 @@
     :style.z-index="maskId + 1"
     part="container"
   >
-    <div class="inner">
+    <div class="inner" style="visibility: hidden">
       <slot></slot>
     </div>
   </div>
@@ -86,10 +86,16 @@
       watch: {
         open(val) {
           clearTimeout(this._timer);
-
-          if (this.maskId <= dialogUtil.maskId) {
-            dialogUtil.maskId = dialogUtil.maskId + 2;
-            this.maskId = dialogUtil.maskId;
+          if (val) {
+            if (this.maskId <= dialogUtil.maskId) {
+              dialogUtil.maskId = dialogUtil.maskId + 2;
+              this.maskId = dialogUtil.maskId;
+            }
+            this.shadow.$(".inner").style.visibility = "";
+          } else {
+            this._timer = setTimeout(() => {
+              this.shadow.$(".inner").style.visibility = "hidden";
+            }, 300);
           }
         },
       },

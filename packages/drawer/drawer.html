@@ -9,7 +9,8 @@
       padding: calc(var(--pui-space-y) * 6) calc(var(--pui-space-x) * 4);
       /* border-radius: var(--dialog-border-radius, 30px); */
       background-color: var(--md-sys-color-on-normal);
-      width: var(--dialog-width, 320px);
+      min-width: var(--dialog-min-width, 320px);
+      min-height: var(--dialog-min-height, 320px);
     }
 
     .container {
@@ -29,15 +30,14 @@
     .inner {
       display: block;
       opacity: 0;
-      transition: opacity ease 0.3s;
-      transition-delay: 0.2s;
+      transition: opacity ease 0.2s;
+      transition-delay: 0.25s;
     }
     .inner.showall {
       opacity: 1;
     }
 
     .container[pos="left"] {
-      --container-align-items: flex-start;
       --container-justify-content: flex-start;
       --container-init-transform: translate(0, -0) scale(0, 1);
     }
@@ -49,15 +49,50 @@
     .container[pos="left"] p-mask::part(container) {
       transform-origin: 0 50%;
     }
+
+    .container[pos="right"] {
+      --container-justify-content: flex-end;
+      --container-init-transform: translate(0, -0) scale(0, 1);
+    }
+    .container[pos="right"] .main {
+      border-radius: var(--dialog-border-radius, 30px) 0 0
+        var(--dialog-border-radius, 30px);
+    }
+
+    .container[pos="right"] p-mask::part(container) {
+      transform-origin: 100% 50%;
+    }
+
+    .container[pos="top"] {
+      --container-align-items: flex-start;
+      --container-init-transform: translate(0, -0) scale(1, 0);
+    }
+    .container[pos="top"] .main {
+      border-radius: 0 0 var(--dialog-border-radius, 30px)
+        var(--dialog-border-radius, 30px);
+    }
+
+    .container[pos="top"] p-mask::part(container) {
+      transform-origin: 50% 0;
+    }
+
+    .container[pos="bottom"] {
+      --container-align-items: flex-end;
+      --container-init-transform: translate(0, -0) scale(1, 0);
+    }
+    .container[pos="bottom"] .main {
+      border-radius: var(--dialog-border-radius, 30px)
+        var(--dialog-border-radius, 30px) 0 0;
+    }
+
+    .container[pos="bottom"] p-mask::part(container) {
+      transform-origin: 50% 100%;
+    }
   </style>
   <l-m src="../dialog/mask.html"></l-m>
 
   <div class="container" attr:pos="pos">
-    <p-mask
-      sync:open="open"
-      sync:mask-id="maskId"
-      on:click-mask="emit('click-mask',{bubbles:false})"
-    >
+    <p-mask sync:open="open" sync:mask-id="maskId" on:click-mask="clickMask">
       <div class="main" part="main">
         <div class="inner" class:showall="open">
           <slot></slot>
@@ -70,10 +105,19 @@
       tag: "p-drawer",
       attrs: {
         pos: "left",
+        autoClose: null,
       },
       data: {
         open: false,
         maskId: 1000,
+      },
+      proto: {
+        clickMask() {
+          this.emit("click-mask", { bubbles: false });
+          if (this.autoClose !== null) {
+            this.open = false;
+          }
+        },
       },
     };
   </script>
