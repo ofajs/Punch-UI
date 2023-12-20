@@ -57,7 +57,7 @@
     :style.z-index="maskId"
   ></div>
   <div class="container" class:open="open" :style.z-index="maskId + 1">
-    <div class="inner">
+    <div class="inner" style="display: none">
       <slot></slot>
     </div>
   </div>
@@ -74,11 +74,17 @@
       },
       watch: {
         open(val) {
+          clearTimeout(this._timer);
           if (val) {
+            this.shadow.$(".inner").style.display = "";
             if (this.maskId <= dialogUtil.maskId) {
               dialogUtil.maskId = dialogUtil.maskId + 2;
               this.maskId = dialogUtil.maskId;
             }
+          } else {
+            this._timer = setTimeout(() => {
+              this.shadow.$(".inner").style.display = "none";
+            }, 300);
           }
         },
       },
