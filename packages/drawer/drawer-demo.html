@@ -1,0 +1,12 @@
+<template page>
+  <l-m src="./drawer.html"></l-m>
+  <button on:click="open1 = true">Drawer Demo</button>
+  <p-drawer :open="open1"> drawer 1 </p-drawer>
+  <script>
+    export default {
+      data: {
+        open1: false,
+      },
+    };
+  </script>
+</template>
