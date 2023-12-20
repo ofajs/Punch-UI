@@ -17,13 +17,13 @@
       display: contents;
     }
 
-    .container[pos="left"] .main,
-    .container[pos="right"] .main {
+    .container[anchor="left"] .main,
+    .container[anchor="right"] .main {
       height: 100%;
     }
 
-    .container[pos="top"] .main,
-    .container[pos="bottom"] .main {
+    .container[anchor="top"] .main,
+    .container[anchor="bottom"] .main {
       width: 100%;
     }
 
@@ -37,61 +37,61 @@
       opacity: 1;
     }
 
-    .container[pos="left"] {
+    .container[anchor="left"] {
       --container-justify-content: flex-start;
       --container-init-transform: translate(0, -0) scale(0, 1);
     }
-    .container[pos="left"] .main {
+    .container[anchor="left"] .main {
       border-radius: 0 var(--dialog-border-radius, 30px)
         var(--dialog-border-radius, 30px) 0;
     }
 
-    .container[pos="left"] p-mask::part(container) {
+    .container[anchor="left"] p-mask::part(container) {
       transform-origin: 0 50%;
     }
 
-    .container[pos="right"] {
+    .container[anchor="right"] {
       --container-justify-content: flex-end;
       --container-init-transform: translate(0, -0) scale(0, 1);
     }
-    .container[pos="right"] .main {
+    .container[anchor="right"] .main {
       border-radius: var(--dialog-border-radius, 30px) 0 0
         var(--dialog-border-radius, 30px);
     }
 
-    .container[pos="right"] p-mask::part(container) {
+    .container[anchor="right"] p-mask::part(container) {
       transform-origin: 100% 50%;
     }
 
-    .container[pos="top"] {
+    .container[anchor="top"] {
       --container-align-items: flex-start;
       --container-init-transform: translate(0, -0) scale(1, 0);
     }
-    .container[pos="top"] .main {
+    .container[anchor="top"] .main {
       border-radius: 0 0 var(--dialog-border-radius, 30px)
         var(--dialog-border-radius, 30px);
     }
 
-    .container[pos="top"] p-mask::part(container) {
+    .container[anchor="top"] p-mask::part(container) {
       transform-origin: 50% 0;
     }
 
-    .container[pos="bottom"] {
+    .container[anchor="bottom"] {
       --container-align-items: flex-end;
       --container-init-transform: translate(0, -0) scale(1, 0);
     }
-    .container[pos="bottom"] .main {
+    .container[anchor="bottom"] .main {
       border-radius: var(--dialog-border-radius, 30px)
         var(--dialog-border-radius, 30px) 0 0;
     }
 
-    .container[pos="bottom"] p-mask::part(container) {
+    .container[anchor="bottom"] p-mask::part(container) {
       transform-origin: 50% 100%;
     }
   </style>
   <l-m src="../dialog/mask.html"></l-m>
 
-  <div class="container" attr:pos="pos">
+  <div class="container" attr:anchor="anchor">
     <p-mask sync:open="open" sync:mask-id="maskId" on:click-mask="clickMask">
       <div class="main" part="main">
         <div class="inner" class:showall="open">
@@ -104,7 +104,7 @@
     export default {
       tag: "p-drawer",
       attrs: {
-        pos: "left",
+        anchor: "left",
         autoClose: null,
       },
       data: {
