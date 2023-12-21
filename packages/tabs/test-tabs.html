@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tabs test</title>
     <script
-      src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.42/dist/ofa.min.js"
+      src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.43/dist/ofa.min.js"
       debug
     ></script>
+    <!-- <script
+      src="http://127.0.0.1:3348/packages/ofa/main.mjs"
+      type="module"
+    ></script> -->
     <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
     <link rel="stylesheet" href="../css/public.css" />
     <style>
@@ -31,10 +35,7 @@
     <p-tabs active-id="2">
       <p-tab>
         Home
-        <iconify-icon
-          icon="material-symbols:home"
-          slot="icon"
-        ></iconify-icon>
+        <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
       </p-tab>
       <p-tab>
         <iconify-icon
@@ -44,10 +45,7 @@
         Movies
       </p-tab>
       <p-tab>
-        <iconify-icon
-          icon="material-symbols:photo"
-          slot="icon"
-        ></iconify-icon>
+        <iconify-icon icon="material-symbols:photo" slot="icon"></iconify-icon>
         Photos
       </p-tab>
       <p-tab>
@@ -59,10 +57,7 @@
     <br />
     <p-tabs active-id="2">
       <p-tab>
-        <iconify-icon
-          icon="material-symbols:home"
-          slot="icon"
-        ></iconify-icon>
+        <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
       </p-tab>
       <p-tab>
         <iconify-icon
@@ -71,10 +66,7 @@
         ></iconify-icon>
       </p-tab>
       <p-tab>
-        <iconify-icon
-          icon="material-symbols:photo"
-          slot="icon"
-        ></iconify-icon>
+        <iconify-icon icon="material-symbols:photo" slot="icon"></iconify-icon>
       </p-tab>
       <p-tab>
         <iconify-icon icon="mingcute:music-fill" slot="icon"></iconify-icon>
@@ -87,6 +79,30 @@
       <p-tab>Movies</p-tab>
       <p-tab>Photos</p-tab>
       <p-tab>Musics</p-tab>
+    </p-tabs>
+    <br />
+    <br />
+
+    <p-tabs active-id="2" icon-position="start">
+      <p-tab>
+        Home
+        <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
+      </p-tab>
+      <p-tab>
+        <iconify-icon
+          icon="fluent:movies-and-tv-16-filled"
+          slot="icon"
+        ></iconify-icon>
+        Movies
+      </p-tab>
+      <p-tab>
+        <iconify-icon icon="material-symbols:photo" slot="icon"></iconify-icon>
+        Photos
+      </p-tab>
+      <p-tab>
+        <iconify-icon icon="mingcute:music-fill" slot="icon"></iconify-icon>
+        Musics
+      </p-tab>
     </p-tabs>
     <br />
     <br />

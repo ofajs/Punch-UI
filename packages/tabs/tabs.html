@@ -36,6 +36,7 @@
       tag: "p-tabs",
       attrs: {
         activeId: 0,
+        iconPosition: null,
       },
       data: {
         inited: false,
@@ -62,6 +63,15 @@
       watch: {
         activeId() {
           this._fixBottomLine();
+        },
+        iconPosition(val) {
+          if (val !== null) {
+            this.forEach((e) => {
+              if (e.tag === "p-tab") {
+                e.iconPosition = val;
+              }
+            });
+          }
         },
       },
       attached() {
