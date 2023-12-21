@@ -87,6 +87,15 @@
           this.activeId = $(e.target).index;
           e.stopPropagation();
         });
+        
+        this.shadow.on("slotchange", () => {
+          requestAnimationFrame(() => {
+            setTimeout(() => {
+              this._fixBottomLine();
+              this.inited = true;
+            }, 50);
+          });
+        });
       },
     };
   </script>
