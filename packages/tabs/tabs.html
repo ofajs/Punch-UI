@@ -6,6 +6,7 @@
       display: block;
       font-size: 14px;
       --active-color: var(--md-sys-color-primary);
+      /* border-bottom: var(--md-sys-color-normal-container) solid 0.5px; */
     }
     .container {
       display: flex;
@@ -47,7 +48,7 @@
             const { ele } = target.container;
 
             Object.assign(this.shadow.$(".bottom-line").style, {
-              left: `${ele.offsetLeft}px`,
+              left: `${ele.offsetLeft - 2}px`,
               width: `${target.container.width}px`,
             });
 
