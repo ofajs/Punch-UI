@@ -1,0 +1,51 @@
+<template component>
+  <style>
+    :host {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      margin: 0 calc(var(--pui-space-x) * 3);
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 22px;
+      transition: color ease 0.2s;
+    }
+
+    :host([active-item]) {
+      color: var(--active-color);
+    }
+  </style>
+  <div class="container">
+    <div class="icon">
+      <slot name="icon"></slot>
+    </div>
+    <slot></slot>
+  </div>
+  <script>
+    export default {
+      tag: "p-tab",
+      proto: {
+        get container() {
+          return this.shadow.$(".container");
+        },
+      },
+      ready() {
+        this.on("click", () => {
+          this.emit("click-tab-item");
+        });
+      },
+    };
+  </script>
+</template>

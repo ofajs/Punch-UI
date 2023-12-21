@@ -1,0 +1,83 @@
+<template component>
+  <l-m src="./tab.html"></l-m>
+  <style>
+    :host {
+      position: relative;
+      display: block;
+      font-size: 14px;
+      --active-color: var(--md-sys-color-primary);
+    }
+    .container {
+      display: flex;
+      padding-bottom: 3px;
+    }
+  </style>
+
+  <x-if :value="inited">
+    <style>
+      .bottom-line {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100px;
+        border-bottom: 3px solid var(--active-color);
+        border-left: 2px solid transparent;
+        border-right: 2px solid transparent;
+        transition: left ease 0.3s, width ease 0.3s;
+      }
+    </style>
+  </x-if>
+  <div class="container">
+    <slot></slot>
+    <div class="bottom-line"></div>
+  </div>
+  <script>
+    export default {
+      tag: "p-tabs",
+      attrs: {
+        activeId: 0,
+      },
+      data: {
+        inited: false,
+      },
+      proto: {
+        _fixBottomLine() {
+          const target = this[this.activeId];
+          if (target && target.container) {
+            const { ele } = target.container;
+
+            Object.assign(this.shadow.$(".bottom-line").style, {
+              left: `${ele.offsetLeft}px`,
+              width: `${target.container.width}px`,
+            });
+
+            this.all("[active-item]").forEach((e) =>
+              e.attr("active-item", null)
+            );
+
+            target.attr("active-item", "");
+          }
+        },
+      },
+      watch: {
+        activeId() {
+          this._fixBottomLine();
+        },
+      },
+      attached() {
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            this._fixBottomLine();
+            this.inited = true;
+          }, 50);
+        });
+      },
+      ready() {
+        this.on("click-tab-item", (e) => {
+          this.activeId = $(e.target).index;
+          e.stopPropagation();
+        });
+      },
+    };
+  </script>
+</template>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tabs test</title>
+    <script
+      src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.42/dist/ofa.min.js"
+      debug
+    ></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+    <link rel="stylesheet" href="../css/public.css" />
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+      *:not(:defined) {
+        display: none;
+      }
+
+      p-tabs {
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <l-m src="../../ancillary/dark-switch.html"></l-m>
+    <l-m src="./tabs.html"></l-m>
+    <dark-switch></dark-switch>
+    <p-tabs active-id="2">
+      <p-tab>
+        Home
+        <iconify-icon
+          icon="material-symbols:location-home"
+          slot="icon"
+        ></iconify-icon>
+      </p-tab>
+      <p-tab>
+        <iconify-icon
+          icon="material-symbols:water-loss-sharp"
+          slot="icon"
+        ></iconify-icon>
+        Tab Two
+      </p-tab>
+      <p-tab>
+        <iconify-icon
+          icon="material-symbols:video-call"
+          slot="icon"
+        ></iconify-icon>
+        Tab Three
+      </p-tab>
+      <p-tab>
+        <iconify-icon icon="material-symbols:trophy" slot="icon"></iconify-icon>
+        Tab Four
+      </p-tab>
+    </p-tabs>
+    <br />
+    <style>
+      .eq-width-tabs p-tab {
+        width: 100px;
+      }
+    </style>
+    <p-tabs class="eq-width-tabs">
+      <p-tab>Home</p-tab>
+      <p-tab>Tab Two</p-tab>
+      <p-tab>Tab Three</p-tab>
+      <p-tab>Tab Four</p-tab>
+    </p-tabs>
+  </body>
+</html>
