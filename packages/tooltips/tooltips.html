@@ -21,7 +21,7 @@
         var(--md-sys-color-on-normal-container)
       );
       transform: translate(-50%, 0);
-      transition: all ease 0.3s;
+      transition: all ease 0.3s, color ease 0.5s;
 
       margin-top: var(--pui-space-y);
       padding: var(--pui-space-y) var(--pui-space-x);
@@ -117,11 +117,15 @@
       pointer-events: auto;
       visibility: visible;
     }
+
+    :host([no-style]) .tips {
+      background-color: transparent;
+      color: inherit;
+      margin: 0;
+    }
   </style>
   <div class="container" part="container">
-    <div class="content">
-      <slot></slot>
-    </div>
+    <slot></slot>
     <div class="tips" class:open="open" attr:placement="placement" part="tips">
       <slot name="tips"></slot>
     </div>

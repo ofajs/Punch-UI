@@ -10,6 +10,9 @@
     ></script>
     <link rel="stylesheet" href="../css/public.css" />
     <style>
+      *:not(:defined) {
+        display: none;
+      }
       .line {
         display: flex;
       }
@@ -143,6 +146,15 @@
       <p-tooltips>
         <button disabled>Test Disabled</button>
         <span slot="tips">This is Test Tips</span>
+      </p-tooltips>
+      <p-tooltips no-style>
+        <button>Test Hover</button>
+        <div
+          slot="tips"
+          style="background-color: pink; width: 200px; height: 100px"
+        >
+          Test El
+        </div>
       </p-tooltips>
     </div>
   </body>
