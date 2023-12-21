@@ -16,6 +16,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      padding: calc(var(--pui-space-y) * 2) 0;
     }
 
     .icon {
@@ -33,9 +34,13 @@
     .click-area {
       position: absolute;
       left: calc(var(--pui-space-x) * -3);
-      top: 0;
+      bottom: 0;
       width: calc(100% + calc(var(--pui-space-x) * 6));
       height: 100%;
+    }
+
+    .container:hover .click-area {
+      background-color: var(--md-ref-palette-translucent-normal60);
     }
   </style>
   <div class="container">
