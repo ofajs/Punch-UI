@@ -118,16 +118,11 @@
       visibility: visible;
     }
   </style>
-  <div
-    class="container"
-    part="container"
-    on:mouseenter="enter"
-    on:mouseleave="leave"
-  >
-    <!-- <div class="content"> -->
-    <slot></slot>
-    <!-- </div> -->
-    <div class="tips" class:open="open" attr:placement="placement">
+  <div class="container" part="container">
+    <div class="content">
+      <slot></slot>
+    </div>
+    <div class="tips" class:open="open" attr:placement="placement" part="tips">
       <slot name="tips"></slot>
     </div>
   </div>
@@ -136,19 +131,62 @@
       tag: "p-tooltips",
       attrs: {
         placement: null,
+        event: null,
       },
       data: {
         open: false,
       },
       proto: {
         enter() {
-          this.open = true;
+          let isDisabled = false;
+          this.forEach((element) => {
+            if (element.attr("slot") === null && element.disabled) {
+              isDisabled = true;
+            }
+          });
+          if (!isDisabled) {
+            clearTimeout(this._timer);
+            this.open = true;
+          }
         },
         leave() {
-          this.open = false;
+          this._timer = setTimeout(() => {
+            this.open = false;
+          }, 100);
         },
       },
-      ready() {},
+      ready() {
+        this.on("mouseenter", () => {
+          if (!this.event) {
+            this.enter();
+          }
+        });
+        this.on("mouseleave", () => {
+          if (!this.event) {
+            this.leave();
+          }
+        });
+        this.on("click", (e) => {
+          if (this.event === "click") {
+            this.enter();
+
+            this._click_f && $("html").off("click", this._click_f);
+
+            $("html").on(
+              "click",
+              (this._click_f = (event) => {
+                if (e === event) {
+                  return;
+                }
+                this.leave();
+              })
+            );
+          }
+        });
+      },
+      attached() {
+        this._click_f && $("html").off("click", this._click_f);
+      },
     };
   </script>
 </template>
