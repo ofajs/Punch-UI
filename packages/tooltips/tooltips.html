@@ -1,11 +1,8 @@
 <template component>
   <style>
     :host {
-      display: inline-block;
-    }
-    .container {
       position: relative;
-      display: block;
+      display: inline-block;
     }
 
     .tips {
@@ -124,11 +121,9 @@
       margin: 0;
     }
   </style>
-  <div class="container" part="container">
-    <slot></slot>
-    <div class="tips" class:open="open" attr:placement="placement" part="tips">
-      <slot name="tips"></slot>
-    </div>
+  <slot></slot>
+  <div class="tips" class:open="open" attr:placement="placement" part="tips">
+    <slot name="tips"></slot>
   </div>
   <script>
     export default {
