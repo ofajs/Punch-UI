@@ -131,11 +131,22 @@
       attrs: {
         placement: null,
         event: null,
+        opened: null,
       },
       data: {
         open: false,
       },
       proto: {
+        get open() {
+          return this.opened !== null;
+        },
+        set open(val) {
+          if (val) {
+            this.opened = "";
+          } else {
+            this.opened = null;
+          }
+        },
         enter() {
           let isDisabled = false;
           this.forEach((element) => {
