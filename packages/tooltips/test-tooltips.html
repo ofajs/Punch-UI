@@ -9,15 +9,130 @@
       debug
     ></script>
     <link rel="stylesheet" href="../css/public.css" />
+    <style>
+      .line {
+        display: flex;
+      }
+      .block {
+        width: 120px;
+        height: 50px;
+        line-height: 30px;
+        text-align: center;
+      }
+
+      button {
+        display: block;
+        height: 40px;
+      }
+
+      .block:first-child {
+        text-align: left;
+      }
+      .block:last-child {
+        text-align: right;
+      }
+    </style>
   </head>
   <body>
     <l-m src="../../ancillary/dark-switch.html"></l-m>
     <dark-switch></dark-switch>
     <l-m src="./tooltips.html"></l-m>
-    <p-tooltips>
-      <button>Hover Test</button>
-      <div slot="tips">This is test tips</div>
-    </p-tooltips>
-    <div>asd</div>
+    <div style="margin: 150px 0 0 150px; display: inline-block">
+      <div class="line">
+        <div class="block"></div>
+        <div class="block">
+          <p-tooltips placement="top-start">
+            <button>Top-Start</button>
+            <span slot="tips">This is Test Tips</span>
+          </p-tooltips>
+        </div>
+        <div class="block">
+          <p-tooltips placement="top">
+            <button>Top</button>
+            <span slot="tips">This is Test Tips</span>
+          </p-tooltips>
+        </div>
+        <div class="block">
+          <p-tooltips placement="top-end">
+            <button>Top-End</button>
+            <span slot="tips">This is Test Tips</span>
+          </p-tooltips>
+        </div>
+        <div class="block"></div>
+      </div>
+      <div class="line">
+        <div class="block">
+          <p-tooltips placement="left-start">
+            <button>Left-Start</button>
+            <span slot="tips">This is Test Tips</span>
+          </p-tooltips>
+        </div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block">
+          <p-tooltips placement="right-start">
+            <button>Right-Start</button>
+            <span slot="tips">This is Test Tips</span>
+          </p-tooltips>
+        </div>
+      </div>
+      <div class="line">
+        <div class="block">
+          <p-tooltips placement="left">
+            <button>Left</button>
+            <span slot="tips">This is Test Tips</span>
+          </p-tooltips>
+        </div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block">
+          <p-tooltips placement="right">
+            <button>Right</button>
+            <span slot="tips">This is Test Tips</span>
+          </p-tooltips>
+        </div>
+      </div>
+      <div class="line">
+        <div class="block">
+          <p-tooltips placement="left-end">
+            <button>Left-End</button>
+            <span slot="tips">This is Test Tips</span>
+          </p-tooltips>
+        </div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block">
+          <p-tooltips placement="right-end">
+            <button>Right-End</button>
+            <span slot="tips">This is Test Tips</span>
+          </p-tooltips>
+        </div>
+      </div>
+      <div class="line">
+        <div class="block"></div>
+        <div class="block">
+          <p-tooltips placement="bottom-start">
+            <button>Bottom-Start</button>
+            <span slot="tips">This is Test Tips</span>
+          </p-tooltips>
+        </div>
+        <div class="block">
+          <p-tooltips placement="bottom">
+            <button>Bottom(Default)</button>
+            <span slot="tips">This is Test Tips</span>
+          </p-tooltips>
+        </div>
+        <div class="block">
+          <p-tooltips placement="bottom-end">
+            <button>Bottom-End</button>
+            <span slot="tips">This is Test Tips</span>
+          </p-tooltips>
+        </div>
+        <div class="block"></div>
+      </div>
+    </div>
   </body>
 </html>
