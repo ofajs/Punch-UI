@@ -2,12 +2,13 @@
   <l-m src="../wave/wave.html"></l-m>
   <style>
     :host {
+      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
       text-align: center;
       cursor: pointer;
-      margin: 0 calc(var(--pui-space-x) * 3);
+      padding: 0 calc(var(--pui-space-x) * 3);
       --wave-color: var(--md-ref-palette-translucent-primary60);
     }
     .container {
@@ -29,14 +30,6 @@
 
     :host([active-item]) {
       color: var(--active-color);
-    }
-
-    .click-area {
-      position: absolute;
-      left: calc(var(--pui-space-x) * -3);
-      bottom: 0;
-      width: calc(100% + calc(var(--pui-space-x) * 6));
-      height: 100%;
     }
 
     .container:hover .click-area {
@@ -67,10 +60,8 @@
       <slot name="icon"></slot>
     </div>
     <slot></slot>
-    <div class="click-area">
-      <p-wave></p-wave>
-    </div>
   </div>
+  <p-wave></p-wave>
   <script>
     export default {
       tag: "p-tab",

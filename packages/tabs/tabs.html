@@ -48,7 +48,7 @@
             const { ele } = target.container;
 
             Object.assign(this.shadow.$(".indicator").style, {
-              left: `${ele.offsetLeft - 2}px`,
+              left: `${target.ele.offsetLeft + ele.offsetLeft - 2}px`,
               width: `${target.container.width}px`,
             });
 
@@ -87,7 +87,7 @@
           this.activeId = $(e.target).index;
           e.stopPropagation();
         });
-        
+
         this.shadow.on("slotchange", () => {
           requestAnimationFrame(() => {
             setTimeout(() => {
