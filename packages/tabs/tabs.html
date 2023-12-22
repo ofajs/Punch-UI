@@ -5,13 +5,20 @@
       position: relative;
       display: block;
       font-size: 14px;
-      --active-color: var(--md-sys-color-primary);
       border-bottom: var(--md-ref-palette-normal60) solid 0.5px;
     }
     .container {
       display: flex;
     }
   </style>
+
+  <inject-host>
+    <style>
+      p-tabs[secondary] p-tab[active-item] {
+        color: var(--md-sys-color-on-primary-container);
+      }
+    </style>
+  </inject-host>
 
   <x-if :value="inited">
     <style>
@@ -20,14 +27,14 @@
         left: 0;
         bottom: 0;
         width: 100px;
-        border-bottom: 3px solid var(--active-color);
+        border-bottom: 3px solid var(--md-sys-color-primary);
         border-left: 2px solid transparent;
         border-right: 2px solid transparent;
         transition: left ease 0.3s, width ease 0.3s;
       }
 
       :host([secondary]) .indicator {
-        border-bottom: 2px solid var(--active-color);
+        border-bottom: 2px solid var(--md-sys-color-primary);
         border-left: 0px solid transparent;
         border-right: 0px solid transparent;
       }
