@@ -7,6 +7,7 @@
       font-size: 14px;
       border-bottom: var(--md-ref-palette-normal60) solid 0.5px;
       overflow: auto;
+      --wave-color: var(--md-ref-palette-translucent-primary60);
       /* overflow-x: clip; */
     }
     .container {
@@ -129,7 +130,7 @@
           }
           if (this.activeId > 0) {
             this.activeId--;
-            this[this.activeId].ele.scrollIntoView();
+            this.ele.scrollLeft = this[this.activeId].ele.offsetLeft;
           }
         },
         clickRightSbtn() {
@@ -138,7 +139,7 @@
           }
           if (this.activeId < this.length - 1) {
             this.activeId++;
-            this[this.activeId].ele.scrollIntoView();
+            this.ele.scrollLeft = this[this.activeId].ele.offsetLeft;
           }
         },
         // 获取底部线的定位和宽度
