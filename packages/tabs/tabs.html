@@ -120,14 +120,25 @@
         inited: false,
       },
       proto: {
+        get current() {
+          return this[this.activeId];
+        },
         clickLeftSbtn() {
           if (this.scrollButtons === null) {
             return;
+          }
+          if (this.activeId > 0) {
+            this.activeId--;
+            this[this.activeId].ele.scrollIntoView();
           }
         },
         clickRightSbtn() {
           if (this.scrollButtons === null) {
             return;
+          }
+          if (this.activeId < this.length - 1) {
+            this.activeId++;
+            this[this.activeId].ele.scrollIntoView();
           }
         },
         // 获取底部线的定位和宽度
@@ -195,6 +206,14 @@
           setTimeout(() => {
             this._fixBottomPosition();
             this.inited = true;
+
+            if (
+              this.shadow.$(".container").clientWidth > this.ele.clientWidth
+            ) {
+              const { current } = this;
+              const left = current.ele.offsetLeft;
+              this.ele.scrollLeft = left;
+            }
           }, 50);
         });
       },
