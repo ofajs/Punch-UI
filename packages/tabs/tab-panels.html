@@ -1,0 +1,42 @@
+<template component>
+  <style>
+    :host {
+      position: relative;
+      display: block;
+    }
+    ::slotted([tab-panel]) {
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+    }
+    ::slotted([active-item]) {
+      display: block;
+      z-index: 1;
+    }
+  </style>
+  <slot></slot>
+  <script>
+    export default {
+      tag: "p-tab-panels",
+      attrs: {
+        activeId: 0,
+      },
+      watch: {
+        activeId(val) {
+          this.all(`[tab-panel]`).forEach((e, index) => {
+            if (index == val) {
+              e.attr("active-item", "");
+            } else {
+              e.attr("active-item", null);
+            }
+          });
+        },
+      },
+      data: {},
+    };
+  </script>
+</template>
