@@ -19,6 +19,9 @@
       align-items: center;
       padding: calc(var(--pui-space-y) * 2) 0;
     }
+    :host(:hover) {
+      background-color: var(--md-ref-palette-translucent-normal60);
+    }
 
     .icon {
       display: flex;
@@ -30,10 +33,6 @@
 
     :host([active-item]) {
       color: var(--active-color);
-    }
-
-    .container:hover .click-area {
-      background-color: var(--md-ref-palette-translucent-normal60);
     }
 
     :host([icon-position="start"]) .container {
