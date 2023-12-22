@@ -3,20 +3,31 @@
     :host {
       position: relative;
       display: block;
+      overflow: hidden;
     }
     ::slotted([tab-panel]) {
       box-sizing: border-box;
-      display: none;
       position: absolute;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
       overflow: auto;
+      transition: all ease 0.3s;
+      opacity: 0;
+      pointer-events: none;
     }
     ::slotted([active-item]) {
-      display: block;
+      opacity: 1;
       z-index: 1;
+      pointer-events: auto;
+    }
+
+    ::slotted([position="left"]) {
+      transform: translate(-100%, 0);
+    }
+    ::slotted([position="right"]) {
+      transform: translate(100%, 0);
     }
   </style>
   <slot></slot>
@@ -30,9 +41,15 @@
         activeId(val) {
           this.all(`[tab-panel]`).forEach((e, index) => {
             if (index == val) {
+              e.attr("position", null);
               e.attr("active-item", "");
             } else {
               e.attr("active-item", null);
+              if (index > val) {
+                e.attr("position", "right");
+              } else {
+                e.attr("position", "left");
+              }
             }
           });
         },

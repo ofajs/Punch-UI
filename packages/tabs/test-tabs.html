@@ -17,9 +17,12 @@
     <style>
       html,
       body {
-        height: 100%;
-        box-sizing: border-box;
-        padding: 50px;
+        /* height: 100%; */
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        margin: 0;
+        /* overflow: hidden; */
       }
       *:not(:defined) {
         display: none;
@@ -35,179 +38,202 @@
     <l-m src="../../ancillary/dark-switch.html"></l-m>
     <l-m src="./tabs.html"></l-m>
     <dark-switch></dark-switch>
-    <p-tabs active-id="2">
-      <p-tab>
-        Home
-        <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
-      </p-tab>
-      <p-tab>
-        <iconify-icon
-          icon="fluent:movies-and-tv-16-filled"
-          slot="icon"
-        ></iconify-icon>
-        Movies
-      </p-tab>
-      <p-tab>
-        <iconify-icon icon="material-symbols:photo" slot="icon"></iconify-icon>
-        Photos
-      </p-tab>
-      <p-tab>
-        <iconify-icon icon="mingcute:music-fill" slot="icon"></iconify-icon>
-        Musics
-      </p-tab>
-    </p-tabs>
-    <br />
-    <br />
-    <p-tabs active-id="2">
-      <p-tab>
-        <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
-      </p-tab>
-      <p-tab>
-        <iconify-icon
-          icon="fluent:movies-and-tv-16-filled"
-          slot="icon"
-        ></iconify-icon>
-      </p-tab>
-      <p-tab>
-        <iconify-icon icon="material-symbols:photo" slot="icon"></iconify-icon>
-      </p-tab>
-      <p-tab>
-        <iconify-icon icon="mingcute:music-fill" slot="icon"></iconify-icon>
-      </p-tab>
-    </p-tabs>
-    <br />
-    <br />
-    <p-tabs>
-      <p-tab>Home</p-tab>
-      <p-tab>Movies</p-tab>
-      <p-tab>Photos</p-tab>
-      <p-tab>Musics</p-tab>
-    </p-tabs>
-    <br />
-    <br />
+    <div style="padding: 20px">
+      <!-- <p-tabs active-id="2">
+        <p-tab>
+          Home
+          <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
+        </p-tab>
+        <p-tab>
+          <iconify-icon
+            icon="fluent:movies-and-tv-16-filled"
+            slot="icon"
+          ></iconify-icon>
+          Movies
+        </p-tab>
+        <p-tab>
+          <iconify-icon
+            icon="material-symbols:photo"
+            slot="icon"
+          ></iconify-icon>
+          Photos
+        </p-tab>
+        <p-tab>
+          <iconify-icon icon="mingcute:music-fill" slot="icon"></iconify-icon>
+          Musics
+        </p-tab>
+      </p-tabs>
+      <br />
+      <br />
+      <p-tabs active-id="2">
+        <p-tab>
+          <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
+        </p-tab>
+        <p-tab>
+          <iconify-icon
+            icon="fluent:movies-and-tv-16-filled"
+            slot="icon"
+          ></iconify-icon>
+        </p-tab>
+        <p-tab>
+          <iconify-icon
+            icon="material-symbols:photo"
+            slot="icon"
+          ></iconify-icon>
+        </p-tab>
+        <p-tab>
+          <iconify-icon icon="mingcute:music-fill" slot="icon"></iconify-icon>
+        </p-tab>
+      </p-tabs>
+      <br />
+      <br />
+      <p-tabs>
+        <p-tab>Home</p-tab>
+        <p-tab>Movies</p-tab>
+        <p-tab>Photos</p-tab>
+        <p-tab>Musics</p-tab>
+      </p-tabs>
+      <br />
+      <br />
 
-    <p-tabs active-id="2" secondary>
-      <p-tab>
-        Home
-        <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
-      </p-tab>
-      <p-tab>
-        <iconify-icon
-          icon="fluent:movies-and-tv-16-filled"
-          slot="icon"
-        ></iconify-icon>
-        Movies
-      </p-tab>
-      <p-tab>
-        <iconify-icon icon="material-symbols:photo" slot="icon"></iconify-icon>
-        Photos
-      </p-tab>
-      <p-tab>
-        <iconify-icon icon="mingcute:music-fill" slot="icon"></iconify-icon>
-        Musics
-      </p-tab>
-    </p-tabs>
-    <br />
-    <br />
-    <style>
-      .eq-width-tabs p-tab {
-        width: 100px;
-      }
-    </style>
-    <p-tabs class="eq-width-tabs" secondary>
-      <p-tab>Home</p-tab>
-      <p-tab>Movies</p-tab>
-      <p-tab>Photos</p-tab>
-      <p-tab>Musics</p-tab>
-    </p-tabs>
+      <p-tabs active-id="2" secondary>
+        <p-tab>
+          Home
+          <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
+        </p-tab>
+        <p-tab>
+          <iconify-icon
+            icon="fluent:movies-and-tv-16-filled"
+            slot="icon"
+          ></iconify-icon>
+          Movies
+        </p-tab>
+        <p-tab>
+          <iconify-icon
+            icon="material-symbols:photo"
+            slot="icon"
+          ></iconify-icon>
+          Photos
+        </p-tab>
+        <p-tab>
+          <iconify-icon icon="mingcute:music-fill" slot="icon"></iconify-icon>
+          Musics
+        </p-tab>
+      </p-tabs>
+      <br />
+      <br />
+      <style>
+        .eq-width-tabs p-tab {
+          width: 100px;
+        }
+      </style>
+      <p-tabs class="eq-width-tabs" secondary>
+        <p-tab>Home</p-tab>
+        <p-tab>Movies</p-tab>
+        <p-tab>Photos</p-tab>
+        <p-tab>Musics</p-tab>
+      </p-tabs>
 
-    <br />
-    <br />
-    <p-tabs active-id="2" scroll-buttons style="width: 200px">
-      <p-tab>
-        Home
-        <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
-      </p-tab>
-      <p-tab>
-        <iconify-icon
-          icon="fluent:movies-and-tv-16-filled"
-          slot="icon"
-        ></iconify-icon>
-        Movies
-      </p-tab>
-      <p-tab>
-        <iconify-icon icon="material-symbols:photo" slot="icon"></iconify-icon>
-        Photos
-      </p-tab>
-      <p-tab>
-        <iconify-icon icon="mingcute:music-fill" slot="icon"></iconify-icon>
-        Musics
-      </p-tab>
-      <p-tab>
-        Home2
-        <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
-      </p-tab>
-      <p-tab>
-        <iconify-icon
-          icon="fluent:movies-and-tv-16-filled"
-          slot="icon"
-        ></iconify-icon>
-        Movies2
-      </p-tab>
-      <p-tab>
-        <iconify-icon icon="material-symbols:photo" slot="icon"></iconify-icon>
-        Photos2
-      </p-tab>
-      <p-tab>
-        <iconify-icon icon="mingcute:music-fill" slot="icon"></iconify-icon>
-        Musics2
-      </p-tab>
-    </p-tabs>
-    <br /><br />
+      <br />
+      <br />
+      <p-tabs active-id="2" scroll-buttons style="width: 200px">
+        <p-tab>
+          Home
+          <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
+        </p-tab>
+        <p-tab>
+          <iconify-icon
+            icon="fluent:movies-and-tv-16-filled"
+            slot="icon"
+          ></iconify-icon>
+          Movies
+        </p-tab>
+        <p-tab>
+          <iconify-icon
+            icon="material-symbols:photo"
+            slot="icon"
+          ></iconify-icon>
+          Photos
+        </p-tab>
+        <p-tab>
+          <iconify-icon icon="mingcute:music-fill" slot="icon"></iconify-icon>
+          Musics
+        </p-tab>
+        <p-tab>
+          Home2
+          <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
+        </p-tab>
+        <p-tab>
+          <iconify-icon
+            icon="fluent:movies-and-tv-16-filled"
+            slot="icon"
+          ></iconify-icon>
+          Movies2
+        </p-tab>
+        <p-tab>
+          <iconify-icon
+            icon="material-symbols:photo"
+            slot="icon"
+          ></iconify-icon>
+          Photos2
+        </p-tab>
+        <p-tab>
+          <iconify-icon icon="mingcute:music-fill" slot="icon"></iconify-icon>
+          Musics2
+        </p-tab>
+      </p-tabs>
+      <br /><br />
 
-    <p-tabs active-id="2" scroll-buttons secondary style="width: 300px">
-      <p-tab>
-        Home
-        <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
-      </p-tab>
-      <p-tab>
-        <iconify-icon
-          icon="fluent:movies-and-tv-16-filled"
-          slot="icon"
-        ></iconify-icon>
-        Movies
-      </p-tab>
-      <p-tab>
-        <iconify-icon icon="material-symbols:photo" slot="icon"></iconify-icon>
-        Photos
-      </p-tab>
-      <p-tab>
-        <iconify-icon icon="mingcute:music-fill" slot="icon"></iconify-icon>
-        Musics
-      </p-tab>
-      <p-tab>
-        Home2
-        <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
-      </p-tab>
-      <p-tab>
-        <iconify-icon
-          icon="fluent:movies-and-tv-16-filled"
-          slot="icon"
-        ></iconify-icon>
-        Movies2
-      </p-tab>
-      <p-tab>
-        <iconify-icon icon="material-symbols:photo" slot="icon"></iconify-icon>
-        Photos2
-      </p-tab>
-      <p-tab>
-        <iconify-icon icon="mingcute:music-fill" slot="icon"></iconify-icon>
-        Musics2
-      </p-tab>
-    </p-tabs>
+      <p-tabs active-id="2" scroll-buttons secondary style="width: 300px">
+        <p-tab>
+          Home
+          <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
+        </p-tab>
+        <p-tab>
+          <iconify-icon
+            icon="fluent:movies-and-tv-16-filled"
+            slot="icon"
+          ></iconify-icon>
+          Movies
+        </p-tab>
+        <p-tab>
+          <iconify-icon
+            icon="material-symbols:photo"
+            slot="icon"
+          ></iconify-icon>
+          Photos
+        </p-tab>
+        <p-tab>
+          <iconify-icon icon="mingcute:music-fill" slot="icon"></iconify-icon>
+          Musics
+        </p-tab>
+        <p-tab>
+          Home2
+          <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
+        </p-tab>
+        <p-tab>
+          <iconify-icon
+            icon="fluent:movies-and-tv-16-filled"
+            slot="icon"
+          ></iconify-icon>
+          Movies2
+        </p-tab>
+        <p-tab>
+          <iconify-icon
+            icon="material-symbols:photo"
+            slot="icon"
+          ></iconify-icon>
+          Photos2
+        </p-tab>
+        <p-tab>
+          <iconify-icon icon="mingcute:music-fill" slot="icon"></iconify-icon>
+          Musics2
+        </p-tab>
+      </p-tabs> -->
 
-    <br /><br />
-    <o-page src="./tab-demo.html"></o-page>
-    <br /><br />
+      <br /><br />
+      <o-page src="./tab-demo.html"></o-page>
+      <br /><br />
+    </div>
   </body>
 </html>
