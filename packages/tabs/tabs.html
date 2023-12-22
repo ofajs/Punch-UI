@@ -25,6 +25,12 @@
         border-right: 2px solid transparent;
         transition: left ease 0.3s, width ease 0.3s;
       }
+
+      :host([secondary]) .indicator {
+        border-bottom: 2px solid var(--active-color);
+        border-left: 0px solid transparent;
+        border-right: 0px solid transparent;
+      }
     </style>
   </x-if>
   <div class="container">
@@ -36,20 +42,41 @@
       tag: "p-tabs",
       attrs: {
         activeId: 0,
-        iconPosition: null,
+        secondary: null,
       },
       data: {
         inited: false,
       },
       proto: {
-        _fixBottomLine() {
-          const target = this[this.activeId];
+        getIndicatorPostion(target) {
           if (target && target.container) {
+            if (this.secondary !== null) {
+              return {
+                left: target.ele.offsetLeft,
+                width: target.clientWidth,
+              };
+            }
             const { ele } = target.container;
 
+            return {
+              left: target.ele.offsetLeft + ele.offsetLeft,
+              width: target.container.width - 4,
+            };
+          }
+
+          return {
+            left: 0,
+            width: 0,
+          };
+        },
+        _fixBottomPosition() {
+          const target = this[this.activeId];
+          if (target && target.container) {
+            const { left, width } = this.getIndicatorPostion(target);
+
             Object.assign(this.shadow.$(".indicator").style, {
-              left: `${target.ele.offsetLeft + ele.offsetLeft - 2}px`,
-              width: `${target.container.width}px`,
+              left: `${left}px`,
+              width: `${width}px`,
             });
 
             this.all("[active-item]").forEach((e) =>
@@ -62,13 +89,13 @@
       },
       watch: {
         activeId() {
-          this._fixBottomLine();
+          this._fixBottomPosition();
         },
-        iconPosition(val) {
+        secondary(val) {
           if (val !== null) {
             this.forEach((e) => {
               if (e.tag === "p-tab") {
-                e.iconPosition = val;
+                e.iconPosition = "start";
               }
             });
           }
@@ -77,7 +104,7 @@
       attached() {
         requestAnimationFrame(() => {
           setTimeout(() => {
-            this._fixBottomLine();
+            this._fixBottomPosition();
             this.inited = true;
           }, 50);
         });
@@ -91,7 +118,7 @@
         this.shadow.on("slotchange", () => {
           requestAnimationFrame(() => {
             setTimeout(() => {
-              this._fixBottomLine();
+              this._fixBottomPosition();
               this.inited = true;
             }, 50);
           });
