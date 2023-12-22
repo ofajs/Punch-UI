@@ -18,6 +18,8 @@
       html,
       body {
         height: 100%;
+        box-sizing: border-box;
+        padding: 50px;
       }
       *:not(:defined) {
         display: none;
@@ -25,6 +27,7 @@
 
       p-tabs {
         display: inline-block;
+        background-color: var(--md-sys-color-normal-container);
       }
     </style>
   </head>
@@ -120,7 +123,7 @@
 
     <br />
     <br />
-    <p-tabs active-id="2" style="width: 200px">
+    <p-tabs active-id="2" scroll-buttons style="width: 200px">
       <p-tab>
         Home
         <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
@@ -139,6 +142,25 @@
       <p-tab>
         <iconify-icon icon="mingcute:music-fill" slot="icon"></iconify-icon>
         Musics
+      </p-tab>
+      <p-tab>
+        Home2
+        <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
+      </p-tab>
+      <p-tab>
+        <iconify-icon
+          icon="fluent:movies-and-tv-16-filled"
+          slot="icon"
+        ></iconify-icon>
+        Movies2
+      </p-tab>
+      <p-tab>
+        <iconify-icon icon="material-symbols:photo" slot="icon"></iconify-icon>
+        Photos2
+      </p-tab>
+      <p-tab>
+        <iconify-icon icon="mingcute:music-fill" slot="icon"></iconify-icon>
+        Musics2
       </p-tab>
     </p-tabs>
   </body>

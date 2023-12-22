@@ -3,13 +3,15 @@
   <style>
     :host {
       position: relative;
-      display: block;
+      display: flex;
       font-size: 14px;
       border-bottom: var(--md-ref-palette-normal60) solid 0.5px;
       overflow: auto;
+      /* overflow-x: clip; */
     }
     .container {
       display: flex;
+      width: fit-content;
     }
   </style>
 
@@ -39,10 +41,58 @@
         border-left: 0px solid transparent;
         border-right: 0px solid transparent;
       }
+
+      .scroll-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        display: none;
+        width: 30px;
+        flex-shrink: 0;
+        background-color: rgba(0, 0, 0, 0.1);
+        z-index: 3;
+        cursor: pointer;
+        position: sticky;
+      }
+      .scroll-btn.left {
+        left: 0;
+      }
+      .scroll-btn.left:before {
+        display: block;
+        content: "";
+        border-right: var(--md-sys-color-on-primary-container) solid 5px;
+        border-top: transparent solid 5px;
+        border-bottom: transparent solid 5px;
+      }
+
+      .scroll-btn.right {
+        right: 0;
+      }
+      .scroll-btn.right:before {
+        display: block;
+        content: "";
+        border-left: var(--md-sys-color-on-primary-container) solid 5px;
+        border-top: transparent solid 5px;
+        border-bottom: transparent solid 5px;
+      }
+
+      :host([scroll-buttons]) .scroll-btn {
+        display: flex;
+      }
     </style>
   </x-if>
-  <div class="container">
+  <div
+    class="container"
+    part="container"
+    class:scrollbtns="scrollButtons!==null"
+  >
+    <div class="scroll-btn left" on:click="clickLeftSbtn">
+      <p-wave></p-wave>
+    </div>
     <slot></slot>
+    <div class="scroll-btn right" on:click="clickRightSbtn">
+      <p-wave></p-wave>
+    </div>
     <div class="indicator" part="indicator"></div>
   </div>
   <script>
@@ -51,11 +101,22 @@
       attrs: {
         activeId: 0, // 激活中的id
         secondary: null,
+        scrollButtons: null,
       },
       data: {
         inited: false,
       },
       proto: {
+        clickLeftSbtn() {
+          if (this.scrollButtons === null) {
+            return;
+          }
+        },
+        clickRightSbtn() {
+          if (this.scrollButtons === null) {
+            return;
+          }
+        },
         // 获取底部线的定位和宽度
         getIndicatorPostion(activeId) {
           const target = this[activeId];
@@ -115,6 +176,36 @@
             });
           }
         },
+        // scrollButtons(val) {
+        //   if (this._oldwheelFun) {
+        //     this.off("wheel", this._oldwheelFun);
+        //     this._oldwheelFun = null;
+        //   }
+
+        //   if (val !== null) {
+        //     const container = this.shadow.$(".container");
+        //     let distance = 30;
+        //     container.style.transform = `translate(${distance}px, 0)`;
+
+        //     this.on(
+        //       "wheel",
+        //       (this._oldwheelFun = (e) => {
+        //         const { deltaX } = e;
+        //         distance -= deltaX;
+
+        //         if (distance > 30) {
+        //           distance = 30;
+        //         } else if (distance < -container.width) {
+        //           distance = -container.width;
+        //         }
+
+        //         container.style.transform = `translate(${distance}px, 0)`;
+
+        //         console.log(distance, container.width);
+        //       })
+        //     );
+        //   }
+        // },
       },
       attached() {
         requestAnimationFrame(() => {
