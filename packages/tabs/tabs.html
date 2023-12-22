@@ -6,6 +6,7 @@
       display: block;
       font-size: 14px;
       border-bottom: var(--md-ref-palette-normal60) solid 0.5px;
+      overflow: auto;
     }
     .container {
       display: flex;
@@ -48,27 +49,33 @@
     export default {
       tag: "p-tabs",
       attrs: {
-        activeId: 0,
+        activeId: 0, // 激活中的id
         secondary: null,
       },
       data: {
         inited: false,
       },
       proto: {
-        getIndicatorPostion(target) {
-          if (target && target.container) {
+        // 获取底部线的定位和宽度
+        getIndicatorPostion(activeId) {
+          const target = this[activeId];
+
+          if (target) {
             if (this.secondary !== null) {
               return {
                 left: target.ele.offsetLeft,
                 width: target.clientWidth,
               };
             }
-            const { ele } = target.container;
 
-            return {
-              left: target.ele.offsetLeft + ele.offsetLeft,
-              width: target.container.width - 4,
-            };
+            if (target.container) {
+              const { ele } = target.container;
+
+              return {
+                left: target.ele.offsetLeft + ele.offsetLeft,
+                width: target.container.width - 4,
+              };
+            }
           }
 
           return {
@@ -76,10 +83,11 @@
             width: 0,
           };
         },
+        // 修复底部线的定位
         _fixBottomPosition() {
           const target = this[this.activeId];
           if (target && target.container) {
-            const { left, width } = this.getIndicatorPostion(target);
+            const { left, width } = this.getIndicatorPostion(this.activeId);
 
             Object.assign(this.shadow.$(".indicator").style, {
               left: `${left}px`,
