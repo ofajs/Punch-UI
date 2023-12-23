@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>All Component</title>
-    <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.42/dist/ofa.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.43/dist/ofa.min.js"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
     <link rel="stylesheet" href="../packages/css/public.css" />
     <style>
@@ -25,6 +25,7 @@
     <l-m src="../packages/select/select.html"></l-m>
     <l-m src="../packages/slider/slider.html"></l-m>
     <l-m src="../packages/tooltips/tooltips.html"></l-m>
+    <l-m src="../packages/tabs/tabs.html"></l-m>
     <dark-switch></dark-switch>
     <br />
     <div>
@@ -123,5 +124,28 @@
       <o-page src="../packages/drawer/drawer-demo.html"></o-page>
     </div>
     <br />
+
+    <p-tabs active-id="2">
+      <p-tab>
+        Home
+        <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
+      </p-tab>
+      <p-tab>
+        <iconify-icon
+          icon="fluent:movies-and-tv-16-filled"
+          slot="icon"
+        ></iconify-icon>
+        Movies
+      </p-tab>
+      <p-tab>
+        <iconify-icon icon="material-symbols:photo" slot="icon"></iconify-icon>
+        Photos
+      </p-tab>
+      <p-tab>
+        <iconify-icon icon="mingcute:music-fill" slot="icon"></iconify-icon>
+        Musics
+      </p-tab>
+    </p-tabs>
+    <br /><br />
   </body>
 </html>
