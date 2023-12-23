@@ -68,24 +68,43 @@
       },
       data: {},
       ready() {
-        let startX, conWidth;
+        let startX, startY, conWidth;
         let currentPannel, nextPannel;
         this.on("touchstart", (e) => {
           const point = e?.changedTouches[0] || e.targetTouches[0];
           startX = point.clientX;
+          startY = point.clientY;
           conWidth = this.width;
           currentPannel = this.current;
           this.attr("no-anime", "");
+          topThree = [];
+          isScrollY = false;
         });
+
+        let topThree = []; // 前三个移动点
+        let isScrollY = false; // 是否Y轴滚动
+
         this.on("touchmove", (e) => {
           const point = e?.changedTouches[0] || e.targetTouches[0];
 
           const diffX = point.clientX - startX;
-          const percentTag = diffX / conWidth;
+          const diffY = point.clientY - startY;
 
-          if (Math.abs(diffX) > 3) {
-            e.preventDefault();
+          if (topThree.length < 2) {
+            topThree.push(point.clientY);
+          } else {
+            if (Math.abs(topThree[1] - topThree[0]) > 1) {
+              isScrollY = true;
+            }
           }
+
+          // console.log("isScrollY", isScrollY);
+          if (isScrollY) {
+            return true;
+          }
+          e.preventDefault();
+
+          const percentTag = diffX / conWidth;
 
           Object.assign(currentPannel.style, {
             opacity: `${1 - Math.abs(percentTag)}`,
@@ -102,12 +121,15 @@
             }
 
             nextPannel = currentPannel.prev;
-            Object.assign(nextPannel.style, {
-              opacity: `${Math.abs(percentTag)}`,
-              transform: `translate(-${(1 - Math.abs(percentTag)) * 100}%, 0)`,
-            });
+            nextPannel &&
+              Object.assign(nextPannel.style, {
+                opacity: `${Math.abs(percentTag)}`,
+                transform: `translate(-${
+                  (1 - Math.abs(percentTag)) * 100
+                }%, 0)`,
+              });
 
-            console.log("percentTag left:", percentTag);
+            // console.log("percentTag left:", percentTag);
           } else {
             if (nextPannel && nextPannel !== currentPannel.next) {
               Object.assign(nextPannel.style, {
@@ -118,20 +140,21 @@
 
             // next is right
             nextPannel = currentPannel.next;
-            Object.assign(nextPannel.style, {
-              opacity: `${Math.abs(percentTag)}`,
-              transform: `translate(${(1 - Math.abs(percentTag)) * 100}%, 0)`,
-            });
-
-            console.log("percentTag right:", percentTag);
+            nextPannel &&
+              Object.assign(nextPannel.style, {
+                opacity: `${Math.abs(percentTag)}`,
+                transform: `translate(${(1 - Math.abs(percentTag)) * 100}%, 0)`,
+              });
           }
         });
+
         this.on("touchend", (e) => {
           const point = e?.changedTouches[0] || e.targetTouches[0];
           const diffX = point.clientX - startX;
           const percentTag = diffX / conWidth;
           this.attr("no-anime", null);
-          console.log("percentTag:", percentTag);
+          // console.log("percentTag:", percentTag);
+          topThree = [];
 
           Object.assign(currentPannel.style, {
             opacity: ``,
@@ -144,9 +167,9 @@
               transform: ``,
             });
 
-            if (diffX > 0) {
+            if (diffX > 0 && !isScrollY) {
               // next is left
-              console.log("percentTag left:", percentTag);
+              // console.log("percentTag left:", percentTag);
 
               if (percentTag > -0.3 && this.activeId > 0) {
                 this.activeId--;
@@ -157,7 +180,7 @@
                 this.activeId++;
               }
 
-              console.log("percentTag right:", percentTag);
+              // console.log("percentTag right:", percentTag);
             }
 
             nextPannel = null;
