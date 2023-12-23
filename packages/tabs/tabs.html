@@ -172,7 +172,7 @@
         // 修复底部线的定位
         _fixBottomPosition() {
           const target = this[this.activeId];
-          console.log(target.container);
+          // console.log(target.container);
           if (target && target.container) {
             const { left, width } = this.getIndicatorPostion(this.activeId);
 
@@ -220,19 +220,18 @@
 
             if (entry.isIntersecting) {
               if (!this.inited) {
-                setTimeout(() => {
-                  this.inited = true;
-                  this._fixBottomPosition();
+                // setTimeout(() => {
+                this.inited = true;
+                this._fixBottomPosition();
 
-                  if (
-                    this.shadow.$(".container").clientWidth >
-                    this.ele.clientWidth
-                  ) {
-                    const { current } = this;
-                    const left = current.ele.offsetLeft;
-                    this.ele.scrollLeft = left;
-                  }
-                }, 100);
+                if (
+                  this.shadow.$(".container").clientWidth > this.ele.clientWidth
+                ) {
+                  const { current } = this;
+                  const left = current.ele.offsetLeft;
+                  this.ele.scrollLeft = left;
+                }
+                // }, 100);
               }
             } else {
               // 元素离开视口，不可见
@@ -254,6 +253,9 @@
         this.on("click-tab-item", (e) => {
           this.activeId = $(e.target).index;
           e.stopPropagation();
+        });
+        this.on("attach-tab", () => {
+          this._fixBottomPosition();
         });
       },
     };
