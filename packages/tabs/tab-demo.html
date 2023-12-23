@@ -3,19 +3,25 @@
   <l-m src="./tab-panels.html"></l-m>
   <style>
     :host {
-      display: inline-block;
+      display: block;
     }
     .container {
+      display: flex;
       position: relative;
-      display: inline-flex;
       flex-direction: column;
-      border: #aaa solid 1px;
+      height: 100%;
+      /* border: #aaa solid 1px; */
     }
     p-tab-panels {
-      height: 300px;
+      min-height: 300px;
+      flex: 1;
     }
     [tab-panel] {
       padding: 0 10px;
+    }
+
+    p-tabs {
+      width: 100%;
     }
   </style>
   <div class="container">

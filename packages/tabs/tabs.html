@@ -172,8 +172,11 @@
         // 修复底部线的定位
         _fixBottomPosition() {
           const target = this[this.activeId];
+          console.log(target.container);
           if (target && target.container) {
             const { left, width } = this.getIndicatorPostion(this.activeId);
+
+            // console.log(left, width);
 
             Object.assign(this.shadow.$(".indicator").style, {
               left: `${left}px`,
@@ -203,20 +206,49 @@
         },
       },
       attached() {
-        requestAnimationFrame(() => {
-          setTimeout(() => {
-            this._fixBottomPosition();
-            this.inited = true;
+        const targetElement = document.getElementById("your-element-id");
 
-            if (
-              this.shadow.$(".container").clientWidth > this.ele.clientWidth
-            ) {
-              const { current } = this;
-              const left = current.ele.offsetLeft;
-              this.ele.scrollLeft = left;
+        const observer = (this._obs = new IntersectionObserver((entries) => {
+          for (const entry of entries) {
+            const { boundingClientRect } = entry;
+
+            const notDisplay =
+              boundingClientRect.x === 0 &&
+              boundingClientRect.y === 0 &&
+              boundingClientRect.width === 0 &&
+              boundingClientRect.height === 0;
+
+            if (entry.isIntersecting) {
+              if (!this.inited) {
+                setTimeout(() => {
+                  this.inited = true;
+                  this._fixBottomPosition();
+
+                  if (
+                    this.shadow.$(".container").clientWidth >
+                    this.ele.clientWidth
+                  ) {
+                    const { current } = this;
+                    const left = current.ele.offsetLeft;
+                    this.ele.scrollLeft = left;
+                  }
+                }, 100);
+              }
+            } else {
+              // 元素离开视口，不可见
+              if (notDisplay) {
+                this.inited = false;
+              }
             }
-          }, 50);
-        });
+          }
+        }));
+
+        observer.observe(this.ele);
+      },
+      detached() {
+        if (this._obs) {
+          this._obs.disconnect();
+        }
       },
       ready() {
         this.on("click-tab-item", (e) => {
@@ -224,12 +256,8 @@
           e.stopPropagation();
         });
 
-        this.shadow.on("slotchange", () => {
-          requestAnimationFrame(() => {
-            setTimeout(() => {
-              this._fixBottomPosition();
-            }, 50);
-          });
+        this.on("attach-tab", () => {
+          this._fixBottomPosition();
         });
       },
     };
