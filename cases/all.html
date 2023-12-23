@@ -25,6 +25,7 @@
     <l-m src="../packages/select/select.html"></l-m>
     <l-m src="../packages/slider/slider.html"></l-m>
     <l-m src="../packages/tooltips/tooltips.html"></l-m>
+    <l-m src="../packages/tabs/tabs.html"></l-m>
     <dark-switch></dark-switch>
     <br />
     <div>
@@ -123,5 +124,28 @@
       <o-page src="../packages/drawer/drawer-demo.html"></o-page>
     </div>
     <br />
+
+    <p-tabs active-id="2">
+      <p-tab>
+        Home
+        <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
+      </p-tab>
+      <p-tab>
+        <iconify-icon
+          icon="fluent:movies-and-tv-16-filled"
+          slot="icon"
+        ></iconify-icon>
+        Movies
+      </p-tab>
+      <p-tab>
+        <iconify-icon icon="material-symbols:photo" slot="icon"></iconify-icon>
+        Photos
+      </p-tab>
+      <p-tab>
+        <iconify-icon icon="mingcute:music-fill" slot="icon"></iconify-icon>
+        Musics
+      </p-tab>
+    </p-tabs>
+    <br /><br />
   </body>
 </html>
