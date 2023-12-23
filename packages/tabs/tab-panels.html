@@ -70,6 +70,7 @@
       ready() {
         let startX, startY, conWidth;
         let currentPannel, nextPannel;
+        let startTime;
         this.on("touchstart", (e) => {
           const point = e?.changedTouches[0] || e.targetTouches[0];
           startX = point.clientX;
@@ -79,6 +80,7 @@
           this.attr("no-anime", "");
           topThree = [];
           isScrollY = false;
+          startTime = Date.now();
         });
 
         let topThree = []; // 前三个移动点
@@ -156,6 +158,11 @@
           // console.log("percentTag:", percentTag);
           topThree = [];
 
+          const diffTime = Date.now() - startTime;
+          let speedOK = diffTime < 150 && Math.abs(diffX) > 20;
+
+          console.log("diffTime", diffTime, diffX);
+
           Object.assign(currentPannel.style, {
             opacity: ``,
             transform: ``,
@@ -171,12 +178,15 @@
               // next is left
               // console.log("percentTag left:", percentTag);
 
-              if (percentTag > -0.3 && this.activeId > 0) {
+              if ((speedOK || percentTag > -0.3) && this.activeId > 0) {
                 this.activeId--;
               }
             } else {
               // next is right
-              if (percentTag < -0.3 && this.activeId < this.length - 1) {
+              if (
+                (speedOK || percentTag < -0.3) &&
+                this.activeId < this.length - 1
+              ) {
                 this.activeId++;
               }
 
