@@ -8,18 +8,16 @@
       font-size: 14px;
       color: var(--md-sys-color-on-normal-container);
       --wave-color: var(--md-ref-palette-translucent-primary60);
-      --padding-top: calc(var(--pui-space-y) * 2);
-      --padding-bottom: calc(var(--pui-space-y) * 2);
-      --padding-left: calc(var(--pui-space-x) * 2);
-      --padding-right: calc(var(--pui-space-x) * 2);
       /* border-bottom: red solid 1px; */
     }
     .container {
       position: relative;
       display: flex;
       background-color: transparent;
-      padding: var(--padding-top) var(--padding-right) var(--padding-bottom)
-        var(--padding-left);
+      padding: var(--item-padding-top, calc(var(--pui-space-y) * 2))
+        var(--item-padding-right, calc(var(--pui-space-x) * 2))
+        var(--item-padding-bottom, calc(var(--pui-space-y) * 2))
+        var(--item-padding-left, calc(var(--pui-space-x) * 2));
     }
     .content {
       display: flex;
@@ -29,6 +27,11 @@
       margin: calc(var(--pui-space-y) / 2) 0;
       min-height: 32px;
       /* background-color: rgba(255, 0, 0, 0.3); */
+    }
+
+    :host([radius]),
+    :host([radius]) .container {
+      border-radius: 30px;
     }
 
     .avatar,
@@ -116,6 +119,9 @@
       border-right: 5px solid transparent;
     }
 
+    :host([active-item]) {
+      background-color: var(--md-ref-palette-translucent-primary50);
+    }
   </style>
   <div class="container" part="container">
     <div class="avatar">
@@ -150,6 +156,7 @@
         disabled: null,
         alignTop: null,
         collapseChilds: null,
+        activeItem: null,
       },
       proto: {
         clickTriangle(e) {

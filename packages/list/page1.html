@@ -9,6 +9,8 @@
       padding: 10px;
       width: 260px;
       vertical-align: top;
+      --list-bg-color: var(--md-ref-palette-primary98);
+      --list-dark-bg-color: var(--md-ref-palette-normal10);
     }
 
     p-list {
@@ -338,6 +340,7 @@
     <p-list>
       <p-list-item> Headline 1</p-list-item>
       <p-list-item> Headline 2</p-list-item>
+      <hr />
       <p-list-item button="suffix" collapse-childs>
         Headline 3
         <i collapse-triangle slot="suffix"></i>
@@ -356,6 +359,36 @@
         </p-list>
       </p-list-item>
       <p-list-item> Headline 4</p-list-item>
+    </p-list>
+  </div>
+
+  <div class="case">
+    <p-list>
+      <x-fill :value="arr">
+        <p-list-item button attr:active-item="$index === 1 ? '' : null">
+          <iconify-icon
+            icon="mdi:user-outline"
+            slot="prefix"
+            style="font-size: 22px"
+          ></iconify-icon>
+          Headline {{$data}}
+        </p-list-item>
+      </x-fill>
+    </p-list>
+  </div>
+
+  <div class="case">
+    <p-list>
+      <x-fill :value="arr">
+        <p-list-item button radius attr:active-item="$index === 1 ? '' : null">
+          <iconify-icon
+            icon="mdi:user-outline"
+            slot="prefix"
+            style="font-size: 22px"
+          ></iconify-icon>
+          Headline {{$data}}
+        </p-list-item>
+      </x-fill>
     </p-list>
   </div>
 
