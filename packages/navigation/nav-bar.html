@@ -3,16 +3,23 @@
   <style>
     :host {
       display: block;
-      text-align: center;
+      padding: 0 var(--pui-space-x);
       background-color: var(--bar-bg-color, var(--md-ref-palette-primary98));
       color: var(--md-ref-palette-normal30);
       box-shadow: var(--contained-shadow);
+      text-align: center;
     }
     .container {
       display: flex;
     }
+    .container.column {
+      flex-direction: column;
+    }
     ::slotted(p-nav-item) {
       flex: 1;
+    }
+    :host([column]) {
+      display: inline-block;
     }
   </style>
   <x-if :value="isDark.value">
@@ -26,7 +33,7 @@
       }
     </style>
   </x-if>
-  <div class="container">
+  <div class="container" class:column="column !== null">
     <slot></slot>
   </div>
   <script>
@@ -36,6 +43,7 @@
       tag: "p-nav-bar",
       attrs: {
         activeId: "0",
+        column: null,
       },
       data: {
         isDark: {},
