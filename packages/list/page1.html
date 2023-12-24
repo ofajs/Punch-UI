@@ -361,6 +361,36 @@
     </p-list>
   </div>
 
+  <div class="case">
+    <p-list>
+      <x-fill :value="arr">
+        <p-list-item button attr:active-item="$index === 1 ? '' : null">
+          <iconify-icon
+            icon="mdi:user-outline"
+            slot="prefix"
+            style="font-size: 22px"
+          ></iconify-icon>
+          Headline {{$data}}
+        </p-list-item>
+      </x-fill>
+    </p-list>
+  </div>
+
+  <div class="case">
+    <p-list>
+      <x-fill :value="arr">
+        <p-list-item button radius attr:active-item="$index === 1 ? '' : null">
+          <iconify-icon
+            icon="mdi:user-outline"
+            slot="prefix"
+            style="font-size: 22px"
+          ></iconify-icon>
+          Headline {{$data}}
+        </p-list-item>
+      </x-fill>
+    </p-list>
+  </div>
+
   <script>
     export default {
       data: {
