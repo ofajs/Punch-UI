@@ -31,14 +31,14 @@
     :host {
       display: flex;
       flex-direction: column;
-      background-color: var(--pui-bg-light, var(--md-ref-palette-primary98));
+      background-color: var(--list-bg-color);
       overflow: auto;
     }
   </style>
   <x-if :value="isDark.value">
     <style>
       :host {
-        background-color: var(--pui-bg-dark, var(--md-ref-palette-normal10));
+        background-color: var(--list-dark-bg-color);
       }
     </style>
   </x-if>
