@@ -24,11 +24,11 @@
   </head>
   <body>
     <l-m src="../../ancillary/dark-switch.html"></l-m>
-    <l-m src="./nav-bar.html"></l-m>
-    <dark-switch></dark-switch>
-
-    <div style="padding: 40px">
-      <p-nav-bar style="width: 320px">
+    <l-m src="./main-layout.html"></l-m>
+    <l-m src="../navigation/nav-bar.html"></l-m>
+    <p-main-layout>
+      Main Layout
+      <p-nav-bar slot="nav">
         <p-nav-item>
           Home
           <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
@@ -52,34 +52,7 @@
           Musics
         </p-nav-item>
       </p-nav-bar>
-      <br />
-      <br />
-      <p-nav-bar style="display: inline-block; --navbar-direction: column">
-        <p-nav-item>
-          Home
-          <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
-        </p-nav-item>
-        <p-nav-item>
-          <iconify-icon
-            icon="fluent:movies-and-tv-16-filled"
-            slot="icon"
-          ></iconify-icon>
-          Movies
-        </p-nav-item>
-        <p-nav-item>
-          <iconify-icon
-            icon="material-symbols:photo"
-            slot="icon"
-          ></iconify-icon>
-          Photos
-        </p-nav-item>
-        <p-nav-item>
-          <iconify-icon icon="mingcute:music-fill" slot="icon"></iconify-icon>
-          Musics
-        </p-nav-item>
-      </p-nav-bar>
-    </div>
-
-    <!-- <o-page src="./nav-demo.html" style="width: 320px"></o-page> -->
+      <dark-switch slot="nav" style="margin: auto 0 16px"></dark-switch>
+    </p-main-layout>
   </body>
 </html>

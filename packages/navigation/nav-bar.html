@@ -11,15 +11,10 @@
     }
     .container {
       display: flex;
-    }
-    .container.column {
-      flex-direction: column;
+      flex-direction: var(--navbar-direction, row);
     }
     ::slotted(p-nav-item) {
       flex: 1;
-    }
-    :host([column]) {
-      display: inline-block;
     }
   </style>
   <x-if :value="isDark.value">
@@ -33,7 +28,7 @@
       }
     </style>
   </x-if>
-  <div class="container" class:column="column !== null">
+  <div class="container" part="container">
     <slot></slot>
   </div>
   <script>
@@ -43,7 +38,6 @@
       tag: "p-nav-bar",
       attrs: {
         activeId: "0",
-        column: null,
       },
       data: {
         isDark: {},
