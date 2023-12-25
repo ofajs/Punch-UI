@@ -19,6 +19,7 @@
       background-color: var(--bar-bg-color, var(--md-ref-palette-primary98));
       --navbar-direction: column;
       box-shadow: var(--contained-shadow);
+      overflow-y: auto;
     }
     .main {
       position: relative;
@@ -41,6 +42,10 @@
       z-index: 2;
     }
 
+    .main-top resize-observer {
+      display: flex;
+    }
+
     .inner {
       position: absolute;
       left: 0;
@@ -57,6 +62,25 @@
       animation: nav-panel-fadein ease 0.3s;
     }
 
+    .drawer {
+      padding: var(--pui-space-y) calc(var(--pui-space-x) * 3);
+      border-left: var(--md-ref-palette-normal90) solid 1px;
+      background-color: var(--bar-bg-color, var(--md-ref-palette-primary98));
+      border-radius: 0 30px 30px 0;
+      box-shadow: rgba(0, 0, 0, 0.1) 2px 0px 3px;
+      overflow: auto;
+      z-index: 3;
+    }
+
+    @media screen and (max-width: 1240px) {
+      .drawer {
+        position: absolute;
+        height: 100%;
+        top: 0;
+        left: 80px;
+      }
+    }
+
     @media screen and (max-width: 600px) {
       .container {
         flex-direction: column-reverse;
@@ -66,6 +90,14 @@
       }
       ::slotted([slot="nav"]:not(p-nav-bar)) {
         display: none;
+      }
+
+      .drawer {
+        left: 0;
+        bottom: 68px;
+        top: auto;
+        height: calc(100% - 76px);
+        padding-left: var(--pui-space-x);
       }
     }
   </style>
@@ -93,11 +125,21 @@
           var(--md-ref-palette-normal20)
         );
       }
+      .drawer {
+        border-left: var(--md-ref-palette-normal10) solid 1px;
+        background-color: var(
+          --bar-dark-bg-color,
+          var(--md-ref-palette-normal20)
+        );
+      }
     </style>
   </x-if>
   <div class="container">
     <div class="navbar">
       <slot name="nav"></slot>
+    </div>
+    <div class="drawer">
+      <slot name="drawer"></slot>
     </div>
     <div class="main">
       <div class="main-top">

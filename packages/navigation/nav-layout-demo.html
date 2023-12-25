@@ -1,15 +1,41 @@
 <template page>
   <l-m src="./nav-layout.html"></l-m>
   <l-m src="../navigation/nav-bar.html"></l-m>
-  <p-nav-layout>
+  <l-m src="../list/list.html"></l-m>
+  <p-nav-layout attr:open-drawer="openDrawer ? '' : null">
+    <button slot="top" style="margin: 0 0 10px 10px">Drawer</button>
     <textarea
       slot="top"
       name=""
       id=""
       cols="30"
       rows="2"
-      style="display: block; margin-bottom: 10px"
+      style="display: block; margin: 0 16px 10px auto"
     ></textarea>
+
+    <p-list slot="drawer" style="width: 200px">
+      <p-list-item> Headline 1</p-list-item>
+      <p-list-item> Headline 2</p-list-item>
+      <p-list-item button="suffix" collapse-childs>
+        Headline 3
+        <i collapse-triangle slot="suffix"></i>
+        <p-list slot="childs">
+          <p-list-item> Headline 3-1</p-list-item>
+          <p-list-item collapse-childs>
+            3-2 (click right triangle)
+            <i collapse-triangle slot="suffix"></i>
+            <p-list slot="childs">
+              <p-list-item> Headline 3-2-1</p-list-item>
+              <p-list-item> Headline 3-2-2</p-list-item>
+            </p-list>
+          </p-list-item>
+          <p-list-item> Headline 3-3</p-list-item>
+          <p-list-item> Headline 3-4</p-list-item>
+        </p-list>
+      </p-list-item>
+      <p-list-item> Headline 4</p-list-item>
+    </p-list>
+
     <x-if :value="activeId == 0">
       <demo-blocks before-text="Home" fadein></demo-blocks>
     </x-if>
@@ -49,6 +75,7 @@
     export default {
       data: {
         activeId: "0",
+        openDrawer: false,
       },
       watch: {
         activeId(val) {
