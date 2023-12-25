@@ -1,4 +1,5 @@
 <template component>
+  <l-m src="../observer/resize-observer.html"></l-m>
   <style>
     :host {
       display: block;
@@ -30,6 +31,14 @@
       position: relative;
       flex: 1;
       overflow: auto;
+    }
+
+    .main-top {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      z-index: 2;
     }
 
     .inner {
@@ -72,10 +81,17 @@
       <slot name="nav"></slot>
     </div>
     <div class="main">
-      <div class="main-top">search</div>
+      <div class="main-top">
+        <resize-observer on:change="changeTopSize" time="40">
+          <slot name="top"></slot>
+        </resize-observer>
+      </div>
       <div class="content">
         <div class="inner">
-          <slot></slot>
+          <div class="inner-place" :style.height="topHeight + 'px'"></div>
+          <div style="position: relative">
+            <slot></slot>
+          </div>
         </div>
       </div>
     </div>
@@ -87,6 +103,16 @@
       tag: "p-main-layout",
       data: {
         isDark: {},
+        topHeight: 0,
+      },
+      proto: {
+        changeTopSize(e) {
+          const { entries } = e.data;
+
+          this.topHeight = $(e.target).height;
+
+          console.log("change size: ", entries, $(e.target).height);
+        },
       },
       attached() {
         this.isDark = isDark;
