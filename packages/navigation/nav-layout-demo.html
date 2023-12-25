@@ -9,8 +9,16 @@
       }
     }
   </style> -->
-  <p-nav-layout attr:open-drawer="openDrawer ? '' : null">
-    <button slot="top" class="drawer-btn" on:click="openDrawer = !openDrawer" style="margin: 0 auto 10px 10px">
+  <p-nav-layout
+    attr:open-drawer="openDrawer ? '' : null"
+    on:click-drawer-mask="openDrawer = false"
+  >
+    <button
+      slot="top"
+      class="drawer-btn"
+      on:click="openDrawer = !openDrawer"
+      style="margin: 0 auto 10px 10px"
+    >
       Drawer
     </button>
     <textarea
@@ -78,7 +86,7 @@
         Musics
       </p-nav-item>
     </p-nav-bar>
-    <dark-switch slot="nav" style="margin: auto 0 16px"></dark-switch>
+    <dark-switch slot="left-bottom"></dark-switch>
   </p-nav-layout>
   <script>
     export default {
