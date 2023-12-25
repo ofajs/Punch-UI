@@ -27,8 +27,17 @@
     }
 
     .content {
+      position: relative;
       flex: 1;
       overflow: auto;
+    }
+
+    .inner {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
     }
 
     ::slotted([slot="nav"]) {
@@ -63,9 +72,11 @@
       <slot name="nav"></slot>
     </div>
     <div class="main">
-      <div class="main-top">asd</div>
+      <div class="main-top">search</div>
       <div class="content">
-        <slot></slot>
+        <div class="inner">
+          <slot></slot>
+        </div>
       </div>
     </div>
   </div>
