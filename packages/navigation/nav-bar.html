@@ -51,6 +51,7 @@
         this.on("click", (e) => {
           this.all("[active-item]").forEach((e) => e.attr("active-item", null));
           $(e.target).attr("active-item", "");
+          this.activeId = String($(e.target).index);
         });
       },
       attached() {

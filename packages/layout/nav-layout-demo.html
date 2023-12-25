@@ -1,0 +1,60 @@
+<template page>
+  <l-m src="./nav-layout.html"></l-m>
+  <l-m src="../navigation/nav-bar.html"></l-m>
+  <p-nav-layout>
+    <textarea
+      slot="top"
+      name=""
+      id=""
+      cols="30"
+      rows="2"
+      style="display: block; margin-bottom: 10px"
+    ></textarea>
+    <x-if :value="activeId == 0">
+      <demo-blocks before-text="Home" fadein></demo-blocks>
+    </x-if>
+    <x-else-if :value="activeId == 1">
+      <demo-blocks before-text="Movies" fadein></demo-blocks>
+    </x-else-if>
+    <x-else-if :value="activeId == 2">
+      <demo-blocks before-text="Photos" fadein></demo-blocks>
+    </x-else-if>
+    <x-else>
+      <demo-blocks before-text="Musics" fadein></demo-blocks>
+    </x-else>
+    <p-nav-bar slot="nav" sync:active-id="activeId">
+      <p-nav-item>
+        Home
+        <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
+      </p-nav-item>
+      <p-nav-item>
+        <iconify-icon
+          icon="fluent:movies-and-tv-16-filled"
+          slot="icon"
+        ></iconify-icon>
+        Movies
+      </p-nav-item>
+      <p-nav-item>
+        <iconify-icon icon="material-symbols:photo" slot="icon"></iconify-icon>
+        Photos
+      </p-nav-item>
+      <p-nav-item>
+        <iconify-icon icon="mingcute:music-fill" slot="icon"></iconify-icon>
+        Musics
+      </p-nav-item>
+    </p-nav-bar>
+    <dark-switch slot="nav" style="margin: auto 0 16px"></dark-switch>
+  </p-nav-layout>
+  <script>
+    export default {
+      data: {
+        activeId: "0",
+      },
+      watch: {
+        activeId(val) {
+          console.log(val);
+        },
+      },
+    };
+  </script>
+</template>

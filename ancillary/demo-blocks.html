@@ -22,23 +22,37 @@
     }
   </style>
   <div class="container">
-    <x-fill :value="arr">
-      <div class="block">{{$data}}</div>
-    </x-fill>
+    <!-- <x-fill :value="arr">
+      <div class="block">{{$host.beforeText}} {{$data}}</div>
+    </x-fill> -->
   </div>
   <script>
     export default {
       tag: "demo-blocks",
-      data: {
-        arr: [],
+      attrs: {
+        beforeText: "",
       },
+      watch: {},
       ready() {
-        const arr = [];
+        const frag = $(document.createDocumentFragment());
+
         for (var i = 1; i <= 100; i++) {
-          arr.push(i);
+          frag.push(`<div class="block">${this.beforeText} ${i}</div>`);
         }
-        this.arr = arr;
+
+        this.shadow.$(".container").html = "";
+        this.shadow.$(".container").push(frag);
       },
+      // data: {
+      //   arr: [],
+      // },
+      // ready() {
+      //   const arr = [];
+      //   for (var i = 1; i <= 100; i++) {
+      //     arr.push(i);
+      //   }
+      //   this.arr = arr;
+      // },
     };
   </script>
 </template>
