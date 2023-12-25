@@ -28,7 +28,7 @@
     <dark-switch></dark-switch>
 
     <div style="padding: 40px">
-      <p-nav-bar style="width: 320px">
+      <p-nav-bar auto-active active-id="0" style="width: 320px">
         <p-nav-item>
           Home
           <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
@@ -54,7 +54,11 @@
       </p-nav-bar>
       <br />
       <br />
-      <p-nav-bar style="display: inline-block; --navbar-direction: column">
+      <p-nav-bar
+        auto-active
+        active-id="1"
+        style="display: inline-block; --navbar-direction: column"
+      >
         <p-nav-item>
           Home
           <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>

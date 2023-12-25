@@ -37,18 +37,26 @@
     export default {
       tag: "p-nav-bar",
       attrs: {
-        activeId: "0",
+        activeId: null,
+        autoActive: null,
       },
       data: {
         isDark: {},
       },
       watch: {
         activeId(val) {
-          this[val].attr("active-item", "");
+          if (this.autoActive === null) {
+            return;
+          }
+          this[val] && this[val].attr("active-item", "");
         },
       },
       ready() {
         this.on("click", (e) => {
+          if (this.autoActive === null) {
+            return;
+          }
+
           this.all("[active-item]").forEach((e) => e.attr("active-item", null));
           $(e.target).attr("active-item", "");
           this.activeId = String($(e.target).index);
