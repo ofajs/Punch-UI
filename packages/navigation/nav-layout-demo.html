@@ -2,18 +2,27 @@
   <l-m src="./nav-layout.html"></l-m>
   <l-m src="../navigation/nav-bar.html"></l-m>
   <l-m src="../list/list.html"></l-m>
+  <!-- <style>
+    @media screen and (min-width: 1240px) {
+      .drawer-btn {
+        display: none;
+      }
+    }
+  </style> -->
   <p-nav-layout attr:open-drawer="openDrawer ? '' : null">
-    <button slot="top" style="margin: 0 0 10px 10px">Drawer</button>
+    <button slot="top" class="drawer-btn" on:click="openDrawer = !openDrawer" style="margin: 0 auto 10px 10px">
+      Drawer
+    </button>
     <textarea
       slot="top"
       name=""
       id=""
       cols="30"
       rows="2"
-      style="display: block; margin: 0 16px 10px auto"
+      style="display: block; margin: 0 16px 10px 0"
     ></textarea>
 
-    <p-list slot="drawer" style="width: 200px">
+    <p-list slot="drawer">
       <p-list-item> Headline 1</p-list-item>
       <p-list-item> Headline 2</p-list-item>
       <p-list-item button="suffix" collapse-childs>
@@ -75,7 +84,7 @@
     export default {
       data: {
         activeId: "0",
-        openDrawer: false,
+        openDrawer: true,
       },
       watch: {
         activeId(val) {
