@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>snackbar test</title>
+    <script
+      src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.43/dist/ofa.min.js"
+      debug
+    ></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+    <link rel="stylesheet" href="../css/public.css" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+      *:not(:defined) {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <l-m src="../../ancillary/dark-switch.html"></l-m>
+    <l-m src="../button/button.html"></l-m>
+    <l-m src="../button/button.html"></l-m>
+    <dark-switch></dark-switch>
+
+    <l-m src="./snackbar.html"></l-m>
+    <div style="padding: 50px">
+      <p-snackbar>
+        Color values are implemented through design tokens
+        <p-button size="small" variant="text" style="margin-left: 16px">
+          Action
+        </p-button>
+        <p-button size="small" variant="text" icon style="margin-left: 16px">
+          ✕
+        </p-button>
+      </p-snackbar>
+    </div>
+  </body>
+</html>

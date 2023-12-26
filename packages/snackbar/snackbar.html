@@ -1,0 +1,52 @@
+<template component>
+  <style>
+    :host {
+      display: inline-block;
+      padding: calc(var(--pui-space-y) * 2) calc(var(--pui-space-x) * 2);
+      background-color: var(--snackbar-bg-color);
+      border-radius: var(--pui-border-radius);
+      font-size: 13px;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--md-sys-color-normal-container);
+      /* background-color: var(--md-sys-color-on-normal-container); */
+    }
+    @media screen and (prefers-color-scheme: dark) {
+      .container {
+        color: red;
+      }
+    }
+  </style>
+  <div class="container">
+    <slot></slot>
+  </div>
+  <script>
+    import { isDark } from "../commons/data.js";
+
+    const snackbarStyle = $(`<style></style>`);
+    $("head").push(snackbarStyle);
+
+    export default {
+      tag: "p-snackbar",
+    };
+
+    let f;
+    isDark.watch(
+      (f = () => {
+        if (isDark.value) {
+          snackbarStyle.html = `html {
+          --snackbar-bg-color:var(--md-ref-palette-normal90);
+        };`;
+        } else {
+          snackbarStyle.html = `html {
+          --snackbar-bg-color:var(--md-ref-palette-normal20);
+        };`;
+        }
+      })
+    );
+    f();
+  </script>
+</template>
