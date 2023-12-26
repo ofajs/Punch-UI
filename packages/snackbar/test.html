@@ -25,17 +25,43 @@
   <body>
     <l-m src="../../ancillary/dark-switch.html"></l-m>
     <l-m src="../button/button.html"></l-m>
-    <l-m src="../button/button.html"></l-m>
     <dark-switch></dark-switch>
 
     <l-m src="./snackbar.html"></l-m>
     <div style="padding: 50px">
-      <p-snackbar>
+      <p-snackbar style="padding-right: 0">
         Color values are implemented through design tokens
         <p-button size="small" variant="text" style="margin-left: 16px">
           Action
         </p-button>
-        <p-button size="small" variant="text" icon style="margin-left: 16px">
+        <p-button size="small" variant="text" icon style="margin-left: 4px">
+          ✕
+        </p-button>
+      </p-snackbar>
+
+      <br />
+      <br />
+      <p-snackbar style="padding-right: 0; width: 300px">
+        Color values are implemented through design tokens
+        <p-button size="small" variant="text" style="margin-left: 16px">
+          Action
+        </p-button>
+      </p-snackbar>
+      <br />
+      <br />
+      <p-snackbar style="padding-right: 0; width: 300px">
+        Color values are implemented through design tokens
+        <br>
+        Color values are implemented through design tokens
+        <p-button size="small" variant="text" style="margin-left: 16px">
+          Action
+        </p-button>
+        <p-button
+          size="small"
+          variant="text"
+          icon
+          style="position: absolute; right: 4px; top: 4px"
+        >
           ✕
         </p-button>
       </p-snackbar>

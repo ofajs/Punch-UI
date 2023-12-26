@@ -1,12 +1,6 @@
 export const setMainColor = (target, color) => {
   if (!color) {
-    target.style.setProperty("--pui-main-color", ``);
-    target.style.setProperty("--pui-on-main-color", ``);
-    target.style.setProperty("--pui-main-color-container", ``);
-    target.style.setProperty("--pui-on-main-color-container", ``);
-    target.style.setProperty("--pui-main-hover-color", ``);
-    target.style.setProperty("--wave-color", ``);
-    return;
+    color = "primary";
   }
 
   target.style.setProperty("--pui-main-color", `var(--md-sys-color-${color})`);
