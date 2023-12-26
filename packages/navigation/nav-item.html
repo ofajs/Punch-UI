@@ -86,6 +86,11 @@
   <script>
     export default {
       tag: "p-nav-item",
+      ready() {
+        this.on("click", () => {
+          this.emit("click-nav-item");
+        });
+      },
     };
   </script>
 </template>
