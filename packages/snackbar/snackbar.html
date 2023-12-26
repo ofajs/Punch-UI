@@ -4,14 +4,16 @@
     :host {
       display: inline-block;
       font-size: 13px;
+      line-height: 1.2em;
     }
     .container {
       position: relative;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
       padding: calc(var(--pui-space-y) * 2) calc(var(--pui-space-x) * 1)
         calc(var(--pui-space-y) * 2) calc(var(--pui-space-x) * 2);
+      min-width: 200px;
       min-height: 30px;
       color: var(--md-sys-color-on-normal-container);
       border-radius: var(--pui-border-radius);
@@ -19,6 +21,7 @@
 
     ::slotted(*) {
       align-self: flex-end;
+      vertical-align: middle;
     }
   </style>
   <div

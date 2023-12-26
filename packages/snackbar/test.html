@@ -51,7 +51,7 @@
       <br />
       <p-snackbar style="padding-right: 0; width: 300px">
         Color values are implemented through design tokens
-        <br>
+        <br />
         Color values are implemented through design tokens
         <p-button size="small" variant="text" style="margin-left: 16px">
           Action
@@ -65,6 +65,16 @@
           ✕
         </p-button>
       </p-snackbar>
+      <br /><br />
+      <button id="btn1">I am Btn</button>
     </div>
+    <script type="module">
+      import enqueue from "./enqueue.js";
+
+      $("#btn1").on("click", () => {
+        // debugger;
+        enqueue("I am test content");
+      });
+    </script>
   </body>
 </html>
