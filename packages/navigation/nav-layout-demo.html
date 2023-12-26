@@ -2,13 +2,11 @@
   <l-m src="./nav-layout.html"></l-m>
   <l-m src="../navigation/nav-bar.html"></l-m>
   <l-m src="../list/list.html"></l-m>
-  <!-- <style>
-    @media screen and (min-width: 1240px) {
-      .drawer-btn {
-        display: none;
-      }
+  <style>
+    p-nav-layout::part(drawer-mask) {
+      display: none;
     }
-  </style> -->
+  </style>
   <p-nav-layout
     attr:open-drawer="openDrawer ? '' : null"
     on:click-drawer-mask="openDrawer = false"
@@ -30,6 +28,9 @@
       style="display: block; margin: 0 16px 10px 0"
     ></textarea>
 
+    <button slot="drawer" on:click="openDrawer = false" style="width: 80px">
+      close
+    </button>
     <p-list slot="drawer">
       <p-list-item> Headline 1</p-list-item>
       <p-list-item> Headline 2</p-list-item>
@@ -92,11 +93,11 @@
     export default {
       data: {
         activeId: "0",
-        openDrawer: true,
+        openDrawer: false,
       },
       watch: {
         activeId(val) {
-          console.log(val);
+          console.log("activeId", val);
         },
       },
     };
