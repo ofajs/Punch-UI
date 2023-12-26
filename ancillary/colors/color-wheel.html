@@ -56,7 +56,6 @@
     const success = getColors("#396a25", points);
     const normal = getColors("#000000", points);
 
-
     const getTokenCode = (colors) => {
       let cssStr = "";
 
@@ -146,16 +145,16 @@
           // add base tokens
           const tokenCode = getTokenCode(this.colors);
 
-          cssStr += `:root{${tokenCode}}`;
+          cssStr += `html{${tokenCode}}`;
 
           // add color type code
           // light
           const lightCode = addTypeCode(this.colors);
-          cssStr += `\n:root{${lightCode}\n}`;
+          cssStr += `\nhtml,.theme-light-mode{${lightCode}\n}`;
 
           // dark
           const darkCode = addTypeCode(this.colors, true);
-          cssStr += `\n:root.dark{${darkCode}\n}`;
+          cssStr += `\nhtml.dark,.theme-dark-mode{${darkCode}\n}`;
 
           return cssStr;
         },

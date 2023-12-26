@@ -1,52 +1,61 @@
 <template component>
+  <link rel="stylesheet" href="../css/theme.css" />
   <style>
     :host {
       display: inline-block;
-      padding: calc(var(--pui-space-y) * 2) calc(var(--pui-space-x) * 2);
-      background-color: var(--snackbar-bg-color);
-      border-radius: var(--pui-border-radius);
       font-size: 13px;
     }
     .container {
       display: flex;
       justify-content: center;
       align-items: center;
-      color: var(--md-sys-color-normal-container);
-      /* background-color: var(--md-sys-color-on-normal-container); */
-    }
-    @media screen and (prefers-color-scheme: dark) {
-      .container {
-        color: red;
-      }
+      padding: calc(var(--pui-space-y) * 2) calc(var(--pui-space-x) * 2);
+      color: var(--md-sys-color-on-normal-container);
+      border-radius: var(--pui-border-radius);
+      /* background-color: var(--snackbar-bg-color);  
+         background-color: var(--md-sys-color-on-normal); */
     }
   </style>
-  <div class="container">
+  <div
+    class="container"
+    class:theme-light-mode="isDark.value"
+    class:theme-dark-mode="!isDark.value"
+    :style.background-color="isDark.value ? 'var(--md-ref-palette-normal90)' : 'var(--md-ref-palette-normal20)'"
+  >
     <slot></slot>
   </div>
   <script>
     import { isDark } from "../commons/data.js";
 
-    const snackbarStyle = $(`<style></style>`);
-    $("head").push(snackbarStyle);
-
     export default {
       tag: "p-snackbar",
+      data: {
+        isDark: {},
+      },
+      attached() {
+        this.isDark = isDark;
+      },
+      detached() {
+        this.isDark = {};
+      },
     };
 
-    let f;
-    isDark.watch(
-      (f = () => {
-        if (isDark.value) {
-          snackbarStyle.html = `html {
-          --snackbar-bg-color:var(--md-ref-palette-normal90);
-        };`;
-        } else {
-          snackbarStyle.html = `html {
-          --snackbar-bg-color:var(--md-ref-palette-normal20);
-        };`;
-        }
-      })
-    );
-    f();
+    // const snackbarStyle = $(`<style></style>`);
+    // $("head").push(snackbarStyle);
+    // let f;
+    // isDark.watch(
+    //   (f = () => {
+    //     if (isDark.value) {
+    //       snackbarStyle.html = `html {
+    //       --snackbar-bg-color:var(--md-ref-palette-normal90);
+    //     };`;
+    //     } else {
+    //       snackbarStyle.html = `html {
+    //       --snackbar-bg-color:var(--md-ref-palette-normal20);
+    //     };`;
+    //     }
+    //   })
+    // );
+    // f();
   </script>
 </template>
