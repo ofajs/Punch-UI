@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>dialog</title>
+    <title>navigation</title>
     <script
       src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.3.43/dist/ofa.min.js"
       debug
@@ -17,6 +17,9 @@
         padding: 0;
         height: 100%;
       }
+      *:not(:defined) {
+        display: none;
+      }
     </style>
   </head>
   <body>
@@ -25,7 +28,7 @@
     <dark-switch></dark-switch>
 
     <div style="padding: 40px">
-      <p-nav-bar style="width: 320px">
+      <p-nav-bar auto-active active-id="0" style="width: 320px">
         <p-nav-item>
           Home
           <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
@@ -51,8 +54,11 @@
       </p-nav-bar>
       <br />
       <br />
-
-      <p-nav-bar column>
+      <p-nav-bar
+        auto-active
+        active-id="1"
+        style="display: inline-block; --navbar-direction: column"
+      >
         <p-nav-item>
           Home
           <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
@@ -77,7 +83,5 @@
         </p-nav-item>
       </p-nav-bar>
     </div>
-
-    <!-- <o-page src="./nav-demo.html" style="width: 320px"></o-page> -->
   </body>
 </html>
