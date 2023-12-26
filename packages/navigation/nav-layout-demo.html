@@ -3,8 +3,10 @@
   <l-m src="../navigation/nav-bar.html"></l-m>
   <l-m src="../list/list.html"></l-m>
   <style>
-    p-nav-layout::part(drawer-mask) {
-      display: none;
+    @media screen and (min-width: 600px) {
+      p-nav-layout::part(drawer-mask) {
+        display: none;
+      }
     }
   </style>
   <p-nav-layout
