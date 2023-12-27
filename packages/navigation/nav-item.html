@@ -71,6 +71,16 @@
     :host([active-item]) .decorate:before {
       background-color: var(--md-sys-color-primary-container);
     }
+    ::slotted(p-badge) {
+      margin-left: calc(var(--pui-space-x) * 0.5);
+    }
+    ::slotted(p-badge[slot="icon"]) {
+      position: absolute;
+      right: 0;
+      top: 0;
+      margin-left: 0;
+      transform: translate(50%, -50%);
+    }
   </style>
   <div class="container">
     <div class="icon">
