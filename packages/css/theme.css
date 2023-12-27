@@ -1,4 +1,4 @@
-:root {
+html {
   /* primary */
   --md-ref-palette-primary100: #ffffff;
   --md-ref-palette-primary98: #fdf7ff;
@@ -73,7 +73,8 @@
   --md-ref-palette-translucent-normal60: rgba(145, 145, 145, 0.2);
   --md-ref-palette-translucent-normal50: rgba(119, 119, 119, 0.2);
 }
-:root {
+html,
+.theme-light-mode {
   --md-sys-color-primary: var(--md-ref-palette-primary40);
   --md-sys-color-on-primary: var(--md-ref-palette-primary100);
   --md-sys-color-primary-container: var(--md-ref-palette-primary90);
@@ -93,7 +94,8 @@
   --md-sys-color-surface: var(--md-ref-palette-normal98);
   --md-sys-color-on-surface: var(--md-ref-palette-normal10);
 }
-:root.dark {
+html.dark,
+.theme-dark-mode {
   --md-sys-color-primary: var(--md-ref-palette-primary80);
   --md-sys-color-on-primary: var(--md-ref-palette-primary20);
   --md-sys-color-primary-container: var(--md-ref-palette-primary30);
