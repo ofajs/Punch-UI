@@ -1,0 +1,37 @@
+<template component>
+  <style>
+    :host {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      height: 16px;
+      min-width: 16px;
+      padding: 0 4px;
+      color: var(--md-sys-color-on-error);
+      background-color: var(--md-sys-color-error);
+      font-size: 6px;
+      border-radius: 30px;
+    }
+    :host(:empty) {
+      min-width: 4px;
+      width: 8px;
+      height: 8px;
+    }
+    :host([hide]) {
+      font-size: 0;
+      min-width: 0;
+      height: 0;
+    }
+  </style>
+  <slot></slot>
+  <script>
+    export default {
+      tag: "p-badge",
+      attrs: {
+        hide: null,
+      },
+      ready() {},
+    };
+  </script>
+</template>
