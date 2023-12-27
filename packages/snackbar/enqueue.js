@@ -41,6 +41,18 @@ $("head").push(`<style>
   }
 }
 
+@media screen and (max-width:600px){
+  #snackbar-container{
+    left:var(--enqueue-container-left, 20px);
+    bottom:var(--enqueue-container-bottom, 20px);
+    width:calc(100% - calc(var(--enqueue-container-left, 20px) * 2));
+    height:calc(100% - var(--enqueue-container-bottom, 20px));
+  }
+  #snackbar-container > *{
+    width:100%
+  }
+}
+
 </style>`);
 
 const load = lm(import.meta);
@@ -53,7 +65,7 @@ export default async function enqueue(opts) {
   const defaults = {
     content: "",
     buttons: [],
-    time: 3000,
+    time: 300000,
     click: () => {},
     close: () => {},
   };
