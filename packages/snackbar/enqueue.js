@@ -88,7 +88,7 @@ export default async function enqueue(opts) {
     el.$(".snackbar-close").on("click", async (e) => {
       e.stopPropagation();
       el.$(".snackbar-close").attr("disabled", "");
-      const result = await defaults.close(el);
+      const result = await defaults.close({ target: el, event: e });
       if (result === false) {
         el.$(".snackbar-close").attr("disabled", null);
         return;
@@ -114,8 +114,8 @@ export default async function enqueue(opts) {
     });
   }
 
-  el.on("click", (e) => {
-    defaults.click(el);
+  el.on("click", (event) => {
+    defaults.click({ target: el, event, close });
   });
 
   closeTimer = setTimeout(() => {
