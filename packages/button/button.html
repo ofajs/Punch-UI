@@ -212,8 +212,16 @@
         color: null,
         disabled: null,
         icon: null,
+        autofocus: null,
       },
       watch: {
+        autofocus(val) {
+          if (val !== null) {
+            setTimeout(() => {
+              this.shadow.$("button").ele.focus();
+            }, 50);
+          }
+        },
         color(color) {
           setMainColor(this, color);
         },

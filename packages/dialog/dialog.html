@@ -113,6 +113,24 @@
       },
       proto: {},
       watch: {
+        open(val) {
+          clearTimeout(this._focusTimer);
+          if (val) {
+            this._focusTimer = setTimeout(() => {
+              let targetInput = this.$("[autofocus]");
+
+              if (!targetInput) {
+                targetInput = this.$("p-text-field");
+              }
+
+              if (!targetInput) {
+                targetInput = this.$("p-button");
+              }
+
+              targetInput && targetInput.focus();
+            }, 100);
+          }
+        },
         fullscreen(val) {
           if (val !== null) {
             this.fstyle = `
