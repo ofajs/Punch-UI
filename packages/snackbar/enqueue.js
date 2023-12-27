@@ -13,6 +13,7 @@ $("head").push(`<style>
   pointer-events:none;
   justify-content:flex-end;
   align-items:flex-start;
+  transition:all ease .3s;
 }
 #snackbar-container > *{
   margin-bottom:8px;
@@ -41,6 +42,10 @@ $("head").push(`<style>
 }
 
 </style>`);
+
+const load = lm(import.meta);
+load("./snackbar.html");
+
 let snackbarContainer = $(`<div id="snackbar-container"></div>`);
 $("body").push(snackbarContainer);
 
