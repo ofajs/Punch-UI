@@ -1,10 +1,10 @@
 $("head").push(`<style>
 #snackbar-container{
   position:fixed;
-  left:20px;
-  bottom:20px;
-  width:calc(100% - 20px);
-  height:calc(100% - 20px);
+  left:var(--enqueue-container-left, 20px);
+  bottom:var(--enqueue-container-bottom, 20px);
+  width:calc(100% - var(--enqueue-container-left, 20px));
+  height:calc(100% - var(--enqueue-container-bottom, 20px));
   max-width:600px;
   z-index:10;
   display:flex;
@@ -13,6 +13,7 @@ $("head").push(`<style>
   pointer-events:none;
   justify-content:flex-end;
   align-items:flex-start;
+  transition:all ease .3s;
 }
 #snackbar-container > *{
   margin-bottom:8px;
@@ -41,6 +42,10 @@ $("head").push(`<style>
 }
 
 </style>`);
+
+const load = lm(import.meta);
+load("./snackbar.html");
+
 let snackbarContainer = $(`<div id="snackbar-container"></div>`);
 $("body").push(snackbarContainer);
 

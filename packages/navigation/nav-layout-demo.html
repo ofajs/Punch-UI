@@ -21,6 +21,7 @@
     >
       Drawer
     </button>
+    <!-- <button on:click="clickTips">Tips</button> -->
     <textarea
       slot="top"
       name=""
@@ -92,6 +93,8 @@
     <dark-switch slot="left-bottom"></dark-switch>
   </p-nav-layout>
   <script>
+    import enqueue from "../snackbar/enqueue.js";
+
     export default {
       data: {
         activeId: "0",
@@ -102,6 +105,11 @@
           console.log("activeId", val);
         },
       },
+      // proto: {
+      //   clickTips() {
+      //     enqueue("I am Content");
+      //   },
+      // },
     };
   </script>
 </template>

@@ -58,20 +58,20 @@
         </p-button>
       </p-snackbar>
       <br /><br />
-      <button id="btn1">String Content Test</button>
-      <button id="btn2">Object Test</button>
-      <button id="btn3">Button Test</button>
+      <button id="btn1-enqueue">String Content Test</button>
+      <button id="btn2-enqueue">Object Test</button>
+      <button id="btn3-enqueue">Button Test</button>
     </div>
     <script type="module">
       import enqueue from "./enqueue.js";
 
       let num = 1;
 
-      $("#btn1").on("click", () => {
+      $("#btn1-enqueue").on("click", () => {
         // debugger;
         enqueue("I am test content " + num++);
       });
-      $("#btn2").on("click", () => {
+      $("#btn2-enqueue").on("click", () => {
         // debugger;
         enqueue({
           content: "I am test content" + num++,
@@ -84,7 +84,7 @@
           },
         });
       });
-      $("#btn3").on("click", () => {
+      $("#btn3-enqueue").on("click", () => {
         // debugger;
         enqueue({
           content: "I am test content" + num++,
@@ -92,9 +92,9 @@
           time: 10000,
           buttons: [
             // {
-            //   content: "btn1",
+            //   content: "btn1-enqueue",
             //   click() {
-            //     console.log("click btn1");
+            //     console.log("click btn1-enqueue");
             //   },
             // },
             {
@@ -102,7 +102,7 @@
               color: "error",
               click({ event, target, close }) {
                 target.attr("disabled", "");
-                console.log("click btn2");
+                console.log("click btn2-enqueue");
                 setTimeout(() => {
                   close();
                 }, 500);
