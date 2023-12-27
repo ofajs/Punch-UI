@@ -31,21 +31,15 @@
     <div style="padding: 50px">
       <p-snackbar style="padding-right: 0">
         Color values are implemented through design tokens
-        <p-button size="small" variant="text" style="margin-left: 16px">
-          Action
-        </p-button>
-        <p-button size="small" variant="text" icon style="margin-left: 4px">
-          ✕
-        </p-button>
+        <p-button size="small" variant="text"> Action </p-button>
+        <p-button size="small" variant="text" icon> ✕ </p-button>
       </p-snackbar>
 
       <br />
       <br />
       <p-snackbar style="padding-right: 0; width: 300px">
         Color values are implemented through design tokens
-        <p-button size="small" variant="text" style="margin-left: 16px">
-          Action
-        </p-button>
+        <p-button size="small" variant="text"> Action </p-button>
       </p-snackbar>
       <br />
       <br />
@@ -53,9 +47,7 @@
         Color values are implemented through design tokens
         <br />
         Color values are implemented through design tokens
-        <p-button size="small" variant="text" style="margin-left: 16px">
-          Action
-        </p-button>
+        <p-button size="small" variant="text"> Action </p-button>
         <p-button
           size="small"
           variant="text"
@@ -66,14 +58,58 @@
         </p-button>
       </p-snackbar>
       <br /><br />
-      <button id="btn1">I am Btn</button>
+      <button id="btn1">String Content Test</button>
+      <button id="btn2">Object Test</button>
+      <button id="btn3">Button Test</button>
     </div>
     <script type="module">
       import enqueue from "./enqueue.js";
 
+      let num = 1;
+
       $("#btn1").on("click", () => {
         // debugger;
-        enqueue("I am test content");
+        enqueue("I am test content " + num++);
+      });
+      $("#btn2").on("click", () => {
+        // debugger;
+        enqueue({
+          content: "I am test content" + num++,
+          click(el) {
+            console.log("click item", el);
+          },
+          close(el) {
+            console.log("click close", el);
+            return new Promise((res) => setTimeout(res, 1000));
+          },
+        });
+      });
+      $("#btn3").on("click", () => {
+        // debugger;
+        enqueue({
+          content: "I am test content" + num++,
+          close: null,
+          time: 10000,
+          buttons: [
+            // {
+            //   content: "btn1",
+            //   click() {
+            //     console.log("click btn1");
+            //   },
+            // },
+            {
+              content: "Done",
+              color: "error",
+              click({ event, target, close }) {
+                target.attr("disabled", "");
+                console.log("click btn2");
+                setTimeout(() => {
+                  close();
+                }, 1000);
+              },
+            },
+          ],
+        });
       });
     </script>
   </body>

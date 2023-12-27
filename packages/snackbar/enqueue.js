@@ -1,10 +1,11 @@
 $("head").push(`<style>
 #snackbar-container{
   position:fixed;
-  left:calc(var(--pui-space-x) * 3);
-  bottom:0;
-  width:100%;
-  height:100%;
+  left:20px;
+  bottom:20px;
+  width:calc(100% - 20px);
+  height:calc(100% - 20px);
+  max-width:600px;
   z-index:10;
   display:flex;
   box-sizing: border-box;
@@ -14,8 +15,31 @@ $("head").push(`<style>
   align-items:flex-start;
 }
 #snackbar-container > *{
-
+  margin-bottom:8px;
+  animation: snackbar-anime-in ease .3s;
 }
+#snackbar-container > *.fadeout{
+  animation: snackbar-anime-out ease .3s;
+}
+@keyframes snackbar-anime-in{
+  0%{
+    opacity:0;
+    transform:translate(-100px,0);
+  }
+  100%{
+    opacity:1;
+    transform:translate(0,0);
+  }
+}
+@keyframes snackbar-anime-out{
+  0%{
+    opacity:1;
+  }
+  100%{
+    opacity:0;
+  }
+}
+
 </style>`);
 let snackbarContainer = $(`<div id="snackbar-container"></div>`);
 $("body").push(snackbarContainer);
@@ -31,7 +55,7 @@ export default async function enqueue(opts) {
 
   switch (typeof opts) {
     case "object":
-      Object.assign(defaults, defaults);
+      Object.assign(defaults, opts);
       break;
     case "string":
       defaults.content = opts;
@@ -40,9 +64,63 @@ export default async function enqueue(opts) {
 
   const el = $(`<p-snackbar style="pointer-events:auto;">
   ${defaults.content}
-  <div style="flex:1;"></div>
-  <p-button size="small" variant="text" icon style="margin-left: 4px">✕</p-button>
+  <div style="flex:1;" class="snackbar-holder"></div>
+  <p-button class="snackbar-close" size="small" variant="text" icon style="margin-left: 4px">✕
+  </p-button>
 </p-snackbar>`);
+
+  let closeTimer;
+
+  const close = () => {
+    clearTimeout(closeTimer);
+    return new Promise((res) => {
+      el.classList.add("fadeout");
+      el.on("animationend", () => {
+        el.remove();
+        res();
+      });
+    });
+  };
+
+  if (defaults.close === null) {
+    el.$(".snackbar-close").remove();
+  } else {
+    el.$(".snackbar-close").on("click", async (e) => {
+      e.stopPropagation();
+      el.$(".snackbar-close").attr("disabled", "");
+      const result = await defaults.close(el);
+      if (result === false) {
+        el.$(".snackbar-close").attr("disabled", null);
+        return;
+      }
+      close();
+    });
+  }
+
+  if (defaults.buttons.length) {
+    defaults.buttons.forEach((e) => {
+      const btn = $(
+        `<p-button color="${
+          e.color || "primary"
+        }" size="small" variant="text">${e.content}</p-button>`
+      );
+
+      e.click &&
+        btn.on("click", (event) => {
+          e.click({ event, target: btn, close });
+        });
+
+      el.$(".snackbar-holder").after(btn);
+    });
+  }
+
+  el.on("click", (e) => {
+    defaults.click(el);
+  });
+
+  closeTimer = setTimeout(() => {
+    close();
+  }, defaults.time);
 
   snackbarContainer.push(el);
 }
