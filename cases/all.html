@@ -27,6 +27,7 @@
     <l-m src="../packages/tooltips/tooltips.html"></l-m>
     <l-m src="../packages/tabs/tabs.html"></l-m>
     <l-m src="../packages/snackbar/snackbar.html"></l-m>
+    <l-m src="../packages/badge/badge.html"></l-m>
     <dark-switch></dark-switch>
     <br />
     <div>
@@ -130,6 +131,7 @@
       <p-tab>
         Home
         <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
+        <p-badge slot="icon" id="target-badge"></p-badge>
       </p-tab>
       <p-tab>
         <iconify-icon
@@ -147,6 +149,31 @@
         Musics
       </p-tab>
     </p-tabs>
+    <script>
+      let count = 0;
+      setInterval(() => {
+        count++;
+        switch (count % 5) {
+          case 1:
+            $("#target-badge").text = "1";
+            $("#target-badge").hide = null;
+            break;
+          case 2:
+            $("#target-badge").text = "10";
+            break;
+          case 3:
+            $("#target-badge").text = "99+";
+            break;
+          case 4:
+            $("#target-badge").text = "";
+            break;
+          case 0:
+            $("#target-badge").hide = "1";
+            break;
+        }
+      }, 1000);
+    </script>
+
     <br />
     <p-tabs active-id="2" secondary>
       <p-tab>
