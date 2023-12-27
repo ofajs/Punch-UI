@@ -68,11 +68,11 @@ export default {
   <p-dialog fullscreen="540">
     <span slot="title">${opts.title}</span>
     ${opts.content}
-    <p-button variant="text" class="dialog-cancel-btn" slot="bottom">${
-      opts.cancel || "Cancel"
-    }</p-button>
     <p-button slot="bottom" class="dialog-yes-btn">${
       opts.yes || "Yes"
+    }</p-button>
+    <p-button variant="text" class="dialog-cancel-btn" slot="bottom">${
+      opts.cancel || "Cancel"
     }</p-button>
   </p-dialog>`);
   },
@@ -101,11 +101,11 @@ export default {
         ${opts.label ? `<label>${opts.label}</label>` : ""}
       </p-text-field>
     </div>
-    <p-button variant="text" class="dialog-cancel-btn" slot="bottom">${
-      opts.cancel || "Cancel"
-    }</p-button>
     <p-button slot="bottom" class="dialog-yes-btn">${
       opts.yes || "Yes"
+    }</p-button>
+    <p-button variant="text" class="dialog-cancel-btn" slot="bottom">${
+      opts.cancel || "Cancel"
     }</p-button>
   </p-dialog>`,
       ({ dialog, resolve }) => {
