@@ -12,6 +12,7 @@
       background-color: var(--md-sys-color-error);
       font-size: 6px;
       border-radius: 30px;
+      transition: all ease 0.3s;
     }
     :host(:empty) {
       min-width: 4px;
@@ -19,9 +20,11 @@
       height: 8px;
     }
     :host([hide]) {
-      font-size: 0;
+      font-size: 1;
       min-width: 0;
       height: 0;
+      letter-spacing: -6px;
+      opacity: 0;
     }
   </style>
   <slot></slot>
