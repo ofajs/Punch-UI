@@ -23,7 +23,6 @@
   <body>
     <l-m src="../../ancillary/dark-switch.html"></l-m>
     <l-m src="./badge.html"></l-m>
-    <l-m src="../button/button.html"></l-m>
     <l-m src="../tabs/tabs.html"></l-m>
     <l-m src="../navigation/nav-bar.html"></l-m>
     <dark-switch></dark-switch>
@@ -50,18 +49,13 @@
             $("#test-target").text = "";
             break;
           case 0:
-            $("#test-target").hide = "";
+            $("#test-target").hide = "1";
             break;
         }
       }, 1000);
     </script>
 
     <br />
-
-    <p-button>
-      Test Button
-      <p-badge>9</p-badge>
-    </p-button>
 
     <br />
     <br />
