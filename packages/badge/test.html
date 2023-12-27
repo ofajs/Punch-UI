@@ -25,11 +25,36 @@
     <l-m src="./badge.html"></l-m>
     <l-m src="../button/button.html"></l-m>
     <l-m src="../tabs/tabs.html"></l-m>
+    <l-m src="../navigation/nav-bar.html"></l-m>
     <dark-switch></dark-switch>
 
     <p-badge></p-badge>
     <p-badge>1</p-badge>
     <p-badge>999+</p-badge>
+    <script>
+      let count = 0;
+      setInterval(() => {
+        count++;
+        switch (count % 5) {
+          case 1:
+            $("#test-target").text = "1";
+            $("#test-target").hide = null;
+            break;
+          case 2:
+            $("#test-target").text = "10";
+            break;
+          case 3:
+            $("#test-target").text = "99+";
+            break;
+          case 4:
+            $("#test-target").text = "";
+            break;
+          case 0:
+            $("#test-target").hide = "";
+            break;
+        }
+      }, 1000);
+    </script>
 
     <br />
 
@@ -45,7 +70,7 @@
       <p-tab>
         Home
         <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
-        <p-badge slot="icon"></p-badge>
+        <p-badge slot="icon" id="test-target"></p-badge>
       </p-tab>
       <p-tab>
         <iconify-icon
@@ -64,8 +89,7 @@
       <p-tab>
         <iconify-icon icon="mingcute:music-fill" slot="icon"></iconify-icon>
         Musics
-
-        <p-badge slot="icon" hide>999+</p-badge>
+        <p-badge slot="icon">999+</p-badge>
       </p-tab>
     </p-tabs>
     <br /><br />
@@ -89,5 +113,67 @@
         <p-badge>999+</p-badge>
       </p-tab>
     </p-tabs>
+    <br /><br />
+    <p-nav-bar
+      slot="nav"
+      auto-active
+      sync:active-id="activeId"
+      style="width: 320px"
+    >
+      <p-nav-item>
+        Home
+        <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
+        <p-badge slot="icon"></p-badge>
+      </p-nav-item>
+      <p-nav-item>
+        <iconify-icon
+          icon="fluent:movies-and-tv-16-filled"
+          slot="icon"
+        ></iconify-icon>
+        Movies
+        <p-badge slot="icon">9</p-badge>
+      </p-nav-item>
+      <p-nav-item>
+        <iconify-icon icon="material-symbols:photo" slot="icon"></iconify-icon>
+        Photos
+        <p-badge slot="icon">19</p-badge>
+      </p-nav-item>
+      <p-nav-item>
+        <iconify-icon icon="mingcute:music-fill" slot="icon"></iconify-icon>
+        Musics
+        <p-badge slot="icon">999+</p-badge>
+      </p-nav-item>
+    </p-nav-bar>
+    <br /><br />
+    <p-nav-bar
+      slot="nav"
+      auto-active
+      sync:active-id="activeId"
+      style="display: inline-block; --navbar-direction: column"
+    >
+      <p-nav-item>
+        Home
+        <iconify-icon icon="material-symbols:home" slot="icon"></iconify-icon>
+        <p-badge slot="icon"></p-badge>
+      </p-nav-item>
+      <p-nav-item>
+        <iconify-icon
+          icon="fluent:movies-and-tv-16-filled"
+          slot="icon"
+        ></iconify-icon>
+        Movies
+        <p-badge slot="icon">9</p-badge>
+      </p-nav-item>
+      <p-nav-item>
+        <iconify-icon icon="material-symbols:photo" slot="icon"></iconify-icon>
+        Photos
+        <p-badge slot="icon">19</p-badge>
+      </p-nav-item>
+      <p-nav-item>
+        <iconify-icon icon="mingcute:music-fill" slot="icon"></iconify-icon>
+        Musics
+        <p-badge slot="icon">999+</p-badge>
+      </p-nav-item>
+    </p-nav-bar>
   </body>
 </html>

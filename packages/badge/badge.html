@@ -1,6 +1,7 @@
 <template component>
   <style>
     :host {
+      position: relative;
       display: inline-flex;
       justify-content: center;
       align-items: center;
@@ -15,9 +16,10 @@
       transition: all ease 0.3s;
     }
     :host(:empty) {
-      min-width: 4px;
-      width: 8px;
+      min-width: 8px;
       height: 8px;
+      font-size: 0;
+      padding: 0;
     }
     :host([hide]) {
       font-size: 1;
@@ -25,6 +27,7 @@
       height: 0;
       letter-spacing: -6px;
       opacity: 0;
+      padding: 0;
     }
   </style>
   <slot></slot>
