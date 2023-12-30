@@ -28,6 +28,7 @@
     <l-m src="../packages/tabs/tabs.html"></l-m>
     <l-m src="../packages/snackbar/snackbar.html"></l-m>
     <l-m src="../packages/badge/badge.html"></l-m>
+    <l-m src="../packages/chip/chip.html"></l-m>
     <dark-switch></dark-switch>
     <br />
     <div>
@@ -207,5 +208,18 @@
       Color values are implemented through design tokens
       <p-button size="small" variant="text"> Action </p-button>
     </p-snackbar>
+    <br /><br />
+
+    <p-chip button>
+      <iconify-icon icon="icon-park:pic" slot="prefix"></iconify-icon>
+      Normal chip
+      <iconify-icon icon="charm:cross" slot="suffix" button></iconify-icon>
+    </p-chip>
+    <p-chip tonal>
+      <iconify-icon icon="charm:tick" slot="prefix"></iconify-icon>
+      Tonal chip
+      <iconify-icon icon="charm:cross" slot="suffix" button></iconify-icon>
+    </p-chip>
+    <br /><br />
   </body>
 </html>
