@@ -35,8 +35,8 @@ body {
 }
 
 html {
-  --card-bg-color: var(--md-ref-palette-primary98);
+  --card-elevated-bg-color: var(--md-ref-palette-primary98);
 }
 html.dark {
-  --card-bg-color: var(--md-ref-palette-normal10);
+  --card-elevated-bg-color: var(--md-ref-palette-normal10);
 }
