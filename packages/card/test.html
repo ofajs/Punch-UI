@@ -21,6 +21,12 @@
         display: none;
       }
 
+      .demos {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+      }
+
       .pic {
         height: 200px;
         background-repeat: no-repeat;
@@ -38,10 +44,10 @@
     <l-m src="./card.html"></l-m>
     <dark-switch></dark-switch>
 
-    <div style="display: flex; flex-wrap: wrap">
+    <div class="demos">
       <p-card elevated>
         <div
-          card-pic
+          slot="pic"
           class="pic"
           style="
             background-image: url(https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
@@ -56,7 +62,7 @@
       </p-card>
       <p-card filled>
         <div
-          card-pic
+          slot="pic"
           class="pic"
           style="
             background-image: url(https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
@@ -71,7 +77,7 @@
       </p-card>
       <p-card outlined>
         <div
-          card-pic
+          slot="pic"
           class="pic"
           style="
             background-image: url(https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
@@ -94,69 +100,59 @@
       }
 
       .test-row p-card {
-        width: auto;
+        width: 450px;
         flex-direction: row;
       }
-
-      .test-row .card-info {
-        width: 250px;
-      }
     </style>
-    <div class="test-row" style="display: flex; flex-wrap: wrap">
+    <div class="test-row demos">
       <p-card elevated>
         <div
-          card-pic
+          slot="pic"
           class="pic"
           style="
             background-image: url(https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
           "
         ></div>
-        <div class="card-info">
-          <h3>Headline</h3>
-          <h5>Subhead</h5>
-          <p>
-            Explain more about the topic shown in the mediumdisplay and subhead
-            through supporting text here.
-          </p>
-        </div>
+        <h3>Headline</h3>
+        <h5>Subhead</h5>
+        <p>
+          Explain more about the topic shown in the mediumdisplay and subhead
+          through supporting text here.
+        </p>
       </p-card>
       <p-card filled>
         <div
-          card-pic
+          slot="pic"
           class="pic"
           style="
             background-image: url(https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
           "
         ></div>
-        <div class="card-info">
-          <h3>Headline</h3>
-          <h5>Subhead</h5>
-          <p>
-            Explain more about the topic shown in the mediumdisplay and subhead
-            through supporting text here.
-          </p>
-        </div>
+        <h3>Headline</h3>
+        <h5>Subhead</h5>
+        <p>
+          Explain more about the topic shown in the mediumdisplay and subhead
+          through supporting text here.
+        </p>
       </p-card>
       <p-card outlined>
         <div
-          card-pic
+          slot="pic"
           class="pic"
           style="
             background-image: url(https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
           "
         ></div>
-        <div class="card-info">
-          <h3>Headline</h3>
-          <h5>Subhead</h5>
-          <p>
-            Explain more about the topic shown in the mediumdisplay and subhead
-            through supporting text here.
-          </p>
-        </div>
+        <h3>Headline</h3>
+        <h5>Subhead</h5>
+        <p>
+          Explain more about the topic shown in the mediumdisplay and subhead
+          through supporting text here.
+        </p>
       </p-card>
     </div>
     <br />
-    <div style="display: flex; flex-wrap: wrap">
+    <div class="demos">
       <p-card elevated>
         <h3>Headline</h3>
         <h5>Subhead</h5>
@@ -180,6 +176,36 @@
           Explain more about the topic shown in the mediumdisplay and subhead
           through supporting text here.
         </p>
+      </p-card>
+    </div>
+    <br />
+    <div class="demos">
+      <p-card elevated>
+        <h3>Headline</h3>
+        <h5>Subhead</h5>
+        <p>
+          Explain more about the topic shown in the mediumdisplay and subhead
+          through supporting text here.
+        </p>
+        <p-button>Get Ticks</p-button>
+      </p-card>
+      <p-card filled>
+        <h3>Headline</h3>
+        <h5>Subhead</h5>
+        <p>
+          Explain more about the topic shown in the mediumdisplay and subhead
+          through supporting text here.
+        </p>
+        <p-button>Get Ticks</p-button>
+      </p-card>
+      <p-card outlined>
+        <h3>Headline</h3>
+        <h5>Subhead</h5>
+        <p>
+          Explain more about the topic shown in the mediumdisplay and subhead
+          through supporting text here.
+        </p>
+        <p-button>Get Ticks</p-button>
       </p-card>
     </div>
   </body>

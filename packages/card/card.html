@@ -1,9 +1,7 @@
 <template component>
-  <inject-host>
-    <link rel="stylesheet" href="./card.css" />
-  </inject-host>
   <style>
     :host {
+      box-sizing: border-box;
       position: relative;
       display: flex;
       flex-direction: column;
@@ -12,7 +10,6 @@
       line-height: 1.4em;
       font-size: 12px;
       color: var(--md-sys-color-normal);
-      box-sizing: border-box;
     }
 
     :host([elevated]) {
@@ -26,8 +23,67 @@
     :host([outlined]) {
       border: var(--md-sys-color-primary-container) solid 1px;
     }
+
+    ::slotted(h1),
+    ::slotted(h2),
+    ::slotted(h3),
+    ::slotted(h4),
+    ::slotted(h5) {
+      font-weight: 500;
+      line-height: 1.4em;
+      color: var(--md-sys-color-on-normal-container);
+    }
+
+    ::slotted(h1),
+    ::slotted(h2),
+    ::slotted(h3),
+    ::slotted(h4),
+    ::slotted(h5),
+    ::slotted(p) {
+      padding: 0;
+      margin: 0;
+    }
+
+    ::slotted(h1) {
+      font-size: 36px;
+    }
+    ::slotted(h2) {
+      font-size: 30px;
+    }
+    ::slotted(h3) {
+      font-size: 24px;
+    }
+    ::slotted(h4) {
+      font-size: 18px;
+    }
+    ::slotted(h5) {
+      font-size: 16px;
+    }
+
+    ::slotted([slot="pic"]) {
+      border-radius: var(--card-border-raduis);
+    }
+
+    .container {
+      display: block;
+    }
+
+    ::slotted(*:not([slot])) {
+      margin: calc(var(--pui-space-y) * 1.5) calc(var(--pui-space-x) * 2);
+    }
+
+    ::slotted(*:last-child) {
+      margin-bottom: calc(var(--pui-space-y) * 3);
+    }
+
+    ::slotted(*:first-child:not([slot])) {
+      margin-top: calc(var(--pui-space-y) * 3);
+    }
   </style>
-  <slot></slot>
+  <div style="flex-shrink: 0"><slot name="pic"></slot></div>
+  <div class="container" slot="container">
+    <slot></slot>
+  </div>
   <script>
     export default {
       tag: "p-card",
