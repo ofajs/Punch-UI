@@ -7,9 +7,8 @@
       flex-direction: column;
       --card-border-raduis: calc(var(--pui-space-x) * 3);
       border-radius: var(--card-border-raduis);
-      line-height: 1.4em;
-      font-size: 12px;
       color: var(--md-sys-color-normal);
+      font-size: 14px;
     }
 
     :host([elevated]) {
@@ -69,15 +68,16 @@
     }
 
     ::slotted(*:not([slot])) {
-      margin: calc(var(--pui-space-y) * 1.5) calc(var(--pui-space-x) * 2);
+      line-height: 1.4em;
+      margin: calc(var(--pui-space-y) * 2) calc(var(--pui-space-x) * 3);
     }
 
     ::slotted(*:last-child) {
-      margin-bottom: calc(var(--pui-space-y) * 3);
+      margin-bottom: calc(var(--pui-space-y) * 4);
     }
 
     ::slotted(*:first-child:not([slot])) {
-      margin-top: calc(var(--pui-space-y) * 3);
+      margin-top: calc(var(--pui-space-y) * 4);
     }
   </style>
   <div style="flex-shrink: 0"><slot name="pic"></slot></div>
