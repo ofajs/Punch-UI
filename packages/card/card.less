@@ -1,0 +1,56 @@
+p-card {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-weight: 500;
+    line-height: 1.4em;
+    color: var(--md-sys-color-on-normal-container);
+  }
+
+  h1 {
+    font-size: 36px;
+  }
+  h2 {
+    font-size: 30px;
+  }
+  h3 {
+    font-size: 24px;
+  }
+  h4 {
+    font-size: 18px;
+  }
+  h5 {
+    font-size: 16px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  p {
+    padding: 0;
+    margin: calc(var(--pui-space-y) * 2) calc(var(--pui-space-x) * 2) 0;
+  }
+
+  > h1,
+  > h2,
+  > h3,
+  > h4,
+  > h5,
+  > p {
+    &:first-child {
+      margin-top: calc(var(--pui-space-y) * 4);
+    }
+    &:last-child {
+      margin-bottom: calc(var(--pui-space-y) * 4);
+    }
+  }
+
+  [card-pic] {
+    border-radius: var(--card-border-raduis);
+    // margin-bottom: calc(var(--pui-space-y) * 1.5);
+  }
+}

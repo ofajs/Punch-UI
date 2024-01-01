@@ -1,0 +1,41 @@
+<template component>
+  <inject-host>
+    <link rel="stylesheet" href="./card.css" />
+  </inject-host>
+  <style>
+    :host {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      --card-border-raduis: calc(var(--pui-space-x) * 3);
+      border-radius: var(--card-border-raduis);
+      line-height: 1.4em;
+      font-size: 12px;
+      color: var(--md-sys-color-normal);
+      box-sizing: border-box;
+    }
+
+    :host([elevated]) {
+      box-shadow: var(--contained-shadow);
+      background-color: var(--card-bg-color);
+    }
+
+    :host([filled]) {
+      background-color: var(--md-sys-color-primary-container);
+    }
+    :host([outlined]) {
+      border: var(--md-sys-color-primary-container) solid 1px;
+    }
+  </style>
+  <slot></slot>
+  <script>
+    export default {
+      tag: "p-card",
+      attrs: {
+        elevated: null,
+        filled: null,
+        outlined: null,
+      },
+    };
+  </script>
+</template>
