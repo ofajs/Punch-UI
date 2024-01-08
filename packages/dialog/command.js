@@ -2,6 +2,8 @@ let maskId = 10001;
 
 const load = lm(import.meta);
 
+load("./dialog.html");
+
 const appendDialog = (code, clickYes, opened) => {
   return new Promise((resolve) => {
     const dialog = $(code);
@@ -68,7 +70,7 @@ export async function confirm(opts) {
 
   return appendDialog(`
 <p-dialog fullscreen="540">
-  <span slot="title">${opts.title}</span>
+  <span slot="title">${opts.title || ""}</span>
   ${opts.content}
   <p-button slot="bottom" class="dialog-yes-btn">${opts.yes || "Yes"}</p-button>
   <p-button variant="text" class="dialog-cancel-btn" slot="bottom">${

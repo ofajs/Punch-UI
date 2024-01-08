@@ -99,41 +99,44 @@
   </x-else-if>
 
   <script>
-    export default {
-      tag: "p-dialog",
-      attrs: {
-        fullscreen: null,
-        autoclose: null,
-        noMask: null,
-      },
-      data: {
-        maskId: 100,
-        open: false,
-        fstyle: "",
-      },
-      proto: {},
-      watch: {
-        open(val) {
-          clearTimeout(this._focusTimer);
-          if (val) {
-            this._focusTimer = setTimeout(() => {
-              let targetInput = this.$("[autofocus]");
+    export default async ({ load }) => {
+      load("./mask.html");
 
-              if (!targetInput) {
-                targetInput = this.$("p-text-field");
-              }
-
-              if (!targetInput) {
-                targetInput = this.$("p-button");
-              }
-
-              targetInput && targetInput.focus();
-            }, 100);
-          }
+      return {
+        tag: "p-dialog",
+        attrs: {
+          fullscreen: null,
+          autoclose: null,
+          noMask: null,
         },
-        fullscreen(val) {
-          if (val !== null) {
-            this.fstyle = `
+        data: {
+          maskId: 100,
+          open: false,
+          fstyle: "",
+        },
+        proto: {},
+        watch: {
+          open(val) {
+            clearTimeout(this._focusTimer);
+            if (val) {
+              this._focusTimer = setTimeout(() => {
+                let targetInput = this.$("[autofocus]");
+
+                if (!targetInput) {
+                  targetInput = this.$("p-text-field");
+                }
+
+                if (!targetInput) {
+                  targetInput = this.$("p-button");
+                }
+
+                targetInput && targetInput.focus();
+              }, 100);
+            }
+          },
+          fullscreen(val) {
+            if (val !== null) {
+              this.fstyle = `
       @media screen and (max-width: ${val === "" ? "100vw" : val + "px"}) {
         .main {
           height: 100%;
@@ -152,11 +155,12 @@
           max-height: calc(100vh - 150px);
         }
       }`;
-          } else {
-            this.fstyle = "";
-          }
+            } else {
+              this.fstyle = "";
+            }
+          },
         },
-      },
+      };
     };
   </script>
 </template>
