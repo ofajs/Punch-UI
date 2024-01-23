@@ -56,15 +56,6 @@ const appendDialog = (code, clickYes, opened) => {
   });
 };
 
-export default {
-  get maskId() {
-    return maskId;
-  },
-  set maskId(val) {
-    maskId = val;
-  },
-};
-
 export async function confirm(opts) {
   await load("./dialog.html");
 
@@ -124,3 +115,15 @@ export async function prompt(opts) {
     }
   );
 }
+
+export default {
+  confirm,
+  alert,
+  prompt,
+  get maskId() {
+    return maskId;
+  },
+  set maskId(val) {
+    maskId = val;
+  },
+};
