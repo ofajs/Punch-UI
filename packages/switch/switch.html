@@ -1,13 +1,26 @@
 <template component>
   <style>
     :host {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      font-size: 14px;
     }
     .container {
       display: block;
     }
     .container.infocus {
       outline: var(--md-sys-color-primary) solid 2px;
+    }
+
+    .label {
+      font-weight: bold;
+      margin-left: var(--pui-space-x);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    :host(:empty) .label {
+      display: none;
     }
 
     input {
@@ -185,6 +198,9 @@
         attr:disabled="disabled"
       />
     </div>
+  </div>
+  <div class="label">
+    <slot></slot>
   </div>
   <script>
     export default {
