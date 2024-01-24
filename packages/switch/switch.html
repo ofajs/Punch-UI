@@ -1,13 +1,26 @@
 <template component>
   <style>
     :host {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      font-size: 14px;
     }
     .container {
       display: block;
     }
     .container.infocus {
       outline: var(--md-sys-color-primary) solid 2px;
+    }
+
+    .label {
+      font-weight: bold;
+      margin-left: var(--pui-space-x);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    :host(:empty) .label {
+      display: none;
     }
 
     input {
@@ -186,12 +199,14 @@
       />
     </div>
   </div>
+  <div class="label">
+    <slot></slot>
+  </div>
   <script>
     export default {
       tag: "p-switch",
       attrs: {
         name: null,
-        checked: null,
         size: null,
         // color: null,
         disabled: null,
@@ -202,22 +217,16 @@
       },
       watch: {
         value(val) {
-          if (val) {
-            this.checked = "";
-          } else {
-            this.checked = null;
-          }
           this.emit("change");
-        },
-        checked(checked) {
-          if (checked !== null) {
-            this.value = true;
-          } else {
-            this.value = false;
-          }
         },
       },
       proto: {
+        get checked() {
+          return this.value;
+        },
+        set checked(val) {
+          this.value = !!val;
+        },
         clickSwitch(e) {
           if (this.disabled !== null) {
             e.stopImmediatePropagation();
@@ -228,6 +237,11 @@
       },
       ready() {
         this.on("click", (e) => this.clickSwitch(e));
+      },
+      attached() {
+        if (this.attr("checked") !== null) {
+          this.value = true;
+        }
       },
     };
   </script>

@@ -40,7 +40,8 @@
         refreshSlefStyle() {
           clearTimeout(this.__refreshStyleTimer);
           this.__refreshStyleTimer = setTimeout(() => {
-            const headRow = this.$("p-table-row[head]");
+            // const headRow = this.$("p-table-row[head]");
+            const headRow = this.$("p-table-row");
             let styleStr = "";
             const cellLength = headRow.length;
             const { width } = this;
