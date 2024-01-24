@@ -207,7 +207,6 @@
       tag: "p-switch",
       attrs: {
         name: null,
-        checked: null,
         size: null,
         // color: null,
         disabled: null,
@@ -218,22 +217,16 @@
       },
       watch: {
         value(val) {
-          if (val) {
-            this.checked = "";
-          } else {
-            this.checked = null;
-          }
           this.emit("change");
-        },
-        checked(checked) {
-          if (checked !== null) {
-            this.value = true;
-          } else {
-            this.value = false;
-          }
         },
       },
       proto: {
+        get checked() {
+          return this.value;
+        },
+        set checked(val) {
+          this.value = !!val;
+        },
         clickSwitch(e) {
           if (this.disabled !== null) {
             e.stopImmediatePropagation();
@@ -244,6 +237,11 @@
       },
       ready() {
         this.on("click", (e) => this.clickSwitch(e));
+      },
+      attached() {
+        if (this.attr("checked") !== null) {
+          this.value = true;
+        }
       },
     };
   </script>
