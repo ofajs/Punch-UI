@@ -12,6 +12,7 @@
     class:disabled="typeof disabled === 'string'"
     class:error="typeof error === 'string'"
     class:hasprefix="hasprefix"
+    attr:size="size"
   >
     <div class="prefix">
       <slot name="prefix"></slot>
@@ -64,6 +65,7 @@
         defaultValue: null,
         type: null,
         autofocus: null,
+        size: null,
       },
       data: {
         value: "",
