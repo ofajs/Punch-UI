@@ -24,7 +24,7 @@
       top: 0;
       display: block;
       width: 100%;
-      height: 40px;
+      height: 100%;
       border: none;
       opacity: 0;
     }
@@ -44,6 +44,7 @@
     class:disabled="typeof disabled === 'string'"
     class:error="typeof error === 'string'"
     class:hasprefix="hasprefix"
+    attr:size="size"
   >
     <div class="prefix">
       <slot name="prefix"></slot>
@@ -77,6 +78,7 @@
         rows: null,
         disabled: null,
         defaultValue: null,
+        size: null,
       },
       data: {
         value: "",

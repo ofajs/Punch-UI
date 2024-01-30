@@ -59,13 +59,14 @@ input[type="datetime-local"] {
 .placeholder {
   position: absolute;
   left: 0;
-  top: calc(var(--pui-space-y) * 1.5);
+  top: calc(var(--pui-space-y) * 3);
   padding-left: calc(var(--pui-space-x) * 2);
   font-size: 16px;
   color: var(--md-sys-color-on-normal-container);
   transition: all ease 0.3s, background-color ease 0s, color ease 0s;
   border-radius: 5px;
   pointer-events: none;
+  line-height: 1em;
 }
 .inputer {
   position: relative;
@@ -117,7 +118,7 @@ textarea {
 [type="datetime-local"] .placeholder {
   position: absolute;
   z-index: 2;
-  top: -10px;
+  top: -6px;
   left: 8px;
   font-size: 12px;
   padding: 0 4px;
@@ -139,7 +140,7 @@ textarea {
 .container[variant="filled"][type="time"] .placeholder,
 .container[variant="filled"][type="date"] .placeholder,
 .container[variant="filled"][type="datetime-local"] .placeholder {
-  top: 0px;
+  top: 2px;
   background-color: transparent;
 }
 .container[variant="filled"] .bottom-line,
@@ -166,6 +167,33 @@ textarea {
 }
 .container[variant="filled"] .suffix.not-empty {
   padding-top: 12px;
+}
+.container[size="small"] .fake-input {
+  height: 30px;
+  font-size: 14px;
+}
+.container[size="small"] .placeholder:not(.not-empty) {
+  font-size: 14px;
+  top: calc(var(--pui-space-y) * 2);
+}
+.container[size="small"] .suffix {
+  font-size: 14px;
+}
+.container[size="small"][variant="filled"] .suffix.not-empty {
+  padding-top: 8px;
+}
+.container[size="large"] .fake-input {
+  height: 42px;
+  font-size: 18px;
+}
+.container[size="large"] .placeholder:not(.not-empty) {
+  font-size: 18px;
+}
+.container[size="large"] .suffix {
+  font-size: 18px;
+}
+.container[size="large"][variant="filled"] .suffix.not-empty {
+  padding-top: 8px;
 }
 .container.error .border,
 .container.error .inputer:focus + div .border {
