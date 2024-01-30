@@ -32,7 +32,7 @@ input {
   box-sizing: border-box;
   width: 100%;
   /* height: calc(var(--pui-space-y) * 12); */
-  height: 2.5em;
+  height: 40px;
   padding: 0 calc(var(--pui-space-x) * 1);
   background-color: transparent;
   color: var(--md-sys-color-on-normal-container);
@@ -44,7 +44,43 @@ input[type="datetime-local"] {
   padding-top: 0.75em;
   padding-bottom: 0.75em;
 }
-.border {
+.container[size="small"] .fake-input {
+  height: 30px;
+  font-size: 14px;
+}
+.container[size="small"] input {
+  height: 30px;
+  font-size: 14px;
+}
+.container[size="small"] .placeholder {
+  font-size: 14px;
+  top: calc(var(--pui-space-y) * 2);
+}
+.container[size="small"] .suffix {
+  font-size: 14px;
+}
+.container[size="small"][variant="filled"] .suffix.not-empty {
+  padding-top: 8px;
+}
+.container[size="large"] .fake-input {
+  height: 42px;
+  font-size: 18px;
+}
+.container[size="large"] input {
+  height: 42px;
+  font-size: 18px;
+}
+.container[size="large"] .placeholder {
+  font-size: 18px;
+  top: calc(var(--pui-space-y) * 3);
+}
+.container[size="large"] .suffix {
+  font-size: 18px;
+}
+.container[size="large"][variant="filled"] .suffix.not-empty {
+  padding-top: 8px;
+}
+.container .border {
   position: absolute;
   left: 0;
   top: 0;
@@ -56,21 +92,22 @@ input[type="datetime-local"] {
   pointer-events: none;
   transition: all ease 0.1s;
 }
-.placeholder {
+.container .placeholder {
   position: absolute;
   left: 0;
-  top: calc(var(--pui-space-y) * 1.5);
+  top: calc(var(--pui-space-y) * 3);
   padding-left: calc(var(--pui-space-x) * 2);
   font-size: 16px;
   color: var(--md-sys-color-on-normal-container);
   transition: all ease 0.3s, background-color ease 0s, color ease 0s;
   border-radius: 5px;
   pointer-events: none;
+  line-height: 1em;
 }
-.inputer {
+.container .inputer {
   position: relative;
 }
-textarea {
+.container textarea {
   border: none;
   resize: none;
   font-family: '-apple-system, "system-ui", "Segoe UI", "Microsoft Yahei", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"';
@@ -83,67 +120,67 @@ textarea {
   background-color: transparent;
   color: var(--md-sys-color-on-normal-container);
 }
-.helper-text {
+.container .helper-text {
   position: absolute;
   bottom: -20px;
   left: calc(var(--pui-space-x) * 2);
   font-size: 12px;
 }
-.prefix {
+.container .prefix {
   padding-left: var(--pui-space-x);
   white-space: nowrap;
   transition: all ease 0.2s;
   color: var(--md-sys-color-on-normal-container);
 }
-.suffix {
+.container .suffix {
   margin-left: auto;
   padding-right: var(--pui-space-x);
   white-space: nowrap;
   transition: all ease 0.2s;
   color: var(--md-sys-color-on-normal-container);
 }
-.inputer:focus + div .border {
+.container .inputer:focus + div .border {
   border-width: 2px;
   border-color: var(--md-sys-color-primary);
 }
-.inputer:focus + div .placeholder {
+.container .inputer:focus + div .placeholder {
   color: var(--md-sys-color-primary);
 }
-.inputer:focus + div .placeholder,
-.placeholder.not-empty,
-.container.hasprefix .placeholder,
-[type="time"] .placeholder,
-[type="date"] .placeholder,
-[type="datetime-local"] .placeholder {
+.container .inputer:focus + div .placeholder,
+.container .placeholder.not-empty,
+.container .container.hasprefix .placeholder,
+.container [type="time"] .placeholder,
+.container [type="date"] .placeholder,
+.container [type="datetime-local"] .placeholder {
   position: absolute;
   z-index: 2;
-  top: -10px;
+  top: -6px;
   left: 8px;
   font-size: 12px;
   padding: 0 4px;
   background-color: var(--label-bg, var(--md-sys-color-surface));
 }
-.container[variant="filled"] {
+.container .container[variant="filled"] {
   background-color: rgba(130, 130, 130, 0.2);
   border-radius: var(--pui-border-radius) var(--pui-border-radius) 0 0;
 }
-.container[variant="filled"] .border {
+.container .container[variant="filled"] .border {
   border: none;
 }
-.container[variant="filled"] .inputer {
+.container .container[variant="filled"] .inputer {
   top: var(--pui-space-x);
 }
-.container[variant="filled"] .inputer:focus + div .placeholder,
-.container[variant="filled"] .placeholder.not-empty,
-.container[variant="filled"].hasprefix .placeholder,
-.container[variant="filled"][type="time"] .placeholder,
-.container[variant="filled"][type="date"] .placeholder,
-.container[variant="filled"][type="datetime-local"] .placeholder {
-  top: 0px;
+.container .container[variant="filled"] .inputer:focus + div .placeholder,
+.container .container[variant="filled"] .placeholder.not-empty,
+.container .container[variant="filled"].hasprefix .placeholder,
+.container .container[variant="filled"][type="time"] .placeholder,
+.container .container[variant="filled"][type="date"] .placeholder,
+.container .container[variant="filled"][type="datetime-local"] .placeholder {
+  top: 2px;
   background-color: transparent;
 }
-.container[variant="filled"] .bottom-line,
-.container[variant="filled"] .bottom-line-active {
+.container .container[variant="filled"] .bottom-line,
+.container .container[variant="filled"] .bottom-line-active {
   position: absolute;
   left: 0;
   bottom: 0;
@@ -152,19 +189,19 @@ textarea {
   z-index: 1;
   background-color: var(--md-sys-color-on-normal-container);
 }
-.container[variant="filled"] .bottom-line-active {
+.container .container[variant="filled"] .bottom-line-active {
   width: 0;
   height: 2px;
   background-color: var(--md-sys-color-primary);
   transition: all ease 0.3s;
 }
-.container[variant="filled"] .inputer:focus + div .bottom-line-active {
+.container .container[variant="filled"] .inputer:focus + div .bottom-line-active {
   width: 100%;
 }
-.container[variant="filled"] .prefix {
+.container .container[variant="filled"] .prefix {
   padding-top: 12px;
 }
-.container[variant="filled"] .suffix.not-empty {
+.container .container[variant="filled"] .suffix.not-empty {
   padding-top: 12px;
 }
 .container.error .border,
