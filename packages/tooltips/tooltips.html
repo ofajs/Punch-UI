@@ -5,7 +5,7 @@
       display: contents;
     }
 
-    .place {
+    p-placement::part(container) {
       color: var(--tips-color, var(--md-sys-color-normal-container));
       background-color: var(
         --tips-bg-color,
@@ -21,14 +21,13 @@
       /* z-index: var(--tips-index, 10); */
     }
 
-    :host([plain]) .place {
-      background-color: transparent;
+    :host([plain]) p-placement::part(container) {
       color: inherit;
       margin: 0;
       padding: 0;
     }
 
-    .place.open {
+    p-placement.open::part(container) {
       opacity: 1;
       pointer-events: auto;
       visibility: visible;
@@ -51,10 +50,12 @@
   <x-if :value="showmask">
     <div class="mask" on:click="closeMask" on:wheel="closeMask"></div>
   </x-if>
-  <p-placement class:hasmask="showmask">
-    <div place-ele class="place" class:open="open" attr:placement="placement">
-      <slot name="tips"></slot>
-    </div>
+  <p-placement
+    class:hasmask="showmask"
+    class:open="open"
+    attr:placement="placement"
+  >
+    <slot name="tips"></slot>
   </p-placement>
   <script>
     export default {

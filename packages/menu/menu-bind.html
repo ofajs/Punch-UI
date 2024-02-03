@@ -8,11 +8,14 @@
       margin: 0;
       padding: 0;
     }
+
+    p-placement::part(container) {
+      margin: 0;
+      padding: 0;
+    }
   </style>
-  <p-placement>
-    <div place-ele attr:placement="placement" style="margin: 0; padding: 0">
-      <slot></slot>
-    </div>
+  <p-placement attr:placement="placement">
+    <slot></slot>
   </p-placement>
   <script>
     export default async ({ load }) => {

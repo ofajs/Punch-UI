@@ -7,7 +7,7 @@
       z-index: var(--placement-zindex, 2);
     }
 
-    ::slotted([place-ele]) {
+    .container {
       position: absolute;
       left: 50%;
       top: 100%;
@@ -19,75 +19,84 @@
       padding: var(--pui-space-y) var(--pui-space-x);
     }
 
-    ::slotted([place-ele][placement*="top"]) {
+    :host([placement*="top"]) .container {
       margin-bottom: var(--pui-space-y);
     }
-    ::slotted([place-ele][placement*="left"]) {
+
+    :host([placement*="left"]) .container {
       margin-top: 0;
       margin-right: var(--pui-space-x);
     }
-    ::slotted([place-ele][placement*="right"]) {
+
+    :host([placement*="right"]) .container {
       margin-top: 0;
       margin-left: var(--pui-space-x);
     }
 
-    ::slotted([place-ele][placement="top-start"]) {
+    :host([placement="top-start"]) .container {
       top: auto;
       bottom: 100%;
       left: 0;
       transform: translate(0, 0);
     }
-    ::slotted([place-ele][placement="top"]) {
+
+    :host([placement="top"]) .container {
       top: auto;
       bottom: 100%;
     }
-    ::slotted([place-ele][placement="top-end"]) {
+
+    :host([placement="top-end"]) .container {
       top: auto;
       left: auto;
       right: 0;
       bottom: 100%;
       transform: translate(0, 0);
     }
-
-    ::slotted([place-ele][placement="right-start"]) {
+    :host([placement="right-start"]) .container {
       left: 100%;
       top: 0;
       transform: translate(0, 0);
     }
-    ::slotted([place-ele][placement="right"]) {
+
+    :host([placement="right"]) .container {
       left: 100%;
       top: 50%;
       transform: translate(0, -50%);
     }
-    ::slotted([place-ele][placement="right-end"]) {
+
+    :host([placement="right-end"]) .container {
       left: 100%;
       top: auto;
       bottom: 0;
       transform: translate(0, 0);
     }
-    ::slotted([place-ele][placement="bottom-start"]) {
+
+    :host([placement="bottom-start"]) .container {
       left: 0;
       transform: translate(0, 0);
     }
-    ::slotted([place-ele][placement="bottom-end"]) {
+
+    :host([placement="bottom-end"]) .container {
       left: auto;
       right: 0;
       transform: translate(0, 0);
     }
 
-    ::slotted([place-ele][placement="left-start"]) {
+    :host([placement="left-start"]) .container {
       left: auto;
       right: 100%;
       top: 0;
       transform: translate(0, 0);
     }
-    ::slotted([place-ele][placement="left"]) {
+
+    :host([placement="left"]) .container {
       left: auto;
       right: 100%;
       top: 50%;
       transform: translate(0, -50%);
     }
-    ::slotted([place-ele][placement="left-end"]) {
+
+    :host([placement="left-end"]) .container {
       left: auto;
       right: 100%;
       top: auto;
@@ -95,10 +104,15 @@
       transform: translate(0, 0);
     }
   </style>
-  <slot></slot>
+  <div class="container" part="container">
+    <slot></slot>
+  </div>
   <script>
     export default {
       tag: "p-placement",
+      attrs: {
+        placement: null,
+      },
       proto: {
         _refreshPosition(slotChild) {
           const rectData = slotChild.ele.getBoundingClientRect();

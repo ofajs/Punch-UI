@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>menu2</title>
+    <title>menu-bind-test</title>
     <script
       src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.4.2/dist/ofa.min.js"
       debug
@@ -25,9 +25,6 @@
       div {
         padding: 24px;
       }
-      p-menu {
-        margin: 8px;
-      }
     </style>
   </head>
   <body>
@@ -37,7 +34,7 @@
     <l-m
       src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"
     ></l-m>
-    <l-m src="./menu.html"></l-m>
+    <l-m src="./menu-bind.html"></l-m>
     <dark-switch></dark-switch>
 
     <br />
@@ -46,12 +43,14 @@
 
     <br />
 
-    <p-menu anchor="#mybtn1" popup-event="click">
-      <p-menu-item id="targetItem">
-        <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
-        Cut
-      </p-menu-item>
-    </p-menu>
+    <p-menu-bind anchor="#mybtn1" event="click">
+      <p-menu>
+        <p-menu-item id="targetItem">
+          <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
+          Cut
+        </p-menu-item>
+      </p-menu>
+    </p-menu-bind>
 
     <script>
       $("#targetItem").on("click", () => {
@@ -61,38 +60,38 @@
 
     <button id="mybtn2" style="margin: 50vh 0 20vh 40vw">Click Me 2</button>
 
-    <p-menu anchor="#mybtn2" popup-event="click" popup-align="right">
-      <p-menu-item>
-        <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
-        Cut 2
-      </p-menu-item>
-      <p-menu-item>
-        <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
-        Cut 3
-      </p-menu-item>
-      <p-menu-item>
-        <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
-        Cut 4
-      </p-menu-item>
-    </p-menu>
+    <!-- <p-menu-bind anchor="#mybtn2" event="click" placement="right">
+      <p-menu>
+        <p-menu-item>
+          <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
+          Cut 2
+        </p-menu-item>
+        <p-menu-item>
+          <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
+          Cut 3
+        </p-menu-item>
+        <p-menu-item>
+          <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
+          Cut 4
+        </p-menu-item>
+      </p-menu>
+    </p-menu-bind> -->
 
     <br />
 
     <button id="mybtn3" style="margin: 50vh 0 20vh 40vw">Hover Me 3</button>
 
-    <p-menu
-      anchor="#mybtn3"
-      popup-event="hover"
-      popup-align="right"
-    >
-      <p-menu-item>
-        <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
-        Cut 5
-      </p-menu-item>
-      <p-menu-item>
-        <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
-        Cut 6
-      </p-menu-item>
-    </p-menu>
+    <!-- <p-menu-bind anchor="#mybtn3" event="hover" placement="right">
+      <p-menu>
+        <p-menu-item>
+          <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
+          Cut 5
+        </p-menu-item>
+        <p-menu-item>
+          <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
+          Cut 6
+        </p-menu-item>
+      </p-menu>
+    </p-menu-bind> -->
   </body>
 </html>
