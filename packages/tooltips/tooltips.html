@@ -11,7 +11,7 @@
       /* background-color: red; */
     }
 
-    .tips {
+    .place {
       left: 50%;
       top: 100%;
       transform: translate(-50%, 0);
@@ -36,42 +36,42 @@
       line-height: 1.3em;
     }
 
-    .tips.open {
+    .place.open {
       opacity: 1;
       pointer-events: auto;
       visibility: visible;
     }
 
-    :host([plain]) .tips {
+    :host([plain]) .place {
       background-color: transparent;
       color: inherit;
       margin: 0;
       padding: 0;
     }
 
-    .tips[placement*="top"] {
+    .place[placement*="top"] {
       margin-bottom: var(--pui-space-y);
     }
-    .tips[placement*="left"] {
+    .place[placement*="left"] {
       margin-top: 0;
       margin-right: var(--pui-space-x);
     }
-    .tips[placement*="right"] {
+    .place[placement*="right"] {
       margin-top: 0;
       margin-left: var(--pui-space-x);
     }
 
-    .tips[placement="top-start"] {
+    .place[placement="top-start"] {
       top: auto;
       bottom: 100%;
       left: 0;
       transform: translate(0, 0);
     }
-    .tips[placement="top"] {
+    .place[placement="top"] {
       top: auto;
       bottom: 100%;
     }
-    .tips[placement="top-end"] {
+    .place[placement="top-end"] {
       top: auto;
       left: auto;
       right: 0;
@@ -79,45 +79,45 @@
       transform: translate(0, 0);
     }
 
-    .tips[placement="right-start"] {
+    .place[placement="right-start"] {
       left: 100%;
       top: 0;
       transform: translate(0, 0);
     }
-    .tips[placement="right"] {
+    .place[placement="right"] {
       left: 100%;
       top: 50%;
       transform: translate(0, -50%);
     }
-    .tips[placement="right-end"] {
+    .place[placement="right-end"] {
       left: 100%;
       top: auto;
       bottom: 0;
       transform: translate(0, 0);
     }
-    .tips[placement="bottom-start"] {
+    .place[placement="bottom-start"] {
       left: 0;
       transform: translate(0, 0);
     }
-    .tips[placement="bottom-end"] {
+    .place[placement="bottom-end"] {
       left: auto;
       right: 0;
       transform: translate(0, 0);
     }
 
-    .tips[placement="left-start"] {
+    .place[placement="left-start"] {
       left: auto;
       right: 100%;
       top: 0;
       transform: translate(0, 0);
     }
-    .tips[placement="left"] {
+    .place[placement="left"] {
       left: auto;
       right: 100%;
       top: 50%;
       transform: translate(0, -50%);
     }
-    .tips[placement="left-end"] {
+    .place[placement="left-end"] {
       left: auto;
       right: 100%;
       top: auto;
@@ -127,7 +127,7 @@
   </style>
   <slot></slot>
   <div class="tips-area">
-    <div class="tips" class:open="open" attr:placement="placement">
+    <div class="place" class:open="open" attr:placement="placement">
       <slot name="tips"></slot>
     </div>
   </div>
@@ -139,7 +139,7 @@
         event: null,
       },
       data: {
-        open: false,
+        open: true,
       },
       watch: {
         open() {
