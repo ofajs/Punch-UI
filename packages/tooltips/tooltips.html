@@ -5,7 +5,7 @@
       display: contents;
     }
 
-    [place-ele] {
+    .place {
       color: var(--tips-color, var(--md-sys-color-normal-container));
       background-color: var(
         --tips-bg-color,
@@ -18,24 +18,40 @@
       line-height: 1.3em;
       border-radius: var(--pui-border-radius);
       white-space: nowrap;
-      z-index: var(--tips-index, 1);
+      /* z-index: var(--tips-index, 10); */
     }
 
-    :host([plain]) [place-ele] {
+    :host([plain]) .place {
       background-color: transparent;
       color: inherit;
       margin: 0;
       padding: 0;
     }
 
-    [place-ele].open {
+    .place.open {
       opacity: 1;
       pointer-events: auto;
       visibility: visible;
     }
+
+    .mask {
+      position: fixed;
+      z-index: 10000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    p-placement.hasmask {
+      z-index: 10001;
+    }
   </style>
   <slot></slot>
-  <p-placement>
+  <x-if :value="showmask">
+    <div class="mask" on:click="closeMask" on:wheel="closeMask"></div>
+  </x-if>
+  <p-placement class:hasmask="showmask">
     <div place-ele class="place" class:open="open" attr:placement="placement">
       <slot name="tips"></slot>
     </div>
@@ -49,6 +65,7 @@
       },
       data: {
         open: false,
+        showmask: false,
       },
       watch: {
         open() {
@@ -61,6 +78,13 @@
         },
       },
       proto: {
+        closeMask(e) {
+          if (e.type !== "wheel") {
+            e.stopPropagation();
+          }
+          this.showmask = false;
+          this.closeTips();
+        },
         openTips() {
           let isDisabled = false;
           this.forEach((element) => {
@@ -122,11 +146,19 @@
             this.on(
               this.event,
               (f1 = () => {
+                this.showmask = true;
                 this.openTips();
               })
             );
 
-            binding.push(["mouseenter", f1], () => {});
+            binding.push(
+              ["mouseenter", f1],
+              [
+                () => {
+                  this.showmask = false;
+                },
+              ]
+            );
           }
         },
       },
