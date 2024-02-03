@@ -1,0 +1,116 @@
+<template component>
+  <style>
+    :host {
+      display: block;
+      position: fixed;
+      z-index: inherit;
+      pointer-events: none;
+      /* background-color: red; */
+    }
+
+    ::slotted([place-ele]) {
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      transform: translate(-50%, 0);
+      transition: all ease 0.3s, color ease 0.5s;
+
+      margin-top: var(--pui-space-y);
+      padding: var(--pui-space-y) var(--pui-space-x);
+    }
+
+    ::slotted([place-ele][placement*="top"]) {
+      margin-bottom: var(--pui-space-y);
+    }
+    ::slotted([place-ele][placement*="left"]) {
+      margin-top: 0;
+      margin-right: var(--pui-space-x);
+    }
+    ::slotted([place-ele][placement*="right"]) {
+      margin-top: 0;
+      margin-left: var(--pui-space-x);
+    }
+
+    ::slotted([place-ele][placement="top-start"]) {
+      top: auto;
+      bottom: 100%;
+      left: 0;
+      transform: translate(0, 0);
+    }
+    ::slotted([place-ele][placement="top"]) {
+      top: auto;
+      bottom: 100%;
+    }
+    ::slotted([place-ele][placement="top-end"]) {
+      top: auto;
+      left: auto;
+      right: 0;
+      bottom: 100%;
+      transform: translate(0, 0);
+    }
+
+    ::slotted([place-ele][placement="right-start"]) {
+      left: 100%;
+      top: 0;
+      transform: translate(0, 0);
+    }
+    ::slotted([place-ele][placement="right"]) {
+      left: 100%;
+      top: 50%;
+      transform: translate(0, -50%);
+    }
+    ::slotted([place-ele][placement="right-end"]) {
+      left: 100%;
+      top: auto;
+      bottom: 0;
+      transform: translate(0, 0);
+    }
+    ::slotted([place-ele][placement="bottom-start"]) {
+      left: 0;
+      transform: translate(0, 0);
+    }
+    ::slotted([place-ele][placement="bottom-end"]) {
+      left: auto;
+      right: 0;
+      transform: translate(0, 0);
+    }
+
+    ::slotted([place-ele][placement="left-start"]) {
+      left: auto;
+      right: 100%;
+      top: 0;
+      transform: translate(0, 0);
+    }
+    ::slotted([place-ele][placement="left"]) {
+      left: auto;
+      right: 100%;
+      top: 50%;
+      transform: translate(0, -50%);
+    }
+    ::slotted([place-ele][placement="left-end"]) {
+      left: auto;
+      right: 100%;
+      top: auto;
+      bottom: 0;
+      transform: translate(0, 0);
+    }
+  </style>
+  <slot></slot>
+  <script>
+    export default {
+      tag: "p-placement",
+      proto: {
+        _refreshPosition(slotChild) {
+          const rectData = slotChild.ele.getBoundingClientRect();
+
+          this.css = {
+            top: rectData.top + "px",
+            left: rectData.left + "px",
+            width: rectData.width + "px",
+            height: rectData.height + "px",
+          };
+        },
+      },
+    };
+  </script>
+</template>

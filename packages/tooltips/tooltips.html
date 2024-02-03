@@ -1,136 +1,45 @@
 <template component>
+  <l-m src="./placement.html"></l-m>
   <style>
     :host {
       display: contents;
     }
-    .tips-area {
-      position: fixed;
-      /* z-index: 100000; */
-      z-index: inherit;
-      pointer-events: none;
-      /* background-color: red; */
-    }
 
-    .place {
-      left: 50%;
-      top: 100%;
-      transform: translate(-50%, 0);
-      pointer-events: auto;
-      position: absolute;
-      pointer-events: none;
-      visibility: hidden;
+    [place-ele] {
       color: var(--tips-color, var(--md-sys-color-normal-container));
       background-color: var(
         --tips-bg-color,
         var(--md-sys-color-on-normal-container)
       );
+      pointer-events: none;
+      visibility: hidden;
       opacity: 0;
-      transition: all ease 0.3s, color ease 0.5s;
-
-      margin-top: var(--pui-space-y);
-      padding: var(--pui-space-y) var(--pui-space-x);
-      border-radius: var(--pui-border-radius);
       font-size: 12px;
+      line-height: 1.3em;
+      border-radius: var(--pui-border-radius);
       white-space: nowrap;
       z-index: var(--tips-index, 1);
-      line-height: 1.3em;
     }
 
-    .place.open {
-      opacity: 1;
-      pointer-events: auto;
-      visibility: visible;
-    }
-
-    :host([plain]) .place {
+    :host([plain]) [place-ele] {
       background-color: transparent;
       color: inherit;
       margin: 0;
       padding: 0;
     }
 
-    .place[placement*="top"] {
-      margin-bottom: var(--pui-space-y);
-    }
-    .place[placement*="left"] {
-      margin-top: 0;
-      margin-right: var(--pui-space-x);
-    }
-    .place[placement*="right"] {
-      margin-top: 0;
-      margin-left: var(--pui-space-x);
-    }
-
-    .place[placement="top-start"] {
-      top: auto;
-      bottom: 100%;
-      left: 0;
-      transform: translate(0, 0);
-    }
-    .place[placement="top"] {
-      top: auto;
-      bottom: 100%;
-    }
-    .place[placement="top-end"] {
-      top: auto;
-      left: auto;
-      right: 0;
-      bottom: 100%;
-      transform: translate(0, 0);
-    }
-
-    .place[placement="right-start"] {
-      left: 100%;
-      top: 0;
-      transform: translate(0, 0);
-    }
-    .place[placement="right"] {
-      left: 100%;
-      top: 50%;
-      transform: translate(0, -50%);
-    }
-    .place[placement="right-end"] {
-      left: 100%;
-      top: auto;
-      bottom: 0;
-      transform: translate(0, 0);
-    }
-    .place[placement="bottom-start"] {
-      left: 0;
-      transform: translate(0, 0);
-    }
-    .place[placement="bottom-end"] {
-      left: auto;
-      right: 0;
-      transform: translate(0, 0);
-    }
-
-    .place[placement="left-start"] {
-      left: auto;
-      right: 100%;
-      top: 0;
-      transform: translate(0, 0);
-    }
-    .place[placement="left"] {
-      left: auto;
-      right: 100%;
-      top: 50%;
-      transform: translate(0, -50%);
-    }
-    .place[placement="left-end"] {
-      left: auto;
-      right: 100%;
-      top: auto;
-      bottom: 0;
-      transform: translate(0, 0);
+    [place-ele].open {
+      opacity: 1;
+      pointer-events: auto;
+      visibility: visible;
     }
   </style>
   <slot></slot>
-  <div class="tips-area">
-    <div class="place" class:open="open" attr:placement="placement">
+  <p-placement>
+    <div place-ele class="place" class:open="open" attr:placement="placement">
       <slot name="tips"></slot>
     </div>
-  </div>
+  </p-placement>
   <script>
     export default {
       tag: "p-tooltips",
@@ -139,13 +48,16 @@
         event: null,
       },
       data: {
-        open: true,
+        open: false,
       },
       watch: {
         open() {
           if (this.open) {
             this._refreshPosition();
           }
+        },
+        event() {
+          this._init();
         },
       },
       proto: {
@@ -167,43 +79,69 @@
           }, 100);
         },
         _refreshPosition(isInit) {
+          const placement = this.shadow.$("p-placement");
+          if (!placement._refreshPosition) {
+            return;
+          }
           const f = () => {
-            const slotChild = this.$(':not([slot="tips"])');
-            const rectData = slotChild.ele.getBoundingClientRect();
-
-            // console.log(slotChild.ele, rectData);
-
-            this.shadow.$(".tips-area").css = {
-              top: rectData.top + "px",
-              left: rectData.left + "px",
-              width: rectData.width + "px",
-              height: rectData.height + "px",
-            };
+            placement._refreshPosition(this.$(':not([slot="tips"])'));
           };
 
-          if (isInit) {
-            setTimeout(f, 200);
+          f();
+        },
+        _offBinding() {
+          (this.__binding || []).forEach(([name, func]) => {
+            if (name && func) {
+              this.off(name, func);
+            } else {
+              name();
+            }
+          });
+        },
+        _init() {
+          const binding = this.__binding || (this.__binding = []);
+          this._offBinding();
+
+          if (!this.event) {
+            let f1, f2;
+            this.on(
+              "mouseenter",
+              (f1 = () => {
+                this.openTips();
+              })
+            );
+            this.on(
+              "mouseleave",
+              (f2 = () => {
+                this.closeTips();
+              })
+            );
+            binding.push(["mouseenter", f1], ["mouseleave", f2]);
           } else {
-            f();
+            let f1;
+            this.on(
+              this.event,
+              (f1 = () => {
+                this.openTips();
+              })
+            );
+
+            binding.push(["mouseenter", f1], () => {});
           }
         },
       },
       ready() {
-        this.on("mouseenter", () => {
-          if (!this.event) {
-            this.openTips();
-          }
-        });
-        this.on("mouseleave", () => {
-          if (!this.event) {
-            this.closeTips();
-          }
-        });
         if (this.attr("opened") !== null) {
           this.open = true;
         }
       },
       attached() {
+        this._refreshPosition(true);
+      },
+      detached() {
+        this._offBinding();
+      },
+      loaded() {
         this._refreshPosition(true);
       },
     };
