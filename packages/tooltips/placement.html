@@ -4,8 +4,7 @@
       display: block;
       position: fixed;
       pointer-events: none;
-      z-index: 2;
-      /* background-color: red; */
+      z-index: var(--placement-zindex, 2);
     }
 
     ::slotted([place-ele]) {
@@ -15,6 +14,7 @@
       transform: translate(-50%, 0);
       transition: all ease 0.3s, color ease 0.5s;
 
+      pointer-events: auto;
       margin-top: var(--pui-space-y);
       padding: var(--pui-space-y) var(--pui-space-x);
     }
