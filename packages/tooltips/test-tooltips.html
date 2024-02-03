@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>drawer</title>
+    <title>tooltips</title>
     <script
       src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.4.2/dist/ofa.min.js"
       debug
@@ -17,6 +17,10 @@
         display: flex;
       }
       .block {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 120px;
         height: 50px;
         line-height: 30px;
@@ -24,7 +28,6 @@
       }
 
       button {
-        display: block;
         height: 40px;
       }
 
@@ -44,9 +47,9 @@
       <div class="line">
         <div class="block"></div>
         <div class="block">
-          <p-tooltips placement="top-start">
-            <button>Top-Start</button>
+          <p-tooltips placement="top-start" opened>
             <span slot="tips">This is Test Tips</span>
+            <button>Top-Start</button>
           </p-tooltips>
         </div>
         <div class="block">

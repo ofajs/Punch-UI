@@ -159,7 +159,6 @@
         anchor: null,
         popupAlign: null,
         popupEvent: null,
-        palign: null,
       },
       data: {
         isDark: {},
@@ -226,8 +225,6 @@
           this.css.position = "fixed";
           this.visibility = "hidden";
 
-          console.log(this.popupEvent);
-
           let popdownTimer;
           if (this.popupEvent === "hover") {
             // debugger;
@@ -250,9 +247,12 @@
 
             this.on("mouseenter", this._bindAnchorFunc);
             this.on("mouseleave", this._unbindAnchorFunc);
-          } else if (this.popupEvent === "click") {
+          } else if (
+            this.popupEvent === "click" ||
+            this.popupEvent === "contextmenu"
+          ) {
             _anchorEl.on(
-              "click",
+              this.popupEvent,
               (this._bindAnchorFunc = () => {
                 this.maskmode = true;
                 this.visibility = "";
