@@ -1,5 +1,4 @@
 <template component>
-  <l-m src="./placement.html"></l-m>
   <style>
     :host {
       display: contents;
@@ -32,151 +31,84 @@
       pointer-events: auto;
       visibility: visible;
     }
-
-    .mask {
-      position: fixed;
-      z-index: 100;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    p-placement.hasmask {
-      z-index: 101;
-    }
   </style>
   <slot></slot>
-  <x-if :value="showmask">
-    <div class="mask" on:click="closeMask" on:wheel="closeMask"></div>
-  </x-if>
-  <p-placement
-    class:hasmask="showmask"
-    class:open="open"
-    attr:placement="placement"
-  >
+  <p-placement class:open="open" attr:placement="placement" :event="event">
     <slot name="tips"></slot>
   </p-placement>
   <script>
-    export default {
-      tag: "p-tooltips",
-      attrs: {
-        placement: null,
-        event: null,
-      },
-      data: {
-        open: false,
-        showmask: false,
-      },
-      watch: {
-        open() {
-          if (this.open) {
-            this._refreshPosition();
-          }
+    export default async ({ load }) => {
+      await load("./placement.html");
+
+      return {
+        tag: "p-tooltips",
+        attrs: {
+          placement: null,
+          event: null,
         },
-        event() {
-          this._init();
+        data: {
+          open: false,
         },
-      },
-      proto: {
-        closeMask(e) {
-          if (e.type !== "wheel") {
-            e.stopPropagation();
-          }
-          this.showmask = false;
-          this.closeTips();
-        },
-        openTips() {
-          let isDisabled = false;
-          this.forEach((element) => {
-            if (element.attr("slot") === null && element.disabled) {
-              isDisabled = true;
+        watch: {
+          open() {
+            if (this.open) {
+              this._refreshPosition();
             }
-          });
-          if (!isDisabled) {
-            clearTimeout(this._timer);
+          },
+          event() {
+            this.shadow.$("p-placement")._init({
+              self: this,
+              open: () => {
+                this.openTips();
+              },
+              close: () => {
+                this.closeTips();
+              },
+            });
+          },
+        },
+        proto: {
+          openTips() {
+            let isDisabled = false;
+            this.forEach((element) => {
+              if (element.attr("slot") === null && element.disabled) {
+                isDisabled = true;
+              }
+            });
+            if (!isDisabled) {
+              clearTimeout(this._timer);
+              this.open = true;
+            }
+          },
+          closeTips() {
+            this._timer = setTimeout(() => {
+              this.open = false;
+            }, 100);
+          },
+          _refreshPosition() {
+            const placement = this.shadow.$("p-placement");
+            if (!placement._refreshPosition) {
+              return;
+            }
+            const f = () => {
+              placement._refreshPosition(this.$(':not([slot="tips"])'));
+            };
+
+            f();
+          },
+        },
+        ready() {
+          if (this.attr("opened") !== null) {
             this.open = true;
           }
         },
-        closeTips() {
-          this._timer = setTimeout(() => {
-            this.open = false;
-          }, 100);
+        attached() {
+          this._refreshPosition();
         },
-        _refreshPosition(isInit) {
-          const placement = this.shadow.$("p-placement");
-          if (!placement._refreshPosition) {
-            return;
-          }
-          const f = () => {
-            placement._refreshPosition(this.$(':not([slot="tips"])'));
-          };
-
-          f();
+        loaded() {
+          this._refreshPosition();
         },
-        _offBinding() {
-          (this.__binding || []).forEach(([name, func]) => {
-            if (name && func) {
-              this.off(name, func);
-            } else {
-              name();
-            }
-          });
-        },
-        _init() {
-          const binding = this.__binding || (this.__binding = []);
-          this._offBinding();
-
-          if (!this.event) {
-            let f1, f2;
-            this.on(
-              "mouseenter",
-              (f1 = () => {
-                this.openTips();
-              })
-            );
-            this.on(
-              "mouseleave",
-              (f2 = () => {
-                this.closeTips();
-              })
-            );
-            binding.push(["mouseenter", f1], ["mouseleave", f2]);
-          } else {
-            let f1;
-            this.on(
-              this.event,
-              (f1 = () => {
-                this.showmask = true;
-                this.openTips();
-              })
-            );
-
-            binding.push(
-              ["mouseenter", f1],
-              [
-                () => {
-                  this.showmask = false;
-                },
-              ]
-            );
-          }
-        },
-      },
-      ready() {
-        if (this.attr("opened") !== null) {
-          this.open = true;
-        }
-      },
-      attached() {
-        this._refreshPosition(true);
-      },
-      detached() {
-        this._offBinding();
-      },
-      loaded() {
-        this._refreshPosition(true);
-      },
+      };
     };
   </script>
 </template>
