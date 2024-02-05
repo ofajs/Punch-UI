@@ -13,7 +13,7 @@
       left: 50%;
       top: 100%;
       transform: translate(-50%, 0);
-      transition: all ease 0.3s, color ease 0.5s;
+      transition: all ease 0.3s, color ease 0.5s, top ease 0s, left ease 0s;
 
       pointer-events: auto;
       margin-top: var(--pui-space-y);
@@ -133,6 +133,7 @@
       attrs: {
         placement: null,
         event: null,
+        point: null,
       },
       data: {
         showmask: false,
@@ -201,13 +202,30 @@
             let f1;
             self.on(
               this.event,
-              (f1 = () => {
+              (f1 = (e) => {
+                if (e.type === "contextmenu") {
+                  e.preventDefault();
+                }
                 this.showmask = true;
                 open();
+
+                console.log(this.placement);
+                if (this.point !== null) {
+                  Object.assign(this.shadow.$(".container").css, {
+                    position: "fixed",
+                    top: e.clientY + "px",
+                    left: e.clientX + "px",
+                  });
+                }
               })
             );
 
             binding.push(() => {
+              Object.assign(this.shadow.$(".container").css, {
+                position: "",
+                top: "",
+                left: "",
+              });
               self.off(this.event, f1);
               this.showmask = false;
             });

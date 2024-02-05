@@ -93,5 +93,34 @@
         </p-menu-item>
       </p-menu>
     </p-menu-bind>
+
+    <div
+      id="mybtn4"
+      style="
+        margin: 10vh 0 10vh 25vw;
+        width: 50vw;
+        height: 200px;
+        background-color: rgba(255, 0, 0, 0.2);
+      "
+    >
+      bind contextmenu
+    </div>
+    <p-menu-bind
+      anchor="#mybtn4"
+      event="contextmenu"
+      placement="right-end"
+      point
+    >
+      <p-menu>
+        <p-menu-item>
+          <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
+          Cut 7
+        </p-menu-item>
+        <p-menu-item>
+          <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
+          Cut 8
+        </p-menu-item>
+      </p-menu>
+    </p-menu-bind>
   </body>
 </html>

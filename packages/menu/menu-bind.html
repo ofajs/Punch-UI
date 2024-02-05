@@ -18,7 +18,7 @@
       padding: 0;
     }
   </style>
-  <p-placement :placement="placement" :event="event">
+  <p-placement :placement="placement" :event="event" :point="point">
     <slot></slot>
   </p-placement>
   <script>
@@ -31,6 +31,7 @@
           anchor: null,
           event: null,
           placement: null,
+          point: null,
         },
         watch: {
           ["anchor,event,placement"]() {
@@ -75,7 +76,7 @@
               },
             });
 
-            console.log("menu-bind", anchorEl, marked);
+            // console.log("menu-bind", anchorEl, marked);
           },
         },
         attached() {
