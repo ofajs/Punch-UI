@@ -1,6 +1,6 @@
 <template page>
   <l-m src="../button/button.html"></l-m>
-  <l-m src="../menu/menu.html"></l-m>
+  <l-m src="../menu/menu-bind.html"></l-m>
   <l-m src="./table.html"></l-m>
   <l-m src="../checkbox/checkbox.html"></l-m>
 
@@ -74,26 +74,28 @@
       </x-fill>
     </p-table>
 
-    <p-menu anchor="#sortBtn" popup-event="click" popup-align="right">
-      <p-menu-item>
-        <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
-        Test Item 1
-      </p-menu-item>
-      <p-menu-item>
-        <iconify-icon
-          icon="material-symbols:wind-power-sharp"
-          slot="prefix"
-        ></iconify-icon>
-        Test Item 2
-      </p-menu-item>
-      <p-menu-item>
-        <iconify-icon
-          icon="material-symbols:yard-outline-sharp"
-          slot="prefix"
-        ></iconify-icon>
-        Test Item 3
-      </p-menu-item>
-    </p-menu>
+    <p-menu-bind anchor="#sortBtn" event="click" placement="right">
+      <p-menu>
+        <p-menu-item>
+          <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
+          Test Item 1
+        </p-menu-item>
+        <p-menu-item>
+          <iconify-icon
+            icon="material-symbols:wind-power-sharp"
+            slot="prefix"
+          ></iconify-icon>
+          Test Item 2
+        </p-menu-item>
+        <p-menu-item>
+          <iconify-icon
+            icon="material-symbols:yard-outline-sharp"
+            slot="prefix"
+          ></iconify-icon>
+          Test Item 3
+        </p-menu-item>
+      </p-menu>
+    </p-menu-bind>
   </div>
   <script>
     export default async ({ load }) => {

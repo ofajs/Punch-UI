@@ -53,14 +53,14 @@
     </p-menu-bind>
 
     <script>
-      $("#targetItem").on("click", () => {
-        console.log("click target");
+      $("#targetItem").on("click", (e) => {
+        console.log("click target", e);
       });
     </script>
 
     <button id="mybtn2" style="margin: 50vh 0 20vh 40vw">Click Me 2</button>
 
-    <!-- <p-menu-bind anchor="#mybtn2" event="click" placement="right">
+    <p-menu-bind anchor="#mybtn2" event="click" placement="bottom-end">
       <p-menu>
         <p-menu-item>
           <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
@@ -75,13 +75,13 @@
           Cut 4
         </p-menu-item>
       </p-menu>
-    </p-menu-bind> -->
+    </p-menu-bind>
 
     <br />
 
     <button id="mybtn3" style="margin: 50vh 0 20vh 40vw">Hover Me 3</button>
 
-    <!-- <p-menu-bind anchor="#mybtn3" event="hover" placement="right">
+    <p-menu-bind anchor="#mybtn3" event="hover" placement="right">
       <p-menu>
         <p-menu-item>
           <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
@@ -92,6 +92,6 @@
           Cut 6
         </p-menu-item>
       </p-menu>
-    </p-menu-bind> -->
+    </p-menu-bind>
   </body>
 </html>

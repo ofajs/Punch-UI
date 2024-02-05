@@ -1,8 +1,12 @@
 <template component>
   <l-m src="./menu.html"></l-m>
+  <l-m src="../tooltips/placement.html"></l-m>
   <style>
     :host {
       display: contents;
+    }
+    ::slotted(p-menu) {
+      width: max-content;
     }
     p-placement {
       margin: 0;
@@ -14,7 +18,7 @@
       padding: 0;
     }
   </style>
-  <p-placement attr:placement="placement">
+  <p-placement :placement="placement" :event="event">
     <slot></slot>
   </p-placement>
   <script>
@@ -58,11 +62,29 @@
 
             placementEl._refreshPosition(anchorEl);
 
+            this.$("p-menu").visibility = "hidden";
+
+            this.shadow.$("p-placement")._init({
+              self: anchorEl,
+              open: () => {
+                placementEl._refreshPosition(anchorEl);
+                this.$("p-menu").visibility = null;
+              },
+              close: () => {
+                this.$("p-menu").visibility = "hidden";
+              },
+            });
+
             console.log("menu-bind", anchorEl, marked);
           },
         },
         attached() {
           this.init();
+
+          this.on("click-item", () => {
+            this.shadow.$("p-placement").showmask = false;
+            this.$("p-menu").visibility = "hidden";
+          });
         },
       };
     };

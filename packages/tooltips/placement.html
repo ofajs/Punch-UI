@@ -4,7 +4,8 @@
       display: block;
       position: fixed;
       pointer-events: none;
-      z-index: var(--placement-zindex, 2);
+      z-index: var(--placement-zindex, 1000);
+      /* background-color: rgba(0, 0, 255, 0.379); */
     }
 
     .container {
@@ -17,6 +18,21 @@
       pointer-events: auto;
       margin-top: var(--pui-space-y);
       padding: var(--pui-space-y) var(--pui-space-x);
+    }
+
+    .mask {
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      /* background-color: rgba(255, 0, 0, 0.238); */
+      pointer-events: auto;
+    }
+
+    .container.showmask {
+      z-index: 101;
     }
 
     :host([placement*="top"]) .container {
@@ -102,20 +118,6 @@
       top: auto;
       bottom: 0;
       transform: translate(0, 0);
-    }
-    .mask {
-      position: fixed;
-      z-index: 100;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      /* background-color: rgba(255, 0, 0, 0.238); */
-      pointer-events: auto;
-    }
-
-    .container.showmask {
-      z-index: 101;
     }
   </style>
   <div class="container" class:showmask="showmask" part="container">
