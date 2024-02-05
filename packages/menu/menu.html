@@ -72,6 +72,15 @@
       p-menu [slot="prefix"] {
         transition: all ease 0.2s;
       }
+
+      p-menu p-menu-item img[slot="prefix"] {
+        opacity: 1;
+        transition: opacity ease 0.5s;
+      }
+
+      p-menu[visibility="hidden"] p-menu-item img[slot="prefix"] {
+        opacity: 0;
+      }
       p-menu[visibility="hidden"] {
         opacity: 0;
         pointer-events: none;
