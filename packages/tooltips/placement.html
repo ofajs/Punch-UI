@@ -166,12 +166,28 @@
           const binding = this.__binding || (this.__binding = []);
           this._offBinding();
 
-          if (!this.event) {
-            self.on("mouseenter", open);
-            self.on("mouseleave", close);
+          if (!this.event || this.event === "hover") {
+            let timer;
+            const leaveFun = () => {
+              timer = setTimeout(() => {
+                close();
+              }, 100);
+            };
+
+            const enterFun = () => {
+              clearTimeout(timer);
+              open();
+            };
+
+            this.on("mouseenter", enterFun);
+            this.on("mouseleave", leaveFun);
+            self.on("mouseenter", enterFun);
+            self.on("mouseleave", leaveFun);
             binding.push(() => {
-              self.off("mouseenter", open);
-              self.off("mouseleave", close);
+              this.off("mouseenter", enterFun);
+              this.off("mouseleave", leaveFun);
+              self.off("mouseenter", enterFun);
+              self.off("mouseleave", leaveFun);
             });
           } else {
             let f1;

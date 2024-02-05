@@ -76,14 +76,11 @@
               }
             });
             if (!isDisabled) {
-              clearTimeout(this._timer);
               this.open = true;
             }
           },
           closeTips() {
-            this._timer = setTimeout(() => {
-              this.open = false;
-            }, 100);
+            this.open = false;
           },
           _refresh() {
             const placement = this.shadow.$("p-placement");
