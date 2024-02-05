@@ -21,6 +21,7 @@
   <p-placement :placement="placement" :event="event" :point="point">
     <slot></slot>
   </p-placement>
+  <slot name="anchor"></slot>
   <script>
     export default async ({ load }) => {
       await load("../tooltips/placement.html");
@@ -58,7 +59,9 @@
 
             this._before_init_marked = marked;
 
-            const anchorEl = this.root.$(anchor);
+            const anchorEl = anchor
+              ? this.root.$(anchor)
+              : this.$('[slot="anchor"]');
             const placementEl = this.shadow.$("p-placement");
 
             placementEl._refreshPosition(anchorEl);

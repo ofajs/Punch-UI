@@ -39,11 +39,21 @@
 
     <br />
 
-    <button id="mybtn1" style="margin: 50vh 0 20vh 40vw">Click Me</button>
+    <button id="mybtn1" style="margin: 30vh 0 0 20vw">Click Me</button>
+
+    <p-menu-bind anchor="#mybtn1" event="click">
+      <p-menu>
+        <p-menu-item id="targetItem">
+          <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
+          Cut
+        </p-menu-item>
+      </p-menu>
+    </p-menu-bind>
 
     <br />
 
-    <p-menu-bind anchor="#mybtn1" event="click">
+    <p-menu-bind event="click">
+      <button slot="anchor" style="margin: 5vh 0 0 20vw">Click Me 1-2</button>
       <p-menu>
         <p-menu-item id="targetItem">
           <iconify-icon icon="tabler:cut" slot="prefix"></iconify-icon>
@@ -57,6 +67,8 @@
         console.log("click target", e);
       });
     </script>
+
+    <br>
 
     <button id="mybtn2" style="margin: 50vh 0 20vh 40vw">Click Me 2</button>
 
