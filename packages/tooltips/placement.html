@@ -18,6 +18,12 @@
       pointer-events: auto;
       margin-top: var(--pui-space-y);
       padding: var(--pui-space-y) var(--pui-space-x);
+      /* background-color: green; */
+      pointer-events: none;
+    }
+
+    ::slotted(*) {
+      pointer-events: auto;
     }
 
     .mask {
@@ -125,7 +131,7 @@
   </div>
 
   <x-if :value="showmask">
-    <div class="mask" on:click="closeMask" on:wheel="closeMask"></div>
+    <div class="mask" on:click="close" on:wheel="closeMask"></div>
   </x-if>
   <script>
     export default {
@@ -139,10 +145,13 @@
         showmask: false,
       },
       proto: {
-        closeMask(e) {
+        close(e) {
           if (e.type !== "wheel") {
             e.stopPropagation();
           }
+          this.closeMask(e);
+        },
+        closeMask(e) {
           this.showmask = false;
           this.__initOptions.close();
         },
@@ -169,21 +178,13 @@
 
           if (!this.event || this.event === "hover") {
             let timer;
-            let isOpen = false; // pointer-events is invalid for hover and is used to ensure that it is the content opened by the main body
             const leaveFun = () => {
               timer = setTimeout(() => {
                 close();
-                isOpen = false;
               }, 100);
             };
 
             const enterFun = (e) => {
-              if (e.target === self.ele) {
-                isOpen = true;
-              }
-              if (!isOpen) {
-                return;
-              }
               clearTimeout(timer);
               open();
             };
@@ -211,8 +212,10 @@
 
                 console.log(this.placement);
                 if (this.point !== null) {
-                  Object.assign(this.shadow.$(".container").css, {
+                  Object.assign(this.css, {
                     position: "fixed",
+                    width: 0,
+                    height: 0,
                     top: e.clientY + "px",
                     left: e.clientX + "px",
                   });
@@ -221,8 +224,10 @@
             );
 
             binding.push(() => {
-              Object.assign(this.shadow.$(".container").css, {
+              Object.assign(this.css, {
                 position: "",
+                width: "1px",
+                height: "1px",
                 top: "",
                 left: "",
               });
