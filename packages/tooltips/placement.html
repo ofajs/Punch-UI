@@ -168,13 +168,21 @@
 
           if (!this.event || this.event === "hover") {
             let timer;
+            let isOpen = false; // pointer-events is invalid for hover and is used to ensure that it is the content opened by the main body
             const leaveFun = () => {
               timer = setTimeout(() => {
                 close();
+                isOpen = false;
               }, 100);
             };
 
-            const enterFun = () => {
+            const enterFun = (e) => {
+              if (e.target === self.ele) {
+                isOpen = true;
+              }
+              if (!isOpen) {
+                return;
+              }
               clearTimeout(timer);
               open();
             };
