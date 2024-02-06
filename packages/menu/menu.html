@@ -3,7 +3,6 @@
   <style>
     :host {
       position: relative;
-      z-index: 10;
       display: inline-block;
       font-size: 14px;
       vertical-align: top;
@@ -12,6 +11,10 @@
       box-shadow: var(--contained-shadow);
       transition: opacity ease 0.1s;
       --triangle-color: #5f6368;
+    }
+
+    :host([visibility="hidden"]) {
+      pointer-events: none;
     }
 
     .container {
@@ -47,18 +50,6 @@
       background: transparent;
       z-index: 0;
     }
-
-    .container.maskmode {
-      z-index: 101;
-    }
-    .mask {
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 100;
-    }
   </style>
   <inject-host>
     <style>
@@ -80,6 +71,15 @@
 
       p-menu [slot="prefix"] {
         transition: all ease 0.2s;
+      }
+
+      p-menu p-menu-item img[slot="prefix"] {
+        opacity: 1;
+        transition: opacity ease 0.5s;
+      }
+
+      p-menu[visibility="hidden"] p-menu-item img[slot="prefix"] {
+        opacity: 0;
       }
       p-menu[visibility="hidden"] {
         opacity: 0;
@@ -109,16 +109,6 @@
         margin: 0 !important;
         white-space: nowrap;
       }
-
-      :host([sub-dir~="left"]) {
-        left: auto;
-        right: 100%;
-      }
-
-      :host([sub-dir~="up"]) {
-        top: auto;
-        bottom: 0;
-      }
     </style>
   </x-if>
 
@@ -139,15 +129,17 @@
       }
     </style>
   </x-else>
-  <div class="container" part="container" class:maskmode="maskmode">
+  <style init-style>
+    :host {
+      display: none;
+    }
+  </style>
+  <div class="container" part="container">
     <slot></slot>
     <x-if :value="isChild">
       <div class="safearea"></div>
     </x-if>
   </div>
-  <x-if :value="maskmode">
-    <div class="mask" part="mask" on:click="clearMask"></div>
-  </x-if>
   <script>
     import { isDark } from "../commons/data.js";
 
@@ -155,226 +147,19 @@
       tag: "p-menu",
       attrs: {
         visibility: null,
-        subDir: null,
-        anchor: null,
-        popupAlign: null,
-        popupEvent: null,
-        palign: null,
       },
       data: {
         isDark: {},
         isChild: false,
-        _anchorEl: null,
-        maskmode: false,
-        _itemHeight: 33,
-      },
-      proto: {
-        clearMask() {
-          this.maskmode = false;
-          this.visibility = "hidden";
-        },
-        _fixPosition() {
-          if (!this._anchorEl) {
-            return;
-          }
-
-          const { ele } = this._anchorEl;
-          const anRect = ele.getBoundingClientRect();
-
-          // this.maskmode = true;
-
-          let isUp = false;
-          let isRight = false;
-
-          if (this.popupAlign) {
-            const pArr = this.popupAlign.split(" ");
-            isUp = pArr.includes("up");
-            isRight = pArr.includes("right");
-          }
-
-          // It also pops up when it exceeds the height.
-          const count = this.all("p-menu-item").length;
-          if (count * this._itemHeight + anRect.bottom > innerHeight) {
-            isUp = true;
-          }
-
-          if (isUp) {
-            this.style.top = "";
-            this.style.bottom = `${innerHeight - anRect.top}px`;
-          } else {
-            this.style.top = anRect.top + anRect.height + "px";
-            this.style.bottom = "";
-          }
-
-          if (isRight) {
-            this.style.left = "";
-            this.style.right = `${innerWidth - anRect.right}px`;
-          } else {
-            this.style.left = anRect.left + "px";
-            this.style.right = "";
-          }
-
-          this.style.margin = "0px";
-        },
-        initAnchor() {
-          const { _anchorEl } = this;
-
-          if (!_anchorEl) {
-            throw `anchor element not found`;
-          }
-
-          this.css.position = "fixed";
-          this.visibility = "hidden";
-
-          console.log(this.popupEvent);
-
-          let popdownTimer;
-          if (this.popupEvent === "hover") {
-            // debugger;
-            _anchorEl.on(
-              "mouseenter",
-              (this._bindAnchorFunc = () => {
-                clearTimeout(popdownTimer);
-                this.visibility = "";
-              })
-            );
-
-            _anchorEl.on(
-              "mouseleave",
-              (this._unbindAnchorFunc = () => {
-                popdownTimer = setTimeout(() => {
-                  this.visibility = "hidden";
-                }, 300);
-              })
-            );
-
-            this.on("mouseenter", this._bindAnchorFunc);
-            this.on("mouseleave", this._unbindAnchorFunc);
-          } else if (this.popupEvent === "click") {
-            _anchorEl.on(
-              "click",
-              (this._bindAnchorFunc = () => {
-                this.maskmode = true;
-                this.visibility = "";
-              })
-            );
-          }
-        },
-        findAnchor() {
-          const { anchor, _anchorEl } = this;
-
-          const target = this.root.$(anchor);
-
-          if (target === this._anchorEl) {
-            return;
-          }
-
-          if (target) {
-            if (this._anchorEl && this._bindAnchorFunc) {
-              // revoke old
-              this._anchorEl.off("click", _bindAnchorFunc);
-              this._anchorEl.off("mouseenter", _bindAnchorFunc);
-              this.off("mouseenter", this._bindAnchorFunc);
-              this.off("mouseleave", this._unbindAnchorFunc);
-            }
-
-            this._anchorEl = target;
-            this.initAnchor();
-            return;
-          }
-
-          setTimeout(() => {
-            if (!this._anchorCount) {
-              this._anchorCount = 0;
-            }
-            this._anchorCount++;
-            this.findAnchor();
-          }, 100);
-
-          return;
-        },
-      },
-      watch: {
-        anchor(anchor) {
-          this.findAnchor();
-        },
-        visibility(val) {
-          if (val !== "hidden") {
-            // this.maskmode = true;
-            this._fixPosition();
-          }
-          if (val !== "hidden" && this.isChild) {
-            const { ele } = this;
-            // Correction of content that exceeds boundaries
-            const rect = ele.getBoundingClientRect();
-            let dir = "";
-            if (rect.right > innerWidth) {
-              dir = "left";
-            }
-            setTimeout(() => {
-              const rect = ele.getBoundingClientRect();
-              if (rect.bottom > innerHeight) {
-                dir += " up";
-              }
-              this.subDir = dir;
-            }, 200);
-
-            if (dir) {
-              this.subDir = dir;
-            }
-          } else if (this.subDir) {
-            setTimeout(() => {
-              this.subDir = null;
-            }, 200);
-          }
-        },
       },
       attached() {
         this.isDark = isDark;
-
-        $(window).on(
-          "resize",
-          (this._resizeFun = () => {
-            if (this.visibility === "hidden") {
-              return;
-            }
-
-            console.log("resize");
-            this.clearMask();
-          })
-        );
-
-        $(window).on(
-          "scroll",
-          (this._scrollFun = () => {
-            if (this.visibility === "hidden") {
-              return;
-            }
-
-            this.clearMask();
-          })
-        );
       },
       detached() {
         this.isDark = {};
-
-        if (this._resizeFun) {
-          $(window).off("resize", this._resizeFun);
-          this._resizeFun = null;
-        }
-
-        if (this._scrollFun) {
-          $(window).off("scroll", this._scrollFun);
-          this._scrollFun = null;
-        }
       },
-      ready() {
-        this.on("click-item", (e) => {
-          if (this._anchorEl) {
-            this.clearMask();
-          }
-          e.stopPropagation();
-        });
+      loaded() {
+        this.shadow.$("[init-style]").remove();
       },
     };
   </script>

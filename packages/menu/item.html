@@ -36,8 +36,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 12px;
+      font-size: 16px;
       color: #808080;
+    }
+
+    ::slotted(img[slot="prefix"]) {
+      height: 18px;
+      transition: all ease 0.3s;
     }
 
     ::slotted([slot="prefix"]) {

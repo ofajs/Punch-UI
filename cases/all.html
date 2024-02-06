@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>All Component</title>
-    <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.4.2/dist/ofa.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.4.5/dist/ofa.min.js"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
     <link rel="stylesheet" href="../packages/css/public.css" />
     <style>
@@ -21,7 +21,7 @@
     <l-m src="../packages/radio/radio.html"></l-m>
     <l-m src="../packages/text-field/text-field.html"></l-m>
     <l-m src="../packages/switch/switch.html"></l-m>
-    <l-m src="../packages/menu/menu.html"></l-m>
+    <l-m src="../packages/menu/menu-bind.html"></l-m>
     <l-m src="../packages/select/select.html"></l-m>
     <l-m src="../packages/slider/slider.html"></l-m>
     <l-m src="../packages/tooltips/tooltips.html"></l-m>
@@ -92,10 +92,12 @@
           <iconify-icon icon="codicon:triangle-down"></iconify-icon>
         </p-button>
       </p-button-group>
-      <p-menu anchor="#mybtn" popup-event="click" popup-align="right">
-        <p-menu-item> Create a merge commit </p-menu-item>
-        <p-menu-item> Rebase and merge </p-menu-item>
-      </p-menu>
+      <p-menu-bind anchor="#mybtn" event="click" placement="bottom-end">
+        <p-menu>
+          <p-menu-item> Create a merge commit </p-menu-item>
+          <p-menu-item> Rebase and merge </p-menu-item>
+        </p-menu>
+      </p-menu-bind>
     </div>
 
     <br />
@@ -239,7 +241,7 @@
         through supporting text here.
       </p>
     </p-card>
-    <br>
+    <br />
     <p-card elevated style="flex-direction: row; width: 500px">
       <div
         slot="pic"

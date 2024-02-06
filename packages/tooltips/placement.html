@@ -1,0 +1,247 @@
+<template component>
+  <style>
+    :host {
+      display: block;
+      position: fixed;
+      pointer-events: none;
+      z-index: var(--placement-zindex, 1000);
+      /* background-color: rgba(0, 0, 255, 0.379); */
+    }
+
+    .container {
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      transform: translate(-50%, 0);
+      transition: all ease 0.3s, color ease 0.5s, top ease 0s, left ease 0s;
+
+      pointer-events: auto;
+      margin-top: var(--pui-space-y);
+      padding: var(--pui-space-y) var(--pui-space-x);
+      /* background-color: green; */
+      pointer-events: none;
+    }
+
+    ::slotted(*) {
+      pointer-events: auto;
+    }
+
+    .mask {
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      /* background-color: rgba(255, 0, 0, 0.238); */
+      pointer-events: auto;
+    }
+
+    .container.showmask {
+      z-index: 101;
+    }
+
+    :host([placement*="top"]) .container {
+      margin-bottom: var(--pui-space-y);
+    }
+
+    :host([placement*="left"]) .container {
+      margin-top: 0;
+      margin-right: var(--pui-space-x);
+    }
+
+    :host([placement*="right"]) .container {
+      margin-top: 0;
+      margin-left: var(--pui-space-x);
+    }
+
+    :host([placement="top-start"]) .container {
+      top: auto;
+      bottom: 100%;
+      left: 0;
+      transform: translate(0, 0);
+    }
+
+    :host([placement="top"]) .container {
+      top: auto;
+      bottom: 100%;
+    }
+
+    :host([placement="top-end"]) .container {
+      top: auto;
+      left: auto;
+      right: 0;
+      bottom: 100%;
+      transform: translate(0, 0);
+    }
+    :host([placement="right-start"]) .container {
+      left: 100%;
+      top: 0;
+      transform: translate(0, 0);
+    }
+
+    :host([placement="right"]) .container {
+      left: 100%;
+      top: 50%;
+      transform: translate(0, -50%);
+    }
+
+    :host([placement="right-end"]) .container {
+      left: 100%;
+      top: auto;
+      bottom: 0;
+      transform: translate(0, 0);
+    }
+
+    :host([placement="bottom-start"]) .container {
+      left: 0;
+      transform: translate(0, 0);
+    }
+
+    :host([placement="bottom-end"]) .container {
+      left: auto;
+      right: 0;
+      transform: translate(0, 0);
+    }
+
+    :host([placement="left-start"]) .container {
+      left: auto;
+      right: 100%;
+      top: 0;
+      transform: translate(0, 0);
+    }
+
+    :host([placement="left"]) .container {
+      left: auto;
+      right: 100%;
+      top: 50%;
+      transform: translate(0, -50%);
+    }
+
+    :host([placement="left-end"]) .container {
+      left: auto;
+      right: 100%;
+      top: auto;
+      bottom: 0;
+      transform: translate(0, 0);
+    }
+  </style>
+  <div class="container" class:showmask="showmask" part="container">
+    <slot></slot>
+  </div>
+
+  <x-if :value="showmask">
+    <div class="mask" on:click="close" on:wheel="closeMask"></div>
+  </x-if>
+  <script>
+    export default {
+      tag: "p-placement",
+      attrs: {
+        placement: null,
+        event: null,
+        point: null,
+      },
+      data: {
+        showmask: false,
+      },
+      proto: {
+        close(e) {
+          if (e.type !== "wheel") {
+            e.stopPropagation();
+          }
+          this.closeMask(e);
+        },
+        closeMask(e) {
+          this.showmask = false;
+          this.__initOptions.close();
+        },
+        _refreshPosition(slotChild) {
+          const rectData = slotChild.ele.getBoundingClientRect();
+
+          this.css = {
+            top: rectData.top + "px",
+            left: rectData.left + "px",
+            width: rectData.width + "px",
+            height: rectData.height + "px",
+          };
+        },
+        _offBinding() {
+          (this.__binding || []).forEach((func) => func());
+          if (this.__initOption) {
+            this.__initOptions.close();
+            this.__initOptions = null;
+          }
+        },
+        _init({ open, close, self } = {}) {
+          const binding = this.__binding || (this.__binding = []);
+          this._offBinding();
+
+          if (!this.event || this.event === "hover") {
+            let timer;
+            const leaveFun = () => {
+              timer = setTimeout(() => {
+                close();
+              }, 100);
+            };
+
+            const enterFun = (e) => {
+              clearTimeout(timer);
+              open();
+            };
+
+            this.on("mouseenter", enterFun);
+            this.on("mouseleave", leaveFun);
+            self.on("mouseenter", enterFun);
+            self.on("mouseleave", leaveFun);
+            binding.push(() => {
+              this.off("mouseenter", enterFun);
+              this.off("mouseleave", leaveFun);
+              self.off("mouseenter", enterFun);
+              self.off("mouseleave", leaveFun);
+            });
+          } else {
+            let f1;
+            self.on(
+              this.event,
+              (f1 = (e) => {
+                if (e.type === "contextmenu") {
+                  e.preventDefault();
+                }
+                this.showmask = true;
+                open();
+
+                console.log(this.placement);
+                if (this.point !== null) {
+                  Object.assign(this.css, {
+                    position: "fixed",
+                    width: 0,
+                    height: 0,
+                    top: e.clientY + "px",
+                    left: e.clientX + "px",
+                  });
+                }
+              })
+            );
+
+            binding.push(() => {
+              Object.assign(this.css, {
+                position: "",
+                width: "1px",
+                height: "1px",
+                top: "",
+                left: "",
+              });
+              self.off(this.event, f1);
+              this.showmask = false;
+            });
+          }
+
+          this.__initOptions = { open, close, self };
+        },
+      },
+      detached() {
+        this._offBinding();
+      },
+    };
+  </script>
+</template>
