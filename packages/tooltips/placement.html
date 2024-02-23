@@ -156,6 +156,11 @@
           this.__initOptions.close();
         },
         _refreshPosition(slotChild) {
+          if (!slotChild) {
+            this._offBinding();
+            return;
+          }
+
           const rectData = slotChild.ele.getBoundingClientRect();
 
           this.css = {
