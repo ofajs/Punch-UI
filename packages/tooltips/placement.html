@@ -2,7 +2,8 @@
   <style>
     :host {
       display: block;
-      position: fixed;
+      position: absolute;
+      top: 0;
       pointer-events: none;
       z-index: var(--placement-zindex, 1000);
       /* background-color: rgba(0, 0, 255, 0.379); */
@@ -24,21 +25,6 @@
 
     ::slotted(*) {
       pointer-events: auto;
-    }
-
-    .mask {
-      position: fixed;
-      z-index: 100;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      /* background-color: rgba(255, 0, 0, 0.238); */
-      pointer-events: auto;
-    }
-
-    .container.showmask {
-      z-index: 101;
     }
 
     :host([placement*="top"]) .container {
@@ -126,13 +112,11 @@
       transform: translate(0, 0);
     }
   </style>
-  <div class="container" class:showmask="showmask" part="container">
+
+  <div class="container" part="container" on:mousedown="containerMounseDown">
     <slot></slot>
   </div>
 
-  <x-if :value="showmask">
-    <div class="mask" on:click="close" on:wheel="closeMask"></div>
-  </x-if>
   <script>
     export default {
       tag: "p-placement",
@@ -141,29 +125,26 @@
         event: null,
         point: null,
       },
-      data: {
-        showmask: false,
-      },
       proto: {
-        close(e) {
-          if (e.type !== "wheel") {
-            e.stopPropagation();
-          }
-          this.closeMask(e);
-        },
-        closeMask(e) {
-          this.showmask = false;
-          this.__initOptions.close();
+        containerMounseDown(e) {
+          e.stopPropagation();
         },
         _refreshPosition(slotChild) {
-          const rectData = slotChild.ele.getBoundingClientRect();
+          if (!slotChild) {
+            this._offBinding();
+            return;
+          }
 
-          this.css = {
-            top: rectData.top + "px",
-            left: rectData.left + "px",
-            width: rectData.width + "px",
-            height: rectData.height + "px",
-          };
+          const { ele } = slotChild;
+
+          if (ele.offsetParent) {
+            Object.assign(this.style, {
+              top: ele.offsetTop + "px",
+              left: ele.offsetLeft + "px",
+              width: ele.offsetWidth + "px",
+              height: ele.offsetHeight + "px",
+            });
+          }
         },
         _offBinding() {
           (this.__binding || []).forEach((func) => func());
@@ -203,21 +184,52 @@
             let f1;
             self.on(
               this.event,
-              (f1 = (e) => {
+              (f1 = async (e) => {
                 if (e.type === "contextmenu") {
                   e.preventDefault();
                 }
-                this.showmask = true;
+
+                const event = new Event("trigger", {
+                  bubbles: true,
+                  composed: true,
+                });
+
+                event.originEvent = e;
+
+                this.emit(event);
+
+                if (event.result === false) {
+                  return;
+                }
+
+                if (event.result instanceof Promise) {
+                  await event.result;
+                }
+
+                if (this._closeFunc) {
+                  $("body").off("mousedown", this._closeFunc);
+                }
+
+                $("body").on(
+                  "mousedown",
+                  (this._closeFunc = (e) => {
+                    close();
+                  })
+                );
+
                 open();
 
-                console.log(this.placement);
                 if (this.point !== null) {
+                  const relateParent = this.ele.offsetParent;
+                  const parentBounce = relateParent.getBoundingClientRect();
+
                   Object.assign(this.css, {
-                    position: "fixed",
-                    width: 0,
-                    height: 0,
-                    top: e.clientY + "px",
-                    left: e.clientX + "px",
+                    // width: "10px",
+                    // height: "10px",
+                    width: "0",
+                    height: "0",
+                    left: e.clientX - parentBounce.x + "px",
+                    top: e.clientY - parentBounce.y + "px",
                   });
                 }
               })
@@ -232,7 +244,6 @@
                 left: "",
               });
               self.off(this.event, f1);
-              this.showmask = false;
             });
           }
 
@@ -241,6 +252,10 @@
       },
       detached() {
         this._offBinding();
+
+        if (this._closeFunc) {
+          $("body").off("mousedown", this._closeFunc);
+        }
       },
     };
   </script>

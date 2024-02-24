@@ -64,7 +64,14 @@
               : this.$('[slot="anchor"]');
             const placementEl = this.shadow.$("p-placement");
 
-            placementEl._refreshPosition(anchorEl);
+            if (!anchorEl) {
+              console.warn(
+                `menu-bind did not find the anchor element`,
+                this.ele
+              );
+              this.shadow.$("p-placement")._offBinding();
+              return;
+            }
 
             this.$("p-menu").visibility = "hidden";
 

@@ -19,8 +19,12 @@
       font-weight: 400;
       line-height: 1.2em;
     }
+
+    ::slotted([slot="title"]) {
+      margin-bottom: calc(var(--pui-space-y) * 3);
+    }
+
     .content {
-      margin-top: calc(var(--pui-space-y) * 3);
       line-height: 1.6em;
       max-height: calc(100vh - 200px);
       overflow: auto;
