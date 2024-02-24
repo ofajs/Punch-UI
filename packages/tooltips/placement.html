@@ -194,7 +194,7 @@
                   composed: true,
                 });
 
-                event.beforeEvent = e;
+                event.originEvent = e;
 
                 this.emit(event);
 
@@ -210,7 +210,7 @@
                   $("body").off("mousedown", this._closeFunc);
                 }
 
-                $("body").one(
+                $("body").on(
                   "mousedown",
                   (this._closeFunc = (e) => {
                     close();
