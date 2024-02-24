@@ -163,12 +163,12 @@
 
           const rectData = slotChild.ele.getBoundingClientRect();
 
-          this.css = {
+          Object.assign(this.style, {
             top: rectData.top + "px",
             left: rectData.left + "px",
             width: rectData.width + "px",
             height: rectData.height + "px",
-          };
+          });
         },
         _offBinding() {
           (this.__binding || []).forEach((func) => func());
@@ -208,19 +208,40 @@
             let f1;
             self.on(
               this.event,
-              (f1 = (e) => {
+              (f1 = async (e) => {
                 if (e.type === "contextmenu") {
                   e.preventDefault();
                 }
+
+                const event = new Event("trigger", {
+                  bubbles: true,
+                  composed: true,
+                });
+
+                event.beforeEvent = e;
+
+                this.emit(event);
+
+                if (event.result === false) {
+                  return;
+                }
+
+                if (event.result instanceof Promise) {
+                  await event.result;
+                }
+
                 this.showmask = true;
+
                 open();
 
                 console.log(this.placement);
                 if (this.point !== null) {
                   Object.assign(this.css, {
                     position: "fixed",
-                    width: 0,
-                    height: 0,
+                    // width: "10px",
+                    // height: "10px",
+                    width: "0",
+                    height: "0",
                     top: e.clientY + "px",
                     left: e.clientX + "px",
                   });
