@@ -65,7 +65,7 @@ export default async function enqueue(opts) {
   const defaults = {
     content: "",
     buttons: [],
-    time: 300000,
+    time: 3000,
     click: () => {},
     close: () => {},
   };

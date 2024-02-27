@@ -9,11 +9,11 @@ export default (async () => {
     },
   });
 
-  const targetLink = $(`link[href*="${packagesUrl}/packages/css/public.css"]`);
+  // const targetLink = $(`link[href*="${packagesUrl}/packages/css/public.css"]`);
 
-  if (!targetLink) {
-    $("head").push(
-      `<link rel="stylesheet" href="${packagesUrl}/packages/css/public.css">`
-    );
-  }
+  // if (!targetLink) {
+  //   $("head").push(
+  //     `<link rel="stylesheet" href="${packagesUrl}/packages/css/public.css">`
+  //   );
+  // }
 })();
