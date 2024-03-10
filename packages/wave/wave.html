@@ -89,6 +89,13 @@
           }, 5);
         },
       },
+      ready() {
+        this.on("click", (e) => {
+          if (this.host.length === 1) {
+            this.host[0].ele.click();
+          }
+        });
+      },
     };
   </script>
 </template>
