@@ -108,6 +108,12 @@
       tag: "p-nav-item",
       attrs: {
         disabled: null,
+        activeItem: null,
+      },
+      watch: {
+        activeItem() {
+          this.emit("nav-item-refresh");
+        },
       },
       ready() {
         this.on("click", (e) => {
@@ -117,6 +123,9 @@
             e.stopImmediatePropagation();
           }
         });
+      },
+      attached() {
+        this.emit("nav-item-refresh");
       },
     };
   </script>
