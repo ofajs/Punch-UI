@@ -91,7 +91,7 @@
       },
       ready() {
         this.on("click", (e) => {
-          if (this.host.length === 1) {
+          if (this.host.length === 1 && this.host[0].tag === "a") {
             this.host[0].ele.click();
           }
         });
