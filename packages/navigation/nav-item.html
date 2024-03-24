@@ -89,6 +89,11 @@
       opacity: 0.6;
       cursor: not-allowed;
     }
+
+    ::slotted(a) {
+      color: inherit;
+      text-decoration: none;
+    }
   </style>
   <div class="container">
     <div class="icon">
@@ -118,6 +123,15 @@
       ready() {
         this.on("click", (e) => {
           if (this.disabled === null) {
+            const notSlotEls = this.filter((e) => e.is(`:not([slot])`));
+            if (
+              notSlotEls.length === 1 &&
+              notSlotEls[0].tag === "a" &&
+              e.target.tagName !== "A"
+            ) {
+              notSlotEls[0].ele.dispatchEvent(new PointerEvent("click"));
+            }
+
             this.emit("click-nav-item");
           } else {
             e.stopImmediatePropagation();
