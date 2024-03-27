@@ -121,6 +121,7 @@ input[type="datetime-local"] {
   background-color: transparent;
   color: var(--md-sys-color-on-normal-container);
   overflow-y: auto;
+  white-space: wrap;
 }
 .container div.inputer.fake-input {
   height: 19.2px;
