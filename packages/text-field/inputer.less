@@ -139,7 +139,9 @@ input {
     outline: none;
     background-color: transparent;
     color: var(--md-sys-color-on-normal-container);
-    overflow: auto;
+    overflow-y: auto;
+    -webkit-user-modify: read-write-plaintext-only;
+    -moz-user-modify: read-write-plaintext-only;
   }
 
   .helper-text {
@@ -163,7 +165,7 @@ input {
     color: var(--md-sys-color-on-normal-container);
   }
 
-  .inputer:focus + div {
+  &.infocus {
     .border {
       border-width: 2px;
       border-color: var(--md-sys-color-primary);
@@ -173,7 +175,7 @@ input {
     }
   }
 
-  .inputer:focus + div .placeholder,
+  &.infocus .placeholder,
   .placeholder.not-empty,
   &.hasprefix .placeholder,
   [type="time"] .placeholder,
@@ -198,7 +200,7 @@ input {
     .inputer {
       top: var(--pui-space-x);
     }
-    .inputer:focus + div .placeholder,
+    &.infocus .placeholder,
     .placeholder.not-empty,
     &.hasprefix .placeholder,
     &[type="time"] .placeholder,
@@ -225,7 +227,7 @@ input {
       background-color: var(--md-sys-color-primary);
       transition: all ease 0.3s;
     }
-    .inputer:focus + div .bottom-line-active {
+    &.infocus .bottom-line-active {
       // width: calc(100% - var(--pui-border-radius));
       width: 100%;
     }
@@ -242,11 +244,11 @@ input {
 
 .container.error {
   .border,
-  .inputer:focus + div .border {
+  &.infocus .border {
     border-color: var(--md-sys-color-error);
   }
   .placeholder,
-  .inputer:focus + div .placeholder {
+  &.infocus .placeholder {
     color: var(--md-sys-color-error);
   }
   &[variant="filled"] .bottom-line,

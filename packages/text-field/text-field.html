@@ -30,11 +30,12 @@
       :value="typeof multiline === 'string' && (type === null || type === 'text')"
     >
       <pre style="display: contents"><div
-        contenteditable
+        contenteditable="true"
         class="inputer"
         :css.max-height="editorMaxHeight"
         :css.min-height="rows ? rows + 'em' : null"
         on:input="multiInputerChange"
+        on:paste="multiInputerPaste"
         on:focus="infocus = true"
         on:blur="infocus = false"
       ></div></pre>
@@ -105,6 +106,11 @@
         },
       },
       proto: {
+        multiInputerPaste(e) {
+          e.preventDefault();
+          var text = (e.originalEvent || e).clipboardData.getData("text/plain");
+          document.execCommand("insertText", false, text);
+        },
         get editorHeight() {
           if (typeof this.multiline === "string" && this.rows) {
             return 1.2 * parseInt(this.rows) + "em";

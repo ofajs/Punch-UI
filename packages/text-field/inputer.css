@@ -120,7 +120,9 @@ input[type="datetime-local"] {
   outline: none;
   background-color: transparent;
   color: var(--md-sys-color-on-normal-container);
-  overflow: auto;
+  overflow-y: auto;
+  -webkit-user-modify: read-write-plaintext-only;
+  -moz-user-modify: read-write-plaintext-only;
 }
 .container .helper-text {
   position: absolute;
@@ -141,14 +143,14 @@ input[type="datetime-local"] {
   transition: all ease 0.2s;
   color: var(--md-sys-color-on-normal-container);
 }
-.container .inputer:focus + div .border {
+.container.infocus .border {
   border-width: 2px;
   border-color: var(--md-sys-color-primary);
 }
-.container .inputer:focus + div .placeholder {
+.container.infocus .placeholder {
   color: var(--md-sys-color-primary);
 }
-.container .inputer:focus + div .placeholder,
+.container.infocus .placeholder,
 .container .placeholder.not-empty,
 .container.hasprefix .placeholder,
 .container [type="time"] .placeholder,
@@ -172,7 +174,7 @@ input[type="datetime-local"] {
 .container[variant="filled"] .inputer {
   top: var(--pui-space-x);
 }
-.container[variant="filled"] .inputer:focus + div .placeholder,
+.container[variant="filled"].infocus .placeholder,
 .container[variant="filled"] .placeholder.not-empty,
 .container[variant="filled"].hasprefix .placeholder,
 .container[variant="filled"][type="time"] .placeholder,
@@ -197,7 +199,7 @@ input[type="datetime-local"] {
   background-color: var(--md-sys-color-primary);
   transition: all ease 0.3s;
 }
-.container[variant="filled"] .inputer:focus + div .bottom-line-active {
+.container[variant="filled"].infocus .bottom-line-active {
   width: 100%;
 }
 .container[variant="filled"] .prefix {
@@ -207,11 +209,11 @@ input[type="datetime-local"] {
   padding-top: 12px;
 }
 .container.error .border,
-.container.error .inputer:focus + div .border {
+.container.error.infocus .border {
   border-color: var(--md-sys-color-error);
 }
 .container.error .placeholder,
-.container.error .inputer:focus + div .placeholder {
+.container.error.infocus .placeholder {
   color: var(--md-sys-color-error);
 }
 .container.error[variant="filled"] .bottom-line,
