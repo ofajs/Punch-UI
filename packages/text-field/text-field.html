@@ -20,6 +20,7 @@
     class:error="typeof error === 'string'"
     class:hasprefix="hasprefix"
     attr:size="size"
+    class:infocus="infocus"
   >
     <div class="prefix">
       <slot name="prefix"></slot>
@@ -27,20 +28,24 @@
     <div class="bottom-line"></div>
     <x-if
       :value="typeof multiline === 'string' && (type === null || type === 'text')"
-      on:rendered="afterTextarea"
     >
-      <textarea
+      <pre style="display: contents"><div
+        contenteditable
         class="inputer"
-        sync:value="value"
         :css.max-height="editorMaxHeight"
-      >
-      </textarea>
+        :css.min-height="rows ? rows + 'em' : null"
+        on:input="multiInputerChange"
+        on:focus="infocus = true"
+        on:blur="infocus = false"
+      ></div></pre>
     </x-if>
     <x-else>
       <input
         attr:type="type === null ? 'text' : type"
         class="inputer"
         sync:value="value"
+        on:focus="infocus = true"
+        on:blur="infocus = false"
       />
     </x-else>
     <div>
@@ -68,7 +73,7 @@
         maxRows: null,
         rows: null,
         disabled: null,
-        defaultValue: null,
+        // defaultValue: null,
         type: null,
         autofocus: null,
         size: null,
@@ -76,18 +81,26 @@
       data: {
         value: "",
         hasprefix: false,
+        infocus: false,
       },
       watch: {
-        defaultValue(val) {
-          if (val) {
-            this.value = val;
-          }
-        },
         autofocus(val) {
           if (val !== null) {
             setTimeout(() => {
               this.shadow.$("input,textarea")?.ele.focus();
             }, 50);
+          }
+        },
+        value(value) {
+          if (this.multiline !== null) {
+            clearTimeout(this._value_timer);
+            this._value_timer = setTimeout(() => {
+              const target = this.shadow.$("div.inputer");
+              // 焦点情况下更改多行的元素，会导致焦点重置
+              if (target && !this.infocus && target.text !== value) {
+                target.text = value;
+              }
+            }, 100);
           }
         },
       },
@@ -105,30 +118,12 @@
           }
           return null;
         },
-        afterTextarea() {
-          if (this.rows) {
-            this.shadow.$("textarea").css.height = `${1.2 * this.rows}em`;
-          }
+        multiInputerChange(e) {
+          this.value = e.target.innerText;
         },
-        // changeEditor(e) {
-        //   if (this.rows === null) {
-        //     // const target = e.target;
-        //     const target = e ? e.target : this.shadow.$("textarea").ele;
-
-        //     let wrapCount = target.value.match(/\n/g);
-        //     wrapCount = wrapCount ? wrapCount.length : 0;
-        //     if (wrapCount) {
-        //       console.log(wrapCount);
-        //       target.style.height = 16 * 1.2 * (wrapCount + 1) + "px";
-        //     } else {
-        //       // target.style.height = "19.2px";
-        //       target.style.height = "";
-        //     }
-        //   }
-        // },
         focus() {
-          this.shadow.$("input,textarea") &&
-            this.shadow.$("input,textarea").ele.focus();
+          this.shadow.$("input,div.inputer") &&
+            this.shadow.$("input,div.inputer").ele.focus();
         },
       },
       ready() {
@@ -141,6 +136,11 @@
           });
           this.hasprefix = hasprefix;
         });
+
+        const defaultValue = this.attr("default-value");
+        if (defaultValue) {
+          this.value = defaultValue;
+        }
       },
       loaded() {
         this.shadow.$("#default-style").remove();
