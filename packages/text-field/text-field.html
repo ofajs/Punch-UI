@@ -32,7 +32,6 @@
       <textarea
         class="inputer"
         sync:value="value"
-        on:input="changeEditor"
         :css.max-height="editorMaxHeight"
       >
       </textarea>
@@ -111,19 +110,22 @@
             this.shadow.$("textarea").css.height = `${1.2 * this.rows}em`;
           }
         },
-        changeEditor(e) {
-          if (this.rows === null) {
-            let wrapCount = e.target.value.match(/\n/g);
-            wrapCount = wrapCount ? wrapCount.length : 0;
-            if (wrapCount) {
-              console.log(wrapCount);
-              e.target.style.height = 16 * 1.2 * (wrapCount + 1) + "px";
-            } else {
-              // e.target.style.height = "19.2px";
-              e.target.style.height = "";
-            }
-          }
-        },
+        // changeEditor(e) {
+        //   if (this.rows === null) {
+        //     // const target = e.target;
+        //     const target = e ? e.target : this.shadow.$("textarea").ele;
+
+        //     let wrapCount = target.value.match(/\n/g);
+        //     wrapCount = wrapCount ? wrapCount.length : 0;
+        //     if (wrapCount) {
+        //       console.log(wrapCount);
+        //       target.style.height = 16 * 1.2 * (wrapCount + 1) + "px";
+        //     } else {
+        //       // target.style.height = "19.2px";
+        //       target.style.height = "";
+        //     }
+        //   }
+        // },
         focus() {
           this.shadow.$("input,textarea") &&
             this.shadow.$("input,textarea").ele.focus();
@@ -143,6 +145,11 @@
       loaded() {
         this.shadow.$("#default-style").remove();
       },
+      // attached() {
+      //   setTimeout(() => {
+      //     this.changeEditor();
+      //   }, 2000);
+      // },
     };
   </script>
 </template>

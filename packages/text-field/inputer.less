@@ -173,7 +173,7 @@ input {
 
   .inputer:focus + div .placeholder,
   .placeholder.not-empty,
-  .container.hasprefix .placeholder,
+  &.hasprefix .placeholder,
   [type="time"] .placeholder,
   [type="date"] .placeholder,
   [type="datetime-local"] .placeholder {
@@ -186,7 +186,7 @@ input {
     background-color: var(--label-bg, var(--md-sys-color-surface));
   }
 
-  .container[variant="filled"] {
+  &[variant="filled"] {
     background-color: rgba(130, 130, 130, 0.2);
     // background-color: var(--md-sys-color-normal-container);
     border-radius: var(--pui-border-radius) var(--pui-border-radius) 0 0;
@@ -247,8 +247,8 @@ input {
   .inputer:focus + div .placeholder {
     color: var(--md-sys-color-error);
   }
-  .container.error[variant="filled"] .bottom-line,
-  .container.error[variant="filled"] .bottom-line-active {
+  &[variant="filled"] .bottom-line,
+  &[variant="filled"] .bottom-line-active {
     background-color: var(--md-sys-color-error);
   }
   .helper-text {

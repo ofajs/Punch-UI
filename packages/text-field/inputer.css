@@ -148,7 +148,7 @@ input[type="datetime-local"] {
 }
 .container .inputer:focus + div .placeholder,
 .container .placeholder.not-empty,
-.container .container.hasprefix .placeholder,
+.container.hasprefix .placeholder,
 .container [type="time"] .placeholder,
 .container [type="date"] .placeholder,
 .container [type="datetime-local"] .placeholder {
@@ -160,27 +160,27 @@ input[type="datetime-local"] {
   padding: 0 4px;
   background-color: var(--label-bg, var(--md-sys-color-surface));
 }
-.container .container[variant="filled"] {
+.container[variant="filled"] {
   background-color: rgba(130, 130, 130, 0.2);
   border-radius: var(--pui-border-radius) var(--pui-border-radius) 0 0;
 }
-.container .container[variant="filled"] .border {
+.container[variant="filled"] .border {
   border: none;
 }
-.container .container[variant="filled"] .inputer {
+.container[variant="filled"] .inputer {
   top: var(--pui-space-x);
 }
-.container .container[variant="filled"] .inputer:focus + div .placeholder,
-.container .container[variant="filled"] .placeholder.not-empty,
-.container .container[variant="filled"].hasprefix .placeholder,
-.container .container[variant="filled"][type="time"] .placeholder,
-.container .container[variant="filled"][type="date"] .placeholder,
-.container .container[variant="filled"][type="datetime-local"] .placeholder {
+.container[variant="filled"] .inputer:focus + div .placeholder,
+.container[variant="filled"] .placeholder.not-empty,
+.container[variant="filled"].hasprefix .placeholder,
+.container[variant="filled"][type="time"] .placeholder,
+.container[variant="filled"][type="date"] .placeholder,
+.container[variant="filled"][type="datetime-local"] .placeholder {
   top: 2px;
   background-color: transparent;
 }
-.container .container[variant="filled"] .bottom-line,
-.container .container[variant="filled"] .bottom-line-active {
+.container[variant="filled"] .bottom-line,
+.container[variant="filled"] .bottom-line-active {
   position: absolute;
   left: 0;
   bottom: 0;
@@ -189,19 +189,19 @@ input[type="datetime-local"] {
   z-index: 1;
   background-color: var(--md-sys-color-on-normal-container);
 }
-.container .container[variant="filled"] .bottom-line-active {
+.container[variant="filled"] .bottom-line-active {
   width: 0;
   height: 2px;
   background-color: var(--md-sys-color-primary);
   transition: all ease 0.3s;
 }
-.container .container[variant="filled"] .inputer:focus + div .bottom-line-active {
+.container[variant="filled"] .inputer:focus + div .bottom-line-active {
   width: 100%;
 }
-.container .container[variant="filled"] .prefix {
+.container[variant="filled"] .prefix {
   padding-top: 12px;
 }
-.container .container[variant="filled"] .suffix.not-empty {
+.container[variant="filled"] .suffix.not-empty {
   padding-top: 12px;
 }
 .container.error .border,
@@ -212,8 +212,8 @@ input[type="datetime-local"] {
 .container.error .inputer:focus + div .placeholder {
   color: var(--md-sys-color-error);
 }
-.container.error .container.error[variant="filled"] .bottom-line,
-.container.error .container.error[variant="filled"] .bottom-line-active {
+.container.error[variant="filled"] .bottom-line,
+.container.error[variant="filled"] .bottom-line-active {
   background-color: var(--md-sys-color-error);
 }
 .container.error .helper-text {
