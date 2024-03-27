@@ -140,8 +140,11 @@ input {
     background-color: transparent;
     color: var(--md-sys-color-on-normal-container);
     overflow-y: auto;
-    -webkit-user-modify: read-write-plaintext-only;
-    -moz-user-modify: read-write-plaintext-only;
+
+    &.fake-input {
+      height: 19.2px;
+      min-height: inherit;
+    }
   }
 
   .helper-text {

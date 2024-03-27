@@ -45,13 +45,19 @@
     class:error="typeof error === 'string'"
     class:hasprefix="hasprefix"
     attr:size="size"
+    class:infocus="infocus"
   >
     <div class="prefix">
       <slot name="prefix"></slot>
     </div>
     <div class="bottom-line"></div>
     <div class="fake-input inputer">{{targetOptionText}}</div>
-    <select sync:value="value" class="inputer"></select>
+    <select
+      sync:value="value"
+      class="inputer"
+      on:focus="infocus = true"
+      on:blur="infocus = false"
+    ></select>
     <div>
       <div class="placeholder" class:not-empty="!!value">
         <slot></slot>
@@ -83,6 +89,7 @@
       data: {
         value: "",
         hasprefix: false,
+        infocus: false,
       },
       watch: {
         defaultValue(val) {
