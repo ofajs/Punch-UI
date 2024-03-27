@@ -168,6 +168,8 @@
     </x-else>
   </div>
   <script>
+    import bindClick from "../button/bind-item-click.js";
+
     export default {
       tag: "p-list-item",
       attrs: {
@@ -249,6 +251,8 @@
         },
       },
       ready() {
+        bindClick(this);
+
         this.on("click", (e) => this.clickItem(e));
       },
       detached() {

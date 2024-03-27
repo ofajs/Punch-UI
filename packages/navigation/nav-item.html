@@ -109,6 +109,8 @@
     <slot></slot>
   </div>
   <script>
+    import bindClick from "../button/bind-item-click.js";
+
     export default {
       tag: "p-nav-item",
       attrs: {
@@ -121,22 +123,7 @@
         },
       },
       ready() {
-        this.on("click", (e) => {
-          if (this.disabled === null) {
-            const notSlotEls = this.filter((e) => e.is(`:not([slot])`));
-            if (
-              notSlotEls.length === 1 &&
-              notSlotEls[0].tag === "a" &&
-              e.target.tagName !== "A"
-            ) {
-              notSlotEls[0].ele.dispatchEvent(new PointerEvent("click"));
-            }
-
-            this.emit("click-nav-item");
-          } else {
-            e.stopImmediatePropagation();
-          }
-        });
+        bindClick(this, () => this.emit("click-nav-item"));
       },
       attached() {
         this.emit("nav-item-refresh");
