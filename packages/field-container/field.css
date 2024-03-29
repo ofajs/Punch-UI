@@ -1,16 +1,31 @@
 :host {
   display: block;
+  vertical-align: top;
   --main-color: var(--md-sys-color-primary);
 }
 .field-container {
   position: relative;
   display: flex;
+  height: 30px;
   padding: var(--pui-space-y) calc(var(--pui-space-x) * 2);
   border-radius: var(--pui-border-radius);
 }
 .field-container[active] .border {
   border-color: var(--main-color);
   border-width: 2px;
+}
+.field-container[active][variant="filled"] .bottom-line::before {
+  width: 100%;
+}
+.field-container[active] ::slotted(label) {
+  color: var(--main-color);
+}
+.field-container[hang-label] ::slotted(label) {
+  top: -9px;
+  font-size: 11px;
+}
+.field-container[hang-label][variant="filled"] ::slotted(label) {
+  top: -2px;
 }
 .field-container[variant="filled"] {
   background-color: rgba(130, 130, 130, 0.2);
@@ -22,8 +37,17 @@
 .field-container[variant="filled"] .bottom-line {
   opacity: 1;
 }
-.field-container ::slotted(label[active-label]) {
-  color: var(--main-color);
+.field-container[variant="filled"] ::slotted(label) {
+  background-color: transparent;
+}
+.field-container ::slotted(label) {
+  padding: 0 calc(var(--pui-space-x) * 0.5);
+  z-index: 2;
+  position: absolute;
+  top: calc(var(--pui-space-y) * 1);
+  left: calc(var(--pui-space-x) * 1);
+  background-color: var(--md-sys-color-surface);
+  transition: all ease 0.3s;
 }
 .field-container .bottom-line {
   opacity: 0;
@@ -53,7 +77,8 @@
   bottom: -1px;
   content: "";
   display: block;
-  width: 100%;
+  width: 0%;
   height: 2px;
   background-color: var(--main-color);
+  transition: all ease 0.3s;
 }

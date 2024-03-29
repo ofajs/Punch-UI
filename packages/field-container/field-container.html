@@ -1,6 +1,11 @@
 <template component>
   <link rel="stylesheet" href="./field.css" />
-  <div class="field-container" attr:variant="variant" attr:active="active">
+  <div
+    class="field-container"
+    attr:variant="variant"
+    attr:active="active"
+    attr:hang-label="hangLabel"
+  >
     <slot></slot>
     <div class="border"></div>
     <div class="bottom-line"></div>
@@ -11,6 +16,7 @@
       attrs: {
         variant: null,
         active: null,
+        hangLabel: null,
       },
       data: {},
     };
