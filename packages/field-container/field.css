@@ -6,9 +6,24 @@
 .field-container {
   position: relative;
   display: flex;
-  height: 30px;
+  min-height: 32px;
   padding: var(--pui-space-y) calc(var(--pui-space-x) * 2);
   border-radius: var(--pui-border-radius);
+  font-size: 16px;
+  line-height: 16px;
+}
+.field-container[size="small"] {
+  min-height: 22px;
+  font-size: 14px;
+  line-height: 14px;
+}
+.field-container[size="small"] ::slotted(label) {
+  top: calc(var(--pui-space-y) * 2);
+}
+.field-container[size="large"] {
+  min-height: 36px;
+  font-size: 18px;
+  line-height: 18px;
 }
 .field-container[active] .border {
   border-color: var(--main-color);
@@ -17,15 +32,19 @@
 .field-container[active][variant="filled"] .bottom-line::before {
   width: 100%;
 }
+.field-container[active][variant="filled"][size="small"] ::slotted(label) {
+  top: 0;
+}
 .field-container[active] ::slotted(label) {
   color: var(--main-color);
 }
 .field-container[hang-label] ::slotted(label) {
-  top: -9px;
-  font-size: 11px;
+  top: -6px;
+  font-size: 12px;
+  line-height: 12px;
 }
 .field-container[hang-label][variant="filled"] ::slotted(label) {
-  top: -2px;
+  top: 2px;
 }
 .field-container[variant="filled"] {
   background-color: rgba(130, 130, 130, 0.2);
@@ -44,8 +63,8 @@
   padding: 0 calc(var(--pui-space-x) * 0.5);
   z-index: 2;
   position: absolute;
-  top: calc(var(--pui-space-y) * 1);
-  left: calc(var(--pui-space-x) * 1);
+  top: calc(var(--pui-space-y) * 3);
+  left: calc(var(--pui-space-x) * 1.5);
   background-color: var(--md-sys-color-surface);
   transition: all ease 0.3s;
 }
