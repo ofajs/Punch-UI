@@ -10,12 +10,11 @@
   padding: var(--pui-space-y) calc(var(--pui-space-x) * 2);
   border-radius: var(--pui-border-radius);
   font-size: 16px;
-  line-height: 16px;
+  line-height: 1.2em;
 }
 .field-container[size="small"] {
   min-height: 22px;
   font-size: 14px;
-  line-height: 14px;
 }
 .field-container[size="small"] ::slotted(label) {
   top: calc(var(--pui-space-y) * 2);
@@ -23,7 +22,6 @@
 .field-container[size="large"] {
   min-height: 36px;
   font-size: 18px;
-  line-height: 18px;
 }
 .field-container[active] .border {
   border-color: var(--main-color);
@@ -59,13 +57,18 @@
 .field-container[variant="filled"] ::slotted(label) {
   background-color: transparent;
 }
+.field-container[variant="filled"] ::slotted(:not(label)) {
+  transform: translate(0, var(--pui-space-y));
+}
 .field-container ::slotted(label) {
   padding: 0 calc(var(--pui-space-x) * 0.5);
   z-index: 2;
+  line-height: 16px;
   position: absolute;
   top: calc(var(--pui-space-y) * 3);
   left: calc(var(--pui-space-x) * 1.5);
   background-color: var(--md-sys-color-surface);
+  white-space: nowrap;
   transition: all ease 0.3s;
 }
 .field-container .bottom-line {
