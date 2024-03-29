@@ -1,0 +1,59 @@
+:host {
+  display: block;
+  --main-color: var(--md-sys-color-primary);
+}
+.field-container {
+  position: relative;
+  display: flex;
+  padding: var(--pui-space-y) calc(var(--pui-space-x) * 2);
+  border-radius: var(--pui-border-radius);
+}
+.field-container[active] .border {
+  border-color: var(--main-color);
+  border-width: 2px;
+}
+.field-container[variant="filled"] {
+  background-color: rgba(130, 130, 130, 0.2);
+  border-radius: var(--pui-border-radius) var(--pui-border-radius) 0 0;
+}
+.field-container[variant="filled"] .border {
+  border-width: 0;
+}
+.field-container[variant="filled"] .bottom-line {
+  opacity: 1;
+}
+.field-container ::slotted(label[active-label]) {
+  color: var(--main-color);
+}
+.field-container .bottom-line {
+  opacity: 0;
+}
+.border {
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border: var(--md-sys-color-on-normal-container) solid 1px;
+  border-radius: var(--pui-border-radius);
+  pointer-events: none;
+  transition: all ease 0.1s;
+}
+.bottom-line {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  border-bottom: var(--md-sys-color-normal) solid 1px;
+}
+.bottom-line::before {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  content: "";
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--main-color);
+}

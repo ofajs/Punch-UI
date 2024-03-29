@@ -1,0 +1,18 @@
+<template component>
+  <link rel="stylesheet" href="./field.css" />
+  <div class="field-container" attr:variant="variant" attr:active="active">
+    <slot></slot>
+    <div class="border"></div>
+    <div class="bottom-line"></div>
+  </div>
+  <script>
+    export default {
+      tag: "p-field-container",
+      attrs: {
+        variant: null,
+        active: null,
+      },
+      data: {},
+    };
+  </script>
+</template>
