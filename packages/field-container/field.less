@@ -21,7 +21,7 @@
 
   &[size="small"] {
     min-height: 22px;
-    font-size: 14px;
+    font-size: 13px;
 
     ::slotted(label) {
       top: calc(var(--pui-space-y) * 2);
@@ -32,9 +32,9 @@
     min-height: 36px;
     font-size: 18px;
 
-    // ::slotted(label) {
-    //   top: calc(var(--pui-space-y) * 3);
-    // }
+    ::slotted(label) {
+      top: calc(var(--pui-space-y) * 3.5);
+    }
   }
 
   &[active] {
@@ -89,6 +89,15 @@
       ::slotted(:not(label)) {
         transition: all ease 0.3s;
         transform: translate(0, 4px);
+      }
+    }
+
+    &[size="small"] {
+      &[fix-position] {
+        ::slotted(:not(label)) {
+          transition: all ease 0.3s;
+          transform: translate(0, 6px);
+        }
       }
     }
   }

@@ -19,7 +19,7 @@
 }
 .field-container[size="small"] {
   min-height: 22px;
-  font-size: 14px;
+  font-size: 13px;
 }
 .field-container[size="small"] ::slotted(label) {
   top: calc(var(--pui-space-y) * 2);
@@ -27,6 +27,9 @@
 .field-container[size="large"] {
   min-height: 36px;
   font-size: 18px;
+}
+.field-container[size="large"] ::slotted(label) {
+  top: calc(var(--pui-space-y) * 3.5);
 }
 .field-container[active] .border {
   border-color: var(--main-color);
@@ -65,6 +68,10 @@
 .field-container[variant="filled"][fix-position] ::slotted(:not(label)) {
   transition: all ease 0.3s;
   transform: translate(0, 4px);
+}
+.field-container[variant="filled"][size="small"][fix-position] ::slotted(:not(label)) {
+  transition: all ease 0.3s;
+  transform: translate(0, 6px);
 }
 .field-container ::slotted(label) {
   padding: 0 calc(var(--pui-space-x) * 0.5);
