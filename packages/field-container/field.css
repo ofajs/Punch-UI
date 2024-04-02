@@ -1,4 +1,5 @@
 :host {
+  position: relative;
   display: block;
   vertical-align: top;
   --main-color: var(--md-sys-color-primary);
@@ -71,6 +72,7 @@
   background-color: var(--md-sys-color-surface);
   white-space: nowrap;
   transition: all ease 0.3s;
+  pointer-events: none;
 }
 .field-container .bottom-line {
   opacity: 0;
@@ -126,4 +128,10 @@
 }
 .suffix-inner {
   justify-content: center;
+}
+.helper {
+  position: absolute;
+  bottom: -20px;
+  left: var(--pui-space-x);
+  font-size: 12px;
 }

@@ -1,0 +1,161 @@
+<template component>
+  <link rel="stylesheet" href="./inputer.css" />
+  <style id="default-style">
+    :host {
+      display: none !important;
+    }
+  </style>
+  <style>
+    .prefix {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+  <div
+    class="container"
+    attr:type="type"
+    attr:variant="variant"
+    class:disabled="typeof disabled === 'string'"
+    class:error="typeof error === 'string'"
+    class:hasprefix="hasprefix"
+    attr:size="size"
+    class:infocus="infocus"
+  >
+    <div class="prefix">
+      <slot name="prefix"></slot>
+    </div>
+    <div class="bottom-line"></div>
+    <x-if
+      :value="typeof multiline === 'string' && (type === null || type === 'text')"
+    >
+      <pre style="display: contents"><div
+          contenteditable="true"
+          class="inputer"
+          :css.max-height="editorMaxHeight"
+          :css.min-height="rows ? rows + 'em' : null"
+          on:input="multiInputerChange"
+          on:paste="multiInputerPaste"
+          on:focus="infocus = true"
+          on:blur="infocus = false"
+        ></div></pre>
+    </x-if>
+    <x-else>
+      <input
+        attr:type="type === null ? 'text' : type"
+        class="inputer"
+        sync:value="value"
+        on:focus="infocus = true"
+        on:blur="infocus = false"
+      />
+    </x-else>
+    <div>
+      <div class="placeholder" class:not-empty="!!value">
+        <slot></slot>
+      </div>
+      <div class="border"></div>
+      <div class="bottom-line-active"></div>
+    </div>
+    <div class="helper-text">
+      <slot name="helper"></slot>
+    </div>
+    <div class="suffix" class:not-empty="!!value">
+      <slot name="suffix"></slot>
+    </div>
+  </div>
+  <script>
+    export default {
+      tag: "p-text-field",
+      attrs: {
+        name: null,
+        error: null,
+        variant: null,
+        multiline: null,
+        maxRows: null,
+        rows: null,
+        disabled: null,
+        // defaultValue: null,
+        type: null,
+        autofocus: null,
+        size: null,
+      },
+      data: {
+        value: "",
+        hasprefix: false,
+        infocus: false,
+      },
+      watch: {
+        autofocus(val) {
+          if (val !== null) {
+            setTimeout(() => {
+              this.shadow.$("input,textarea")?.ele.focus();
+            }, 50);
+          }
+        },
+        value(value) {
+          if (this.multiline !== null) {
+            clearTimeout(this._value_timer);
+            this._value_timer = setTimeout(() => {
+              const target = this.shadow.$("div.inputer");
+              // 焦点情况下更改多行的元素，会导致焦点重置
+              if (target && !this.infocus && target.text !== value) {
+                target.text = value;
+              }
+            }, 100);
+          }
+        },
+      },
+      proto: {
+        multiInputerPaste(e) {
+          e.preventDefault();
+          var text = (e.originalEvent || e).clipboardData.getData("text/plain");
+          document.execCommand("insertText", false, text);
+        },
+        get editorHeight() {
+          if (typeof this.multiline === "string" && this.rows) {
+            return 1.2 * parseInt(this.rows) + "em";
+          }
+
+          return null;
+        },
+        get editorMaxHeight() {
+          if (typeof this.multiline === "string" && this.maxRows) {
+            return 1.2 * parseInt(this.maxRows) + "em";
+          }
+          return null;
+        },
+        multiInputerChange(e) {
+          this.value = e.target.innerText;
+        },
+        focus() {
+          this.shadow.$("input,div.inputer") &&
+            this.shadow.$("input,div.inputer").ele.focus();
+        },
+      },
+      ready() {
+        this.shadow.on("slotchange", () => {
+          let hasprefix = false;
+          this.forEach((e) => {
+            if (e.attr("slot") === "prefix") {
+              hasprefix = true;
+            }
+          });
+          this.hasprefix = hasprefix;
+        });
+
+        const defaultValue = this.attr("default-value");
+        if (defaultValue) {
+          this.value = defaultValue;
+        }
+      },
+      loaded() {
+        this.shadow.$("#default-style").remove();
+      },
+      // attached() {
+      //   setTimeout(() => {
+      //     this.changeEditor();
+      //   }, 2000);
+      // },
+    };
+  </script>
+</template>

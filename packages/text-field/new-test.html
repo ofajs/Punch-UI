@@ -13,6 +13,11 @@
       *:not(:defined) {
         display: none;
       }
+
+      p-text-field {
+        display: inline-block;
+        width: 250px;
+      }
     </style>
   </head>
   <body>
@@ -23,6 +28,16 @@
     <div style="padding: 24px">
       <p-text-field>
         <label>Label</label>
+      </p-text-field>
+
+      <p-text-field>
+        <label>Label</label>
+      </p-text-field>
+      <p-text-field variant="filled" autofocus>
+        <label>filled</label>
+      </p-text-field>
+      <p-text-field default-value="Default value haha">
+        <label>add default</label>
       </p-text-field>
     </div>
   </body>
