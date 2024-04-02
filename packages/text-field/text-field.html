@@ -10,10 +10,31 @@
       display: block;
       width: 100%;
       height: 100%;
+      padding: 0;
       border: none;
       outline: none;
       background-color: transparent;
       font-size: 16px;
+    }
+
+    :host([error]) ::slotted(label),
+    :host([error]) ::slotted([slot="helper"]) {
+      color: var(--md-sys-color-error);
+    }
+
+    :host([error]) p-field-container::part(border) {
+      border-color: var(--md-sys-color-error);
+    }
+
+    :host([error]) p-field-container::part(border) {
+      border-color: var(--md-sys-color-error);
+    }
+    :host([error]) p-field-container::part(bottom-line) {
+      border-color: var(--md-sys-color-error);
+    }
+
+    :host([disabled]) input {
+      cursor: not-allowed;
     }
   </style>
   <p-field-container
@@ -22,16 +43,19 @@
     :active="infocus ? '' : null"
     :size="size"
     :fix-position="infocus || value ? '' : null"
+    :disabled="disabled"
   >
     <input
       type="text"
       sync:value="value"
       on:focus="infocus = true"
       on:blur="infocus = false"
+      attr:disabled="disabled"
     />
     <slot name="suffix" slot="suffix"></slot>
     <slot></slot>
     <slot name="prefix" slot="prefix"></slot>
+    <slot name="helper" slot="helper"></slot>
   </p-field-container>
   <script>
     export default {
@@ -57,7 +81,7 @@
         autofocus(val) {
           if (val !== null) {
             setTimeout(() => {
-              // this.shadow.$("input,textarea")?.ele.focus();
+              this.shadow.$("input,textarea")?.ele.focus();
             }, 50);
           }
         },
@@ -68,9 +92,12 @@
         },
       },
       proto: {
-        focus() {},
+        focus() {
+          this.shadow.$("input,textarea")?.ele.focus();
+        },
       },
       ready() {},
+      loaded() {},
     };
   </script>
 </template>

@@ -5,11 +5,11 @@
       --main-color: var(--md-sys-color-error);
     } */
   </style>
-  <style id="default-style">
+  <!-- <style id="default-style">
     :host {
       display: none !important;
     }
-  </style>
+  </style> -->
   <div
     class="field-container"
     attr:variant="variant"
@@ -43,8 +43,8 @@
         size: null,
         color: null,
         fixPosition: null, // variant="filled" 下的位移修正
+        disabled: null,
       },
-      data: {},
       watch: {
         color(color) {
           if (color) {
@@ -56,7 +56,7 @@
       },
       proto: {},
       loaded() {
-        this.shadow.$("#default-style").remove();
+        // this.shadow.$("#default-style").remove();
       },
     };
   </script>

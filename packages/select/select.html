@@ -40,7 +40,8 @@
       transform: translate(0, 4px);
     }
 
-    :host([error]) ::slotted(label) {
+    :host([error]) ::slotted(label),
+    :host([error]) ::slotted([slot="helper"]) {
       color: var(--md-sys-color-error);
     }
 
@@ -54,6 +55,10 @@
     :host([error]) p-field-container::part(bottom-line) {
       border-color: var(--md-sys-color-error);
     }
+
+    :host([disabled]) select {
+      cursor: not-allowed;
+    }
   </style>
 
   <p-field-container
@@ -63,6 +68,7 @@
     :active="infocus ? '' : null"
     :size="size"
     :fix-position="value ? '' : null"
+    :disabled="disabled"
   >
     <slot></slot>
     <div class="fake-input">{{targetOptionText}}</div>
@@ -75,6 +81,7 @@
     sync:value="value"
     on:focus="infocus = true"
     on:blur="infocus = false"
+    attr:disabled="disabled"
   ></select>
 
   <script>
@@ -95,9 +102,6 @@
         infocus: false,
       },
       watch: {
-        infocus(bool) {
-          console.log("infocus", bool);
-        },
         defaultValue(val) {
           if (val) {
             this.value = val;
