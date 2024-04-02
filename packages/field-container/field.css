@@ -30,9 +30,6 @@
 .field-container[active][variant="filled"] .bottom-line::before {
   width: 100%;
 }
-.field-container[active][variant="filled"][size="small"] ::slotted(label) {
-  top: 0;
-}
 .field-container[active] ::slotted(label) {
   color: var(--main-color);
 }
@@ -43,6 +40,9 @@
 }
 .field-container[hang-label][variant="filled"] ::slotted(label) {
   top: 2px;
+}
+.field-container[hang-label] .prefix-inner {
+  opacity: 1;
 }
 .field-container[variant="filled"] {
   background-color: rgba(130, 130, 130, 0.2);
@@ -57,8 +57,9 @@
 .field-container[variant="filled"] ::slotted(label) {
   background-color: transparent;
 }
-.field-container[variant="filled"] ::slotted(:not(label)) {
-  transform: translate(0, var(--pui-space-y));
+.field-container[variant="filled"][fix-position] ::slotted(:not(label)) {
+  transition: all ease 0.3s;
+  transform: translate(0, 4px);
 }
 .field-container ::slotted(label) {
   padding: 0 calc(var(--pui-space-x) * 0.5);
@@ -103,4 +104,26 @@
   height: 2px;
   background-color: var(--main-color);
   transition: all ease 0.3s;
+}
+.prefix-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 2px;
+  opacity: 0;
+  transition: all ease 0.3s;
+}
+.prefix-inner:empty {
+  display: none;
+}
+.main-inner,
+.suffix-inner {
+  display: flex;
+  align-items: center;
+}
+.main-inner {
+  flex: 1;
+}
+.suffix-inner {
+  justify-content: center;
 }
