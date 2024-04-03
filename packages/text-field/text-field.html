@@ -82,7 +82,7 @@
         attr:disabled="disabled"
       />
     </x-if>
-    <x-else>
+    <x-else on:rendered="renderMulti">
       <textarea
         sync:value="value"
         on:focus="infocus = true"
@@ -138,6 +138,12 @@
         },
       },
       proto: {
+        renderMulti() {
+          const target = this.shadow.$("textarea");
+          this.changeTextarea({
+            target: { value: this.value },
+          });
+        },
         changeTextarea(e) {
           this.shadow.$(".fake-input").text = e.target.value + " ";
         },
