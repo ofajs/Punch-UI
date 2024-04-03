@@ -57,6 +57,10 @@
       border-color: var(--md-sys-color-error);
     }
 
+    :host([error]) p-field-container::part(bottom-line)::before {
+      background-color: var(--md-sys-color-error);
+    }
+
     :host([disabled]) input {
       cursor: not-allowed;
     }
