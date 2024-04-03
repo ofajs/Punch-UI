@@ -38,6 +38,7 @@
       line-height: 1.2em;
       overflow: auto;
       white-space: pre-wrap;
+      pointer-events: none;
     }
 
     :host([error]) ::slotted(label),
@@ -59,12 +60,6 @@
     :host([disabled]) input {
       cursor: not-allowed;
     }
-
-    /* pre {
-      display: contents;
-      margin: 0;
-      padding: 0;
-    } */
   </style>
   <p-field-container
     :hang-label="infocus || value ? '' : null"
@@ -91,7 +86,12 @@
         attr:disabled="disabled"
         on:input="changeTextarea"
       ></textarea>
-      <div class="fake-input"></div>
+      <div
+        class="fake-input"
+        :css.height="rows ? `${rows * 1.2}em` : ''"
+        :css.max-height="maxRows ? `${maxRows * 1.2}em` : ''"
+        :css.min-height="minRows ? `${minRows * 1.2}em` : ''"
+      ></div>
     </x-else>
     <slot name="suffix" slot="suffix"></slot>
     <slot></slot>
@@ -107,6 +107,7 @@
         variant: null,
         multiline: null,
         maxRows: null,
+        minRows: null,
         rows: null,
         disabled: null,
         defaultValue: null,
@@ -134,11 +135,6 @@
       },
       proto: {
         changeTextarea(e) {
-          console.log(
-            e.target.clientHeight,
-            e.target.offsetHeight,
-            e.target.scrollHeight
-          );
           this.shadow.$(".fake-input").text = e.target.value + " ";
         },
         focus() {
