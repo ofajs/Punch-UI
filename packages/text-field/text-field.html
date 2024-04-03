@@ -6,15 +6,38 @@
       position: relative;
       vertical-align: top;
     }
-    input {
+    input,
+    textarea {
       display: block;
-      width: 100%;
+      position: absolute;
+      width: calc(100% - 22px);
       height: 100%;
-      padding: 0;
+      padding: 0 0;
+      margin: 0;
       border: none;
       outline: none;
       background-color: transparent;
       font-size: inherit;
+      resize: none;
+      font-family: inherit;
+      line-height: 1.2em;
+      /* background-color: rgba(255, 0, 0, 0.367); */
+    }
+    textarea {
+      top: 10px;
+      height: calc(100% - 10px);
+    }
+    .fake-input {
+      display: block;
+      font-family: inherit;
+      width: 100%;
+      opacity: 0;
+      /* color: blue;
+      background-color: rgba(0, 17, 255, 0.367); */
+      padding: 10px 0 0;
+      line-height: 1.2em;
+      overflow: auto;
+      white-space: pre-wrap;
     }
 
     :host([error]) ::slotted(label),
@@ -36,6 +59,12 @@
     :host([disabled]) input {
       cursor: not-allowed;
     }
+
+    /* pre {
+      display: contents;
+      margin: 0;
+      padding: 0;
+    } */
   </style>
   <p-field-container
     :hang-label="infocus || value ? '' : null"
@@ -45,13 +74,25 @@
     :fix-position="infocus || value ? '' : null"
     :disabled="disabled"
   >
-    <input
-      type="text"
-      sync:value="value"
-      on:focus="infocus = true"
-      on:blur="infocus = false"
-      attr:disabled="disabled"
-    />
+    <x-if :value="multiline === null">
+      <input
+        type="text"
+        sync:value="value"
+        on:focus="infocus = true"
+        on:blur="infocus = false"
+        attr:disabled="disabled"
+      />
+    </x-if>
+    <x-else>
+      <textarea
+        sync:value="value"
+        on:focus="infocus = true"
+        on:blur="infocus = false"
+        attr:disabled="disabled"
+        on:input="changeTextarea"
+      ></textarea>
+      <div class="fake-input"></div>
+    </x-else>
     <slot name="suffix" slot="suffix"></slot>
     <slot></slot>
     <slot name="prefix" slot="prefix"></slot>
@@ -92,6 +133,14 @@
         },
       },
       proto: {
+        changeTextarea(e) {
+          console.log(
+            e.target.clientHeight,
+            e.target.offsetHeight,
+            e.target.scrollHeight
+          );
+          this.shadow.$(".fake-input").text = e.target.value + " ";
+        },
         focus() {
           this.shadow.$("input,textarea")?.ele.focus();
         },
