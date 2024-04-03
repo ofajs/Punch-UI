@@ -88,9 +88,9 @@
       ></textarea>
       <div
         class="fake-input"
-        :css.height="rows ? `${rows * 1.2}em` : ''"
-        :css.max-height="maxRows ? `${maxRows * 1.2}em` : ''"
-        :css.min-height="minRows ? `${minRows * 1.2}em` : ''"
+        :style.height="rows ? `${rows * 1.2}em` : ''"
+        :style.max-height="maxRows ? `${maxRows * 1.2}em` : ''"
+        :style.min-height="minRows ? `${minRows * 1.2}em` : ''"
       ></div>
     </x-else>
     <slot name="suffix" slot="suffix"></slot>
