@@ -88,7 +88,7 @@
         on:focus="infocus = true"
         on:blur="infocus = false"
         attr:disabled="disabled"
-        on:input="changeTextarea"
+        on:input="changeTextarea($event.target.value)"
       ></textarea>
       <div
         class="fake-input"
@@ -136,16 +136,22 @@
             this.value = val;
           }
         },
+        value(value) {
+          this.changeTextarea(value);
+        },
       },
       proto: {
         renderMulti() {
           const target = this.shadow.$("textarea");
-          this.changeTextarea({
-            target: { value: this.value },
-          });
+          this.changeTextarea(this.value);
         },
-        changeTextarea(e) {
-          this.shadow.$(".fake-input").text = e.target.value + " ";
+        changeTextarea(value) {
+          // this.shadow.$(".fake-input").text = e.target.value + " ";
+
+          const fakeInput = this.shadow.$(".fake-input");
+          if (fakeInput) {
+            fakeInput.text = value + " ";
+          }
         },
         focus() {
           this.shadow.$("input,textarea")?.ele.focus();
