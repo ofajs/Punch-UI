@@ -79,6 +79,7 @@
         sync:value="value"
         on:focus="infocus = true"
         on:blur="infocus = false"
+        on:change="emit('change')"
         attr:disabled="disabled"
       />
     </x-if>
@@ -88,6 +89,7 @@
         on:focus="infocus = true"
         on:blur="infocus = false"
         attr:disabled="disabled"
+        on:change="emit('change')"
         on:input="changeTextarea($event.target.value)"
       ></textarea>
       <div
