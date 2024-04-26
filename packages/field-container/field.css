@@ -22,14 +22,14 @@
   font-size: 13px;
 }
 .field-container[size="small"] ::slotted(label) {
-  top: calc(var(--pui-space-y) * 2);
+  top: calc(var(--pui-space-y) * 0.75);
 }
 .field-container[size="large"] {
   min-height: 36px;
   font-size: 18px;
 }
 .field-container[size="large"] ::slotted(label) {
-  top: calc(var(--pui-space-y) * 3.5);
+  top: calc(var(--pui-space-y) * 2.4);
 }
 .field-container[active] .border {
   border-color: var(--main-color);
@@ -42,15 +42,12 @@
   color: var(--main-color);
 }
 .field-container[hang-label] ::slotted(label) {
-  top: -6px;
+  top: -10px;
   font-size: 12px;
   line-height: 12px;
 }
 .field-container[hang-label][variant="filled"] ::slotted(label) {
-  top: 2px;
-}
-.field-container[hang-label] .prefix-inner {
-  opacity: 1;
+  top: -2px;
 }
 .field-container[variant="filled"] {
   background-color: rgba(130, 130, 130, 0.2);
@@ -65,8 +62,10 @@
 .field-container[variant="filled"] ::slotted(label) {
   background-color: transparent;
 }
-.field-container[variant="filled"][fix-position] ::slotted(:not(label)) {
+.field-container[variant="filled"] ::slotted(:not(label)) {
   transition: all ease 0.3s;
+}
+.field-container[variant="filled"][fix-position] ::slotted(:not(label)) {
   transform: translate(0, 4px);
 }
 .field-container[variant="filled"][size="small"][fix-position] ::slotted(:not(label)) {
@@ -74,12 +73,10 @@
   transform: translate(0, 6px);
 }
 .field-container ::slotted(label) {
-  padding: 0 calc(var(--pui-space-x) * 0.5);
   z-index: 2;
   line-height: 16px;
   position: absolute;
-  top: calc(var(--pui-space-y) * 3);
-  left: calc(var(--pui-space-x) * 1.5);
+  top: calc(var(--pui-space-y) * 2);
   background-color: var(--md-sys-color-surface);
   white-space: nowrap;
   transition: all ease 0.3s;
@@ -123,7 +120,6 @@
   justify-content: center;
   align-items: center;
   margin-right: 2px;
-  opacity: 0;
   transition: all ease 0.3s;
 }
 .prefix-inner:empty {
@@ -131,6 +127,7 @@
 }
 .main-inner,
 .suffix-inner {
+  position: relative;
   display: flex;
   align-items: center;
 }
