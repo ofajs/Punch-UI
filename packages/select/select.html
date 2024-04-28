@@ -82,6 +82,7 @@
     on:focus="infocus = true"
     on:blur="infocus = false"
     attr:disabled="disabled"
+    on:change="emit('change')"
   ></select>
 
   <script>
