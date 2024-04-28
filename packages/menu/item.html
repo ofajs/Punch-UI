@@ -17,6 +17,11 @@
       cursor: not-allowed;
     }
 
+    :host([active-item]) {
+      color: var(--md-ref-palette-primary50);
+      font-weight: bold;
+    }
+
     .container:hover,
     .container.focus {
       background-color: rgba(181, 181, 181, 0.2);
