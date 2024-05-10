@@ -90,6 +90,17 @@
       p-tabs[secondary] p-tab[active-item] {
         color: var(--md-sys-color-on-primary-container);
       }
+
+      p-tab img[active-icon] {
+        display: none;
+      }
+
+      p-tab[active-item] img[not-active-icon] {
+        display: none;
+      }
+      p-tab[active-item] img[active-icon] {
+        display: block;
+      }
     </style>
   </inject-host>
 

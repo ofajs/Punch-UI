@@ -67,6 +67,11 @@
       margin-left: 0;
       transform: translate(50%, -50%);
     }
+
+    ::slotted(img[not-active-icon]),
+    ::slotted(img[active-icon]) {
+      height: 20px;
+    }
   </style>
 
   <div class="container" part="container">
