@@ -22,7 +22,7 @@
       border-radius: var(--item-radio);
       cursor: pointer;
       overflow: hidden;
-      color: transparent;
+      /* color: transparent; */
     }
 
     ::slotted(*:last-child) {
@@ -263,16 +263,18 @@
               target = nextTarget;
             } else {
               const newTarget = this[lastVisId - 1];
-              const newBasis =
-                (containerWidth % mainBasis) -
-                Math.floor(containerWidth / mainBasis) * this.spaceSize;
-              newTarget.style.flexBasis = `${newBasis}px`;
-              newTarget.style.marginRight = this.spaceSize + "px";
-              newTarget.attr(
-                "visabled",
-                Math.round((newBasis / mainBasis) * 10) * 10
-              );
-              visables.add(newTarget);
+              if (newTarget) {
+                const newBasis =
+                  (containerWidth % mainBasis) -
+                  Math.floor(containerWidth / mainBasis) * this.spaceSize;
+                newTarget.style.flexBasis = `${newBasis}px`;
+                newTarget.style.marginRight = this.spaceSize + "px";
+                newTarget.attr(
+                  "visabled",
+                  Math.round((newBasis / mainBasis) * 10) * 10
+                );
+                visables.add(newTarget);
+              }
               break;
             }
           }
