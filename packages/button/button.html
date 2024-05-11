@@ -42,9 +42,10 @@
     :host([elevated]) .container {
       box-shadow: var(--contained-shadow);
     }
-
-    :host([elevated]) .container:hover {
-      box-shadow: var(--contained-hover-shadow);
+    @media (hover: hover) {
+      :host([elevated]) .container:hover {
+        box-shadow: var(--contained-hover-shadow);
+      }
     }
 
     :host([elevated]) .container:active {
@@ -69,8 +70,10 @@
     .container[variant="outlined"] .fake-border {
       border: var(--pui-on-main-color-container) solid 0.5px;
     }
-    .container[variant="outlined"]:hover .fake-border {
-      border: var(--pui-main-color) solid 1px;
+    @media (hover: hover) {
+      .container[variant="outlined"]:hover .fake-border {
+        border: var(--pui-main-color) solid 1px;
+      }
     }
 
     .container[variant="text"] {
@@ -134,8 +137,10 @@
       z-index: 0;
       transition: all ease 0.2s;
     }
-    .container:hover .hover-place {
-      background-color: var(--pui-main-hover-color);
+    @media (hover: hover) {
+      .container:hover .hover-place {
+        background-color: var(--pui-main-hover-color);
+      }
     }
 
     .text-place {

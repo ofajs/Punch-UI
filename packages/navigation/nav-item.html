@@ -57,15 +57,24 @@
       transition: all ease 0.3s;
     }
 
-    :host([active-item]) .decorate,
-    :host(:hover) .decorate {
+    :host([active-item]) .decorate {
       opacity: 1;
       padding: var(--pui-space-y) calc(var(--pui-space-x) * 3);
     }
 
-    :host([active-item]) .decorate:before,
-    :host(:hover) .decorate:before {
+    :host([active-item]) .decorate:before {
       opacity: 1;
+    }
+
+    @media (hover: hover) {
+      :host(:hover) .decorate {
+        opacity: 1;
+        padding: var(--pui-space-y) calc(var(--pui-space-x) * 3);
+      }
+
+      :host(:hover) .decorate:before {
+        opacity: 1;
+      }
     }
 
     :host([active-item]) .decorate:before {
