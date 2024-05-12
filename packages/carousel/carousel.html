@@ -309,7 +309,6 @@
           const point = e?.changedTouches[0] || e.targetTouches[0];
           startX = point.screenX;
           startTime = Date.now();
-          console.log("this.currentId1", this.currentId);
           clearTimeout(this._autoplayTimer);
         });
         this.on("touchmove", (e) => {
@@ -332,12 +331,10 @@
           const point = e?.changedTouches[0] || e.targetTouches[0];
           const diffX = point.screenX - startX;
           const diffTime = Date.now() - startTime;
-          console.log(diffX, diffTime);
 
           let newIndex = this.currentId - diffX / 200;
 
           this.attr("add-anime", "");
-          console.log("this.currentId2", this.currentId);
 
           if (diffTime < 200 && Math.abs(diffX) >= 20) {
             if (diffX < 0) {
