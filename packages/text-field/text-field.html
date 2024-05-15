@@ -83,6 +83,7 @@
         on:blur="infocus = false"
         on:change="emit('change')"
         attr:disabled="disabled"
+        attr:placeholder="placeholder"
       />
     </x-if>
     <x-else on:rendered="renderMulti">
@@ -93,6 +94,7 @@
         attr:disabled="disabled"
         on:change="emit('change')"
         on:input="changeTextarea($event.target.value)"
+        attr:placeholder="placeholder"
       ></textarea>
       <div
         class="fake-input"
@@ -122,6 +124,7 @@
         type: null,
         autofocus: null,
         size: null,
+        placeholder: null,
       },
       data: {
         value: "",
