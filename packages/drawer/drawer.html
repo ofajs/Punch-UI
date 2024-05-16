@@ -5,6 +5,7 @@
       font-size: 14px;
     }
     .main {
+      position: relative;
       box-sizing: border-box;
       padding: calc(var(--pui-space-y) * 6) calc(var(--pui-space-x) * 4);
       /* border-radius: var(--dialog-border-radius, 30px); */
@@ -90,6 +91,25 @@
     .container[anchor="bottom"] p-mask::part(container) {
       transform-origin: 50% 100%;
     }
+
+    ::slotted([close-button]) {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+    }
+  </style>
+  <style>
+    @media screen and (min-width: 600px) {
+      :host([dialog-not-mobile]) .container[anchor="bottom"] .main {
+        width: auto;
+        height: auto;
+        border-radius: var(--dialog-border-radius, 30px);
+      }
+
+      :host([dialog-not-mobile]) .container p-mask::part(container) {
+        align-items: center;
+      }
+    }
   </style>
   <l-m src="../dialog/mask.html"></l-m>
 
@@ -108,6 +128,7 @@
       attrs: {
         anchor: "left",
         autoClose: null,
+        // dialogNotMobile: null,
       },
       data: {
         open: false,
