@@ -77,7 +77,7 @@
   line-height: 16px;
   position: absolute;
   top: calc(var(--pui-space-y) * 2);
-  background-color: var(--md-sys-color-surface);
+  background-color: var(--label-bg, var(--md-sys-color-surface));
   white-space: nowrap;
   transition: all ease 0.3s;
   pointer-events: none;
