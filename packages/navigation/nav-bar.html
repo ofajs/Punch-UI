@@ -18,6 +18,20 @@
       flex: 1;
     }
   </style>
+  <inject-host>
+    <style>
+      p-nav-item [active-icon] {
+        display: none;
+      }
+
+      p-nav-item[active-item] [not-active-icon] {
+        display: none;
+      }
+      p-nav-item[active-item] [active-icon] {
+        display: block;
+      }
+    </style>
+  </inject-host>
   <x-if :value="isDark.value">
     <style>
       :host {

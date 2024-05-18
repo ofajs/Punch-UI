@@ -21,8 +21,10 @@
       align-items: center;
       padding: calc(var(--pui-space-y) * 2) 0;
     }
-    :host(:hover) {
-      background-color: var(--md-ref-palette-translucent-normal60);
+    @media (hover: hover) {
+      :host(:hover) {
+        background-color: var(--md-ref-palette-translucent-normal60);
+      }
     }
 
     .icon {
@@ -66,6 +68,11 @@
       top: 0;
       margin-left: 0;
       transform: translate(50%, -50%);
+    }
+
+    ::slotted(img[not-active-icon]),
+    ::slotted(img[active-icon]) {
+      height: 20px;
     }
   </style>
 

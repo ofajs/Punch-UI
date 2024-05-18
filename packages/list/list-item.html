@@ -14,6 +14,7 @@
       position: relative;
       display: flex;
       background-color: transparent;
+
       padding: var(--item-padding-top, calc(var(--pui-space-y) * 2))
         var(--item-padding-right, calc(var(--pui-space-x) * 2))
         var(--item-padding-bottom, calc(var(--pui-space-y) * 2))
@@ -77,8 +78,10 @@
       cursor: pointer;
     }
 
-    :host([button]) .container:hover {
-      background-color: rgba(128, 128, 128, 0.1);
+    @media (hover: hover) {
+      :host([button]) .container:hover {
+        background-color: rgba(128, 128, 128, 0.1);
+      }
     }
 
     :host([button][disabled]) {

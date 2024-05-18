@@ -22,7 +22,7 @@
       border-radius: var(--item-radio);
       cursor: pointer;
       overflow: hidden;
-      color: transparent;
+      /* color: transparent; */
     }
 
     ::slotted(*:last-child) {
@@ -56,7 +56,7 @@
   <inject-host>
     <style>
       p-carousel[add-anime] > * {
-        transition: all ease 0.3s;
+        transition: all ease 0.4s;
       }
 
       p-carousel[in-focus-mode] > [focus] {
@@ -263,16 +263,18 @@
               target = nextTarget;
             } else {
               const newTarget = this[lastVisId - 1];
-              const newBasis =
-                (containerWidth % mainBasis) -
-                Math.floor(containerWidth / mainBasis) * this.spaceSize;
-              newTarget.style.flexBasis = `${newBasis}px`;
-              newTarget.style.marginRight = this.spaceSize + "px";
-              newTarget.attr(
-                "visabled",
-                Math.round((newBasis / mainBasis) * 10) * 10
-              );
-              visables.add(newTarget);
+              if (newTarget) {
+                const newBasis =
+                  (containerWidth % mainBasis) -
+                  Math.floor(containerWidth / mainBasis) * this.spaceSize;
+                newTarget.style.flexBasis = `${newBasis}px`;
+                newTarget.style.marginRight = this.spaceSize + "px";
+                newTarget.attr(
+                  "visabled",
+                  Math.round((newBasis / mainBasis) * 10) * 10
+                );
+                visables.add(newTarget);
+              }
               break;
             }
           }
@@ -307,7 +309,6 @@
           const point = e?.changedTouches[0] || e.targetTouches[0];
           startX = point.screenX;
           startTime = Date.now();
-          console.log("this.currentId1", this.currentId);
           clearTimeout(this._autoplayTimer);
         });
         this.on("touchmove", (e) => {
@@ -330,12 +331,10 @@
           const point = e?.changedTouches[0] || e.targetTouches[0];
           const diffX = point.screenX - startX;
           const diffTime = Date.now() - startTime;
-          console.log(diffX, diffTime);
 
           let newIndex = this.currentId - diffX / 200;
 
           this.attr("add-anime", "");
-          console.log("this.currentId2", this.currentId);
 
           if (diffTime < 200 && Math.abs(diffX) >= 20) {
             if (diffX < 0) {

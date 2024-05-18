@@ -12,10 +12,10 @@
       background-color: var(--md-sys-color-on-normal);
       width: var(--dialog-width, auto);
       min-width: 320px;
+      --label-bg: var(--md-sys-color-on-normal);
     }
     .tltle {
       display: flex;
-      align-items: center;
       font-size: 20px;
       font-weight: 400;
       line-height: 1.2em;
@@ -61,9 +61,30 @@
 
     .close-btn {
       display: none;
+      cursor: pointer;
       margin-right: calc(var(--pui-space-x) * 3);
     }
   </style>
+
+  <x-if :value="autoFullscreen !== null">
+    <style>
+      @media screen and (max-width: 600px) {
+        .main {
+          height: 100%;
+          width: 100%;
+          border-radius: 0;
+        }
+
+        .close-btn {
+          display: block;
+        }
+
+        .content {
+          max-height: calc(100vh - 150px);
+        }
+      }
+    </style>
+  </x-if>
 
   <style :html="fstyle"></style>
 
@@ -109,7 +130,7 @@
       return {
         tag: "p-dialog",
         attrs: {
-          fullscreen: null,
+          autoFullscreen: null,
           autoclose: null,
           noMask: null,
         },
@@ -136,31 +157,6 @@
 
                 targetInput && targetInput.focus();
               }, 100);
-            }
-          },
-          fullscreen(val) {
-            if (val !== null) {
-              this.fstyle = `
-      @media screen and (max-width: ${val === "" ? "100vw" : val + "px"}) {
-        .main {
-          height: 100%;
-          width: 100%;
-          border-radius:0;
-        }
-
-        .close-btn {
-          display: block;
-        }
-
-        .tltle {
-        }
-
-        .content {
-          max-height: calc(100vh - 150px);
-        }
-      }`;
-            } else {
-              this.fstyle = "";
             }
           },
         },
