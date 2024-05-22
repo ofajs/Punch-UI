@@ -87,6 +87,10 @@ export async function enqueue(opts) {
   </p-button>
 </p-snackbar>`);
 
+  if (defaults.color) {
+    el.attr("color", defaults.color);
+  }
+
   let closeTimer;
 
   const close = () => {

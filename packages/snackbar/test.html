@@ -43,6 +43,12 @@
       </p-snackbar>
       <br />
       <br />
+
+      <p-snackbar color="error" style="padding-right: 0; width: 300px">
+        Color values are implemented through design tokens
+        <p-button size="small" variant="text"> Action </p-button>
+      </p-snackbar>
+      <br /><br />
       <p-snackbar style="padding-right: 0; width: 300px">
         Color values are implemented through design tokens
         <br />
@@ -90,6 +96,7 @@
           content: "I am test content" + num++,
           close: null,
           time: 10000,
+          color: "error",
           buttons: [
             // {
             //   content: "btn1-enqueue",
