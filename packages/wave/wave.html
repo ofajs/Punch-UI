@@ -45,6 +45,9 @@
   <script>
     export default {
       tag: "p-wave",
+      attrs: {
+        disabled: null,
+      },
       proto: {
         cancelWave(e) {
           const $target = this.shadow.$(".wave:not(.pass)");
@@ -57,6 +60,10 @@
           }
         },
         clickCon(e) {
+          if (this.disabled !== null) {
+            return;
+          }
+
           const waveEl = $(`<div class="wave"></div>`);
           const container = this.shadow.$(".container");
           container.push(waveEl);
