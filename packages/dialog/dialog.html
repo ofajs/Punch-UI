@@ -96,9 +96,12 @@
     >
       <div class="main" class:showall="open" part="main">
         <div class="tltle">
-          <span class="close-btn" on:click="emit('click-close',{bubbles:false})"
-            >✕</span
+          <span
+            class="close-btn"
+            on:click="emit('click-close',{bubbles:false})"
           >
+            ✕
+          </span>
           <slot name="title"></slot>
         </div>
         <div class="content" part="content"><slot></slot></div>
