@@ -199,13 +199,6 @@
           mainBasis,
           dir = "left",
         }) {
-          // this.all("[visabled]").forEach((e) => {
-          //   e.style.flexBasis = "";
-          //   e.style.marginRight = "";
-          //   e.attr("visabled", null);
-          //   // e.attr("focus", null);
-          // });
-
           const visables = new Set();
 
           // 超出可视的最后一个id
@@ -391,7 +384,23 @@
       },
       attached() {
         let timer;
-        const ro = (this._ro = new ResizeObserver((entries) => {
+        const ro = (this._ro = new ResizeObserver(async () => {
+          if (!this.width) {
+            let count = 0;
+            await new Promise((resolve) => {
+              const t = setInterval(() => {
+                count++;
+                if (this.width) {
+                  clearInterval(t);
+                  resolve();
+                } else if (count > 100) {
+                  clearInterval(t);
+                  console.log(`initialization failed`, this.ele);
+                }
+              }, 100);
+            });
+          }
+
           // 计算激活宽度
           let mainBasis = parseInt(this.mainBasis);
 
@@ -411,7 +420,8 @@
 
           // 计算在可视化下的最后一个id
           const lastVisId = this.length - visLen;
-          this._lastVisId = lastVisId;
+
+          this._lastVisId = lastVisId > 0 ? lastVisId : 0;
 
           clearTimeout(timer);
           timer = setTimeout(() => {
