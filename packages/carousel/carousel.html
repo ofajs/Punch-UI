@@ -101,7 +101,7 @@
           }
 
           if (this.currentId >= this.length) {
-            this.currentId = this.length - 1;
+            this.currentId = this.length ? this.length - 1 : 0;
             return;
           }
           this.render(this.currentId);
@@ -132,17 +132,17 @@
           document.removeEventListener("keydown", this._keydownFunc);
         },
         get currentId() {
-          return parseInt(this.activeIndex) || 0;
+          return parseInt(this.activeIndex);
         },
         set currentId(val) {
           this.activeIndex = String(val);
         },
-        _play() {
+        _play(time) {
           clearTimeout(this._autoplayTimer);
           // 自动播放
           this._autoplayTimer = setTimeout(() => {
             //聚焦的状态不需要自动播放
-            if (this.inFocusMode === null) {
+            if (this.length && this.inFocusMode === null) {
               this.currentId++;
 
               if (this.currentId > this._lastVisId) {
@@ -150,19 +150,21 @@
               }
             }
             this._play();
-          }, parseInt(this.autoplay) || 2000);
+          }, time || parseInt(this.autoplay) || 2000);
         },
         // 根据index进度渲染页面
         render(precent) {
+          if (precent >= this.length) {
+            precent = this.length - 1;
+          }
+
           if (precent < 0) {
             precent = 0;
-          } else if (precent >= this.length) {
-            precent = this.length - 1;
           }
 
           const containerWidth = this.width;
 
-          if (!containerWidth) {
+          if (!containerWidth || !this.length) {
             return;
           }
 
@@ -288,11 +290,13 @@
       ready() {
         // fix p-wave
         this.shadow.on("slotchange", () => {
-          this.forEach((e) => {
-            if (!e.$("p-wave")) {
-              e.push({ tag: "p-wave" });
-            }
-          });
+          // this.forEach((e) => {
+          //   if (!e.$("p-wave")) {
+          //     e.push({ tag: "p-wave" });
+          //   }
+          // });
+
+          this._play(10);
         });
 
         // 触控逻辑
