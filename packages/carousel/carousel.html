@@ -104,6 +104,7 @@
             this.currentId = this.length ? this.length - 1 : 0;
             return;
           }
+
           this.render(this.currentId);
         },
       },
@@ -286,19 +287,58 @@
 
           this._visables = visables;
         },
+        // 更新最后一个可视块的id
+        async _refreshLastVisId() {
+          if (!this.width) {
+            let count = 0;
+            await new Promise((resolve) => {
+              const t = setInterval(() => {
+                count++;
+                if (this.width) {
+                  clearInterval(t);
+                  resolve();
+                } else if (count > 100) {
+                  clearInterval(t);
+                  console.log(`initialization failed`, this.ele);
+                }
+              }, 100);
+            });
+          }
+
+          // 计算激活宽度
+          let mainBasis = parseInt(this.mainBasis);
+
+          if (/%$/.test(this.mainBasis)) {
+            mainBasis = (this.width * parseInt(mainBasis)) / 100;
+          }
+
+          if (!mainBasis) {
+            return;
+          }
+
+          this._mainBasis = mainBasis;
+
+          // 可视的个数
+          const visLen = Math.floor(this.width / (this.spaceSize + mainBasis));
+
+          this._visLen = visLen;
+
+          // 计算在可视化下的最后一个id
+          const lastVisId = this.length - visLen;
+
+          // 最后一个可视的id
+          this._lastVisId = lastVisId > 0 ? lastVisId : 0;
+
+          clearTimeout(this._timer);
+          this._timer = setTimeout(() => {
+            this.render(this.currentId);
+            setTimeout(() => {
+              this.attr("add-anime", "");
+            }, 50);
+          }, 50);
+        },
       },
       ready() {
-        // fix p-wave
-        this.shadow.on("slotchange", () => {
-          // this.forEach((e) => {
-          //   if (!e.$("p-wave")) {
-          //     e.push({ tag: "p-wave" });
-          //   }
-          // });
-
-          this._play(10);
-        });
-
         // 触控逻辑
         let startX = null;
         let startTime = null;
@@ -387,58 +427,19 @@
         });
       },
       attached() {
-        let timer;
         const ro = (this._ro = new ResizeObserver(async () => {
-          if (!this.width) {
-            let count = 0;
-            await new Promise((resolve) => {
-              const t = setInterval(() => {
-                count++;
-                if (this.width) {
-                  clearInterval(t);
-                  resolve();
-                } else if (count > 100) {
-                  clearInterval(t);
-                  console.log(`initialization failed`, this.ele);
-                }
-              }, 100);
-            });
-          }
-
-          // 计算激活宽度
-          let mainBasis = parseInt(this.mainBasis);
-
-          if (/%$/.test(this.mainBasis)) {
-            mainBasis = (this.width * parseInt(mainBasis)) / 100;
-          }
-
-          if (!mainBasis) {
-            return;
-          }
-
-          this._mainBasis = mainBasis;
-
-          const visLen = Math.floor(this.width / (this.spaceSize + mainBasis));
-
-          this._visLen = visLen;
-
-          // 计算在可视化下的最后一个id
-          const lastVisId = this.length - visLen;
-
-          this._lastVisId = lastVisId > 0 ? lastVisId : 0;
-
-          clearTimeout(timer);
-          timer = setTimeout(() => {
-            this.render(this.currentId);
-            setTimeout(() => {
-              this.attr("add-anime", "");
-            }, 50);
-          }, 50);
+          this._refreshLastVisId();
+          this.render(this.currentId);
         }));
 
         ro.observe(this.shadow.$(".container").ele);
 
         this._ro = ro;
+
+        this.shadow.on("slotchange", () => {
+          this._refreshLastVisId();
+          this.render(this.currentId);
+        });
       },
       detached() {
         if (this._ro) {
