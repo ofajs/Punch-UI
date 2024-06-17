@@ -1,3 +1,5 @@
+import "../commons/init.js";
+
 $("head").push(`<style>
 #snackbar-container{
   position:fixed;
