@@ -36,6 +36,7 @@
     }
 
     ::slotted(hr) {
+      box-sizing: border-box;
       display: block;
       width: 100%;
       border-top: transparent solid 0px;
@@ -51,6 +52,7 @@
   </x-if>
   <slot></slot>
   <script>
+    import "../commons/init.js";
     import { isDark } from "../commons/data.js";
 
     export default {

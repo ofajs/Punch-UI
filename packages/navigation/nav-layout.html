@@ -1,5 +1,4 @@
 <template component>
-  <l-m src="../observer/resize-observer.html"></l-m>
   <style>
     :host {
       display: block;
@@ -41,9 +40,6 @@
       top: 0;
       width: 100%;
       z-index: 1;
-    }
-
-    .main-top resize-observer {
       display: flex;
     }
 
@@ -214,13 +210,10 @@
     ></div>
     <div class="main">
       <div class="main-top">
-        <resize-observer on:change="changeTopSize" time="40">
-          <slot name="top"></slot>
-        </resize-observer>
+        <slot name="top"></slot>
       </div>
       <div class="content">
         <div class="inner">
-          <div class="inner-place" :style.height="topHeight + 'px'"></div>
           <div style="position: relative; height: 100%; overflow-x: hidden">
             <slot></slot>
           </div>
@@ -229,6 +222,7 @@
     </div>
   </div>
   <script>
+    import "../commons/init.js";
     import { isDark } from "../commons/data.js";
 
     export default {
@@ -238,17 +232,8 @@
       },
       data: {
         isDark: {},
-        topHeight: 0,
       },
-      proto: {
-        changeTopSize(e) {
-          const { entries } = e.data;
-
-          this.topHeight = $(e.target).height;
-
-          // console.log("change size: ", entries, $(e.target).height);
-        },
-      },
+      proto: {},
       attached() {
         this.isDark = isDark;
       },

@@ -77,7 +77,7 @@
   >
     <x-if :value="multiline === null">
       <input
-        type="text"
+        attr:type="type ? type : 'text'"
         sync:value="value"
         on:focus="infocus = true"
         on:blur="infocus = false"
@@ -109,6 +109,8 @@
     <slot name="helper" slot="helper"></slot>
   </p-field-container>
   <script>
+    import "../commons/init.js";
+    
     export default {
       tag: "p-text-field",
       attrs: {

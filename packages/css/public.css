@@ -1,5 +1,9 @@
 @import url(./theme.css);
 
+body {
+  --pui-theme-inited: yes;
+}
+
 html {
   /* 横向的间距 */
   --pui-space-x: 6px;

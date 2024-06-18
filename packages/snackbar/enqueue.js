@@ -1,12 +1,14 @@
+import "../commons/init.js";
+
 $("head").push(`<style>
 #snackbar-container{
   position:fixed;
   left:var(--enqueue-container-left, 20px);
   bottom:var(--enqueue-container-bottom, 20px);
   width:calc(100% - var(--enqueue-container-left, 20px));
-  height:calc(100% - var(--enqueue-container-bottom, 20px));
+  height:calc(100% - calc(var(--enqueue-container-bottom, 20px) * 2));
   max-width:600px;
-  z-index:400;
+  z-index:20000;
   display:flex;
   box-sizing: border-box;
   flex-direction:column;
@@ -46,7 +48,8 @@ $("head").push(`<style>
     left:var(--enqueue-container-left, 20px);
     bottom:var(--enqueue-container-bottom, 20px);
     width:calc(100% - calc(var(--enqueue-container-left, 20px) * 2));
-    height:calc(100% - var(--enqueue-container-bottom, 20px));
+    height:calc(100% - calc(var(--enqueue-container-bottom, 20px) * 2));
+    justify-content:flex-start;
   }
   #snackbar-container > *{
     width:100%
@@ -61,7 +64,7 @@ load("./snackbar.html");
 let snackbarContainer = $(`<div id="snackbar-container"></div>`);
 $("body").push(snackbarContainer);
 
-export default async function enqueue(opts) {
+export async function enqueue(opts) {
   const defaults = {
     content: "",
     buttons: [],
@@ -85,6 +88,10 @@ export default async function enqueue(opts) {
   <p-button class="snackbar-close" size="small" variant="text" icon style="margin-left: 4px">✕
   </p-button>
 </p-snackbar>`);
+
+  if (defaults.color) {
+    el.attr("color", defaults.color);
+  }
 
   let closeTimer;
 
@@ -141,3 +148,5 @@ export default async function enqueue(opts) {
 
   snackbarContainer.push(el);
 }
+
+export default enqueue;

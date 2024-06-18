@@ -15,7 +15,8 @@
         calc(var(--pui-space-y) * 2) calc(var(--pui-space-x) * 2);
       min-width: 200px;
       min-height: 30px;
-      color: var(--md-sys-color-on-normal-container);
+      color: var(--pui-main-color-container);
+      background-color: var(--pui-on-main-color-container);
       border-radius: var(--pui-border-radius);
     }
 
@@ -31,17 +32,26 @@
     class="container"
     class:theme-light-mode="isDark.value"
     class:theme-dark-mode="!isDark.value"
-    :style.background-color="isDark.value ? 'var(--md-ref-palette-normal90)' : 'var(--md-ref-palette-normal20)'"
   >
     <slot></slot>
   </div>
   <script>
+    import "../commons/init.js";
+    import { setMainColor } from "../commons/util.js";
     import { isDark } from "../commons/data.js";
 
     export default {
       tag: "p-snackbar",
+      attrs: {
+        color: null,
+      },
       data: {
         isDark: {},
+      },
+      watch: {
+        color(color) {
+          setMainColor(this, color || "normal");
+        },
       },
       attached() {
         this.isDark = isDark;

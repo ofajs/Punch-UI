@@ -208,11 +208,10 @@
     <div class="hover-place" part="hover"></div>
     <div class="text-place" part="text-place"></div>
     <div class="contained-place" part="contained-place"></div>
-    <x-if :value="disabled === null">
-      <p-wave style="z-index: 2"></p-wave>
-    </x-if>
+    <p-wave attr:disabled="disabled" style="z-index: 2"></p-wave>
   </button>
   <script>
+    import "../commons/init.js";
     import { setMainColor } from "../commons/util.js";
     import bindClick from "./bind-item-click.js";
 

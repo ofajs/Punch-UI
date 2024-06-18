@@ -21,6 +21,7 @@
         var(--item-padding-left, calc(var(--pui-space-x) * 2));
     }
     .content {
+      flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -45,6 +46,7 @@
     }
 
     ::slotted([secondary]) {
+      display: block;
       margin-top: calc(var(--pui-space-y) / 2);
       font-size: 12px;
       color: var(--md-sys-color-normal);
@@ -171,6 +173,7 @@
     </x-else>
   </div>
   <script>
+    import "../commons/init.js";
     import bindClick from "../button/bind-item-click.js";
 
     export default {
