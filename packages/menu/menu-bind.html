@@ -79,7 +79,10 @@
               self: anchorEl,
               open: () => {
                 placementEl._refreshPosition(anchorEl);
-                this.$("p-menu").visibility = null;
+                setTimeout(() => {
+                  // 延迟显示，避免闪烁
+                  this.$("p-menu").visibility = null;
+                }, 30);
               },
               close: () => {
                 this.$("p-menu").visibility = "hidden";
