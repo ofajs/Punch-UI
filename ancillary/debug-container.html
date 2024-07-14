@@ -27,6 +27,8 @@
     </div>
   </p-provider>
   <script>
+    $("html").attr("use-pui-theme", "");
+
     export default async () => {
       return {
         tag: "p-debug-container",
@@ -35,9 +37,13 @@
         },
         watch: {
           isDark(bool) {
-            bool
-              ? this.classList.add("dark-mode")
-              : this.classList.remove("dark-mode");
+            if (bool) {
+              this.classList.add("dark-mode");
+              $("html").attr("pui-theme-dark", "");
+            } else {
+              this.classList.remove("dark-mode");
+              $("html").attr("pui-theme-dark", null);
+            }
             localStorage.__isDark = bool ? "1" : "";
           },
         },

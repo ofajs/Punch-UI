@@ -27,66 +27,67 @@
     </style>
   </head>
   <body>
-    <l-m src="../../ancillary/dark-switch.html"></l-m>
-    <dark-switch></dark-switch>
+    <l-m src="../../ancillary/debug-container.html"></l-m>
 
     <l-m src="../../ancillary/comp-shower.html"></l-m>
     <l-m src="../../ancillary/dark-switch.html"></l-m>
     <l-m src="./checkbox-group.html"></l-m>
     <l-m src="./checkbox.html"></l-m>
-    <div>
-      <p-checkbox>OK1?</p-checkbox>
-      <p-checkbox checked>OK2?</p-checkbox>
-      <p-checkbox indeterminate>OK3?</p-checkbox>
-      <p-checkbox disabled>OK1-dis</p-checkbox>
-      <p-checkbox checked disabled>OK2-dis</p-checkbox>
-      <p-checkbox indeterminate disabled>OK3?</p-checkbox>
-    </div>
-    <div>
-      <p-checkbox size="small">size small</p-checkbox>
-      <p-checkbox>size normal</p-checkbox>
-      <p-checkbox size="large">size large</p-checkbox>
-      <p-checkbox size="small" checked>size small</p-checkbox>
-      <p-checkbox checked>size normal</p-checkbox>
-      <p-checkbox size="large" checked>size large</p-checkbox>
-      <p-checkbox size="small" indeterminate>size small</p-checkbox>
-      <p-checkbox indeterminate>size normal</p-checkbox>
-      <p-checkbox size="large" indeterminate>size large</p-checkbox>
-    </div>
-    <div id="test">
-      <p-checkbox-group name="test1">
-        <p-checkbox value="female">Female</p-checkbox>
-        <p-checkbox value="male" checked placement="top">Male</p-checkbox>
-        <p-checkbox value="other" placement="bottom">Other</p-checkbox>
-        <p-checkbox placement="end">Other 2</p-checkbox>
-      </p-checkbox-group>
-      <div id="log"></div>
-    </div>
-    <script type="module">
-      // $("p-checkbox-group").watch(() => {
-      //   $("#log").text = $("p-checkbox-group").value;
-      // });
-      $("[name='test1']").on("change", () => {
-        $("#log").text = $("p-checkbox-group").value;
-      });
-    </script>
 
-    <div style="display: flex; flex-direction: column; align-items: flex-start">
-      <p-checkbox-group name="test2">
-        <p-checkbox value="female">Female</p-checkbox>
-        <p-checkbox value="male" checked>Male</p-checkbox>
-        <p-checkbox value="other">Other</p-checkbox>
-        <p-checkbox value="other2">Other 2</p-checkbox>
-      </p-checkbox-group>
-      <div id="log2"></div>
-      <script>
-        $("[name='test2']").on("change", () => {
-          $("#log2").text = $("[name='test2']").value;
+    <p-debug-container>
+      <div>
+        <p-checkbox>OK1?</p-checkbox>
+        <p-checkbox checked>OK2?</p-checkbox>
+        <p-checkbox indeterminate>OK3?</p-checkbox>
+        <p-checkbox disabled>OK1-dis</p-checkbox>
+        <p-checkbox checked disabled>OK2-dis</p-checkbox>
+        <p-checkbox indeterminate disabled>OK3?</p-checkbox>
+      </div>
+      <div>
+        <p-checkbox size="small">size small</p-checkbox>
+        <p-checkbox>size normal</p-checkbox>
+        <p-checkbox size="large">size large</p-checkbox>
+        <p-checkbox size="small" checked>size small</p-checkbox>
+        <p-checkbox checked>size normal</p-checkbox>
+        <p-checkbox size="large" checked>size large</p-checkbox>
+        <p-checkbox size="small" indeterminate>size small</p-checkbox>
+        <p-checkbox indeterminate>size normal</p-checkbox>
+        <p-checkbox size="large" indeterminate>size large</p-checkbox>
+      </div>
+      <div id="test">
+        <p-checkbox-group name="test1">
+          <p-checkbox value="female">Female</p-checkbox>
+          <p-checkbox value="male" checked placement="top">Male</p-checkbox>
+          <p-checkbox value="other" placement="bottom">Other</p-checkbox>
+          <p-checkbox placement="end">Other 2</p-checkbox>
+        </p-checkbox-group>
+        <div id="log"></div>
+      </div>
+      <script type="module">
+        // $("p-checkbox-group").watch(() => {
+        //   $("#log").text = $("p-checkbox-group").value;
+        // });
+        $("[name='test1']").on("change", () => {
+          $("#log").text = $("p-checkbox-group").value;
         });
       </script>
-    </div>
 
-
-    <p-checkbox value="female"></p-checkbox>
+      <div
+        style="display: flex; flex-direction: column; align-items: flex-start"
+      >
+        <p-checkbox-group name="test2">
+          <p-checkbox value="female">Female</p-checkbox>
+          <p-checkbox value="male" checked>Male</p-checkbox>
+          <p-checkbox value="other">Other</p-checkbox>
+          <p-checkbox value="other2">Other 2</p-checkbox>
+        </p-checkbox-group>
+        <div id="log2"></div>
+        <script>
+          $("[name='test2']").on("change", () => {
+            $("#log2").text = $("[name='test2']").value;
+          });
+        </script>
+      </div>
+    </p-debug-container>
   </body>
 </html>
