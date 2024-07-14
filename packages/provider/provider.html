@@ -1,0 +1,23 @@
+<template component>
+  <link rel="stylesheet" href="../css/theme.css" />
+  <style>
+    :host {
+      display: contents;
+    }
+  </style>
+  <o-provider
+    name="pui"
+    :theme="theme"
+    class:theme-dark-mode="theme === 'dark'"
+  >
+    <slot></slot>
+  </o-provider>
+  <script>
+    export default {
+      tag: "p-provider",
+      attrs: {
+        theme: "light",
+      },
+    };
+  </script>
+</template>
