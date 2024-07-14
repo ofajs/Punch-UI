@@ -112,7 +112,7 @@
     </style>
   </x-if>
 
-  <x-if :value="isDark.value">
+  <x-if :value="theme === 'dark'">
     <style>
       :host {
         background-color: var(--pui-bg-dark, var(--md-ref-palette-normal10));
@@ -140,9 +140,9 @@
       <div class="safearea"></div>
     </x-if>
   </div>
+  <o-consumer name="pui" watch:theme="theme"></o-consumer>
   <script>
     import "../commons/init.js";
-    import { isDark } from "../commons/data.js";
 
     export default {
       tag: "p-menu",
@@ -150,14 +150,8 @@
         visibility: null,
       },
       data: {
-        isDark: {},
+        theme: "light",
         isChild: false,
-      },
-      attached() {
-        this.isDark = isDark;
-      },
-      detached() {
-        this.isDark = {};
       },
       loaded() {
         this.shadow.$("[init-style]").remove();

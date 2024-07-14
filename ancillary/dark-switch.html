@@ -2,21 +2,26 @@
   <div>
     <label>
       isDark
-      <input type="checkbox" sync:checked="isDark.value" />
+      <input type="checkbox" sync:checked="isDark" />
     </label>
   </div>
   <script>
-    import { isDark } from "../packages/commons/data.js";
-
     export default {
       data: {
-        isDark: { value: false },
+        isDark: localStorage.__isDark === "1",
       },
-      attached() {
-        this.isDark = isDark;
-      },
-      detached() {
-        this.isDark = {};
+
+      watch: {
+        isDark(bool) {
+          if (bool) {
+            this.classList.add("dark-mode");
+            $("html").attr("pui-theme", "dark");
+          } else {
+            this.classList.remove("dark-mode");
+            $("html").attr("pui-theme", "light");
+          }
+          localStorage.__isDark = bool ? "1" : "";
+        },
       },
     };
   </script>
