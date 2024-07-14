@@ -20,6 +20,7 @@ html,
   --md-sys-color-on-surface: var(--md-ref-palette-normal10);
 }
 
+html[pui-theme-dark],
 .theme-dark-mode {
   --md-sys-color-primary: var(--md-ref-palette-primary80);
   --md-sys-color-on-primary: var(--md-ref-palette-primary20);

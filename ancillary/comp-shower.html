@@ -66,20 +66,20 @@
       },
       watch: {
         isRenderAll() {
-          this.refresh();
+          this._refresh();
         },
         showCode() {
-          this.refresh();
+          this._refresh();
         },
       },
       proto: {
-        refresh() {
+        _refresh() {
           clearTimeout(this._timer);
           this._timer = setTimeout(() => {
             if (this.isRenderAll) {
               this.renderAll();
             } else {
-              this.refreshUI();
+              this._refreshUI();
             }
           }, 0);
         },
@@ -134,7 +134,7 @@
             }
           });
         },
-        refreshUI() {
+        _refreshUI() {
           const $e = $(this.$("template").html);
 
           this.all("select").forEach((e) => {
@@ -159,10 +159,10 @@
         },
       },
       attached() {
-        // this.refreshUI();
+        // this._refreshUI();
 
         this.on("change", () => {
-          this.refreshUI();
+          this._refreshUI();
         });
       },
     };

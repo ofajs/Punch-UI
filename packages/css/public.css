@@ -1,4 +1,4 @@
-@import url(./color-wheel.css);
+@import url(./colors.css);
 @import url(./theme.css);
 
 body {
@@ -36,10 +36,3 @@ body {
   font: 400 1em/1.8 -apple-system, BlinkMacSystemFont, Segoe UI, Microsoft Yahei,
     Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
 }
-
-/* html {
-  --card-elevated-bg-color: var(--md-ref-palette-primary98);
-}
-html.dark {
-  --card-elevated-bg-color: var(--md-ref-palette-normal10);
-} */
