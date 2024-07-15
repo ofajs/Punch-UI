@@ -2,6 +2,7 @@
   <l-m src="./nav-layout.html"></l-m>
   <l-m src="../navigation/nav-bar.html"></l-m>
   <l-m src="../list/list.html"></l-m>
+  <l-m src="../../ancillary/dark-switch.html"></l-m>
   <style>
     @media screen and (min-width: 600px) {
       p-nav-layout::part(drawer-mask) {
@@ -96,13 +97,9 @@
       </p-nav-item>
     </p-nav-bar>
     <div slot="left-bottom">
-      <label
-        >Dark Mode
-        <input type="checkbox" id="thememode" on:change="changeMode" />
-      </label>
+      <dark-switch></dark-switch>
     </div>
   </p-nav-layout>
-  <o-consumer name="pui" watch:theme="theme"></o-consumer>
   <script>
     import enqueue from "../snackbar/enqueue.js";
 
@@ -110,29 +107,13 @@
       data: {
         activeId: "0",
         openDrawer: false,
-        theme: "light",
       },
       watch: {
         activeId(val) {
           console.log("activeId", val);
         },
-        theme(theme) {
-          if (theme === "dark") {
-            $("html").attr("pui-theme", "dark");
-            this.shadow.$("#thememode").checked = true;
-          } else {
-            $("html").attr("pui-theme", "light");
-            this.shadow.$("#thememode").checked = false;
-          }
-          localStorage.__isDark = theme === "dark" ? "1" : "";
-        },
       },
-      proto: {
-        changeMode(e) {
-          const consumer = this.shadow.$('o-consumer[name="pui"]');
-          consumer.provider.theme = e.target.checked ? "dark" : "light";
-        },
-      },
+      proto: {},
     };
   </script>
 </template>
