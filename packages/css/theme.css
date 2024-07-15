@@ -1,6 +1,7 @@
 html,
 html[pui-theme="light"],
 .theme-light-mode {
+  --pui-theme: light;
   --md-sys-color-primary: var(--md-ref-palette-primary40);
   --md-sys-color-on-primary: var(--md-ref-palette-primary100);
   --md-sys-color-primary-container: var(--md-ref-palette-primary90);
@@ -23,6 +24,7 @@ html[pui-theme="light"],
 
 html[pui-theme="dark"],
 .theme-dark-mode {
+  --pui-theme: dark;
   --md-sys-color-primary: var(--md-ref-palette-primary80);
   --md-sys-color-on-primary: var(--md-ref-palette-primary20);
   --md-sys-color-primary-container: var(--md-ref-palette-primary30);

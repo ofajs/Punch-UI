@@ -34,6 +34,7 @@
     <button slot="drawer" on:click="openDrawer = false" style="width: 80px">
       close
     </button>
+
     <p-list slot="drawer">
       <p-list-item> Headline 1</p-list-item>
       <p-list-item> Headline 2</p-list-item>
@@ -94,8 +95,14 @@
         Musics
       </p-nav-item>
     </p-nav-bar>
-    <dark-switch slot="left-bottom"></dark-switch>
+    <div slot="left-bottom">
+      <label
+        >Dark Mode
+        <input type="checkbox" id="thememode" on:change="changeMode" />
+      </label>
+    </div>
   </p-nav-layout>
+  <o-consumer name="pui" watch:theme="theme"></o-consumer>
   <script>
     import enqueue from "../snackbar/enqueue.js";
 
@@ -103,17 +110,29 @@
       data: {
         activeId: "0",
         openDrawer: false,
+        theme: "light",
       },
       watch: {
         activeId(val) {
           console.log("activeId", val);
         },
+        theme(theme) {
+          if (theme === "dark") {
+            $("html").attr("pui-theme", "dark");
+            this.shadow.$("#thememode").checked = true;
+          } else {
+            $("html").attr("pui-theme", "light");
+            this.shadow.$("#thememode").checked = false;
+          }
+          localStorage.__isDark = theme === "dark" ? "1" : "";
+        },
       },
-      // proto: {
-      //   clickTips() {
-      //     enqueue("I am Content");
-      //   },
-      // },
+      proto: {
+        changeMode(e) {
+          const consumer = this.shadow.$('o-consumer[name="pui"]');
+          consumer.provider.theme = e.target.checked ? "dark" : "light";
+        },
+      },
     };
   </script>
 </template>
