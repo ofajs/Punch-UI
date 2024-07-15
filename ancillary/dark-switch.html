@@ -13,12 +13,15 @@
 
       watch: {
         isDark(bool) {
+          const rootProvider = $(`o-root-provider[name='pui']`);
           if (bool) {
             this.classList.add("dark-mode");
             $("html").attr("pui-theme", "dark");
+            rootProvider.theme = "dark";
           } else {
             this.classList.remove("dark-mode");
             $("html").attr("pui-theme", "light");
+            rootProvider.theme = "light";
           }
           localStorage.__isDark = bool ? "1" : "";
         },

@@ -1,3 +1,9 @@
+if (!$("o-root-provider[name='pui']")) {
+  $("body").push(`
+    <o-root-provider name="pui" theme="light"></o-root-provider>
+  `);
+}
+
 const themeInited = getComputedStyle(document.body).getPropertyValue(
   "--pui-theme-inited"
 );
