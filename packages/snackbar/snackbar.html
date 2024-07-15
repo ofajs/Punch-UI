@@ -1,5 +1,5 @@
 <template component>
-  <link rel="stylesheet" href="../css/theme.css" />
+  <l-m src="../provider/provider.html"></l-m>
   <style>
     :host {
       display: inline-block;
@@ -28,17 +28,15 @@
       margin-left: 8px;
     }
   </style>
-  <div
-    class="container"
-    class:theme-light-mode="isDark.value"
-    class:theme-dark-mode="!isDark.value"
-  >
-    <slot></slot>
+  <div class="container">
+    <p-provider :theme="theme === 'dark' ? 'light' : 'dark'">
+      <slot></slot>
+    </p-provider>
   </div>
+  <o-consumer name="pui" watch:theme="theme"></o-consumer>
   <script>
     import "../commons/init.js";
     import { setMainColor } from "../commons/util.js";
-    import { isDark } from "../commons/data.js";
 
     export default {
       tag: "p-snackbar",
@@ -46,18 +44,15 @@
         color: null,
       },
       data: {
-        isDark: {},
+        theme: "",
       },
       watch: {
+        theme(theme) {
+          console.log("theme: ", theme);
+        },
         color(color) {
           setMainColor(this, color || "normal");
         },
-      },
-      attached() {
-        this.isDark = isDark;
-      },
-      detached() {
-        this.isDark = {};
       },
     };
   </script>
