@@ -128,7 +128,7 @@
 
   <script>
     import "../commons/init.js";
-    
+
     export default async ({ load }) => {
       load("./mask.html");
 
@@ -147,21 +147,18 @@
         proto: {},
         watch: {
           open(val) {
-            clearTimeout(this._focusTimer);
             if (val) {
-              this._focusTimer = setTimeout(() => {
-                let targetInput = this.$("[autofocus]");
+              let targetInput = this.$("[autofocus]");
 
-                if (!targetInput) {
-                  targetInput = this.$("p-text-field");
-                }
+              if (!targetInput) {
+                targetInput = this.$("p-text-field");
+              }
 
-                if (!targetInput) {
-                  targetInput = this.$("p-button");
-                }
+              if (!targetInput) {
+                targetInput = this.$("p-button");
+              }
 
-                targetInput && targetInput.focus();
-              }, 100);
+              targetInput && targetInput.focus();
             }
           },
         },

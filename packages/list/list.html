@@ -22,7 +22,6 @@
         top: -13px;
         width: 20px;
         height: 20px;
-        /* background-color: rgba(255, 0, 0, 0.344); */
       }
     </style>
   </inject-host>
@@ -43,7 +42,7 @@
       border-bottom: var(--md-sys-color-normal) solid 0.5px;
     }
   </style>
-  <x-if :value="isDark.value">
+  <x-if :value="theme === 'dark'">
     <style>
       :host {
         background-color: var(--list-dark-bg-color);
@@ -51,25 +50,19 @@
     </style>
   </x-if>
   <slot></slot>
+  <o-consumer name="pui" watch:theme="theme"></o-consumer>
   <script>
     import "../commons/init.js";
-    import { isDark } from "../commons/data.js";
 
     export default {
       tag: "p-list",
       data: {
-        isDark: {},
+        theme: "light",
       },
       ready() {
         this.on("click", (e) => {
           e.stopPropagation();
         });
-      },
-      attached() {
-        this.isDark = isDark;
-      },
-      detached() {
-        this.isDark = {};
       },
     };
   </script>

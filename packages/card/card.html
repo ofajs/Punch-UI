@@ -13,7 +13,7 @@
 
     :host([elevated]) {
       box-shadow: var(--contained-shadow);
-      background-color: var(--card-elevated-bg-color);
+      background-color: var(--card-bg-color);
     }
 
     :host([filled]) {
@@ -79,20 +79,36 @@
     ::slotted(*:first-child:not([slot])) {
       margin-top: calc(var(--pui-space-y) * 4);
     }
+    :host {
+      --card-bg-color: var(--md-ref-palette-primary98);
+    }
   </style>
+
+  <x-if :value="theme === 'dark'">
+    <style>
+      :host {
+        --card-bg-color: var(--md-ref-palette-normal10);
+      }
+    </style>
+  </x-if>
+
   <div style="flex-shrink: 0"><slot name="pic"></slot></div>
   <div class="container" slot="container">
     <slot></slot>
   </div>
+  <o-consumer name="pui" watch:theme="theme"></o-consumer>
   <script>
     import "../commons/init.js";
-    
+
     export default {
       tag: "p-card",
       attrs: {
         elevated: null,
         filled: null,
         outlined: null,
+      },
+      data: {
+        theme: "light",
       },
     };
   </script>

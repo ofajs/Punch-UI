@@ -2,6 +2,7 @@
   <l-m src="./nav-layout.html"></l-m>
   <l-m src="../navigation/nav-bar.html"></l-m>
   <l-m src="../list/list.html"></l-m>
+  <l-m src="../../ancillary/dark-switch.html"></l-m>
   <style>
     @media screen and (min-width: 600px) {
       p-nav-layout::part(drawer-mask) {
@@ -34,6 +35,7 @@
     <button slot="drawer" on:click="openDrawer = false" style="width: 80px">
       close
     </button>
+
     <p-list slot="drawer">
       <p-list-item> Headline 1</p-list-item>
       <p-list-item> Headline 2</p-list-item>
@@ -94,7 +96,9 @@
         Musics
       </p-nav-item>
     </p-nav-bar>
-    <dark-switch slot="left-bottom"></dark-switch>
+    <div slot="left-bottom">
+      <dark-switch></dark-switch>
+    </div>
   </p-nav-layout>
   <script>
     import enqueue from "../snackbar/enqueue.js";
@@ -109,11 +113,7 @@
           console.log("activeId", val);
         },
       },
-      // proto: {
-      //   clickTips() {
-      //     enqueue("I am Content");
-      //   },
-      // },
+      proto: {},
     };
   </script>
 </template>

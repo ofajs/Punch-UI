@@ -4,11 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Button</title>
-    <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.4.5/dist/ofa.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.5.6/dist/ofa.min.js"
+      debug
+    ></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
-    <!-- <link rel="stylesheet" href="../css/public.css" pui-theme-link /> -->
 
     <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      
       *:not(:defined) {
         display: none;
       }
@@ -19,159 +27,152 @@
   </head>
   <body>
     <l-m src="../../ancillary/comp-shower.html"></l-m>
-    <l-m src="../../ancillary/dark-switch.html"></l-m>
+    <l-m src="../../ancillary/debug-container.html"></l-m>
     <l-m src="./button.html"></l-m>
-    <dark-switch></dark-switch>
-    <!-- 
-    <p-button variant="contained" id="aaa" disabled>Test</p-button>
-    <script>
-      $("#aaa").on("click", () => {
-        console.log("asdasd");
-      });
-    </script> -->
+    <p-debug-container>
+      <comp-shower name="button">
+        <template>
+          <p-button>Test Button</p-button>
+        </template>
+        <label>
+          disabled:
+          <select name="disabled">
+            <option>null</option>
+            <option value="">Empty</option>
+          </select>
+        </label>
+        <label>
+          elevated:
+          <select name="elevated">
+            <option>null</option>
+            <option value="">Empty</option>
+          </select>
+        </label>
+        <label>
+          size:
+          <select name="size">
+            <option>default</option>
+            <option>small</option>
+            <option>large</option>
+          </select>
+        </label>
+        <label>
+          color:
+          <select name="color">
+            <option>primary</option>
+            <option>error</option>
+            <option>normal</option>
+            <option>success</option>
+          </select>
+        </label>
+        <label>
+          variant:
+          <select name="variant">
+            <option>contained</option>
+            <option>tonal</option>
+            <option>outlined</option>
+            <option>text</option>
+          </select>
+        </label>
+      </comp-shower>
 
-    <comp-shower name="button">
-      <template>
-        <p-button>Test Button</p-button>
-      </template>
-      <label>
-        disabled:
-        <select name="disabled">
-          <option>null</option>
-          <option value="">Empty</option>
-        </select>
-      </label>
-      <label>
-        elevated:
-        <select name="elevated">
-          <option>null</option>
-          <option value="">Empty</option>
-        </select>
-      </label>
-      <label>
-        size:
-        <select name="size">
-          <option>default</option>
-          <option>small</option>
-          <option>large</option>
-        </select>
-      </label>
-      <label>
-        color:
-        <select name="color">
-          <option>primary</option>
-          <option>error</option>
-          <option>normal</option>
-          <option>success</option>
-        </select>
-      </label>
-      <label>
-        variant:
-        <select name="variant">
-          <option>contained</option>
-          <option>tonal</option>
-          <option>outlined</option>
-          <option>text</option>
-        </select>
-      </label>
-    </comp-shower>
+      <br />
 
-    <br />
+      <comp-shower name="icon button">
+        <template>
+          <p-button icon>
+            <iconify-icon icon="material-symbols:delete-outline"></iconify-icon>
+          </p-button>
+        </template>
+        <label>
+          disabled:
+          <select name="disabled">
+            <option>null</option>
+            <option value="">Empty</option>
+          </select>
+        </label>
+        <label>
+          elevated:
+          <select name="elevated">
+            <option>null</option>
+            <option value="">Empty</option>
+          </select>
+        </label>
+        <label>
+          size:
+          <select name="size">
+            <option>default</option>
+            <option>small</option>
+            <option>large</option>
+          </select>
+        </label>
+        <label>
+          color:
+          <select name="color">
+            <option>primary</option>
+            <option>error</option>
+            <option>normal</option>
+            <option>success</option>
+          </select>
+        </label>
+        <label>
+          variant:
+          <select name="variant">
+            <option>contained</option>
+            <option>tonal</option>
+            <option>outlined</option>
+            <option>text</option>
+          </select>
+        </label>
+      </comp-shower>
 
-    <comp-shower name="icon button">
-      <template>
-        <p-button icon>
-          <iconify-icon icon="material-symbols:delete-outline"></iconify-icon>
+      <div>
+        <p-button elevated>
+          <iconify-icon
+            icon="material-symbols:delete-outline"
+            slot="prefix"
+          ></iconify-icon>
+          Delete
         </p-button>
-      </template>
-      <label>
-        disabled:
-        <select name="disabled">
-          <option>null</option>
-          <option value="">Empty</option>
-        </select>
-      </label>
-      <label>
-        elevated:
-        <select name="elevated">
-          <option>null</option>
-          <option value="">Empty</option>
-        </select>
-      </label>
-      <label>
-        size:
-        <select name="size">
-          <option>default</option>
-          <option>small</option>
-          <option>large</option>
-        </select>
-      </label>
-      <label>
-        color:
-        <select name="color">
-          <option>primary</option>
-          <option>error</option>
-          <option>normal</option>
-          <option>success</option>
-        </select>
-      </label>
-      <label>
-        variant:
-        <select name="variant">
-          <option>contained</option>
-          <option>tonal</option>
-          <option>outlined</option>
-          <option>text</option>
-        </select>
-      </label>
-    </comp-shower>
-
-    <div>
-      <p-button elevated>
-        <iconify-icon
-          icon="material-symbols:delete-outline"
-          slot="prefix"
-        ></iconify-icon>
-        Delete
-      </p-button>
-      <p-button size="small">
-        <iconify-icon
-          icon="material-symbols:delete-outline"
-          slot="prefix"
-        ></iconify-icon>
-        Delete
-      </p-button>
-      <p-button size="large">
-        <iconify-icon
-          icon="material-symbols:delete-outline"
-          slot="prefix"
-        ></iconify-icon>
-        Delete
-      </p-button>
-    </div>
-    <div>
-      <p-button>
-        <iconify-icon
-          icon="material-symbols:send-outline"
-          slot="suffix"
-        ></iconify-icon>
-        Send
-      </p-button>
-      <p-button size="small">
-        <iconify-icon
-          icon="material-symbols:send-outline"
-          slot="suffix"
-        ></iconify-icon>
-        Send
-      </p-button>
-      <p-button size="large">
-        <iconify-icon
-          icon="material-symbols:send-outline"
-          slot="suffix"
-        ></iconify-icon>
-        Send
-      </p-button>
-    </div>
+        <p-button size="small">
+          <iconify-icon
+            icon="material-symbols:delete-outline"
+            slot="prefix"
+          ></iconify-icon>
+          Delete
+        </p-button>
+        <p-button size="large">
+          <iconify-icon
+            icon="material-symbols:delete-outline"
+            slot="prefix"
+          ></iconify-icon>
+          Delete
+        </p-button>
+      </div>
+      <div>
+        <p-button>
+          <iconify-icon
+            icon="material-symbols:send-outline"
+            slot="suffix"
+          ></iconify-icon>
+          Send
+        </p-button>
+        <p-button size="small">
+          <iconify-icon
+            icon="material-symbols:send-outline"
+            slot="suffix"
+          ></iconify-icon>
+          Send
+        </p-button>
+        <p-button size="large">
+          <iconify-icon
+            icon="material-symbols:send-outline"
+            slot="suffix"
+          ></iconify-icon>
+          Send
+        </p-button>
+      </div>
+    </p-debug-container>
     <!-- <div>
       <p-icon-button>
         <iconify-icon icon="material-symbols:delete-outline"></iconify-icon>

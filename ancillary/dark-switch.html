@@ -1,26 +1,32 @@
 <template component>
   <div>
-    <label
-      >isDark
-      <input type="checkbox" sync:checked="isDark.value" />
+    <label>
+      isDark
+      <input type="checkbox" sync:checked="isDark" />
     </label>
   </div>
   <script>
-    import { isDark } from "../packages/commons/data.js";
-
-    // const darkStyle = $(`<style>
-    // html,body{background-color:var(--md-sys-color-surface);color:var(--md-sys-color-on-surface);}
-    // </style>`);
+    import "../packages/commons/init.js";
 
     export default {
       data: {
-        isDark: { value: false },
+        isDark: localStorage.__isDark === "1",
       },
-      attached() {
-        this.isDark = isDark;
-      },
-      detached() {
-        this.isDark = {};
+
+      watch: {
+        isDark(bool) {
+          const rootProvider = $(`o-root-provider[name='pui']`);
+          if (bool) {
+            this.classList.add("dark-mode");
+            $("html").attr("pui-theme", "dark");
+            rootProvider.theme = "dark";
+          } else {
+            this.classList.remove("dark-mode");
+            $("html").attr("pui-theme", "light");
+            rootProvider.theme = "light";
+          }
+          localStorage.__isDark = bool ? "1" : "";
+        },
       },
     };
   </script>
