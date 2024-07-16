@@ -81,6 +81,7 @@
 
   <script>
     import dialogUtil from "./command.js";
+    import { confirm } from "../util.js";
 
     export default {
       data: {
@@ -90,7 +91,8 @@
       },
       proto: {
         async confirmDemo() {
-          const data = await dialogUtil.confirm({
+          // const data = await dialogUtil.confirm({
+          const data = await confirm({
             title: "Test Confirm Title",
             content: "This is a test text for Confirm",
             // yes: "是的",
