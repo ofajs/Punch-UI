@@ -1,4 +1,4 @@
-if (!$("o-root-provider[name='pui']")) {
+if (!$.getRootProvider("pui")) {
   $("body").push(`
     <o-root-provider name="pui" theme="light"></o-root-provider>
   `);
