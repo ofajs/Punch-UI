@@ -44,6 +44,9 @@
           this.__refreshStyleTimer = setTimeout(() => {
             // const headRow = this.$("p-table-row[head]");
             const headRow = this.$("p-table-row");
+            if (!headRow) {
+              return;
+            }
             let styleStr = "";
             const cellLength = headRow.length;
             const { width } = this;
