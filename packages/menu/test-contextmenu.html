@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>menu</title>
+    <script
+      src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.5.13/dist/ofa.min.js"
+      debug
+    ></script>
+    <link rel="stylesheet" href="../css/public.css" />
+    <style>
+      *:not(:defined) {
+        display: none;
+      }
+      div {
+        padding: 12px;
+      }
+      p-menu {
+        margin: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <l-m src="../../ancillary/comp-shower.html"></l-m>
+
+    <l-m src="../../ancillary/debug-container.html"></l-m>
+    <l-m
+      src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"
+    ></l-m>
+    <l-m src="./menu.html"></l-m>
+    <l-m src="./menu-area.html"></l-m>
+    <l-m src="./bind-contextmenu.html"></l-m>
+
+    <p-debug-container>
+      <p-menu-area
+        area-name="area1"
+        style="
+          display: flex;
+          background-color: rgba(146, 29, 29, 0.2);
+          height: 300px;
+        "
+      >
+        <p-bind-contextmenu
+          area="area1"
+          style="
+            background-color: rgba(33, 15, 149, 0.393);
+            width: calc(100% - 40px);
+            height: calc(100% - 40px);
+            margin: 20px;
+          "
+        >
+          <p-menu>
+            <p-menu-item id="targetItem">Cut</p-menu-item>
+            <p-menu-item>Copy</p-menu-item>
+            <p-menu-item>Paste</p-menu-item>
+            <hr />
+            <p-menu-item>Clipboard</p-menu-item>
+          </p-menu>
+        </p-bind-contextmenu>
+      </p-menu-area>
+    </p-debug-container>
+
+    <script>
+      $("#targetItem").on("click", () => {
+        console.log("click cut");
+      });
+    </script>
+  </body>
+</html>

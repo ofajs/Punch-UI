@@ -1,0 +1,48 @@
+<template component>
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <slot></slot>
+  <script>
+    export default async ({ load }) => {
+      const { areas } = await load("./menu-area.html");
+
+      return {
+        tag: "p-bind-contextmenu",
+        attrs: {
+          area: null,
+        },
+        proto: {},
+        attached() {
+          this.$("p-menu").visibility = "hidden";
+
+          this.on("contextmenu", (e) => {
+            e.preventDefault();
+
+            this.$("p-menu").visibility = "visible";
+          });
+
+          if (!this._bindFn) {
+            // 点击外部环境后，取消菜单绑定
+            $("html").on(
+              "click",
+              (this._bindFn = () => {
+                this.$("p-menu").visibility = "hidden";
+
+                $("html").off("mouseup", this._bindFn);
+                this._bindFn = null;
+              })
+            );
+          }
+        },
+        detached() {
+          if (this._bindFn) {
+            $("html").off("mouseup", this._bindFn);
+          }
+        },
+      };
+    };
+  </script>
+</template>
