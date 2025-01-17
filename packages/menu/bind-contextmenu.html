@@ -2,6 +2,7 @@
   <style>
     :host {
       display: block;
+      position: relative;
     }
   </style>
   <slot></slot>
@@ -14,14 +15,28 @@
         attrs: {
           area: null,
         },
-        proto: {},
+        proto: {
+          get menu() {
+            return this.$("p-menu");
+          },
+        },
         attached() {
-          this.$("p-menu").open = "off";
+          this.menu.open = "off";
+
+          this.menu.on("contextmenu", (e) => e.stopPropagation());
 
           this.on("contextmenu", (e) => {
             e.preventDefault();
 
-            this.$("p-menu").open = "on";
+            this.menu.open = "";
+
+            const { offsetX, offsetY } = e;
+
+            Object.assign(this.menu.style, {
+              position: "absolute",
+              left: `${offsetX}px`,
+              top: `${offsetY}px`,
+            });
           });
 
           if (!this._bindFn) {
@@ -29,7 +44,7 @@
             $("html").on(
               "click",
               (this._bindFn = () => {
-                this.$("p-menu").open = "off";
+                this.menu.open = "off";
 
                 $("html").off("mouseup", this._bindFn);
                 this._bindFn = null;

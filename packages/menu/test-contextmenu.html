@@ -16,9 +16,6 @@
       div {
         padding: 12px;
       }
-      p-menu {
-        margin: 8px;
-      }
     </style>
   </head>
   <body>
@@ -32,7 +29,10 @@
     <l-m src="./menu-area.html"></l-m>
     <l-m src="./bind-contextmenu.html"></l-m>
 
+    <div style="height: 50px"></div>
+
     <p-debug-container>
+      <!-- <div style="margin: 12px; transform: translate(0, 0)"> -->
       <p-menu-area
         area-name="area1"
         style="
@@ -59,6 +59,7 @@
           </p-menu>
         </p-bind-contextmenu>
       </p-menu-area>
+      <!-- </div> -->
     </p-debug-container>
 
     <script>
