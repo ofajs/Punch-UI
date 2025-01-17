@@ -13,7 +13,7 @@
       --triangle-color: #5f6368;
     }
 
-    :host([visibility="hidden"]) {
+    :host([open="off"]) {
       pointer-events: none;
     }
 
@@ -34,7 +34,7 @@
       transition: margin ease 0.2s;
     }
 
-    :host([visibility="hidden"]) .container {
+    :host([open="off"]) .container {
       padding-top: 0;
       padding-bottom: 0;
       transition: opacity ease 0.2s;
@@ -56,15 +56,15 @@
       p-menu p-menu-item::part(container) {
         transition: line-height ease 0.2s, padding ease 0.2s;
       }
-      p-menu[visibility="hidden"] p-menu-item {
+      p-menu[open="off"] p-menu-item {
         line-height: 0px !important;
       }
-      p-menu[visibility="hidden"] p-menu-item::part(container) {
+      p-menu[open="off"] p-menu-item::part(container) {
         padding-top: 0 !important;
         padding-bottom: 0 !important;
       }
 
-      p-menu[visibility="hidden"] p-menu-item::part(fake-button) {
+      p-menu[open="off"] p-menu-item::part(fake-button) {
         /* Remove focus when hidden */
         display: none !important;
       }
@@ -78,20 +78,20 @@
         transition: opacity ease 0.5s;
       }
 
-      p-menu[visibility="hidden"] p-menu-item img[slot="prefix"] {
+      p-menu[open="off"] p-menu-item img[slot="prefix"] {
         opacity: 0;
       }
-      p-menu[visibility="hidden"] {
+      p-menu[open="off"] {
         opacity: 0;
         pointer-events: none;
       }
 
-      p-menu[visibility="hidden"] [slot="prefix"] {
+      p-menu[open="off"] [slot="prefix"] {
         font-size: 0px;
         line-height: 0;
       }
 
-      p-menu[visibility="hidden"] hr {
+      p-menu[open="off"] hr {
         margin-top: 0 !important;
         margin-bottom: 0 !important;
         border-width: 0;
@@ -147,7 +147,7 @@
     export default {
       tag: "p-menu",
       attrs: {
-        visibility: null,
+        open: null,
       },
       data: {
         theme: "light",

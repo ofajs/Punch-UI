@@ -16,12 +16,12 @@
         },
         proto: {},
         attached() {
-          this.$("p-menu").visibility = "hidden";
+          this.$("p-menu").open = "off";
 
           this.on("contextmenu", (e) => {
             e.preventDefault();
 
-            this.$("p-menu").visibility = "visible";
+            this.$("p-menu").open = "on";
           });
 
           if (!this._bindFn) {
@@ -29,7 +29,7 @@
             $("html").on(
               "click",
               (this._bindFn = () => {
-                this.$("p-menu").visibility = "hidden";
+                this.$("p-menu").open = "off";
 
                 $("html").off("mouseup", this._bindFn);
                 this._bindFn = null;

@@ -131,7 +131,7 @@
   </div>
   <script>
     import "../commons/init.js";
-    
+
     export default {
       tag: "p-menu-item",
       attrs: {
@@ -165,7 +165,7 @@
                 });
 
                 if (!infocus) {
-                  e.visibility = "hidden";
+                  e.open = "off";
                 }
               }
             });
@@ -173,12 +173,12 @@
         },
         enterItem() {
           if (this.hasMenu) {
-            this.$("p-menu").visibility = "";
+            this.$("p-menu").open = "";
           }
         },
         leaveItem() {
           if (this.hasMenu) {
-            this.$("p-menu").visibility = "hidden";
+            this.$("p-menu").open = "off";
           }
         },
       },
@@ -186,7 +186,7 @@
         this.shadow.$("slot[data-main]").on("slotchange", () => {
           this.hasMenu = !!this.$("p-menu");
           this.all("p-menu").forEach((e) => {
-            e.visibility = "hidden";
+            e.open = "off";
             e.isChild = true;
           });
         });
