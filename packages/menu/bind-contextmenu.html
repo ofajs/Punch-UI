@@ -14,6 +14,7 @@
         tag: "p-bind-contextmenu",
         attrs: {
           area: null,
+          autoClose: null,
         },
         proto: {
           get menu() {
@@ -23,6 +24,17 @@
         attached() {
           this.menu.open = "off";
 
+          this.menu.on("click-menu-item", (e) => {
+            // 如果设置了autoClose，且点击的元素不是菜单，则自动关闭菜单
+            if (
+              this.autoClose !== null &&
+              !$(e.target).some((e) => e.tag === "p-menu")
+            ) {
+              this.menu.open = "off";
+            }
+          });
+
+          // 防止菜单内的右键触发
           this.menu.on("contextmenu", (e) => e.stopPropagation());
 
           this.on("contextmenu", (e) => {
@@ -38,7 +50,6 @@
               top: `${offsetY}px`,
             });
 
-            // setTimeout(() => {
             // 获取安全容器的尺寸和位置
             const targetArea = this.area ? areas.get(this.area) : null;
 
@@ -98,7 +109,6 @@
                 menu.style.top = `-${subMenuHeight - menu.parent.height}px`;
               }
             });
-            // }, 20);
           });
 
           if (!this._bindFn) {

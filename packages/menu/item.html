@@ -173,7 +173,7 @@
           });
         },
         enterItem() {
-          if (this.hasMenu) {
+          if (this.hasMenu && this.disabled === null) {
             this.$("p-menu").open = "";
           }
         },
@@ -194,7 +194,7 @@
 
         this.on("click", (e) => {
           e.stopPropagation();
-          this.emit("click-item", {
+          this.emit("click-menu-item", {
             data: e.target,
           });
         });
