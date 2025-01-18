@@ -72,6 +72,32 @@
                 parseInt(this.menu.style.left) - menuWidth
               }px`;
             }
+
+            // 修正二级菜单的定位
+            this.menu.all("p-menu").forEach((menu) => {
+              // 先还原定位
+              Object.assign(menu.style, {
+                left: "",
+                top: "",
+              });
+
+              const {
+                width: subMenuWidth,
+                height: subMenuHeight,
+                left: subMenuLeft,
+                top: subMenuTop,
+              } = menu.ele.getBoundingClientRect();
+
+              // 超出右侧的范围，放在左侧
+              if (subMenuLeft + subMenuWidth > areaLeft + areaWidth) {
+                menu.style.left = `-${subMenuWidth}px`;
+              }
+
+              // 超出下方的范围，放在上方
+              if (subMenuTop + subMenuHeight > areaTop + areaHeight) {
+                menu.style.top = `-${subMenuHeight - menu.parent.height}px`;
+              }
+            });
             // }, 20);
           });
 
