@@ -30,13 +30,49 @@
 
             this.menu.open = "";
 
-            const { offsetX, offsetY } = e;
+            const { offsetX, offsetY, clientX, clientY } = e;
 
             Object.assign(this.menu.style, {
               position: "absolute",
               left: `${offsetX}px`,
               top: `${offsetY}px`,
             });
+
+            setTimeout(() => {
+              // 获取安全容器的尺寸和位置
+              const targetArea = this.area ? areas.get(this.area) : null;
+
+              const {
+                left: areaLeft,
+                top: areaTop,
+                width: areaWidth,
+                height: areaHeight,
+              } = targetArea
+                ? targetArea.ele.getBoundingClientRect()
+                : this.ele.getBoundingClientRect();
+
+              // 菜单的尺寸和位置
+              const {
+                width: menuWidth,
+                height: menuHeight,
+                left: menuLeft,
+                top: menuTop,
+              } = this.menu.ele.getBoundingClientRect();
+
+              // 菜单超出下方安全区域，修正为下方定位
+              if (menuTop + menuHeight > areaTop + areaHeight) {
+                this.menu.style.top = `${
+                  parseInt(this.menu.style.top) - menuHeight
+                }px`;
+              }
+
+              // 菜单超出右方安全区域，修正为右侧定位
+              if (menuLeft + menuWidth > areaLeft + areaWidth) {
+                this.menu.style.left = `${
+                  parseInt(this.menu.style.left) - menuWidth
+                }px`;
+              }
+            }, 20);
           });
 
           if (!this._bindFn) {

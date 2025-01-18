@@ -6,7 +6,7 @@
   </style>
   <slot></slot>
   <script>
-    export const areas = new Set();
+    export const areas = new Map();
 
     export default async ({ load }) => {
       return {
@@ -16,10 +16,10 @@
         },
         data: {},
         attached() {
-          areas.add(this);
+          areas.set(this.areaName, this);
         },
         detached() {
-          areas.delete(this);
+          areas.delete(this.areaName);
         },
       };
     };
