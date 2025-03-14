@@ -12,8 +12,8 @@
   <o-provider
     name="pui"
     sync:theme="theme"
-    class:theme-dark-mode="theme === 'dark'"
-    class:theme-light-mode="theme === 'light'"
+    class:theme-dark-mode="isDarkMode"
+    class:theme-light-mode="!isDarkMode"
   >
     <slot></slot>
   </o-provider>
@@ -21,7 +21,16 @@
     export default {
       tag: "p-provider",
       attrs: {
-        theme: "light",
+        theme: "auto",
+      },
+      proto: {
+        get isDarkMode() {
+          return (
+            this.theme === "dark" ||
+            (this.theme === "auto" &&
+              matchMedia("(prefers-color-scheme: dark)").matches)
+          );
+        },
       },
     };
   </script>
