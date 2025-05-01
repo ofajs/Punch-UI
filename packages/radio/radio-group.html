@@ -7,7 +7,7 @@
   <slot></slot>
   <script>
     import "../commons/init.js";
-    
+
     export default {
       tag: "p-radio-group",
       attrs: {
@@ -18,8 +18,19 @@
         value: null,
       },
       watch: {
-        value(e) {
+        value(val) {
           this.emit("change");
+
+          if (val !== null) {
+            const targetRadio = this.all("p-radio").find((e) => {
+              const value = $(e).value;
+              return value === val;
+            });
+
+            if (!targetRadio.checked) {
+              targetRadio.checked = true;
+            }
+          }
         },
       },
       proto: {
