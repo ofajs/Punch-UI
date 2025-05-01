@@ -3,6 +3,7 @@
     :host {
       display: block;
       position: relative;
+      background-color: red;
     }
   </style>
   <slot></slot>
@@ -56,8 +57,23 @@
             this.forEach((menu) => {
               const contextmenuSelector = menu.attr("contextmenu-selector");
               if (menu.is("p-menu")) {
-                if (contextmenuSelector && $target.is(contextmenuSelector)) {
-                  targetMenu = menu;
+                if (contextmenuSelector) {
+                  if ($target.is(contextmenuSelector)) {
+                    // 判断是否自身
+                    targetMenu = menu;
+                  } else {
+                    // 判断是否父级
+                    $target.parents.some((el) => {
+                      if (this === el) {
+                        return true;
+                      }
+
+                      if (el.is(contextmenuSelector)) {
+                        targetMenu = menu;
+                        return true;
+                      }
+                    });
+                  }
                 }
 
                 // menu.open = "off";
@@ -78,10 +94,14 @@
 
             const { offsetX, offsetY, clientX, clientY } = e;
 
+            console.log({ offsetX, offsetY, clientX, clientY });
+
+            const currentRect = e.currentTarget.getBoundingClientRect();
+
             Object.assign(targetMenu.style, {
               position: "absolute",
-              left: `${offsetX}px`,
-              top: `${offsetY}px`,
+              left: `${clientX - currentRect.x}px`,
+              top: `${clientY - currentRect.y}px`,
             });
 
             // 获取安全容器的尺寸和位置
