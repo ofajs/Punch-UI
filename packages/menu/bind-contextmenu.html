@@ -61,12 +61,7 @@
                     // 判断是否自身
                     targetMenu = menu;
                   } else {
-                    // 判断是否父级
-                    $target.parents.some((el) => {
-                      if (this === el) {
-                        return true;
-                      }
-
+                    $target.parentsUntil(this).some((el) => {
                       if (el.is(contextmenuSelector)) {
                         targetMenu = menu;
                         return true;
@@ -80,8 +75,10 @@
             });
 
             if (!targetMenu) {
-              // 保底菜单元素
-              targetMenu = this.$("p-menu");
+              if (onlyMenu) {
+                onlyMenu.open = "off";
+              }
+              return;
             }
 
             if (onlyMenu && onlyMenu !== targetMenu) {
