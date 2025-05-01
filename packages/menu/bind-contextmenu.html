@@ -3,7 +3,6 @@
     :host {
       display: block;
       position: relative;
-      background-color: red;
     }
   </style>
   <slot></slot>
@@ -93,8 +92,6 @@
             onlyMenu = targetMenu;
 
             const { offsetX, offsetY, clientX, clientY } = e;
-
-            console.log({ offsetX, offsetY, clientX, clientY });
 
             const currentRect = e.currentTarget.getBoundingClientRect();
 
