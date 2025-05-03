@@ -59,6 +59,7 @@
 }
 
 .theme-light-mode {
+  color-scheme: light;
   --pui-theme: light;
   --pui-real-theme: light;
   --md-sys-color-primary: var(--md-ref-palette-primary40);
@@ -82,6 +83,7 @@
 }
 
 .theme-dark-mode {
+  color-scheme: dark;
   --pui-theme: dark;
   --pui-real-theme: dark;
   --md-sys-color-primary: var(--md-ref-palette-primary80);

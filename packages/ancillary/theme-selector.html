@@ -1,0 +1,59 @@
+<template component>
+  <!-- <l-m src="../button/group.html"></l-m> -->
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  PunchUI theme selector:
+  <p-button-group>
+    <p-button
+      attr:variant="value === 'auto' ? 'contained' : 'outlined'"
+      on:click="changeTheme('auto')"
+    >
+      Auto
+    </p-button>
+    <p-button
+      attr:variant="value === 'light' ? 'contained' : 'outlined'"
+      on:click="changeTheme('light')"
+    >
+      Light
+    </p-button>
+    <p-button
+      attr:variant="value === 'dark' ? 'contained' : 'outlined'"
+      on:click="changeTheme('dark')"
+    >
+      Dark
+    </p-button>
+  </p-button-group>
+  <script>
+    export default async ({ load }) => {
+      await load("../button/group.html");
+
+      return {
+        tag: "p-theme-selector",
+        data: {
+          value: "",
+        },
+        watch: {
+          value(value) {
+            const rootProvider = $.getRootProvider("pui");
+
+            if (rootProvider) {
+              rootProvider.theme = value;
+            }
+          },
+        },
+        proto: {
+          changeTheme(value) {
+            this.value = value;
+            localStorage.setItem("_theme", value);
+          },
+        },
+        attached() {
+          this.value = localStorage.getItem("_theme") || "auto";
+        },
+      };
+    };
+  </script>
+</template>

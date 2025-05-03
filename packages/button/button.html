@@ -214,6 +214,8 @@
   </button>
   <script>
     export default async ({ load }) => {
+      await load("../public/init.js");
+      
       const { setMainColor, bindClick } = await load("../public/util.js");
 
       return {

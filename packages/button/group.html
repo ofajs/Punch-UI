@@ -75,38 +75,42 @@
     <slot></slot>
   </div>
   <script>
-    export default {
-      tag: "p-button-group",
-      attrs: {
-        color: null,
-        variant: null,
-        size: null,
-      },
-      watch: {
-        color(val) {
-          this.updateChildButtons("color", val);
-        },
-        variant(val) {
-          this.updateChildButtons("variant", val);
-        },
-        size(val) {
-          this.updateChildButtons("size", val);
-        },
-      },
-      proto: {
-        updateChildButtons(attr, val) {
-          if (!val) return;
+    export default async ({ load }) => {
+      await load("../public/init.js");
 
-          this.forEach((e) => {
-            if (e.tag === "p-button") {
-              e[attr] = val;
-            }
-          });
+      return {
+        tag: "p-button-group",
+        attrs: {
+          color: null,
+          variant: null,
+          size: null,
         },
-      },
-      loaded() {
-        this.shadow.$("#default-style").remove();
-      },
+        watch: {
+          color(val) {
+            this.updateChildButtons("color", val);
+          },
+          variant(val) {
+            this.updateChildButtons("variant", val);
+          },
+          size(val) {
+            this.updateChildButtons("size", val);
+          },
+        },
+        proto: {
+          updateChildButtons(attr, val) {
+            if (!val) return;
+
+            this.forEach((e) => {
+              if (e.tag === "p-button") {
+                e[attr] = val;
+              }
+            });
+          },
+        },
+        loaded() {
+          this.shadow.$("#default-style").remove();
+        },
+      };
     };
   </script>
 </template>
