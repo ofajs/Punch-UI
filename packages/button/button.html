@@ -40,19 +40,6 @@
       color: var(--pui-on-main-color-container);
     }
 
-    :host([elevated]) .container {
-      box-shadow: var(--contained-shadow);
-    }
-    @media (hover: hover) {
-      :host([elevated]) .container:hover {
-        box-shadow: var(--contained-hover-shadow);
-      }
-    }
-
-    :host([elevated]) .container:active {
-      box-shadow: var(--contained-active-shadow);
-    }
-
     .fake-border {
       display: block;
       content: "";
@@ -141,7 +128,6 @@
       display: block;
       box-sizing: border-box;
       position: absolute;
-      z-index: 1;
       border-radius: var(--pui-border-radius);
       left: 0;
       top: 0;
@@ -234,7 +220,6 @@
         tag: "p-button",
         attrs: {
           variant: "contained",
-          elevated: null,
           size: null,
           color: null,
           disabled: null,
@@ -244,9 +229,9 @@
         watch: {
           autofocus(val) {
             if (val !== null) {
-              setTimeout(() => {
+              requestAnimationFrame(() => {
                 this.shadow.$("button").ele.focus();
-              }, 50);
+              });
             }
           },
           color(color) {
