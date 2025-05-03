@@ -35,23 +35,16 @@
         data: {
           value: "",
         },
-        watch: {
-          value(value) {
-            const rootProvider = $.getRootProvider("pui");
-
-            if (rootProvider) {
-              rootProvider.theme = value;
-            }
-          },
-        },
         proto: {
           changeTheme(value) {
             this.value = value;
-            localStorage.setItem("_theme", value);
+            const provider = this.getProvider("pui");
+            provider.theme = value;
           },
         },
         attached() {
-          this.value = localStorage.getItem("_theme") || "auto";
+          const provider = this.getProvider("pui");
+          this.value = provider.theme;
         },
       };
     };
