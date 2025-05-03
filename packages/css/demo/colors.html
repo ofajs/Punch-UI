@@ -3,20 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="./public.css" />
+    <title>colors</title>
+    <link rel="stylesheet" href="../public.css" />
     <style>
       .con {
         display: flex;
         flex-wrap: wrap;
-        color: #959457;
+        color: #c9c605;
         font-size: 12px;
       }
       .block {
-        width: 100px;
-        height: 100px;
+        width: 200px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
         margin: 4px;
         border-radius: 6px;
+        user-select: all;
+        border: #7c7c7c solid 1px;
       }
     </style>
   </head>
@@ -39,7 +45,7 @@
         // },
       ];
 
-      const content = await fetch("./colors.css").then((res) => res.text());
+      const content = await fetch("../colors.css").then((res) => res.text());
 
       content
         .match(/--.+:/g)
