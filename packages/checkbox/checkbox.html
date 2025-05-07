@@ -1,0 +1,284 @@
+<template component>
+  <style>
+    :host {
+      display: inline-block;
+    }
+    .container {
+      display: flex;
+      vertical-align: center;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+    .label {
+      margin-left: 8px;
+    }
+    [placement="top"] {
+      flex-direction: column;
+    }
+    [placement="top"] .label {
+      margin-left: 0;
+      margin-top: 8px;
+    }
+    [placement="bottom"] {
+      flex-direction: column-reverse;
+    }
+    [placement="bottom"] .label {
+      margin-left: 0;
+      margin-bottom: 8px;
+    }
+    [placement="end"] {
+      flex-direction: row-reverse;
+    }
+    [placement="end"] .label {
+      margin-left: 0;
+      margin-right: 8px;
+    }
+    :host(:empty) .label {
+      margin: 0;
+    }
+    .checkbox-con {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+    }
+    .checkbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      width: 18px;
+      height: 18px;
+      border-radius: 3px;
+      border: var(--md-sys-color-on-normal-container) solid 2px;
+      transition: all ease 0.2s;
+    }
+    .container.checked .checkbox,
+    .container.indeterminate .checkbox {
+      border-color: var(--md-sys-color-primary);
+      background-color: var(--md-sys-color-primary);
+    }
+    .point {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform: scale(0);
+      transition: all cubic-bezier(0.25, 0.1, 0.36, 1.63) 0.2s;
+    }
+    .point:before,
+    .point:after {
+      position: absolute;
+      display: block;
+      content: "";
+      background-color: var(--md-sys-color-on-primary);
+      transform: rotate(-45deg);
+    }
+
+    .point:after {
+      transform: rotate(45deg);
+    }
+
+    .container.checked .point,
+    .container.indeterminate .point {
+      transform: scale(1);
+    }
+
+    .container.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .container.infocus {
+      outline: var(--md-sys-color-primary) solid 2px;
+    }
+    .fake-input-con {
+      overflow: hidden;
+      width: 0;
+      height: 0;
+      padding: 0;
+      margin: 0;
+    }
+
+    .point:before {
+      left: 3px;
+      bottom: 1.5px;
+      width: 2px;
+      height: 7px;
+    }
+
+    .point:after {
+      left: 8.5px;
+      top: 1.5px;
+      width: 2px;
+      height: 12px;
+    }
+
+    .container[size="small"] .checkbox {
+      width: 16px;
+      height: 16px;
+    }
+
+    .container[size="small"] .point:before {
+      left: 2px;
+      bottom: 2px;
+      width: 2px;
+      height: 5.5px;
+    }
+
+    .container[size="small"] .point:after {
+      left: 6.5px;
+      top: 1px;
+      width: 2px;
+      height: 10px;
+    }
+
+    .container[size="large"] .checkbox {
+      width: 24px;
+      height: 24px;
+    }
+
+    .container[size="large"] .point:before {
+      left: 5px;
+      bottom: 4px;
+      width: 2px;
+      height: 8px;
+    }
+
+    .container[size="large"] .point:after {
+      left: 11.5px;
+      top: 3px;
+      width: 2px;
+      height: 14px;
+    }
+
+    .container.indeterminate .point:before,
+    .container.indeterminate .point:after {
+      left: 2px;
+      top: 6px;
+      width: 10px;
+      height: 2px;
+      transform: rotate(0);
+    }
+
+    .container[size="small"].indeterminate .point:before,
+    .container[size="small"].indeterminate .point:after {
+      left: 1px;
+      top: 5px;
+      width: 10px;
+      height: 2px;
+    }
+
+    .container[size="large"].indeterminate .point:before,
+    .container[size="large"].indeterminate .point:after {
+      left: 2px;
+      top: 8px;
+      width: 16px;
+      height: 3px;
+    }
+
+    /* 悬停效果 */
+    @media (hover: hover) {
+      .container:hover .checkbox {
+        border-color: var(--md-sys-color-primary);
+      }
+    }
+  </style>
+  <div
+    class="container"
+    class:disabled="isDisabled"
+    class:checked="checked"
+    class:infocus="infocus"
+    class:indeterminate="indeterminate !== null"
+    attr:size="size"
+    attr:placement="placement"
+    role="checkbox"
+    attr:aria-checked="indeterminate !== null ? 'mixed' : checked ? 'true' : 'false'"
+    attr:aria-disabled="isDisabled ? 'true' : 'false'"
+    attr:tabindex="isDisabled ? '-1' : '0'"
+  >
+    <div class="checkbox-con">
+      <div class="checkbox">
+        <div class="point"></div>
+      </div>
+    </div>
+    <div class="label"><slot></slot></div>
+  </div>
+  <div class="fake-input-con">
+    <input
+      type="checkbox"
+      attr:disabled="disabled"
+      attr:checked="checked ? 'checked' : null"
+      on:focus="infocus = true"
+      on:blur="infocus = null"
+      on:change="changeFakeCheckbox"
+    />
+  </div>
+  <script>
+    import "../public/init.js";
+
+    export default {
+      tag: "p-checkbox",
+      attrs: {
+        size: null, // 尺寸：small, 默认, large
+        disabled: null, // 禁用状态
+        value: null, // 值
+        indeterminate: null, // 不确定状态
+        placement: null, // 标签位置：start(默认), top, bottom, end
+      },
+      data: {
+        infocus: null,
+        checked: false,
+      },
+      proto: {
+        changeFakeCheckbox(e) {
+          this.checked = e.target.checked;
+          this.emit("change");
+        },
+        get isDisabled() {
+          return typeof this.disabled === "string";
+        },
+        clickCheck() {
+          if (this.isDisabled) {
+            return;
+          }
+
+          if (this.indeterminate !== null) {
+            this.indeterminate = null;
+          }
+
+          this.checked = !this.checked;
+
+          // 同步更新真实的checkbox输入
+          this.shadow.$("input[type='checkbox']").checked = this.checked;
+
+          this.emit("change");
+        },
+        // 设置不确定状态
+        setIndeterminate(value) {
+          this.indeterminate = value ? true : null;
+        },
+        // 获取当前值
+        getValue() {
+          return this.checked;
+        },
+      },
+      ready() {
+        // 初始化时同步checked属性
+        if (typeof this.checked === "string" || this.attr("checked") !== null) {
+          this.checked = true;
+          this.shadow.$("input[type='checkbox']").checked = true;
+        }
+
+        // 添加键盘支持
+        this.on("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            this.clickCheck();
+          }
+        });
+
+        this.on("click", (e) => this.clickCheck(e));
+      },
+    };
+  </script>
+</template>
