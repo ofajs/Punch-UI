@@ -4,6 +4,8 @@
     :host {
       display: block;
       font-size: 14px;
+      container-type: inline-size;
+      container-name: dialog-container;
     }
     .main {
       box-sizing: border-box;
@@ -13,6 +15,7 @@
       width: var(--dialog-width, auto);
       min-width: 320px;
       --label-bg: var(--md-sys-color-on-normal);
+      transition: transform 0.3s ease;
     }
     .tltle {
       display: flex;
@@ -57,6 +60,24 @@
     }
     .showall.main > * {
       opacity: 1;
+    }
+    @container dialog-container (max-width: 600px) {
+      p-mask {
+        --container-init-transform: translate(0, 100px);
+      }
+      .main {
+        width: 100%;
+        border-radius: 0;
+        border-top-left-radius: var(--dialog-border-radius, 30px);
+        border-top-right-radius: var(--dialog-border-radius, 30px);
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        transform: translateY(100%);
+      }
+      .showall.main {
+        transform: translateY(0);
+      }
     }
   </style>
 
