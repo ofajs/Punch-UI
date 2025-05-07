@@ -61,7 +61,10 @@
     .showall.main > * {
       opacity: 1;
     }
-    @container dialog-container (max-width: 600px) {
+  </style>
+
+  <style>
+    @container dialog-container (max-width: data(autoToMobileWidth)) {
       p-mask {
         --container-init-transform: translate(0, 100px);
       }
@@ -103,6 +106,7 @@
         tag: "p-dialog",
         attrs: {
           autoClose: null,
+          autoToMobileWidth: "540px",
         },
         data: {
           open: false,
