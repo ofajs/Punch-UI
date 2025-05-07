@@ -12,7 +12,7 @@
       pointer-events: none;
     }
 
-    .soltter {
+    .container {
       position: absolute;
       left: 0;
       top: 0;
@@ -25,7 +25,7 @@
       padding-top: 1px;
     }
   </style>
-  <div class="soltter">
+  <div class="container">
     <div class="content">
       <slot></slot>
     </div>
@@ -50,8 +50,8 @@
         },
       },
       watch: {
-        hide(val) {
-          if (this.__not_first) {
+        hide(isHidden) {
+          if (this._isInitialized) {
             this.style["transition-duration"] = "var(--duration)";
             this.on("transitionend", () => {
               this.style["transition-duration"] = "";
@@ -60,25 +60,24 @@
 
           this._refreshHeight();
 
-          this.__not_first = true;
+          this._isInitialized = true;
         },
       },
       attached() {
-        const ro = (this._ro = new ResizeObserver((entries) => {
-          for (let entry of entries) {
-            const cr = entry.contentRect;
-            // console.log("Element:", entry.target);
-            // console.log(`Element size: ${cr.width}px x ${cr.height}px`);
-            // console.log(`Element padding: ${cr.top}px ; ${cr.left}px`);
-            this._refreshHeight(cr.height);
+        const _resizeObserver = (this._resizeObserver = new ResizeObserver(
+          (entries) => {
+            for (let entry of entries) {
+              const contentRect = entry.contentRect;
+              this._refreshHeight(contentRect.height);
+            }
           }
-        }));
+        ));
 
-        ro.observe(this.shadow.$(".content").ele);
+        _resizeObserver.observe(this.shadow.$(".content").ele);
       },
       detached() {
-        if (this._ro) {
-          this._ro.disconnect();
+        if (this._resizeObserver) {
+          this._resizeObserver.disconnect();
         }
       },
     };
