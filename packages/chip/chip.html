@@ -1,0 +1,97 @@
+<template component>
+  <l-m src="../wave/wave.html"></l-m>
+  <style>
+    :host {
+      position: relative;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      vertical-align: top;
+      height: 30px;
+      font-size: 12px;
+      line-height: 1.2em;
+      border-radius: 8px;
+      font-weight: 500;
+      padding: 0 calc(var(--pui-space-x) * 1.5);
+      color: var(--pui-main-color);
+      border: var(--pui-on-main-color-container) solid 1px;
+      user-select: none;
+    }
+
+    :host([tonal]) {
+      border: none;
+      background-color: var(--pui-main-color-container);
+    }
+
+    :host([elevated]) {
+      box-shadow: var(--contained-shadow);
+    }
+
+    ::slotted([slot="prefix"]) {
+      font-size: 18px;
+      margin-right: var(--pui-space-x);
+      font-weight: normal;
+    }
+    ::slotted([slot="suffix"]) {
+      position: relative;
+      z-index: 2;
+      font-size: 18px;
+      margin-left: var(--pui-space-x);
+      font-weight: normal;
+    }
+
+    ::slotted([button]) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all ease 0.2s;
+    }
+    ::slotted([button]:hover) {
+      background-color: var(--md-ref-palette-translucent-normal60);
+    }
+    :host([button]) {
+      cursor: pointer;
+    }
+    :host([disabled]) {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+  </style>
+  <o-if :value="button !== null && disabled === null">
+    <p-wave></p-wave>
+  </o-if>
+  <slot name="prefix"></slot>
+  <slot></slot>
+  <slot name="suffix"></slot>
+  <script>
+    import "../public/init.js";
+    import { setMainColor } from "../public/util.js";
+
+    export default {
+      tag: "p-chip",
+      attrs: {
+        color: null,
+        button: null,
+        disabled: null,
+      },
+      watch: {
+        color(color) {
+          setMainColor(this, color);
+        },
+      },
+      data: {},
+      ready() {
+        this.on("click", (e) => {
+          if (this.disabled !== null) {
+            e.stopPropagation();
+          }
+        });
+      },
+    };
+  </script>
+</template>
