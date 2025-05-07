@@ -5,7 +5,6 @@ UI component library based on ofa.js development
 ## Directory Structure
 
 - packages: All source code for components is placed here.
-- ancillary: Components for auxiliary development are placed here.
 
 ### Notes
 
