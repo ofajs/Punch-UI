@@ -82,23 +82,21 @@
 
     :host {
       --card-bg-color: var(--md-ref-palette-primary98);
-      /* --card-bg-color: var(--md-ref-palette-primary50); */
     }
   </style>
 
-  <x-if :value="realTheme === 'dark'">
+  <match-var pui-real-theme="dark">
     <style>
       :host {
         --card-bg-color: var(--md-ref-palette-normal10);
       }
     </style>
-  </x-if>
+  </match-var>
 
   <div style="flex-shrink: 0"><slot name="pic"></slot></div>
   <div class="container" slot="container">
     <slot></slot>
   </div>
-  <o-consumer name="pui" watch:theme="theme"></o-consumer>
   <script>
     import "../public/init.js";
 
@@ -108,23 +106,6 @@
         elevated: null,
         filled: null,
         outlined: null,
-      },
-      proto: {
-        get realTheme() {
-          if (this.theme === "dark") {
-            return "dark";
-          } else if (this.theme === "light") {
-            return "light";
-          }
-
-          // auto模式，返回当前主题
-          return window.matchMedia("(prefers-color-scheme: dark)").matches
-            ? "dark"
-            : "light";
-        },
-      },
-      data: {
-        // theme: "light",
       },
     };
   </script>
