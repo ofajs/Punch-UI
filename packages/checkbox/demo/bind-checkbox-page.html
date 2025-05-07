@@ -14,6 +14,7 @@
         {{$data.name}}
       </p-checkbox>
     </o-fill>
+    <div>{{arr}}</div>
   </div>
   <script>
     export default {
@@ -38,11 +39,6 @@
             checked: false,
           },
         ],
-      },
-      attached() {
-        this.watchTick((e) => {
-          console.log(this.arr.toJSON());
-        });
       },
     };
   </script>
