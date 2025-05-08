@@ -91,14 +91,36 @@
       <h3>事件监听</h3>
       <div class="switch-row">
         <p-switch id="event-demo">切换开关</p-switch>
-        <span id="event-result">当前状态: 关闭</span>
+        <span id="event-result">当前状态: 未选择</span>
       </div>
       <script>
         const eventDemo = $("#event-demo");
         const eventResult = $("#event-result");
 
         eventDemo.on("change", () => {
-          eventResult.text = `当前状态: ${eventDemo.checked ? "开启" : "关闭"}`;
+          console.log(eventDemo.value, eventDemo.checked);
+          eventResult.text = `当前状态: checked: ${eventDemo.checked} - value: ${eventDemo.value}`;
+        });
+      </script>
+    </div>
+
+    <div class="demo-section">
+      <h3>修正默认值</h3>
+      <div class="switch-row">
+        <p-switch
+          id="event-demo2"
+          checked-value="打开了"
+          unchecked-value="关闭了哈"
+          >切换开关</p-switch
+        >
+        <span id="event-result2">当前状态: 未选择</span>
+      </div>
+      <script>
+        const eventDemo2 = $("#event-demo2");
+        const eventResult2 = $("#event-result2");
+
+        eventDemo2.on("change", () => {
+          eventResult2.text = `当前状态: ${eventDemo2.value}`;
         });
       </script>
     </div>
