@@ -1,0 +1,206 @@
+<template component>
+  <style>
+    :host {
+      display: inline-block;
+      vertical-align: top;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .container.infocus {
+      outline: var(--md-sys-color-primary) solid 2px;
+    }
+
+    .label {
+      margin-left: 8px;
+    }
+    [placement="top"] {
+      flex-direction: column;
+    }
+    [placement="top"] .label {
+      margin-left: 0;
+      margin-top: 8px;
+    }
+    [placement="bottom"] {
+      flex-direction: column-reverse;
+    }
+    [placement="bottom"] .label {
+      margin-left: 0;
+      margin-bottom: 8px;
+    }
+    [placement="end"] {
+      flex-direction: row-reverse;
+    }
+    [placement="end"] .label {
+      margin-left: 0;
+      margin-right: 8px;
+    }
+    :host(:empty) .label {
+      margin: 0;
+    }
+
+    .radio-con {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+    }
+    .radio {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      border-radius: 13px;
+      border: var(--md-sys-color-on-normal-container) solid 2px;
+      transition: all ease 0.2s;
+    }
+    .point {
+      width: 0;
+      height: 0;
+      border-radius: 8px;
+      background-color: var(--md-sys-color-primary);
+      transition: all cubic-bezier(0.25, 0.1, 0.36, 1.63) 0.2s;
+    }
+    .container.checked .radio {
+      border-color: var(--md-sys-color-primary);
+    }
+
+    .container.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .fake-input-con {
+      overflow: hidden;
+      width: 0;
+      height: 0;
+      padding: 0;
+      margin: 0;
+    }
+
+    .radio {
+      width: 20px;
+      height: 20px;
+    }
+
+    .container.checked .point {
+      width: 10px;
+      height: 10px;
+    }
+
+    .container[size="small"] .radio {
+      width: 16px;
+      height: 16px;
+    }
+
+    .container[size="small"].checked .point {
+      width: 7px;
+      height: 7px;
+    }
+
+    .container[size="large"] .radio {
+      width: 24px;
+      height: 24px;
+    }
+
+    .container[size="large"].checked .point {
+      width: 13px;
+      height: 13px;
+    }
+
+    /* 悬停效果 */
+    @media (hover: hover) {
+      .container:hover .radio {
+        border-color: var(--md-sys-color-primary);
+      }
+    }
+  </style>
+  <div
+    class="container"
+    class:disabled="isDisabled"
+    class:checked="checked"
+    class:infocus="infocus"
+    attr:placement="placement"
+    attr:size="size"
+    role="radio"
+    attr:aria-checked="checked ? 'true' : 'false'"
+    attr:aria-disabled="isDisabled ? 'true' : 'false'"
+    attr:tabindex="isDisabled ? '-1' : '0'"
+  >
+    <div class="radio-con">
+      <div class="radio">
+        <div class="point"></div>
+      </div>
+    </div>
+    <div class="label"><slot></slot></div>
+  </div>
+  <div class="fake-input-con">
+    <input
+      type="radio"
+      attr:disabled="disabled"
+      on:focus="infocus = true"
+      on:blur="infocus = null"
+      on:change="changeFakeRadio"
+      :checked="checked"
+      attr:name="radioName"
+    />
+  </div>
+  <script>
+    import "../public/init.js";
+
+    export default {
+      tag: "p-radio",
+      attrs: {
+        size: null, // 尺寸：small, 默认, large
+        disabled: null, // 禁用状态
+        value: null, // 单选框的值
+        name: null, // 单选框组名称
+        placement: null, // 标签位置：start(默认), top, bottom, end
+      },
+      data: {
+        checked: false,
+        infocus: null,
+      },
+      proto: {
+        changeFakeRadio(e) {
+          if (e.target.checked) {
+            this.clickCheck();
+          }
+        },
+        get isDisabled() {
+          return typeof this.disabled === "string";
+        },
+        get radioName() {
+          return this.name || "";
+        },
+        clickCheck() {
+          if (this.isDisabled) {
+            return;
+          }
+          this.checked = true;
+          this.emit("change");
+        },
+      },
+      attached() {},
+      ready() {
+        // 初始化时同步checked属性
+        if (this.attr("checked") !== null) {
+          this.checked = true;
+        }
+
+        // 添加键盘支持
+        this.on("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            this.clickCheck();
+          }
+        });
+
+        this.on("click", (e) => this.clickCheck(e));
+      },
+    };
+  </script>
+</template>
