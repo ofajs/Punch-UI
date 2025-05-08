@@ -167,6 +167,11 @@
 
           return "";
         },
+
+        focus() {
+          this.shadow.$("select").ele.focus();
+        },
+
         refreshOptions() {
           let hasOption = 0;
           const options = document.createDocumentFragment();
