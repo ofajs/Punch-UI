@@ -25,6 +25,10 @@
       pointer-events: auto;
     }
 
+    p-placement {
+      display: inherit;
+    }
+
     p-placement::part(tips-container) {
       pointer-events: none;
     }
@@ -36,7 +40,7 @@
       }
     }
   </style>
-  <p-placement attr:placement="placement">
+  <p-placement attr:placement="placement" part="placement">
     <slot></slot>
     <div slot="tips" class="tips" class:open="open">
       <slot name="tips"></slot>
