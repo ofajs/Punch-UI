@@ -92,11 +92,6 @@
     </style>
   </match-var>
 
-  <style init-style>
-    :host {
-      display: none;
-    }
-  </style>
   <div class="container" part="container">
     <slot></slot>
     <o-if :value="isChild">
@@ -104,19 +99,19 @@
     </o-if>
   </div>
   <script>
-    import "../public/init.js";
+    export default async ({ load }) => {
+      await load("./menu.css");
+      await load("../public/init.js");
 
-    export default {
-      tag: "p-menu",
-      attrs: {
-        open: null,
-      },
-      data: {
-        isChild: false,
-      },
-      loaded() {
-        this.shadow.$("[init-style]").remove();
-      },
+      return {
+        tag: "p-menu",
+        attrs: {
+          open: null,
+        },
+        data: {
+          isChild: false,
+        },
+      };
     };
   </script>
 </template>
