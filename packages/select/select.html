@@ -1,5 +1,6 @@
 <template component>
   <l-m src="../field-container/field-container.html"></l-m>
+  <l-m src="./option.html"></l-m>
   <style>
     :host {
       display: block;
@@ -106,7 +107,7 @@
     on:focus="infocus = true"
     on:blur="infocus = false"
     attr:disabled="disabled"
-    on:change="emit('change', {value: value, text: targetOptionText})"
+    on:change="emit('change')"
     attr:name="name"
   ></select>
 
@@ -156,7 +157,7 @@
 
         get targetOptionText() {
           const target = this.find((e) => {
-            if (e.tag === "option" && e.value === this.value) {
+            if (e.tag === "p-option" && e.value === this.value) {
               return true;
             }
           });
@@ -173,40 +174,28 @@
         },
 
         refreshOptions() {
-          let hasOption = 0;
-          const options = document.createDocumentFragment();
-          this.forEach((e) => {
-            if (e.tag === "option") {
-              hasOption = 1;
-              options.appendChild(e.clone().ele);
-            }
-          });
-          if (hasOption) {
+          clearTimeout(this._refreshOptionsTimer);
+          this._refreshOptionsTimer = setTimeout(() => {
+            const opts = this.all("p-option");
             const selector = this.shadow.$("select");
+            const frag = $.frag();
+            opts.forEach((e) => {
+              const option = $("<option></option>");
+              option.value = e.value;
+              option.text = e.text;
+              option.disabled = e.disabled;
+              frag.push(option);
+            });
             selector.html = "";
-            selector.push(options);
-          }
+            selector.push(frag);
+          });
         },
       },
       ready() {
-        this.shadow.on("slotchange", () => {
+        this.on("change-option", (e) => {
           this.refreshOptions();
+          e.stopPropagation();
         });
-      },
-      attached() {
-        // 监听子节点的变化
-        const observer = (this._obs = new MutationObserver(() => {
-          this.refreshOptions();
-        }));
-
-        // 开始观察目标节点
-        observer.observe(this.ele, {
-          attributes: true,
-          subtree: true,
-        });
-      },
-      detached() {
-        this._obs.disconnect();
       },
     };
   </script>
