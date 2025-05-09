@@ -1,0 +1,54 @@
+<template component>
+  <l-m src="../aide/reverse-theme.html"></l-m>
+  <style>
+    :host {
+      display: inline-block;
+      font-size: 13px;
+      line-height: 1.2em;
+    }
+    .container {
+      position: relative;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding: calc(var(--pui-space-y) * 2) calc(var(--pui-space-x) * 1)
+        calc(var(--pui-space-y) * 2) calc(var(--pui-space-x) * 2);
+      min-width: 200px;
+      min-height: 30px;
+      color: var(--pui-main-color-container);
+      background-color: var(--pui-on-main-color-container);
+      border-radius: var(--pui-border-radius);
+    }
+
+    ::slotted(*) {
+      align-self: flex-end;
+      vertical-align: middle;
+    }
+    ::slotted(p-button) {
+      margin-left: 8px;
+    }
+  </style>
+
+  <div class="container">
+    <p-reverse-theme>
+      <slot></slot>
+    </p-reverse-theme>
+  </div>
+  <script>
+    import "../public/init.js";
+    import { setMainColor } from "../public/util.js";
+
+    export default {
+      tag: "p-snackbar",
+      attrs: {
+        color: null,
+      },
+      data: {},
+      watch: {
+        color(color) {
+          setMainColor(this, color || "normal");
+        },
+      },
+    };
+  </script>
+</template>
