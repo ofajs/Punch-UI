@@ -1,0 +1,112 @@
+<template component>
+  <style>
+    :host {
+      display: contents;
+    }
+
+    .tips {
+      display: block;
+      padding: 4px;
+      font-size: 12px;
+      line-height: 1.2em;
+      color: var(--md-sys-color-on-normal-container);
+      background-color: var(--md-sys-color-normal-container);
+      white-space: nowrap;
+      border-radius: var(--pui-border-radius);
+      box-shadow: var(--contained-shadow);
+      transition: all ease 0.3s;
+      opacity: 0;
+    }
+
+    .tips.open {
+      opacity: 1;
+    }
+
+    :host([plain]) {
+      .tips {
+        background-color: transparent;
+        box-shadow: none;
+      }
+    }
+  </style>
+  <p-placement attr:placement="placement">
+    <slot></slot>
+    <div slot="tips" class="tips" class:open="open">
+      <slot name="tips"></slot>
+    </div>
+  </p-placement>
+  <script>
+    import "../public/init.js";
+
+    export default async ({ load }) => {
+      await load("../aide/placement/placement.html");
+
+      return {
+        tag: "p-tooltips",
+        attrs: {
+          placement: null,
+          event: "hover",
+        },
+        data: {
+          open: false,
+        },
+        watch: {
+          event(event) {
+            this.initEvent();
+          },
+        },
+        proto: {
+          initEvent() {
+            if (this._cancel) {
+              this._cancel();
+              this._cancel = null;
+            }
+
+            if (this.event === "hover") {
+              let f1, f2;
+              this.on(
+                "mouseenter",
+                (f1 = () => {
+                  this.open = true;
+                })
+              );
+              this.on(
+                "mouseleave",
+                (f2 = () => {
+                  this.open = false;
+                })
+              );
+
+              this._cancel = () => {
+                this.off("mouseenter", f1);
+                this.off("mouseleave", f2);
+              };
+            } else if (this.event === "click") {
+              let f;
+              this.on(
+                this.event,
+                (f = (e) => {
+                  const target = $(e.target);
+                  const paths = [...target.parentsUntil(this), target];
+
+                  if (!paths.some((e) => e.attr("slot") === "tips")) {
+                    // 不是通过 tips 触发的事件
+                    this.open = !this.open;
+                  }
+                })
+              );
+              this._cancel = () => {
+                this.off("click", f);
+              };
+            }
+          },
+        },
+        attached() {
+          if (this.attr("opened") !== null) {
+            this.open = true;
+          }
+        },
+      };
+    };
+  </script>
+</template>
