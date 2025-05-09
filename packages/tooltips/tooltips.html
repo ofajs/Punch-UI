@@ -1,7 +1,7 @@
 <template component>
   <style>
     :host {
-      display: contents;
+      display: inline-block;
     }
 
     .tips {
@@ -16,10 +16,17 @@
       box-shadow: var(--contained-shadow);
       transition: all ease 0.3s;
       opacity: 0;
+      transform: scale(0);
     }
 
     .tips.open {
       opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+
+    p-placement::part(tips-container) {
+      pointer-events: none;
     }
 
     :host([plain]) {
@@ -66,7 +73,7 @@
               let f1, f2;
               this.on(
                 "mouseenter",
-                (f1 = () => {
+                (f1 = (e) => {
                   this.open = true;
                 })
               );
@@ -84,8 +91,12 @@
             } else if (this.event === "click") {
               let f;
               this.on(
-                this.event,
+                "click",
                 (f = (e) => {
+                  if (e.target === this.ele) {
+                    return;
+                  }
+
                   const target = $(e.target);
                   const paths = [...target.parentsUntil(this), target];
 
