@@ -1,8 +1,7 @@
 <template page>
-  <l-m src="./nav-layout.html"></l-m>
-  <l-m src="../navigation/nav-bar.html"></l-m>
-  <l-m src="../list/list.html"></l-m>
-  <l-m src="../../ancillary/dark-switch.html"></l-m>
+  <l-m src="../nav-layout.html"></l-m>
+  <l-m src="../nav-bar.html"></l-m>
+  <l-m src="../../list/list.html"></l-m>
   <style>
     @media screen and (min-width: 600px) {
       p-nav-layout::part(drawer-mask) {
@@ -14,23 +13,24 @@
     attr:open-drawer="openDrawer ? '' : null"
     on:click-drawer-mask="openDrawer = false"
   >
-    <button
-      slot="top"
-      class="drawer-btn"
-      on:click="openDrawer = !openDrawer"
-      style="margin: 0 auto 10px 10px"
-    >
-      Drawer
-    </button>
-    <!-- <button on:click="clickTips">Tips</button> -->
-    <textarea
-      slot="top"
-      name=""
-      id=""
-      cols="30"
-      rows="2"
-      style="display: block; margin: 0 16px 10px 0"
-    ></textarea>
+    <div slot="top" style="display: flex; align-items: center">
+      <button
+        class="drawer-btn"
+        on:click="openDrawer = !openDrawer"
+        style="margin: 0 auto 10px 10px"
+      >
+        展开
+      </button>
+      <div style="margin: 0 16px">固定顶部的内容，放在top容器上。</div>
+      <!-- <button on:click="clickTips">Tips</button> -->
+      <textarea
+        name=""
+        id=""
+        cols="30"
+        rows="2"
+        style="display: block; margin: 0 16px 10px 0"
+      ></textarea>
+    </div>
 
     <button slot="drawer" on:click="openDrawer = false" style="width: 80px">
       close
@@ -97,11 +97,21 @@
       </p-nav-item>
     </p-nav-bar>
     <div slot="left-bottom">
-      <dark-switch></dark-switch>
+      <p-theme-selector></p-theme-selector>
+    </div>
+
+    <div
+      style="
+        padding: 50px 16px;
+        height: 200vh;
+        background-color: rgba(122, 9, 9, 0.442);
+      "
+    >
+      I am article
     </div>
   </p-nav-layout>
   <script>
-    import enqueue from "../snackbar/enqueue.js";
+    import toast from "../../public/toast.js";
 
     export default {
       data: {

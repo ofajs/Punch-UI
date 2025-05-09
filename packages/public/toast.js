@@ -1,4 +1,6 @@
 import "../public/init.js";
+const load = lm(import.meta);
+load("../snackbar/snackbar.html");
 
 $("head").push(`<style>
 #snackbar-container{
@@ -58,13 +60,10 @@ $("head").push(`<style>
 
 </style>`);
 
-const load = lm(import.meta);
-load("./snackbar.html");
-
 let snackbarContainer = $(`<div id="snackbar-container"></div>`);
 $("body").push(snackbarContainer);
 
-export async function enqueue(opts) {
+export async function toast(opts) {
   const defaults = {
     content: "",
     buttons: [],
@@ -149,4 +148,4 @@ export async function enqueue(opts) {
   snackbarContainer.push(el);
 }
 
-export default enqueue;
+export default toast;

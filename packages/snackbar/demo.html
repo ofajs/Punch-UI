@@ -76,17 +76,17 @@
       <button id="btn3-enqueue">error Test</button>
     </div>
     <script type="module">
-      import enqueue from "./enqueue.js";
+      import toast from "../public/toast.js";
 
       let num = 1;
 
       $("#btn1-enqueue").on("click", () => {
         // debugger;
-        enqueue("I am test content " + num++);
+        toast("I am test content " + num++);
       });
       $("#btn2-enqueue").on("click", () => {
         // debugger;
-        enqueue({
+        toast({
           content: "I am test content" + num++,
           click(el) {
             console.log("click item", el);
@@ -99,7 +99,7 @@
       });
       $("#btn3-enqueue").on("click", () => {
         // debugger;
-        enqueue({
+        toast({
           content: "I am test content" + num++,
           close: null,
           time: 10000,
