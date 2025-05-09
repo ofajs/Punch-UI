@@ -59,9 +59,10 @@
       tag: "p-list",
       data: {},
       ready() {
-        // this.on("click", (e) => {
-        //   e.stopPropagation();
-        // });
+        this.on("click", (e) => {
+          // 防止点击了list导致的item折叠事件
+          e.stopPropagation();
+        });
       },
     };
   </script>
