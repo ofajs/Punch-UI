@@ -102,12 +102,12 @@
       margin: calc(var(--pui-space-y) / 2) 0;
     }
 
-    ::slotted([collapse-triangle]) {
+    ::slotted([triangle]) {
       cursor: pointer;
       transition: all ease 0.2s;
     }
 
-    ::slotted([collapse-triangle]:empty) {
+    ::slotted([triangle]:empty) {
       position: relative;
       border-right: 5px solid var(--md-sys-color-normal);
       border-top: 5px solid transparent;
@@ -233,7 +233,7 @@
             return;
           }
 
-          if (e.target.attributes.hasOwnProperty("collapse-triangle")) {
+          if (e.target.attributes.hasOwnProperty("toggle-collapse")) {
             this.clickTriangle(e);
             return;
           }
