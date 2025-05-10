@@ -1,15 +1,12 @@
 # Punch UI
 
-UI component library based on ofa.js development
+A modern UI component library built with [ofa.js](https://github.com/ofajs/ofa.js)
 
-## Directory Structure
+[View Component Examples](https://ofajs.github.io/Punch-UI/cases/index.html)
 
-- packages: All source code for components is placed here.
+## Features
 
-### Notes
-
-Some parts of the component styles use Less; you can install Easy LESS in VSCode to use it.
-
-Avoid overly complex Less usage; simple features like nesting are sufficient.
-
-[All Component](https://ofajs.github.io/Punch-UI/cases/all.html)
+- 🚀 Lightweight and performant
+- 🎨 Customizable themes and styles
+- 📦 Easy to use and integrate
+- 💪 Built on ofa.js framework
