@@ -67,6 +67,10 @@
       box-shadow: var(--contained-active-shadow);
     }
 
+    :host([no-bubble]) .bubble {
+      display: none;
+    }
+
     .bubble {
       position: absolute;
       left: 10px;
@@ -192,7 +196,7 @@
           if (this.disabled !== null) {
             return;
           }
-          
+
           // clear old binding
           if (this._upFun) {
             this._upFun();
