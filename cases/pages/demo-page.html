@@ -1,0 +1,27 @@
+<template page>
+  <style>
+    :host {
+      display: block;
+      height: 100%;
+      /* background-color: red; */
+    }
+
+    iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+  <iframe attr:src="pageUrl" frameborder="0"></iframe>
+  <script>
+    export const parent = "./frame.html";
+
+    export default async ({ load, query }) => {
+      return {
+        data: {
+          pageUrl: query.pageurl || "/packages/button/demo/button.html",
+        },
+      };
+    };
+  </script>
+</template>

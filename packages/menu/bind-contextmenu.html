@@ -49,12 +49,12 @@
             const $target = $(e.target);
             e.preventDefault();
             e.stopPropagation();
-
             // 目标菜单元素
             let targetMenu;
 
             this.forEach((menu) => {
-              const contextmenuSelector = menu.attr("contextmenu-selector");
+              const contextmenuSelector =
+                menu.attr("contextmenu-selector") || "p-bind-contextmenu";
               if (menu.is("p-menu")) {
                 if (contextmenuSelector) {
                   if ($target.is(contextmenuSelector)) {
