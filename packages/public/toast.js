@@ -141,6 +141,10 @@ export async function toast(opts) {
   }, defaults.time);
 
   snackbarContainer.push(el);
+
+  el._close = close;
+
+  return el;
 }
 
 export default toast;
