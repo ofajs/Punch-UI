@@ -62,7 +62,8 @@
 
             styleStr += `p-table[data-table-id="${this._tableId}"] p-table-cell{flex:1 1 ${cellWidth}px;}`;
 
-            headRows.forEach((row, index) => {
+            for (let i = 0; i < headRows.length; i++) {
+              const row = headRows[i];
               let colStyle = "";
 
               if (row.align) {
@@ -133,9 +134,9 @@
               if (colStyle) {
                 styleStr += `p-table[data-table-id="${
                   this._tableId
-                }"] p-table-cell:nth-child(${index + 1}){${colStyle}}`;
+                }"] p-table-cell:nth-child(${i + 1}){${colStyle}}`;
               }
-            });
+            }
 
             this.__currentStyle.html = styleStr;
 
@@ -146,11 +147,12 @@
               const tableRows = this.$("p-table-row");
 
               if (tableRows && tableRows.length) {
-                tableRows.forEach((row) => {
+                for (let i = 0; i < tableRows.length; i++) {
+                  const row = tableRows[i];
                   if (row && row.width) {
                     rowWidth += row.width;
                   }
-                });
+                }
               }
 
               this.__currentStyle.html += `p-table[data-table-id="${this._tableId}"] {--table-row-width:${rowWidth}px;}`;
