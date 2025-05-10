@@ -12,14 +12,19 @@
       height: 100%;
     }
   </style>
-  <iframe attr:src="pageUrl" frameborder="0"></iframe>
+  <iframe attr:src="realUrl" frameborder="0"></iframe>
   <script>
     export const parent = "./frame.html";
 
-    export default async ({ load, query }) => {
+    export default async ({ load, query, url }) => {
       return {
         data: {
           pageUrl: query.pageurl || "/packages/button/demo/button.html",
+        },
+        proto: {
+          get realUrl() {
+            return new URL(".." + query.pageurl, location.href).href;
+          },
         },
       };
     };
