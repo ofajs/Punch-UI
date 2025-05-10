@@ -1,4 +1,5 @@
-import "../public/init.js";
+import "./init.js";
+import { fixOpts } from "./dialog.js";
 const load = lm(import.meta);
 load("../snackbar/snackbar.html");
 
@@ -72,14 +73,8 @@ export async function toast(opts) {
     close: () => {},
   };
 
-  switch (typeof opts) {
-    case "object":
-      Object.assign(defaults, opts);
-      break;
-    case "string":
-      defaults.content = opts;
-      break;
-  }
+  opts = fixOpts(opts);
+  Object.assign(defaults, opts);
 
   const el = $(`<p-snackbar style="pointer-events:auto;">
   ${defaults.content}

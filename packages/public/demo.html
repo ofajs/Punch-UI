@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>输入框 Input</title>
+    <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.6.1/dist/ofa.js#debug"></script>
+  </head>
+  <body>
+    <l-m src="../button/button.html"></l-m>
+    <l-m src="../aide/develop/theme-selector.html"></l-m>
+
+    <p-theme-selector></p-theme-selector>
+    
+    <p-button id="btn1">基础弹窗</p-button>
+    <p-button id="btn2">弹窗带参数</p-button>
+    <p-button id="btn3">输入弹窗</p-button>
+    <p-button id="btn4">确认弹窗</p-button>
+    <script type="module">
+      import { alert, prompt, confirm } from "./dialog.js";
+      import toast from "./toast.js";
+
+      $("#btn1").on("click", async (e) => {
+        const result = await alert("hello world");
+        console.log("alert result:", result);
+      });
+
+      $("#btn2").on("click", async (e) => {
+        const result = await alert({
+          title: "标题",
+          content: "hello world",
+          ok: "好的👌",
+        });
+        console.log("alert with params result:", result);
+      });
+
+      $("#btn3").on("click", async (e) => {
+        const value = await prompt({
+          title: "请输入",
+          label: "你的名字是？",
+          value: "默认值",
+          //   placeholder: "请输入名字",
+          yes: "确定",
+          cancel: "取消",
+        });
+        console.log("prompt result:", value);
+      });
+
+      $("#btn4").on("click", async (e) => {
+        const confirmed = await confirm({
+          title: "确认操作",
+          content: "确定要删除这条记录吗？",
+          yes: "确定删除",
+          cancel: "取消",
+        });
+        console.log("confirm result:", confirmed);
+      });
+    </script>
+  </body>
+</html>
