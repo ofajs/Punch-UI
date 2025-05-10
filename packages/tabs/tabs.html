@@ -153,7 +153,7 @@
           }
           if (this.activeId > 0) {
             this.activeId--;
-            this.ele.scrollLeft = this[this.activeId].ele.offsetLeft;
+            this.scrollIntoView(this.activeId);
           }
         },
         clickRightSbtn() {
@@ -162,7 +162,14 @@
           }
           if (this.activeId < this.length - 1) {
             this.activeId++;
-            this.ele.scrollLeft = this[this.activeId].ele.offsetLeft;
+            this.scrollIntoView(this.activeId);
+          }
+        },
+        // 滚动到指定tab
+        scrollIntoView(activeId) {
+          const target = this[activeId];
+          if (target && target.ele) {
+            this.ele.scrollLeft = target.ele.offsetLeft;
           }
         },
         // 获取底部线的定位和宽度
@@ -231,7 +238,10 @@
               item.activeItem = null;
             }
           });
-          this._fixActive();
+
+          setTimeout(() => {
+            this._fixActive();
+          }, 10);
         },
         secondary(val) {
           if (val !== null) {
@@ -244,8 +254,6 @@
         },
       },
       attached() {
-        const targetElement = document.getElementById("your-element-id");
-
         const observer = (this._obs = new IntersectionObserver((entries) => {
           for (const entry of entries) {
             const { boundingClientRect } = entry;
@@ -258,18 +266,16 @@
 
             if (entry.isIntersecting) {
               if (!this.inited) {
-                // setTimeout(() => {
                 this.inited = true;
                 this._fixActive();
 
                 if (
-                  this.shadow.$(".container").clientWidth > this.ele.clientWidth
+                  this.shadow.$(".container").clientWidth >
+                    this.ele.clientWidth &&
+                  this.activeId !== null
                 ) {
-                  const { current } = this;
-                  const left = current.ele.offsetLeft;
-                  this.ele.scrollLeft = left;
+                  this.scrollIntoView(this.activeId);
                 }
-                // }, 100);
               }
             } else {
               // 元素离开视口，不可见
@@ -281,18 +287,30 @@
         }));
 
         observer.observe(this.ele);
+
+        // 修正当前的激活状态
+        let activeId = -1;
+        this.some((e, i) => {
+          if (e.attr("active-item") !== null) {
+            activeId = i;
+            return;
+          }
+        });
+
+        if (activeId !== -1) {
+          this.activeId = activeId;
+          this._fixActive();
+        }
+
+        console.log("this.activeId: ", this.activeId, this.ele);
       },
       detached() {
         if (this._obs) {
           this._obs.disconnect();
         }
+        clearTimeout(this._bottom_timer);
       },
       ready() {
-        // this.on("tab-active-change", (e) => {
-        //   e.stopPropagation();
-        //   this._fixActive();
-        // });
-
         this.on("click-tab-item", (e) => {
           if (this.autoActive !== null) {
             this.activeId = $(e.target).index;
