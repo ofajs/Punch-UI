@@ -3,212 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>所有组件案例</title>
+    <title>PunchUI组件案例</title>
     <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.6.1/dist/ofa.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.6.1/libs/router/dist/router.min.js"></script>
     <style>
+      html,
       body {
+        height: 100%;
         margin: 0;
         padding: 0;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
           Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-        background-color: var(--md-sys-color-background);
-        color: var(--md-sys-color-on-background);
-      }
-      header {
-        padding: 16px;
-        background-color: var(--md-sys-color-primary-container);
-        color: var(--md-sys-color-on-primary-container);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      header h1 {
-        margin: 0;
-        font-size: 24px;
-      }
-      .main-container {
-        display: flex;
-        flex: 1;
         overflow: hidden;
       }
-      .sidebar {
-        width: 250px;
-        background-color: var(--md-sys-color-surface);
-        color: var(--md-sys-color-on-surface);
-        overflow-y: auto;
-        border-right: 1px solid var(--md-sys-color-outline);
-      }
-      .sidebar p-list {
-        --list-bg-color: var(--md-sys-color-surface);
-        --list-dark-bg-color: var(--md-sys-color-surface);
+
+      o-app {
+        display: block;
         height: 100%;
-      }
-      .component-category {
-        padding: 12px 16px;
-        font-weight: bold;
-        border-bottom: 1px solid var(--md-sys-color-outline-variant);
-        background-color: var(--md-sys-color-surface-variant);
-        color: var(--md-sys-color-on-surface-variant);
-      }
-      p-list-item[data-path] {
-        cursor: pointer;
-        border-radius: 0 26px 26px 0;
-      }
-      p-list-item[data-path]:hover {
-        background-color: var(--md-sys-color-surface-variant);
-      }
-      p-list-item[data-path].active {
-        background-color: var(--md-sys-color-primary-container);
-        color: var(--md-sys-color-on-primary-container);
-      }
-      .content-area {
-        flex: 1;
-        padding: 20px;
-        overflow-y: auto;
-      }
-      .component-frame {
-        width: 100%;
-        height: 100%;
-        border: none;
-        background-color: var(--md-sys-color-surface);
       }
     </style>
   </head>
   <body>
-    <l-m src="../packages/aide/develop/theme-selector.html"></l-m>
-    <l-m src="../packages/provider/provider.html"></l-m>
-    <l-m src="../packages/list/list.html"></l-m>
-
-    <header>
-      <h1>Punch-UI 组件案例</h1>
-      <p-theme-selector></p-theme-selector>
-    </header>
-
-    <div class="main-container">
-      <div class="sidebar">
-        <p-list>
-          <div class="component-category">基础组件</div>
-          <p-list-item button data-path="../packages/button/demo/button.html">
-            Button 按钮
-          </p-list-item>
-          <p-list-item button data-path="../packages/button/demo/group.html">
-            Button Group 按钮组
-          </p-list-item>
-          <p-list-item button data-path="../packages/badge/demo.html">
-            Badge 徽章
-          </p-list-item>
-          <p-list-item button data-path="../packages/checkbox/demo/checkbox.html">
-            Checkbox 复选框
-          </p-list-item>
-          <p-list-item button data-path="../packages/radio/demo/radio.html">
-            Radio 单选框
-          </p-list-item>
-          <p-list-item button data-path="../packages/switch/demo.html">
-            Switch 开关
-          </p-list-item>
-          <p-list-item button data-path="../packages/input/demo.html">
-            Input 输入框
-          </p-list-item>
-          <p-list-item button data-path="../packages/textarea/demo.html">
-            Textarea 文本域
-          </p-list-item>
-          <p-list-item button data-path="../packages/select/demo.html">
-            Select 选择器
-          </p-list-item>
-          <p-list-item button data-path="../packages/slider/demo.html">
-            Slider 滑块
-          </p-list-item>
-
-          <div class="component-category">布局组件</div>
-          <p-list-item button data-path="../packages/card/demo.html">
-            Card 卡片
-          </p-list-item>
-          <p-list-item button data-path="../packages/list/demo/list.html">
-            List 列表
-          </p-list-item>
-          <p-list-item button data-path="../packages/table/demo/table.html">
-            Table 表格
-          </p-list-item>
-          <p-list-item button data-path="../packages/tabs/demo/tabs.html">
-            Tabs 标签页
-          </p-list-item>
-          <p-list-item button data-path="../packages/navigation/demo/nav.html">
-            Navigation 导航
-          </p-list-item>
-
-          <div class="component-category">反馈组件</div>
-          <p-list-item button data-path="../packages/dialog/demo/dialog.html">
-            Dialog 对话框
-          </p-list-item>
-          <p-list-item button data-path="../packages/drawer/demo.html">
-            Drawer 抽屉
-          </p-list-item>
-          <p-list-item button data-path="../packages/snackbar/demo.html">
-            Snackbar 消息条
-          </p-list-item>
-          <p-list-item button data-path="../packages/tooltips/demo.html">
-            Tooltips 提示
-          </p-list-item>
-          <p-list-item button data-path="../packages/carousel/demo.html">
-            Carousel 轮播
-          </p-list-item>
-          <p-list-item button data-path="../packages/menu/demo/menu.html">
-            Menu 菜单
-          </p-list-item>
-          <p-list-item button data-path="../packages/chip/demo.html">
-            Chip 标签
-          </p-list-item>
-          <p-list-item button data-path="../packages/wave/demo.html">
-            Wave 波纹
-          </p-list-item>
-
-          <div class="component-category">其他</div>
-          <p-list-item button data-path="../packages/provider/demo.html">
-            Provider 主题提供者
-          </p-list-item>
-          <p-list-item button data-path="../packages/field-container/demo.html">
-            Field Container 字段容器
-          </p-list-item>
-        </p-list>
-      </div>
-      <div class="content-area">
-        <iframe
-          id="component-frame"
-          class="component-frame"
-          src="../packages/button/demo/button.html"
-        ></iframe>
-      </div>
-    </div>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const componentItems = document.querySelectorAll(
-          "p-list-item[data-path]"
-        );
-        const componentFrame = document.getElementById("component-frame");
-
-        // 设置默认选中的组件
-        componentItems[0].classList.add("active");
-
-        // 为每个组件项添加点击事件
-        componentItems.forEach((item) => {
-          item.addEventListener("click", () => {
-            // 移除所有活动状态
-            componentItems.forEach((i) => i.classList.remove("active"));
-            // 添加当前项的活动状态
-            item.classList.add("active");
-            // 更新iframe的src
-            const path = item.getAttribute("data-path");
-            if (path) {
-              componentFrame.src = path;
-            }
-          });
-        });
-      });
-    </script>
+    <o-router fix-body>
+      <o-app src="./app.js"></o-app>
+    </o-router>
   </body>
 </html>
