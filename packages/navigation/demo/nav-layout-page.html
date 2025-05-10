@@ -59,18 +59,18 @@
       <p-list-item> Headline 4</p-list-item>
     </p-list>
 
-    <x-if :value="activeId == 0">
+    <o-if :value="activeId == 0">
       <demo-blocks before-text="Home" fadein></demo-blocks>
-    </x-if>
-    <x-else-if :value="activeId == 1">
+    </o-if>
+    <o-else-if :value="activeId == 1">
       <demo-blocks before-text="Movies" fadein></demo-blocks>
-    </x-else-if>
-    <x-else-if :value="activeId == 2">
+    </o-else-if>
+    <o-else-if :value="activeId == 2">
       <demo-blocks before-text="Photos" fadein></demo-blocks>
-    </x-else-if>
-    <x-else>
+    </o-else-if>
+    <o-else>
       <demo-blocks before-text="Musics" fadein></demo-blocks>
-    </x-else>
+    </o-else>
     <p-nav-bar
       slot="nav"
       auto-active
