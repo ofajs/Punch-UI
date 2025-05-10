@@ -99,7 +99,8 @@
 
           // 使用 requestAnimationFrame 优化性能
           requestAnimationFrame(() => {
-            const maxSize = Math.sqrt(clientWidth ** 2 + clientHeight ** 2) * 2 * 1.2;
+            const maxSize =
+              Math.sqrt(clientWidth ** 2 + clientHeight ** 2) * 2 * 1.2;
             const left = offsetX - maxSize / 2;
             const top = offsetY - maxSize / 2;
 
