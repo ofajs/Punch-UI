@@ -64,6 +64,11 @@
             return;
           }
 
+          if ("ontouchstart" in window && e.type.includes("mouse")) {
+            // 如果支持触摸事件，跳过鼠标事件处理
+            return;
+          }
+
           // 处理触摸事件
           const event = e.type.startsWith("touch") ? e.touches[0] : e;
           const container = this.shadow.$(".container");
