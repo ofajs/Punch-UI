@@ -147,9 +147,9 @@
         const tid = (this._tableId = Math.random().toString(32).slice(2));
         this.attr("data-table-id", tid);
 
-        this.on("change-cell-prop", () => {
-          this.refreshSlefStyle();
-        });
+        // this.on("change-cell-prop", () => {
+        //   this.refreshSlefStyle();
+        // });
       },
       attached() {
         const currentStyle = $(`<style table-id="${this._tableId}"></style>`);

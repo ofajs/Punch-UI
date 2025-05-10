@@ -51,13 +51,6 @@
           this.shadow.$(".container").ele.scrollLeft = val;
         },
       },
-      ready() {
-        this.on("change-cell-align", (e) => {
-          if (this.head === null) {
-            e.stopImmediatePropagation();
-          }
-        });
-      },
     };
   </script>
 </template>
