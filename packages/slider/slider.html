@@ -11,6 +11,12 @@
       border-radius: var(--pui-border-radius);
       background-color: var(--pui-main-color-container);
     }
+    .container.disabled {
+      opacity: 0.7;
+    }
+    .container.disabled .cursor {
+      cursor: not-allowed;
+    }
     .container-helper {
       position: absolute;
       left: 0;
@@ -123,6 +129,7 @@
     class="container"
     class:enable-anime="enableAnime"
     class:inmousedown="inmousedown"
+    class:disabled="disabled !== null"
   >
     <slot></slot>
     <div class="container-helper" on:click="clickContainer"></div>
@@ -146,6 +153,7 @@
         step: 1,
         value: 0,
         marks: null,
+        disabled: null,
       },
       data: {
         inmousedown: false,
@@ -181,6 +189,10 @@
           this.value = value;
         },
         mousedown(e) {
+          if (this.disabled !== null) {
+            return;
+          }
+          
           // clear old binding
           if (this._upFun) {
             this._upFun();

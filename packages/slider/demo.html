@@ -1,38 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>slider test</title>
-
+    <title>滑块组件 Slider</title>
     <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.6.1/dist/ofa.js#debug"></script>
     <style>
-      html,
       body {
-        height: 100%;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
       }
-      *:not(:defined) {
-        display: none;
+      .demo-section {
+        margin-bottom: 20px;
+      }
+      .slider-row {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        margin-bottom: 20px;
+      }
+      h3 {
+        margin-bottom: 10px;
+      }
+      .code-block {
+        background-color: var(--md-sys-color-surface);
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        font-family: monospace;
+      }
+      .result-display {
+        margin-top: 10px;
+        padding: 8px;
+        background-color: var(--md-sys-color-surface);
+        border-radius: 4px;
       }
     </style>
   </head>
   <body>
+    <l-m src="./slider.html"></l-m>
     <l-m src="../aide/develop/theme-selector.html"></l-m>
 
     <p-theme-selector></p-theme-selector>
 
-    <l-m src="./slider.html"></l-m>
-    <div style="padding: 50px">
-      <p-slider step="0.5"></p-slider>
+    <div class="demo-section">
+      <h3>基础滑块</h3>
+      <div class="slider-row">
+        <p-slider></p-slider>
+        <p-slider value="50"></p-slider>
+        <p-slider disabled value="30"></p-slider>
+      </div>
     </div>
-    <div style="padding: 50px">
-      <p-slider min="0" max="150" style="width: 30%">
-        <p-slider-mark value="10">10C</p-slider-mark>
-        <p-slider-mark value="75">Half</p-slider-mark>
-      </p-slider>
+
+    <div class="demo-section">
+      <h3>步长设置</h3>
+      <div class="slider-row">
+        <p-slider step="1" value="20"></p-slider>
+        <p-slider step="5" value="25"></p-slider>
+        <p-slider step="10" value="30"></p-slider>
+        <p-slider step="0.5" value="22.5"></p-slider>
+      </div>
     </div>
-    <div style="padding: 50px">
-      <p-slider color="error" value="100" min="-100" max="200"></p-slider>
+
+    <div class="demo-section">
+      <h3>范围设置</h3>
+      <div class="slider-row">
+        <p-slider min="0" max="150" value="75">
+          <p-slider-mark value="10">10</p-slider-mark>
+          <p-slider-mark value="75">中间值</p-slider-mark>
+          <p-slider-mark value="150">最大值</p-slider-mark>
+        </p-slider>
+
+        <br />
+
+        <p-slider min="-100" max="100" value="0">
+          <p-slider-mark value="-100">-100</p-slider-mark>
+          <p-slider-mark value="0">0</p-slider-mark>
+          <p-slider-mark value="100">100</p-slider-mark>
+        </p-slider>
+      </div>
     </div>
+
+    <div class="demo-section">
+      <h3>颜色变体</h3>
+      <div class="slider-row">
+        <p-slider color="primary" value="20"></p-slider>
+        <p-slider color="success" value="40"></p-slider>
+        <p-slider color="error" value="60"></p-slider>
+        <p-slider color="normal" value="80"></p-slider>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>宽度设置</h3>
+      <div class="slider-row">
+        <p-slider style="width: 100%" value="50"></p-slider>
+        <p-slider style="width: 50%" value="50"></p-slider>
+        <p-slider style="width: 300px" value="50"></p-slider>
+      </div>
+    </div>
+
+    <script>
+      // 监听滑块值变化
+      document.querySelectorAll("p-slider").forEach((slider) => {
+        slider.addEventListener("change", (e) => {
+          console.log("滑块值变化:", e.detail.value);
+        });
+      });
+    </script>
   </body>
 </html>
