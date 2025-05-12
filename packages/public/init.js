@@ -65,7 +65,7 @@ try {
 
     const colorLink = $("head link[pui-colors]");
     if (colorLink) {
-      targetLink.before(colorLink);
+      colorLink.before(targetLink);
     } else {
       $("head").push(targetLink);
     }
