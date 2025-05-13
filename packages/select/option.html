@@ -25,7 +25,7 @@
           clearTimeout(this._changeTimeout);
           this._changeTimeout = setTimeout(() => {
             this.emit("change-option");
-          }, 10);
+          });
         },
       },
       attached() {
