@@ -1,6 +1,6 @@
 {
   "name": "punch-ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "UI component library based on ofa.js development",
   "scripts": {
     "static": "node scripts/static-server.js"
