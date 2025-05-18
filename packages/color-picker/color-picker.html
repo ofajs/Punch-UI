@@ -54,6 +54,30 @@
       border-radius: var(--pui-border-radius, 4px);
       cursor: pointer;
     }
+    .alpha-slider {
+      width: 100%;
+      height: 20px;
+      position: relative;
+      border-radius: var(--pui-border-radius, 4px);
+      cursor: pointer;
+      background-image: linear-gradient(45deg, #ccc 25%, transparent 25%),
+        linear-gradient(-45deg, #ccc 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #ccc 75%),
+        linear-gradient(-45deg, transparent 75%, #ccc 75%);
+      background-size: 10px 10px;
+      background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
+    }
+    .alpha-slider::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        transparent,
+        var(--current-color, #f00)
+      );
+      border-radius: var(--pui-border-radius, 4px);
+    }
     .saturation-value-picker {
       width: 100%;
       height: 150px;
@@ -70,7 +94,8 @@
       border-radius: var(--pui-border-radius, 4px);
     }
     .hue-slider-thumb,
-    .sv-picker-thumb {
+    .sv-picker-thumb,
+    .alpha-slider-thumb {
       position: absolute;
       width: 12px;
       height: 12px;
@@ -81,7 +106,8 @@
       transform: translate(-50%, -50%);
       z-index: 2;
     }
-    .hue-slider-thumb {
+    .hue-slider-thumb,
+    .alpha-slider-thumb {
       top: 50%;
     }
     .color-inputs {
@@ -143,6 +169,12 @@
       <div class="hue-slider" on:mousedown="startHueDrag">
         <div class="hue-slider-thumb" attr:style="`left: ${hue * 100}%`"></div>
       </div>
+      <div class="alpha-slider" on:mousedown="startAlphaDrag">
+        <div
+          class="alpha-slider-thumb"
+          attr:style="`left: ${alpha * 100}%`"
+        ></div>
+      </div>
       <div class="color-inputs">
         <div class="color-input-group">
           <div class="color-input-label">HEX</div>
@@ -155,12 +187,12 @@
           />
         </div>
         <div class="color-input-group">
-          <div class="color-input-label">RGB</div>
+          <div class="color-input-label">RGBA</div>
           <input
             type="text"
             class="color-input"
-            attr:value="`${r}, ${g}, ${b}`"
-            on:change="updateFromRgb($event)"
+            attr:value="`${r}, ${g}, ${b}, ${alpha.toFixed(2)}`"
+            on:change="updateFromRgba($event)"
             attr:disabled="disabled"
           />
         </div>
@@ -183,13 +215,15 @@
         hue: 0, // 0-1
         saturation: 1, // 0-1
         value: 1, // 0-1
+        alpha: 1, // 0-1
         r: 255,
         g: 0,
         b: 0,
-        hexValue: "#FF0000",
+        hexValue: "#000000",
         showPalette: false,
         isDraggingHue: false,
         isDraggingSV: false,
+        isDraggingAlpha: false,
       },
       watch: {
         expanded(val) {
@@ -206,10 +240,15 @@
         value() {
           this.updateColor();
         },
+        alpha() {
+          this.updateColor();
+        },
       },
       proto: {
         get colorValue() {
-          return `rgb(${this.r}, ${this.g}, ${this.b})`;
+          return this.alpha < 1
+            ? `rgba(${this.r}, ${this.g}, ${this.b}, ${this.alpha.toFixed(2)})`
+            : `rgb(${this.r}, ${this.g}, ${this.b})`;
         },
         get hueColor() {
           const h = this.hue;
@@ -265,6 +304,7 @@
         startHueDrag(e) {
           if (this.disabled !== null) return;
           this.isDraggingHue = true;
+          this.hueSliderElement = e.currentTarget;
           this.updateHue(e);
 
           const moveHandler = (e) => this.updateHue(e);
@@ -278,7 +318,7 @@
           document.addEventListener("mouseup", upHandler);
         },
         updateHue(e) {
-          const rect = e.currentTarget.getBoundingClientRect();
+          const rect = this.hueSliderElement.getBoundingClientRect();
           let hue = (e.clientX - rect.left) / rect.width;
           hue = Math.max(0, Math.min(1, hue));
           this.hue = hue;
@@ -286,6 +326,7 @@
         startSVDrag(e) {
           if (this.disabled !== null) return;
           this.isDraggingSV = true;
+          this.svPickerElement = e.currentTarget;
           this.updateSV(e);
 
           const moveHandler = (e) => this.updateSV(e);
@@ -299,7 +340,7 @@
           document.addEventListener("mouseup", upHandler);
         },
         updateSV(e) {
-          const rect = e.currentTarget.getBoundingClientRect();
+          const rect = this.svPickerElement.getBoundingClientRect();
           let s = (e.clientX - rect.left) / rect.width;
           let v = 1 - (e.clientY - rect.top) / rect.height;
 
@@ -308,6 +349,28 @@
 
           this.saturation = s;
           this.value = v;
+        },
+        startAlphaDrag(e) {
+          if (this.disabled !== null) return;
+          this.isDraggingAlpha = true;
+          this.alphaSliderElement = e.currentTarget;
+          this.updateAlpha(e);
+
+          const moveHandler = (e) => this.updateAlpha(e);
+          const upHandler = () => {
+            this.isDraggingAlpha = false;
+            document.removeEventListener("mousemove", moveHandler);
+            document.removeEventListener("mouseup", upHandler);
+          };
+
+          document.addEventListener("mousemove", moveHandler);
+          document.addEventListener("mouseup", upHandler);
+        },
+        updateAlpha(e) {
+          const rect = this.alphaSliderElement.getBoundingClientRect();
+          let alpha = (e.clientX - rect.left) / rect.width;
+          alpha = Math.max(0, Math.min(1, alpha));
+          this.alpha = alpha;
         },
         updateColor() {
           // Convert HSV to RGB
@@ -363,17 +426,29 @@
           // Update HEX value
           this.hexValue = this.rgbToHex(this.r, this.g, this.b);
 
+          // Update the alpha slider gradient color
+          document.documentElement.style.setProperty(
+            "--current-color",
+            `rgba(${this.r}, ${this.g}, ${this.b}, 1)`
+          );
+
           // Emit change event
           this.emit("change", {
             data: {
               hex: this.hexValue,
-              rgb: { r: this.r, g: this.g, b: this.b },
-              hsv: { h: this.hue, s: this.saturation, v: this.value },
+              rgb: { r: this.r, g: this.g, b: this.b, a: this.alpha },
+              hsv: {
+                h: this.hue,
+                s: this.saturation,
+                v: this.value,
+                a: this.alpha,
+              },
             },
           });
         },
         updateFromHex() {
-          if (!this.hexValue.match(/^#[0-9A-Fa-f]{6}$/)) {
+          // Support both 6-digit hex (#RRGGBB) and 8-digit hex with alpha (#RRGGBBAA)
+          if (!this.hexValue.match(/^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$/)) {
             // Reset to previous valid value if invalid
             this.hexValue = this.rgbToHex(this.r, this.g, this.b);
             return;
@@ -385,51 +460,87 @@
           this.r = rgb.r;
           this.g = rgb.g;
           this.b = rgb.b;
+          // If 8-digit hex, update alpha
+          if (this.hexValue.length === 9) {
+            this.alpha = rgb.a;
+          }
           this.hue = hsv.h;
           this.saturation = hsv.s;
           this.value = hsv.v;
         },
-        updateFromRgb(e) {
-          const rgbStr = e.target.value;
-          const rgbMatch = rgbStr.match(
-            /^\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*$/
+        updateFromRgba(e) {
+          const rgbaStr = e.target.value;
+          const rgbaMatch = rgbaStr.match(
+            /^\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*([0-9]*\.?[0-9]+)\s*$/
           );
 
-          if (!rgbMatch) {
+          if (!rgbaMatch) {
             // Reset to previous valid value if invalid
-            e.target.value = `${this.r}, ${this.g}, ${this.b}`;
+            e.target.value = `${this.r}, ${this.g}, ${
+              this.b
+            }, ${this.alpha.toFixed(2)}`;
             return;
           }
 
-          const r = Math.min(255, Math.max(0, parseInt(rgbMatch[1])));
-          const g = Math.min(255, Math.max(0, parseInt(rgbMatch[2])));
-          const b = Math.min(255, Math.max(0, parseInt(rgbMatch[3])));
+          const r = Math.min(255, Math.max(0, parseInt(rgbaMatch[1])));
+          const g = Math.min(255, Math.max(0, parseInt(rgbaMatch[2])));
+          const b = Math.min(255, Math.max(0, parseInt(rgbaMatch[3])));
+          const a = Math.min(1, Math.max(0, parseFloat(rgbaMatch[4])));
 
           const hsv = this.rgbToHsv(r, g, b);
 
           this.r = r;
           this.g = g;
           this.b = b;
+          this.alpha = a;
           this.hue = hsv.h;
           this.saturation = hsv.s;
           this.value = hsv.v;
           this.hexValue = this.rgbToHex(r, g, b);
         },
-        rgbToHex(r, g, b) {
+        rgbToHex(r, g, b, a = this.alpha) {
+          // If alpha is 1, return standard 6-digit hex
+          if (a >= 1) {
+            return `#${((1 << 24) + (r << 16) + (g << 8) + b)
+              .toString(16)
+              .slice(1)
+              .toUpperCase()}`;
+          }
+
+          // Otherwise, return 8-digit hex with alpha
+          const alphaHex = Math.round(a * 255)
+            .toString(16)
+            .padStart(2, "0")
+            .toUpperCase();
           return `#${((1 << 24) + (r << 16) + (g << 8) + b)
             .toString(16)
             .slice(1)
-            .toUpperCase()}`;
+            .toUpperCase()}${alphaHex}`;
         },
         hexToRgb(hex) {
-          const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-          return result
-            ? {
-                r: parseInt(result[1], 16),
-                g: parseInt(result[2], 16),
-                b: parseInt(result[3], 16),
-              }
-            : { r: 0, g: 0, b: 0 };
+          // Support both 6-digit hex (#RRGGBB) and 8-digit hex with alpha (#RRGGBBAA)
+          const sixDigitResult =
+            /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+          const eightDigitResult =
+            /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+
+          if (eightDigitResult) {
+            return {
+              r: parseInt(eightDigitResult[1], 16),
+              g: parseInt(eightDigitResult[2], 16),
+              b: parseInt(eightDigitResult[3], 16),
+              a: parseInt(eightDigitResult[4], 16) / 255,
+            };
+          } else if (sixDigitResult) {
+            return {
+              r: parseInt(sixDigitResult[1], 16),
+              g: parseInt(sixDigitResult[2], 16),
+              b: parseInt(sixDigitResult[3], 16),
+              a: 1,
+            };
+          }
+
+          return { r: 0, g: 0, b: 0, a: 1 };
         },
         rgbToHsv(r, g, b) {
           r /= 255;
@@ -470,6 +581,21 @@
           if (this.defaultValue.startsWith("#")) {
             this.hexValue = this.defaultValue;
             this.updateFromHex();
+          } else if (this.defaultValue.startsWith("rgba")) {
+            const rgbaMatch = this.defaultValue.match(
+              /rgba\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*([0-9]*\.?[0-9]+)\s*\)/
+            );
+            if (rgbaMatch) {
+              this.r = parseInt(rgbaMatch[1]);
+              this.g = parseInt(rgbaMatch[2]);
+              this.b = parseInt(rgbaMatch[3]);
+              this.alpha = parseFloat(rgbaMatch[4]);
+              const hsv = this.rgbToHsv(this.r, this.g, this.b);
+              this.hue = hsv.h;
+              this.saturation = hsv.s;
+              this.value = hsv.v;
+              this.hexValue = this.rgbToHex(this.r, this.g, this.b, this.alpha);
+            }
           } else if (this.defaultValue.startsWith("rgb")) {
             const rgbMatch = this.defaultValue.match(
               /rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/
@@ -478,6 +604,7 @@
               this.r = parseInt(rgbMatch[1]);
               this.g = parseInt(rgbMatch[2]);
               this.b = parseInt(rgbMatch[3]);
+              this.alpha = 1;
               const hsv = this.rgbToHsv(this.r, this.g, this.b);
               this.hue = hsv.h;
               this.saturation = hsv.s;
