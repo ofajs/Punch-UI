@@ -71,14 +71,16 @@
         <div>
           <p-color-picker id="basic-picker"></p-color-picker>
           <div class="result-display" id="basic-result">
-            选择的颜色: <span style="font-weight: bold">#FF0000</span>
+            选择的颜色: <span style="font-weight: bold"></span>
+            <!-- 选择的颜色: <span style="font-weight: bold">#FF0000</span> -->
           </div>
           <div class="color-box">
-            <div
+            <div class="color-box-inner" id="basic-color-box"></div>
+            <!-- <div
               class="color-box-inner"
               id="basic-color-box"
               style="background-color: #ff0000"
-            ></div>
+            ></div> -->
           </div>
         </div>
       </div>
@@ -153,24 +155,6 @@
       </script>
     </div>
 
-    <!-- <div class="demo-section">
-      <h3>颜色主题</h3>
-      <div class="picker-row">
-        <div>
-          <p-color-picker color="primary" expanded></p-color-picker>
-          <div class="result-display">主色调 (primary)</div>
-        </div>
-        <div>
-          <p-color-picker color="error" expanded></p-color-picker>
-          <div class="result-display">错误色调 (error)</div>
-        </div>
-        <div>
-          <p-color-picker color="success" expanded></p-color-picker>
-          <div class="result-display">成功色调 (success)</div>
-        </div>
-      </div>
-    </div> -->
-
     <div class="demo-section">
       <h3>禁用状态</h3>
       <div class="picker-row">
@@ -229,7 +213,8 @@
         });
 
         getRgbBtn.on("click", () => {
-          valueResult.text = `RGB值: rgb(${valuePicker.r}, ${valuePicker.g}, ${valuePicker.b})`;
+          //   valueResult.text = `RGB值: rgb(${valuePicker.r}, ${valuePicker.g}, ${valuePicker.b})`;
+          valueResult.text = `RGB值: ${valuePicker.value}`;
         });
       </script>
     </div>

@@ -212,14 +212,16 @@
         expanded: null,
       },
       data: {
+        value: "rgba(128, 128, 128, 1)",
         hue: 0, // 0-1
         saturation: 1, // 0-1
         brightness: 1, // 0-1
         alpha: 1, // 0-1
-        r: 255,
+        r: 0,
         g: 0,
         b: 0,
-        hexValue: "#FF0000",
+        // hexValue: "#000000",
+        hexValue: "",
         showPalette: false,
         isDraggingHue: false,
         isDraggingSV: false,
@@ -230,6 +232,9 @@
           if (val !== null) {
             this.showPalette = true;
           }
+        },
+        value(value) {
+          this.setColor(value);
         },
         hue() {
           this.updateColor();
@@ -373,6 +378,11 @@
           this.alpha = alpha;
         },
         updateColor() {
+          if (!this._isInited) {
+            // 组件未初始化完成时不更新颜色
+            return;
+          }
+
           // Convert HSV to RGB
           const h = this.hue;
           const s = this.saturation;
@@ -433,19 +443,32 @@
             `rgba(${this.r}, ${this.g}, ${this.b}, 1)`
           );
 
-          // Emit change event
-          this.emit("change", {
-            data: {
-              hex: this.hexValue,
-              rgb: { r: this.r, g: this.g, b: this.b, a: this.alpha },
-              hsv: {
-                h: this.hue,
-                s: this.saturation,
-                v: this.brightness,
-                a: this.alpha,
+          const value = `rgba(${this.r}, ${this.g}, ${this.b}, ${this.alpha})`;
+
+          if (this.value !== value) {
+            this.value = value;
+          }
+
+          // 防止重复触发
+          if (this._lastColor !== value) {
+            console.log(value);
+
+            // Emit change event
+            this.emit("change", {
+              data: {
+                hex: this.hexValue,
+                rgb: { r: this.r, g: this.g, b: this.b, a: this.alpha },
+                hsv: {
+                  h: this.hue,
+                  s: this.saturation,
+                  v: this.brightness,
+                  a: this.alpha,
+                },
               },
-            },
-          });
+            });
+          }
+
+          this._lastColor = value;
         },
         updateFromHex() {
           // Support both 6-digit hex (#RRGGBB) and 8-digit hex with alpha (#RRGGBBAA)
@@ -577,11 +600,11 @@
           return { h, s, v };
         },
         setColor(value) {
-          if (this.defaultValue.startsWith("#")) {
-            this.hexValue = this.defaultValue;
+          if (value.startsWith("#")) {
+            this.hexValue = value;
             this.updateFromHex();
-          } else if (this.defaultValue.startsWith("rgba")) {
-            const rgbaMatch = this.defaultValue.match(
+          } else if (value.startsWith("rgba")) {
+            const rgbaMatch = value.match(
               /rgba\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*([0-9]*\.?[0-9]+)\s*\)/
             );
             if (rgbaMatch) {
@@ -595,8 +618,8 @@
               this.brightness = hsv.v;
               this.hexValue = this.rgbToHex(this.r, this.g, this.b, this.alpha);
             }
-          } else if (this.defaultValue.startsWith("rgb")) {
-            const rgbMatch = this.defaultValue.match(
+          } else if (value.startsWith("rgb")) {
+            const rgbMatch = value.match(
               /rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/
             );
             if (rgbMatch) {
@@ -614,6 +637,7 @@
         },
       },
       attached() {
+        this._isInited = true;
         if (this.defaultValue) {
           this.setColor(this.defaultValue);
         }
