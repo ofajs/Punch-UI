@@ -163,7 +163,7 @@
       >
         <div
           class="sv-picker-thumb"
-          attr:style="`left: ${saturation * 100}%; top: ${100 - value * 100}%`"
+          attr:style="`left: ${saturation * 100}%; top: ${100 - brightness * 100}%`"
         ></div>
       </div>
       <div class="hue-slider" on:mousedown="startHueDrag">
@@ -214,7 +214,7 @@
       data: {
         hue: 0, // 0-1
         saturation: 1, // 0-1
-        value: 1, // 0-1
+        brightness: 1, // 0-1
         alpha: 1, // 0-1
         r: 255,
         g: 0,
@@ -237,7 +237,7 @@
         saturation() {
           this.updateColor();
         },
-        value() {
+        brightness() {
           this.updateColor();
         },
         alpha() {
@@ -348,7 +348,7 @@
           v = Math.max(0, Math.min(1, v));
 
           this.saturation = s;
-          this.value = v;
+          this.brightness = v;
         },
         startAlphaDrag(e) {
           if (this.disabled !== null) return;
@@ -376,7 +376,7 @@
           // Convert HSV to RGB
           const h = this.hue;
           const s = this.saturation;
-          const v = this.value;
+          const v = this.brightness;
 
           let r, g, b;
 
@@ -392,6 +392,7 @@
               g = t;
               b = p;
               break;
+
             case 1:
               r = q;
               g = v;
@@ -440,7 +441,7 @@
               hsv: {
                 h: this.hue,
                 s: this.saturation,
-                v: this.value,
+                v: this.brightness,
                 a: this.alpha,
               },
             },
@@ -466,7 +467,7 @@
           }
           this.hue = hsv.h;
           this.saturation = hsv.s;
-          this.value = hsv.v;
+          this.brightness = hsv.v;
         },
         updateFromRgba(e) {
           const rgbaStr = e.target.value;
@@ -495,7 +496,7 @@
           this.alpha = a;
           this.hue = hsv.h;
           this.saturation = hsv.s;
-          this.value = hsv.v;
+          this.brightness = hsv.v;
           this.hexValue = this.rgbToHex(r, g, b);
         },
         rgbToHex(r, g, b, a = this.alpha) {
@@ -593,7 +594,7 @@
               const hsv = this.rgbToHsv(this.r, this.g, this.b);
               this.hue = hsv.h;
               this.saturation = hsv.s;
-              this.value = hsv.v;
+              this.brightness = hsv.v;
               this.hexValue = this.rgbToHex(this.r, this.g, this.b, this.alpha);
             }
           } else if (this.defaultValue.startsWith("rgb")) {
@@ -608,7 +609,7 @@
               const hsv = this.rgbToHsv(this.r, this.g, this.b);
               this.hue = hsv.h;
               this.saturation = hsv.s;
-              this.value = hsv.v;
+              this.brightness = hsv.v;
               this.hexValue = this.rgbToHex(this.r, this.g, this.b);
             }
           }
