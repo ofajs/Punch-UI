@@ -219,7 +219,7 @@
         r: 255,
         g: 0,
         b: 0,
-        hexValue: "#000000",
+        hexValue: "#FF0000",
         showPalette: false,
         isDraggingHue: false,
         isDraggingSV: false,
@@ -576,9 +576,7 @@
 
           return { h, s, v };
         },
-      },
-      attached() {
-        if (this.defaultValue) {
+        setColor(value) {
           if (this.defaultValue.startsWith("#")) {
             this.hexValue = this.defaultValue;
             this.updateFromHex();
@@ -613,6 +611,11 @@
               this.hexValue = this.rgbToHex(this.r, this.g, this.b);
             }
           }
+        },
+      },
+      attached() {
+        if (this.defaultValue) {
+          this.setColor(this.defaultValue);
         }
 
         if (this.expanded !== null) {
