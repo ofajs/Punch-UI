@@ -1,21 +1,38 @@
 <template component>
   <style>
     :host {
+      position: relative;
       display: inline-block;
-      width: 240px;
+      width: 60px;
+      height: 36px;
     }
     .color-picker-container {
+      position: absolute;
+      z-index: 3;
+      width: 240px;
       display: flex;
       flex-direction: column;
-      border: 1px solid var(--md-sys-color-outline);
       border-radius: var(--pui-border-radius, 4px);
+      background-color: var(--md-sys-color-surface);
       overflow: hidden;
+      box-shadow: var(--contained-shadow);
+      transform-origin: 0 0;
+      transition: all ease 0.2s;
     }
+
+    .color-picker-container.hide {
+      transform: scale(0, 0);
+      opacity: 0;
+      pointer-events: none;
+    }
+
     .color-preview {
-      height: 40px;
+      height: inherit;
       width: 100%;
       cursor: pointer;
       position: relative;
+      border-radius: var(--pui-border-radius);
+      overflow: hidden;
     }
     .color-preview-inner {
       position: absolute;
@@ -126,7 +143,7 @@
     .color-input {
       width: 100%;
       padding: 6px 8px;
-      border: 1px solid var(--md-sys-color-outline);
+      border: 1px solid var(--md-sys-color-normal);
       border-radius: var(--pui-border-radius, 4px);
       font-size: 12px;
       box-sizing: border-box;
@@ -143,19 +160,21 @@
     }
   </style>
 
-  <div class="color-picker-container" class:disabled="disabled !== null">
-    <div class="color-preview" on:click="togglePalette">
-      <div class="color-preview-inner">
-        <div
-          class="color-value"
-          attr:style="`background-color: ${colorValue}`"
-        ></div>
-      </div>
+  <div class="color-preview" on:click="togglePalette">
+    <div class="color-preview-inner">
+      <div
+        class="color-value"
+        attr:style="`background-color: ${colorValue}`"
+      ></div>
     </div>
-    <div
-      class="color-palette"
-      :style.display="`${showPalette ? 'flex' : 'none'}`"
-    >
+  </div>
+
+  <div
+    class="color-picker-container"
+    class:hide="!showPalette"
+    class:disabled="disabled !== null"
+  >
+    <div class="color-palette">
       <div
         class="saturation-value-picker"
         attr:style="`--current-hue: ${hueColor}`"
@@ -647,6 +666,18 @@
         if (this.expanded !== null) {
           this.showPalette = true;
         }
+
+        this.on("mousedown", (e) => e.stopPropagation());
+
+        $("body").on(
+          "mousedown",
+          (this._cancelFunc = () => {
+            this.showPalette = false;
+          })
+        );
+      },
+      detached() {
+        $("body").off("mousedown", this._cancelFunc);
       },
     };
   </script>
