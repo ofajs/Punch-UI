@@ -25,8 +25,13 @@
           clearTimeout(this._changeTimeout);
           this._changeTimeout = setTimeout(() => {
             this.emit("change-option");
-          });
+          }, 10);
         },
+      },
+      ready() {
+        this.on("change", () => {
+          this.updateChange();
+        });
       },
       attached() {
         this._oriPar = this.parent;
