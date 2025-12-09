@@ -17,8 +17,9 @@
       top: 0;
       width: 100%;
       height: 100%;
-      opacity: 0;
       z-index: 2;
+      opacity: 0;
+      -webkit-appearance: none;
       cursor: pointer;
     }
 
@@ -86,7 +87,8 @@
     :active="infocus ? '' : null"
     :size="size"
     :fix-position="value ? '' : null"
-    :disabled="disabled"
+    :disabled="disabled || readonly"
+    :readonly="readonly"
   >
     <slot></slot>
     <div class="fake-input">
@@ -99,14 +101,16 @@
     </div>
     <slot name="suffix" slot="suffix"></slot>
     <slot name="prefix" slot="prefix"></slot>
-    <div class="triangle" slot="suffix"></div>
+    <o-if :value="readonly === null" slot="suffix">
+      <div class="triangle"></div>
+    </o-if>
     <slot name="helper" slot="helper"></slot>
   </p-field-container>
   <select
     sync:value="value"
     on:focus="infocus = true"
     on:blur="infocus = false"
-    attr:disabled="disabled"
+    attr:disabled="disabled || readonly"
     on:change="emit('change')"
     attr:name="name"
   ></select>
@@ -126,6 +130,7 @@
         size: null,
         placeholder: null,
         hanglabel: null,
+        readonly: null,
       },
       data: {
         value: "",
@@ -169,7 +174,9 @@
             });
 
             if (target) {
-              this.targetOptionText = target.text || target.value;
+              this.targetOptionText = target[0]
+                ? target[0].text || target.value
+                : target.text || target.value;
               return;
             }
 
@@ -190,7 +197,8 @@
             opts.forEach((e) => {
               const option = $("<option></option>");
               option.value = e.value;
-              option.text = e.text;
+              // option.text = e.text;
+              option.text = e[0] ? e[0].text || e.value : e.text || e.value;
               option.disabled = e.disabled !== null ? true : false;
               frag.push(option);
             });
