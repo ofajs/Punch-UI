@@ -141,7 +141,9 @@
     }
   </style>
   <div class="main" part="main">
-    <div style="width: var(--self-ladder-left)"></div>
+    <div
+      style="width: calc(var(--self-ladder-left) - var(--ladder-left))"
+    ></div>
     <div class="avatar">
       <slot name="prefix"></slot>
     </div>
@@ -214,7 +216,7 @@
               if (target && target.focus) {
                 target.focus();
               }
-            })
+            }),
           );
         },
         blurFakeBtn() {
