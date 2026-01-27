@@ -61,12 +61,11 @@ try {
   let targetLink = $("link[pui-theme]");
   if (!targetLink) {
     targetLink = $(
-      `<link pui-theme rel="stylesheet" href="${import.meta.resolve(
-        "../css/public.css"
-      )}" />`
+      `<link pui-theme rel="stylesheet" href="${import.meta
+        .resolve("../css/public.css")}" />`,
     );
 
-    const colorLink = $("head link[pui-colors]");
+    const colorLink = $("link[pui-colors],link[pui-palette]");
     if (colorLink) {
       colorLink.before(targetLink);
     } else {
