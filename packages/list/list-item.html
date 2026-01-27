@@ -7,7 +7,7 @@
       display: block;
       font-size: 14px;
       color: var(--md-sys-color-on-normal-container);
-      --wave-color: var(--md-ref-palette-translucent-primary60);
+      --wave-color: var(--md-ref-palette-translucent-primary);
       background-color: transparent;
       overflow: hidden;
     }
@@ -116,7 +116,7 @@
 
     :host([active-item]) .main,
     :host([button]) .main:hover {
-      background-color: var(--md-ref-palette-translucent-primary50);
+      background-color: var(--md-ref-palette-translucent-primary);
     }
 
     .fake-button {
@@ -141,7 +141,9 @@
     }
   </style>
   <div class="main" part="main">
-    <div style="width: var(--self-ladder-left)"></div>
+    <div
+      style="width: calc(var(--self-ladder-left) - var(--ladder-left))"
+    ></div>
     <div class="avatar">
       <slot name="prefix"></slot>
     </div>
@@ -214,7 +216,7 @@
               if (target && target.focus) {
                 target.focus();
               }
-            })
+            }),
           );
         },
         blurFakeBtn() {
