@@ -118,7 +118,7 @@ export async function prompt(opts) {
   <span slot="title">${opts.title}</span>
   <div style="padding:8px 0">
     <p style="margin-top:0;">${opts.message || opts.content}</p>
-    <p-input placeholder="${opts.placeholder || ""}" default-value="${
+    <p-input autofocus placeholder="${opts.placeholder || ""}" default-value="${
       opts.value || ""
     }" style="--label-bg:var(--md-sys-color-on-normal);width:100%;">
       ${opts.label ? `<label>${opts.label}</label>` : ""}
