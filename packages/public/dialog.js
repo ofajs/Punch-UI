@@ -83,7 +83,7 @@ export async function confirm(opts) {
   return appendDialog(`
 <p-dialog style="--dialog-width: 320px">
   <span slot="title">${opts.title || ""}</span>
-  ${opts.content}
+  ${opts.message || opts.content}
   <p-button slot="bottom" class="dialog-yes-btn">${opts.yes || "Yes"}</p-button>
   <p-button variant="text" class="dialog-cancel-btn" slot="bottom">${
     opts.cancel || "Cancel"
@@ -98,10 +98,10 @@ export async function alert(opts) {
 
   return appendDialog(`
 <p-dialog>
-  <span slot="title">${opts.title}</span>
-  ${opts.content}
+  <span slot="title">${opts.title || ""}</span>
+  ${opts.message || opts.content}
   <p-button variant="text" class="dialog-yes-btn" slot="bottom">${
-    opts.ok || "OK"
+    opts.ok || opts.yes || "OK"
   }</p-button>
 </p-dialog>`);
 }
@@ -117,6 +117,7 @@ export async function prompt(opts) {
 <p-dialog>
   <span slot="title">${opts.title}</span>
   <div style="padding:8px 0">
+    <p style="margin-top:0;">${opts.message || opts.content}</p>
     <p-input placeholder="${opts.placeholder || ""}" default-value="${
       opts.value || ""
     }" style="--label-bg:var(--md-sys-color-on-normal);width:100%;">
@@ -139,7 +140,7 @@ export async function prompt(opts) {
           dialog.$(".dialog-yes-btn").click();
         }
       });
-    }
+    },
   );
 }
 
