@@ -77,7 +77,7 @@ export async function toast(opts) {
   Object.assign(defaults, opts);
 
   const el = $(`<p-snackbar style="pointer-events:auto;">
-  ${defaults.content}
+  ${defaults.message || defaults.content}
   <div style="flex:1;" class="snackbar-holder"></div>
   <p-button class="snackbar-close" size="small" variant="text" icon style="margin-left: 4px">✕
   </p-button>
@@ -120,7 +120,7 @@ export async function toast(opts) {
       const btn = $(
         `<p-button color="${
           e.color || "primary"
-        }" size="small" variant="text">${e.content}</p-button>`
+        }" size="small" variant="text">${e.content}</p-button>`,
       );
 
       e.click &&
