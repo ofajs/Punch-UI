@@ -24,7 +24,9 @@
       width: 0;
       height: 0;
       background-color: var(--wave-color, rgba(223, 223, 223, 0.3));
-      transition: all ease-out 0.7s, opacity ease 1s;
+      transition:
+        all ease-out 0.7s,
+        opacity ease 1s;
       border-radius: 50%;
       pointer-events: none;
       will-change: transform, opacity, width, height;
@@ -53,9 +55,12 @@
           if ($target) {
             $target.classList.add("pass");
             $target.css.opacity = 0;
-            setTimeout(() => {
-              $target.remove();
-            }, parseInt(this.duration) || 700);
+            setTimeout(
+              () => {
+                $target.remove();
+              },
+              parseInt(this.duration) || 700,
+            );
           }
         },
 

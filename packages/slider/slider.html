@@ -115,7 +115,7 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background-color: var(--pui-main-hover-color);
+      background-color: rgb(from var(--pui-main-color) r g b / 0.1);
       transform: scale(0%);
       opacity: 0.5;
       transition: all ease 0.1s;
@@ -231,7 +231,7 @@
               }
 
               this.value = value;
-            })
+            }),
           );
 
           $("body").on(
@@ -242,7 +242,7 @@
               $("body").off("mouseleave", this._upFun);
               this._upFun = null;
               this.inmousedown = false;
-            })
+            }),
           );
 
           $("body").on("mouseleave", this._upFun);

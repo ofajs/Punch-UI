@@ -6,7 +6,7 @@
       display: inline-block;
       flex-shrink: 0;
       --pui-border-radius: 30px;
-      --wave-color: var(--md-ref-palette-translucent-primary);
+      --wave-color: rgb(from var(--pui-main-color) r g b / 0.1);
     }
 
     .container {
@@ -138,7 +138,7 @@
     }
     @media (hover: hover) {
       .container:hover .hover-place {
-        background-color: var(--pui-main-hover-color);
+        background-color: rgb(from var(--pui-main-color) r g b / 0.1);
       }
     }
 
