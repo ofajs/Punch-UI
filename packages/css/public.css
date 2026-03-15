@@ -22,18 +22,4 @@ html {
     rgba(0, 0, 0, 0.2) 0px 0 9px inset;
 
   -webkit-tap-highlight-color: transparent;
-
-  --md-ref-palette-translucent-primary: rgb(
-    from var(--md-ref-palette-primary50) r g b / 0.2
-  );
-
-  --md-ref-palette-translucent-success: rgb(
-    from var(--md-ref-palette-success50) r g b / 0.2
-  );
-  --md-ref-palette-translucent-error: rgb(
-    from var(--md-ref-palette-error50) r g b / 0.2
-  );
-  --md-ref-palette-translucent-normal: rgb(
-    from var(--md-ref-palette-normal50) r g b / 0.2
-  );
 }

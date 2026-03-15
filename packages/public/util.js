@@ -14,7 +14,7 @@ export const setMainColor = (target, color) => {
     --pui-on-main-color: var(--md-sys-color-on-${color});
     --pui-main-color-container: var(--md-sys-color-${color}-container);
     --pui-on-main-color-container: var(--md-sys-color-on-${color}-container);
-    --wave-color: var(--md-ref-palette-translucent-${color});
+    --wave-color: rgb(from var(--md-ref-palette-${color}50) r g b / 0.2);
   }`;
 };
 
