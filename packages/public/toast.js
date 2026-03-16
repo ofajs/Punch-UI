@@ -83,9 +83,7 @@ export async function toast(opts) {
   </p-button>
 </p-snackbar>`);
 
-  if (defaults.color) {
-    el.attr("color", defaults.color);
-  }
+  el.attr("color", defaults.color || "primary");
 
   let closeTimer;
 
