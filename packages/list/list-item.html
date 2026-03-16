@@ -7,7 +7,7 @@
       display: block;
       font-size: 14px;
       color: var(--md-sys-color-on-normal-container);
-      --wave-color: var(--md-ref-palette-translucent-primary);
+      --wave-color: rgb(from var(--md-ref-palette-primary50) r g b / 0.2);
       background-color: transparent;
       overflow: hidden;
     }
@@ -116,7 +116,7 @@
 
     :host([active-item]) .main,
     :host([button]) .main:hover {
-      background-color: var(--md-ref-palette-translucent-primary);
+      background-color: rgba(from var(--md-sys-color-primary) r g b / 0.1);
     }
 
     .fake-button {
