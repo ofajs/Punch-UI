@@ -1,0 +1,284 @@
+@media (prefers-color-scheme: light) {
+  html,
+  .hljs {
+    --hljs-bg: #f0f0f0;
+    --hljs-color: #444;
+    --hljs-keyword: #000;
+    --hljs-literal: #069;
+    --hljs-built_in: #397300;
+    --hljs-type: #458;
+    --hljs-name: #007;
+    --hljs-symbol: #990073;
+    --hljs-class: #458;
+    --hljs-number: #080;
+    --hljs-meta-string: #38a;
+    --hljs-string: #800;
+    --hljs-regexp: #009926;
+    --hljs-formula: #800;
+    --hljs-function: #800;
+    --hljs-params: #800;
+    --hljs-subst: #800;
+    --hljs-title: #800;
+    --hljs-comment: #697070;
+    --hljs-quote: #697070;
+    --hljs-doctag: #608b4e;
+    --hljs-meta: #1f7199;
+    --hljs-tag: #444a;
+    --hljs-template-variable: #ab5656;
+    --hljs-variable: #ab5656;
+    --hljs-attr: #9c27b0;
+    --hljs-attribute: #9c27b0;
+    --hljs-section: #900;
+    --hljs-bullet: #397300;
+    --hljs-selector-attr: #ab5656;
+    --hljs-selector-class: #997;
+    --hljs-selector-id: #911;
+    --hljs-selector-pseudo: #70a0;
+    --hljs-selector-tag: #000;
+    --hljs-template-tag: #800;
+    --hljs-link: #ab5656;
+    --hljs-addition-bg: #144212;
+    --hljs-deletion-bg: #600;
+  }
+}
+
+.theme-light-mode {
+  --hljs-bg: #f0f0f0;
+  --hljs-color: #444;
+  --hljs-keyword: #000;
+  --hljs-literal: #069;
+  --hljs-built_in: #397300;
+  --hljs-type: #458;
+  --hljs-name: #007;
+  --hljs-symbol: #990073;
+  --hljs-class: #458;
+  --hljs-number: #080;
+  --hljs-meta-string: #38a;
+  --hljs-string: #800;
+  --hljs-regexp: #009926;
+  --hljs-formula: #800;
+  --hljs-function: #800;
+  --hljs-params: #800;
+  --hljs-subst: #800;
+  --hljs-title: #800;
+  --hljs-comment: #697070;
+  --hljs-quote: #697070;
+  --hljs-doctag: #608b4e;
+  --hljs-meta: #1f7199;
+  --hljs-tag: #444a;
+  --hljs-template-variable: #ab5656;
+  --hljs-variable: #ab5656;
+  --hljs-attr: #9c27b0;
+  --hljs-attribute: #9c27b0;
+  --hljs-section: #900;
+  --hljs-bullet: #397300;
+  --hljs-selector-attr: #ab5656;
+  --hljs-selector-class: #997;
+  --hljs-selector-id: #911;
+  --hljs-selector-pseudo: #70a0;
+  --hljs-selector-tag: #000;
+  --hljs-template-tag: #800;
+  --hljs-link: #ab5656;
+  --hljs-addition-bg: #144212;
+  --hljs-deletion-bg: #600;
+}
+
+@media (prefers-color-scheme: dark) {
+  html,
+  .hljs {
+    --hljs-bg: #171b21;
+    --hljs-color: #dcdcdc;
+    --hljs-keyword: #569cd6;
+    --hljs-literal: #569cd6;
+    --hljs-built_in: #4ec9b0;
+    --hljs-type: #4ec9b0;
+    --hljs-name: #569cd6;
+    --hljs-symbol: #569cd6;
+    --hljs-class: #b8d7a3;
+    --hljs-number: #b8d7a3;
+    --hljs-meta-string: #d69d85;
+    --hljs-string: #d69d85;
+    --hljs-regexp: #9a5334;
+    --hljs-formula: #dcdcdc;
+    --hljs-function: #dcdcdc;
+    --hljs-params: #dcdcdc;
+    --hljs-subst: #dcdcdc;
+    --hljs-title: #dcdcdc;
+    --hljs-comment: #57a64a;
+    --hljs-quote: #57a64a;
+    --hljs-doctag: #608b4e;
+    --hljs-meta: #9b9b9b;
+    --hljs-tag: #9b9b9b;
+    --hljs-template-variable: #bd63c5;
+    --hljs-variable: #bd63c5;
+    --hljs-attr: #9cdcfe;
+    --hljs-attribute: #9cdcfe;
+    --hljs-section: gold;
+    --hljs-bullet: #d7ba7d;
+    --hljs-selector-attr: #d7ba7d;
+    --hljs-selector-class: #d7ba7d;
+    --hljs-selector-id: #d7ba7d;
+    --hljs-selector-pseudo: #d7ba7d;
+    --hljs-selector-tag: #d7ba7d;
+    --hljs-template-tag: #9a5334;
+    --hljs-link: #569cd6;
+    --hljs-addition-bg: #144212;
+    --hljs-deletion-bg: #600;
+  }
+}
+
+.theme-dark-mode {
+  --hljs-bg: #171b21;
+  --hljs-color: #dcdcdc;
+  --hljs-keyword: #569cd6;
+  --hljs-literal: #569cd6;
+  --hljs-built_in: #4ec9b0;
+  --hljs-type: #4ec9b0;
+  --hljs-name: #569cd6;
+  --hljs-symbol: #569cd6;
+  --hljs-class: #b8d7a3;
+  --hljs-number: #b8d7a3;
+  --hljs-meta-string: #d69d85;
+  --hljs-string: #d69d85;
+  --hljs-regexp: #9a5334;
+  --hljs-formula: #dcdcdc;
+  --hljs-function: #dcdcdc;
+  --hljs-params: #dcdcdc;
+  --hljs-subst: #dcdcdc;
+  --hljs-title: #dcdcdc;
+  --hljs-comment: #57a64a;
+  --hljs-quote: #57a64a;
+  --hljs-doctag: #608b4e;
+  --hljs-meta: #9b9b9b;
+  --hljs-tag: #9b9b9b;
+  --hljs-template-variable: #bd63c5;
+  --hljs-variable: #bd63c5;
+  --hljs-attr: #9cdcfe;
+  --hljs-attribute: #9cdcfe;
+  --hljs-section: gold;
+  --hljs-bullet: #d7ba7d;
+  --hljs-selector-attr: #d7ba7d;
+  --hljs-selector-class: #d7ba7d;
+  --hljs-selector-id: #d7ba7d;
+  --hljs-selector-pseudo: #d7ba7d;
+  --hljs-selector-tag: #d7ba7d;
+  --hljs-template-tag: #9a5334;
+  --hljs-link: #569cd6;
+  --hljs-addition-bg: #144212;
+  --hljs-deletion-bg: #600;
+}
+
+pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em;
+}
+
+code.hljs {
+  padding: 3px 5px;
+}
+
+.hljs,
+code.hljs {
+  background: var(--hljs-bg) !important;
+  color: var(--hljs-color) !important;
+}
+
+.hljs-keyword,
+.hljs-literal,
+.hljs-name,
+.hljs-symbol {
+  color: var(--hljs-keyword);
+}
+
+.hljs-link {
+  color: var(--hljs-link);
+  text-decoration: underline;
+}
+
+.hljs-built_in,
+.hljs-type {
+  color: var(--hljs-built_in);
+}
+
+.hljs-class,
+.hljs-number {
+  color: var(--hljs-class);
+}
+
+.hljs-meta .hljs-string,
+.hljs-string {
+  color: var(--hljs-meta-string);
+}
+
+.hljs-regexp,
+.hljs-template-tag {
+  color: var(--hljs-regexp);
+}
+
+.hljs-formula,
+.hljs-function,
+.hljs-params,
+.hljs-subst,
+.hljs-title {
+  color: var(--hljs-formula);
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: var(--hljs-comment);
+  font-style: italic;
+}
+
+.hljs-doctag {
+  color: var(--hljs-doctag);
+}
+
+.hljs-meta,
+.hljs-meta .hljs-keyword,
+.hljs-tag {
+  color: var(--hljs-meta);
+}
+
+.hljs-template-variable,
+.hljs-variable {
+  color: var(--hljs-template-variable);
+}
+
+.hljs-attr,
+.hljs-attribute {
+  color: var(--hljs-attr);
+}
+
+.hljs-section {
+  color: var(--hljs-section);
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: 700;
+}
+
+.hljs-bullet,
+.hljs-selector-attr,
+.hljs-selector-class,
+.hljs-selector-id,
+.hljs-selector-pseudo,
+.hljs-selector-tag {
+  color: var(--hljs-bullet);
+}
+
+.hljs-addition {
+  background-color: var(--hljs-addition-bg);
+  display: inline-block;
+  width: 100%;
+}
+
+.hljs-deletion {
+  background-color: var(--hljs-deletion-bg);
+  display: inline-block;
+  width: 100%;
+}

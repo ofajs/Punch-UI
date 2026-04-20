@@ -3,7 +3,7 @@
   "version": "1.0.5",
   "description": "UI component library based on ofa.js development",
   "scripts": {
-    "static": "node scripts/static-server.js"
+    "dev": "http-server -p 5002 -c-1 --cors"
   },
   "type": "module",
   "keywords": [
@@ -15,7 +15,6 @@
   "author": "Yao",
   "license": "Apache-2.0",
   "devDependencies": {
-    "koa": "^2.14.1",
-    "koa-static": "^5.0.0"
+    "http-server": "^14.1.1"
   }
 }

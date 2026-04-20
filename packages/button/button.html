@@ -1,5 +1,21 @@
 <template component>
-  <button class="punch-button">
-    <slot></slot>
-  </button>
+  <style>
+    :host {
+      display: inline-block;
+    }
+  </style>
+  <slot></slot>
+  <script>
+    export default async ({ load }) => {
+      return {
+        tag: "p-button",
+        attrs: {
+          variant: "filled",
+          size: "medium",
+          disabled: null,
+          iconOnly: false,
+        },
+      };
+    };
+  </script>
 </template>

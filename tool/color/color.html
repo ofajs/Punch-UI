@@ -1,0 +1,503 @@
+<template page>
+  <style>
+    :host {
+      display: block;
+      height: 100%;
+      user-select: none;
+    }
+
+    .container {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      padding: 16px;
+      overflow-y: auto;
+      box-sizing: border-box;
+    }
+
+    /* 主题部分样式 */
+    .theme-section {
+      margin-bottom: 24px;
+    }
+
+    .theme-name {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+
+    .theme-container {
+      display: inline-block;
+      padding: 16px;
+      margin-bottom: 16px;
+      margin-right: 16px;
+      border-radius: 8px;
+      border: 1px solid rgb(from var(--md-sys-color-primary) r g b / 0.5);
+    }
+
+    .theme-color-container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .theme-color-group {
+      margin: 0 4px 4px 0;
+    }
+
+    .theme-color-block {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      width: 200px;
+      height: 60px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .theme-color-name {
+      display: block;
+    }
+
+    .theme-color-css-var {
+      display: none;
+    }
+
+    .theme-color-block:hover .theme-color-css-var {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .theme-color-block:hover .theme-color-name {
+      display: none;
+    }
+
+    /* 颜色部分样式 */
+    .color-section {
+      margin-top: 24px;
+    }
+
+    .color-container {
+    }
+
+    .color-group {
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 8px;
+      margin-right: 8px;
+      border: 1px solid #000000;
+    }
+
+    .color-name {
+      font-size: 16px;
+      font-weight: bold;
+      width: 80px;
+      padding-left: 16px;
+    }
+
+    .color-block {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 100px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .theme-color-container .theme-color-block:nth-child(2n) {
+      margin-bottom: 4px;
+    }
+
+    /* 悬停和焦点效果 */
+    .theme-color-block:hover,
+    .color-block:hover {
+      transform: scale(1.05);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .theme-color-block:focus-visible,
+    .color-block:focus-visible {
+      outline: 2px solid #0066cc;
+      outline-offset: 2px;
+      transform: scale(1.05);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+  <div class="container">
+    <section class="theme-section" aria-labelledby="theme-heading">
+      <h3 id="theme-heading">
+        <locale-text>
+          <span lang="cn">主题</span>
+          <span lang="en">Themes</span>
+        </locale-text>
+      </h3>
+      <o-fill :value="themes">
+        <div
+          class="theme-container"
+          :style.background="$data.surface.color"
+          :style.color="$data.onSurface.color"
+          role="region"
+          aria-label="Theme color palette"
+        >
+          <div class="theme-name" aria-live="polite">{{$data.theme}} Mode</div>
+          <div
+            class="theme-color-container"
+            role="list"
+            aria-label="Theme colors"
+          >
+            <o-fill :value="$data.groups">
+              <div class="theme-color-group" role="listitem">
+                <o-fill :value="$data.blocks">
+                  <div
+                    class="theme-color-block"
+                    :style.background="$data.color"
+                    :style.color="$host.getBlockColor($data)"
+                    on:click="$host.copyCssVar($data)"
+                    on:keydown="$host.handleKeydown($event, $data)"
+                    role="button"
+                    tabindex="0"
+                    :aria-label="'Copy CSS variable: ' + $data.cssVar"
+                  >
+                    <o-if :value="$data.copySuccess">
+                      <div class="theme-color-css-var" aria-live="polite">
+                        Copied
+                      </div>
+                    </o-if>
+                    <o-else>
+                      <div class="theme-color-name">{{$data.name}}</div>
+                      <div class="theme-color-css-var">{{$data.cssVar}}</div>
+                    </o-else>
+                  </div>
+                </o-fill>
+              </div>
+            </o-fill>
+          </div>
+          <div style="display: flex" role="group" aria-label="Surface colors">
+            <div
+              class="theme-color-block"
+              :style.background="$data.surface.color"
+              :style.color="$data.onSurface.color"
+              on:click="$host.copyCssVar($data.surface)"
+              on:keydown="$host.handleKeydown($event, $data.surface)"
+              role="button"
+              tabindex="0"
+              :aria-label="'Copy CSS variable: ' + $data.surface.cssVar"
+            >
+              <o-if :value="$data.surface.copySuccess">
+                <div class="theme-color-css-var" aria-live="polite">Copied</div>
+              </o-if>
+              <o-else>
+                <div class="theme-color-name">Surface</div>
+                <div class="theme-color-css-var">{{$data.surface.cssVar}}</div>
+              </o-else>
+            </div>
+            <div
+              class="theme-color-block"
+              :style.background="$data.onSurface.color"
+              :style.color="$data.surface.color"
+              on:click="$host.copyCssVar($data.onSurface)"
+              on:keydown="$host.handleKeydown($event, $data.onSurface)"
+              role="button"
+              tabindex="0"
+              :aria-label="'Copy CSS variable: ' + $data.onSurface.cssVar"
+            >
+              <o-if :value="$data.onSurface.copySuccess">
+                <div class="theme-color-css-var" aria-live="polite">Copied</div>
+              </o-if>
+              <o-else>
+                <div class="theme-color-name">On Surface</div>
+                <div class="theme-color-css-var">
+                  {{$data.onSurface.cssVar}}
+                </div>
+              </o-else>
+            </div>
+          </div>
+        </div>
+      </o-fill>
+    </section>
+
+    <section class="color-section" aria-labelledby="color-heading">
+      <h3 id="color-heading">
+        <locale-text>
+          <span lang="cn">颜色</span>
+          <span lang="en">Colors</span>
+        </locale-text>
+      </h3>
+      <div class="color-container">
+        <o-fill :value="colors">
+          <div
+            class="color-group"
+            :style.border-color="$data.pick"
+            role="group"
+            attr:aria-label="$data.name + ' color group'"
+          >
+            <div class="color-name" :style.color="$data.pick">
+              {{$data.name}}
+            </div>
+            <o-fill :value="$data.colors">
+              <div
+                class="color-block"
+                :style.background="$data.color"
+                :style.color="$host.getBlockColor($data)"
+                on:click="$host.copyCssVar($data)"
+                on:keydown="$host.handleKeydown($event, $data)"
+                role="button"
+                tabindex="0"
+                :aria-label="'Copy CSS variable: ' + $data.cssVar"
+              >
+                <o-if :value="$data.copySuccess">
+                  <div aria-live="polite">Copied</div>
+                </o-if>
+                <o-else> {{$data.point}} </o-else>
+              </div>
+            </o-fill>
+          </div>
+        </o-fill>
+      </div>
+    </section>
+  </div>
+  <script>
+    import { getColors, Hct } from "../../packages/common/mcu-ts/index.js";
+
+    const COLOR_THRESHOLD = 50;
+    const COPY_SUCCESS_DURATION = 500;
+    const points = [100, 98, 95, 90, 80, 70, 60, 50, 40, 30, 20, 10, 6, 0];
+
+    const themes = [
+      {
+        themeName: "light",
+        surface: 98, // 浅色表面颜色点
+        onSurface: 10, // 浅色表面前景色点
+        names: [
+          {
+            name: "Main",
+            cssVar: "--md-sys-color-main",
+            num: 40, // 浅色主题的主要颜色点
+            reverseNum: 100, // 对比色点
+          },
+          {
+            name: "On Main",
+            cssVar: "--md-sys-color-on-main",
+            num: 100, // 浅色主题的主要颜色前景色点
+            reverseNum: 40, // 对比色点
+          },
+          {
+            name: "Main Container",
+            cssVar: "--md-sys-color-main-container",
+            num: 90, // 浅色主题的主要容器颜色点
+            reverseNum: 10, // 对比色点
+          },
+          {
+            name: "On Main Container",
+            cssVar: "--md-sys-color-on-main-container",
+            num: 10, // 浅色主题的主要容器前景色点
+            reverseNum: 90, // 对比色点
+          },
+        ],
+      },
+      {
+        themeName: "dark",
+        surface: 6, // 深色表面颜色点
+        onSurface: 90, // 深色表面前景色点
+        names: [
+          {
+            name: "Main",
+            cssVar: "--md-sys-color-main",
+            num: 80, // 深色主题的主要颜色点
+            reverseNum: 20, // 对比色点
+          },
+          {
+            name: "On Main",
+            cssVar: "--md-sys-color-on-main",
+            num: 20, // 深色主题的主要颜色前景色点
+            reverseNum: 80, // 对比色点
+          },
+          {
+            name: "Main Container",
+            cssVar: "--md-sys-color-main-container",
+            num: 30, // 深色主题的主要容器颜色点
+            reverseNum: 70, // 对比色点
+          },
+          {
+            name: "On Main Container",
+            cssVar: "--md-sys-color-on-main-container",
+            num: 90, // 深色主题的主要容器前景色点
+            reverseNum: 70, // 对比色点
+          },
+        ],
+      },
+    ];
+
+    const getColorsData = () => {
+      let paletteContent = "";
+
+      // Base color definitions
+      const baseColors = [
+        { name: "primary", color: "#1a7bd1" },
+        { name: "success", color: "#6b9e52" },
+        { name: "error", color: "#fb4747" },
+        { name: "neutral", color: "#808080" },
+      ];
+
+      // Generate color palettes for each base color
+      const colorPalettes = baseColors.map((baseColor) => {
+        const generatedColors = getColors(baseColor.color, points);
+
+        return {
+          name: baseColor.name,
+          pick: baseColor.color,
+          colors: generatedColors.map((color, index) => {
+            const cssVar = `--md-ref-palette-${baseColor.name}${points[index]}`;
+            paletteContent += `${cssVar}: ${color};\n`;
+
+            return {
+              cssVar,
+              color,
+              point: points[index],
+            };
+          }),
+        };
+      });
+
+      // Process themes with their specific color mappings
+      const processedThemes = themes.map((theme) => {
+        let colorStyleContent = "";
+
+        // Map each base color to theme-specific roles
+        const themeGroups = colorPalettes.map((palette) => {
+          const themeItem = {
+            name: palette.name,
+            blocks: [],
+          };
+
+          // Process each color role in the theme
+          theme.names.forEach((themeName) => {
+            const targetColorItem = palette.colors.find(
+              (c) => c.point === themeName.num
+            );
+
+            const finalCssVar = themeName.cssVar.replace(
+              "-main",
+              "-" + palette.name
+            );
+
+            colorStyleContent += `${finalCssVar}: var(${targetColorItem.cssVar});\n`;
+
+            themeItem.blocks.push({
+              name: themeName.name.replace(
+                "Main",
+                palette.name.charAt(0).toUpperCase() + palette.name.slice(1)
+              ),
+              cssVar: finalCssVar,
+              color: targetColorItem.color,
+              point: targetColorItem.point,
+            });
+          });
+
+          return themeItem;
+        });
+
+        const neutralPalette = colorPalettes.find((p) => p.name === "neutral");
+        const surfaceItem = neutralPalette.colors.find(
+          (c) => c.point === theme.surface
+        );
+        const onSurfaceItem = neutralPalette.colors.find(
+          (c) => c.point === theme.onSurface
+        );
+
+        colorStyleContent += `--md-sys-color-surface: var(${surfaceItem.cssVar});\n`;
+        colorStyleContent += `--md-sys-color-on-surface: var(${onSurfaceItem.cssVar});\n`;
+
+        return {
+          theme: theme.themeName.charAt(0).toUpperCase() + theme.themeName.slice(1),
+          groups: themeGroups,
+          colorStyleContent,
+          surface: {
+            cssVar: "--md-sys-color-surface",
+            color: surfaceItem.color,
+          },
+          onSurface: {
+            cssVar: "--md-sys-color-on-surface",
+            color: onSurfaceItem.color,
+          },
+        };
+      });
+
+      return {
+        paletteContent,
+        themes: processedThemes,
+        colors: colorPalettes,
+      };
+    };
+
+    export default async ({ load }) => {
+      return {
+        data: {
+          themes: [],
+          colors: [],
+        },
+        proto: {
+          /**
+           * 将 CSS 变量复制到剪贴板并显示成功反馈
+           * @param {Object} data - 包含 cssVar 属性的颜色数据对象
+           */
+          copyCssVar(data) {
+            if (navigator.clipboard && data?.cssVar) {
+              navigator.clipboard
+                .writeText(data.cssVar)
+                .then(() => {
+                  data.copySuccess = true;
+                  setTimeout(() => {
+                    data.copySuccess = false;
+                  }, COPY_SUCCESS_DURATION);
+                })
+                .catch((err) => {
+                  console.error("Failed to copy CSS variable:", err);
+                });
+            }
+          },
+
+          /**
+           * 处理颜色块的键盘事件以实现无障碍访问
+           * @param {Event} event - 键盘事件
+           * @param {Object} data - 颜色数据对象
+           */
+          handleKeydown(event, data) {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              this.copyCssVar(data);
+            }
+          },
+
+          /**
+           * 根据背景亮度确定合适的文本颜色
+           * @param {Object} item - 具有点属性的颜色项
+           * @returns {string} 合适的文本颜色 (#000000 或 #ffffff)
+           */
+          getBlockColor(item) {
+            return item?.point > COLOR_THRESHOLD ? "#000000" : "#ffffff";
+          },
+
+          /**
+           * 加载颜色数据并填充组件状态
+           */
+          loadColor() {
+            const { themes, colors, paletteContent } = getColorsData();
+            this.themes = themes;
+            this.colors = colors;
+          },
+        },
+        attached() {
+          this.loadColor();
+        },
+      };
+    };
+  </script>
+</template>

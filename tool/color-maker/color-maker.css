@@ -1,0 +1,149 @@
+.container {
+  padding: 16px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.color-group {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 8px;
+  margin-right: 8px;
+  border: 1px solid #000000;
+}
+
+.color-name {
+  font-size: 16px;
+  font-weight: bold;
+  width: 80px;
+  padding-left: 16px;
+}
+
+.color-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 100px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.color-block:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.color-block:focus-visible {
+  outline: 2px solid #0066cc;
+  outline-offset: 2px;
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.color-section {
+  margin-top: 24px;
+}
+
+.theme-container {
+  display: inline-block;
+  padding: 16px;
+  margin-bottom: 16px;
+  margin-right: 16px;
+  border-radius: 8px;
+  border: 1px solid rgb(from var(--md-sys-color-primary) r g b / 0.5);
+  color: var(--md-sys-color-on-surface);
+  background: var(--md-sys-color-surface);
+}
+
+.theme-name {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.theme-color-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.theme-color-group {
+  margin: 0 4px 4px 0;
+}
+
+.theme-color-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  width: 120px;
+  height: 60px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-color-name {
+  display: block;
+}
+
+.theme-color-css-var {
+  display: none;
+}
+
+.theme-color-block:hover .theme-color-css-var {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.theme-color-block:hover .theme-color-name {
+  display: none;
+}
+
+.theme-color-block:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.theme-color-block:focus-visible {
+  outline: 2px solid #0066cc;
+  outline-offset: 2px;
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.style-output {
+  margin-top: 24px;
+}
+
+.style-output section {
+  margin-bottom: 16px;
+}
+
+.style-output h3 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: var(--md-sys-color-on-surface);
+}
+
+.style-output pre {
+  margin: 0;
+  padding: 0;
+  border-radius: 8px;
+  border: 1px solid var(--md-sys-color-outline);
+  background: var(--hljs-bg);
+  overflow-x: auto;
+}
+
+.style-output pre code {
+  display: block;
+  padding: 16px;
+  font-family: monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  overflow-x: auto;
+}

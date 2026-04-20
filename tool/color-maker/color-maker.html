@@ -1,0 +1,214 @@
+<template page>
+  <style>
+    :host {
+      display: block;
+      height: 100%;
+    }
+  </style>
+  <link rel="stylesheet" href="./color-maker.css" />
+  <link rel="stylesheet" href="./hljs.css" />
+
+  <style id="paletteStyle"></style>
+  <style id="themeStyle"></style>
+
+  <div class="container">
+    <section class="color-section">
+      <h3>色盘颜色预览</h3>
+      <o-fill :value="colors">
+        <div
+          class="color-group"
+          :style.border-color="$data.pick"
+          role="group"
+          attr:aria-label="$data.name + ' color group'"
+        >
+          <div class="color-name" :style.color="$data.pick">{{$data.name}}</div>
+          <o-fill :value="$data.colors">
+            <div
+              class="color-block"
+              :style.background="'var(' + $data.cssVar + ')'"
+              :style.color="$host.getBlockColor($data.point)"
+              on:click="$host.copyCssVar($data)"
+              on:keydown="$host.handleKeydown($event, $data)"
+              role="button"
+              tabindex="0"
+              :aria-label="'Copy CSS variable: ' + $data.cssVar"
+            >
+              <o-if :value="$data.copySuccess">
+                <div aria-live="polite">Copied</div>
+              </o-if>
+              <o-else> {{$data.point}} </o-else>
+            </div>
+          </o-fill>
+        </div>
+      </o-fill>
+    </section>
+
+    <section class="color-section">
+      <h3>主题颜色预览</h3>
+      <o-fill :value="themes">
+        <div
+          attr:class="`${$data.class} theme-container`"
+          role="region"
+          attr:aria-label="$data.theme + ' Theme'"
+        >
+          <div class="theme-name">{{$data.theme}}</div>
+          <div class="theme-color-container">
+            <o-fill :value="$data.groups">
+              <div class="theme-color-group">
+                <o-fill :value="$data.blocks">
+                  <div
+                    class="theme-color-block"
+                    :style.background="'var(' + $data.cssVar + ')'"
+                    :style.color="$host.getBlockColor($data.point)"
+                    on:click="$host.copyCssVar($data)"
+                    on:keydown="$host.handleKeydown($event, $data)"
+                    role="button"
+                    tabindex="0"
+                    :aria-label="'Copy CSS variable: ' + $data.cssVar"
+                  >
+                    <o-if :value="$data.copySuccess">
+                      <div class="theme-color-css-var" aria-live="polite">
+                        Copied
+                      </div>
+                    </o-if>
+                    <o-else>
+                      <div class="theme-color-name">{{$data.name}}</div>
+                      <div class="theme-color-css-var">{{$data.cssVar}}</div>
+                    </o-else>
+                  </div>
+                </o-fill>
+              </div>
+            </o-fill>
+          </div>
+          <div style="display: flex">
+            <div
+              class="theme-color-block"
+              :style.background="'var(' + $data.surface.cssVar + ')'"
+              :style.color="$host.getBlockColor($data.surface.point)"
+              on:click="$host.copyCssVar($data.surface)"
+              on:keydown="$host.handleKeydown($event, $data.surface)"
+              role="button"
+              tabindex="0"
+              :aria-label="'Copy CSS variable: ' + $data.surface.cssVar"
+            >
+              <o-if :value="$data.surface.copySuccess">
+                <div class="theme-color-css-var" aria-live="polite">Copied</div>
+              </o-if>
+              <o-else>
+                <div class="theme-color-name">Surface</div>
+                <div class="theme-color-css-var">{{$data.surface.cssVar}}</div>
+              </o-else>
+            </div>
+            <div
+              class="theme-color-block"
+              :style.background="'var(' + $data.onSurface.cssVar + ')'"
+              :style.color="$host.getBlockColor($data.onSurface.point)"
+              on:click="$host.copyCssVar($data.onSurface)"
+              on:keydown="$host.handleKeydown($event, $data.onSurface)"
+              role="button"
+              tabindex="0"
+              :aria-label="'Copy CSS variable: ' + $data.onSurface.cssVar"
+            >
+              <o-if :value="$data.onSurface.copySuccess">
+                <div class="theme-color-css-var" aria-live="polite">Copied</div>
+              </o-if>
+              <o-else>
+                <div class="theme-color-name">On Surface</div>
+                <div class="theme-color-css-var">
+                  {{$data.onSurface.cssVar}}
+                </div>
+              </o-else>
+            </div>
+          </div>
+        </div>
+      </o-fill>
+    </section>
+
+    <div class="style-output">
+      <section>
+        <h3>色盘样式</h3>
+        <pre><code class="hljs language-css" id="palette-content">{{paletteContent}}</code></pre>
+      </section>
+      <section>
+        <h3>主题样式</h3>
+        <pre><code class="hljs language-css" id="theme-content">{{themeContent}}</code></pre>
+      </section>
+      <section>
+        <h3>公共样式</h3>
+        <pre><code class="hljs language-css" id="public-content">{{publicContent}}</code></pre>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    import hljs from "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/es/highlight.min.js";
+
+    export default async ({ load }) => {
+      const { generatePalette, generateTheme } = await load("./util.js");
+
+      return {
+        tag: "p-color-maker",
+        data: {
+          paletteContent: "",
+          themeContent: "",
+          publicContent: "",
+          colors: [],
+          themes: [],
+        },
+        proto: {
+          generatePalette() {
+            const paletteResult = generatePalette();
+            const themeResult = generateTheme(paletteResult.colorMaps);
+
+            // this.paletteContent = paletteResult.paletteContent;
+            // this.themeContent = themeResult.themeContent;
+            // this.publicContent = themeResult.publicContent;
+            this.colors = paletteResult.colors;
+            this.themes = themeResult.themes;
+
+            this.shadow.$("#paletteStyle").text = paletteResult.paletteContent;
+            this.shadow.$("#themeStyle").text = themeResult.themeContent;
+
+            this.shadow.$("#palette-content").text =
+              paletteResult.paletteContent;
+            this.shadow.$("#theme-content").text = themeResult.themeContent;
+            this.shadow.$("#public-content").text = themeResult.publicContent;
+            this.shadow.all("code").forEach((block) => {
+              hljs.highlightElement(block.ele);
+            });
+          },
+
+          copyCssVar(data) {
+            if (navigator.clipboard && data?.cssVar) {
+              navigator.clipboard
+                .writeText(data.cssVar)
+                .then(() => {
+                  data.copySuccess = true;
+                  setTimeout(() => {
+                    data.copySuccess = false;
+                  }, 500);
+                })
+                .catch((err) => {
+                  console.error("Failed to copy CSS variable:", err);
+                });
+            }
+          },
+
+          handleKeydown(event, data) {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              this.copyCssVar(data);
+            }
+          },
+
+          getBlockColor(point) {
+            return point > 50 ? "#000000" : "#ffffff";
+          },
+        },
+        attached() {
+          this.generatePalette();
+        },
+      };
+    };
+  </script>
+</template>
