@@ -10,6 +10,8 @@
       height: 100%;
       -webkit-tap-highlight-color: transparent;
       tap-highlight-color: transparent;
+      overflow: hidden;
+      border-radius: inherit;
     }
     .container {
       position: relative;
@@ -19,11 +21,11 @@
       -webkit-tap-highlight-color: transparent;
       tap-highlight-color: transparent;
     }
-    .wave {
+    .ripple {
       position: absolute;
       width: 0;
       height: 0;
-      background-color: var(--wave-color, rgba(223, 223, 223, 0.3));
+      background-color: var(--ripple-color, rgba(223, 223, 223, 0.3));
       transition:
         all ease-out 0.7s,
         opacity ease 1s;
@@ -35,23 +37,23 @@
   <div
     class="container"
     on:mousedown="handleStart"
-    on:mouseup="cancelWave"
-    on:mouseleave="cancelWave"
+    on:mouseup="cancelRipple"
+    on:mouseleave="cancelRipple"
     on:touchstart="handleStart"
-    on:touchend="cancelWave"
-    on:touchcancel="cancelWave"
+    on:touchend="cancelRipple"
+    on:touchcancel="cancelRipple"
   ></div>
   <script>
     export default {
-      tag: "p-wave",
+      tag: "p-ripple",
       attrs: {
         disabled: null,
         duration: "500",
         color: null,
       },
       proto: {
-        cancelWave() {
-          const $target = this.shadow.$(".wave:not(.pass)");
+        cancelRipple() {
+          const $target = this.shadow.$(".ripple:not(.pass)");
           if ($target) {
             $target.classList.add("pass");
             $target.css.opacity = 0;
@@ -70,51 +72,45 @@
           }
 
           if ("ontouchstart" in window && e.type.includes("mouse")) {
-            // 如果支持触摸事件，跳过鼠标事件处理
             return;
           }
 
-          // 处理触摸事件
           const event = e.type.startsWith("touch") ? e.touches[0] : e;
           const container = this.shadow.$(".container");
           const rect = container.ele.getBoundingClientRect();
 
-          // 计算相对于容器的点击位置
           const offsetX = event.clientX - rect.left;
           const offsetY = event.clientY - rect.top;
 
-          this.createWave(container, offsetX, offsetY);
+          this.createRipple(container, offsetX, offsetY);
         },
 
-        createWave(container, offsetX, offsetY) {
-          const waveEl = $(`<div class="wave"></div>`);
-          container.push(waveEl);
+        createRipple(container, offsetX, offsetY) {
+          const rippleEl = $(`<div class="ripple"></div>`);
+          container.push(rippleEl);
 
-          // 应用自定义颜色
           if (this.color) {
-            waveEl.css.backgroundColor = this.color;
+            rippleEl.css.backgroundColor = this.color;
           }
 
-          // 继承父元素的边框半径
           const radius = $(this.ele.offsetParent).css.borderRadius;
           container.css.borderRadius = radius;
 
           // 设置初始位置
-          Object.assign(waveEl.css, {
+          Object.assign(rippleEl.css, {
             left: offsetX + "px",
             top: offsetY + "px",
           });
 
           const { clientWidth, clientHeight } = container.ele;
 
-          // 使用 requestAnimationFrame 优化性能
           requestAnimationFrame(() => {
             const maxSize =
               Math.sqrt(clientWidth ** 2 + clientHeight ** 2) * 2 * 1.2;
             const left = offsetX - maxSize / 2;
             const top = offsetY - maxSize / 2;
 
-            Object.assign(waveEl.css, {
+            Object.assign(rippleEl.css, {
               left: left + "px",
               top: top + "px",
               width: maxSize + "px",
