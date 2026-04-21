@@ -170,8 +170,8 @@
         <pre><code class="hljs language-css" id="theme-content">{{themeContent}}</code></pre>
       </section>
       <section>
-        <h3>公共样式</h3>
-        <pre><code class="hljs language-css" id="public-content">{{publicContent}}</code></pre>
+        <h3>全局样式</h3>
+        <pre><code class="hljs language-css" id="global-content">{{globalContent}}</code></pre>
       </section>
     </div>
   </div>
@@ -187,7 +187,7 @@
         data: {
           paletteContent: "",
           themeContent: "",
-          publicContent: "",
+          globalContent: "",
           colors: [],
           themes: [],
           baseColors: [
@@ -222,13 +222,14 @@
             let all = "";
             all += paletteResult.paletteContent;
             all += themeResult.themeContent;
-            all += themeResult.publicContent;
+            all += themeResult.globalContent;
             $("head").push(`<style>${all}</style>`);
 
             this.shadow.$("#palette-content").text =
               paletteResult.paletteContent;
             this.shadow.$("#theme-content").text = themeResult.themeContent;
-            this.shadow.$("#public-content").text = themeResult.publicContent;
+            this.shadow.$("#global-content").text = themeResult.globalContent;
+
             this.shadow.all("code").forEach((block) => {
               hljs.highlightElement(block.ele);
             });

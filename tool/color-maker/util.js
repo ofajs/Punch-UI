@@ -103,34 +103,35 @@ export function generateTheme(colorMaps, baseColors) {
       darkThemeVars.push(
         `--md-sys-color-on-surface: var(${colorMap[neutralSurfacePoints.dark.onSurface]});`,
       );
-    } else {
-      colorRolePoints.forEach(({ key, point }) => {
-        let cssVar;
-        if (key === "main") {
-          cssVar = `--md-sys-color-${baseName}`;
-        } else if (key === "on") {
-          cssVar = `--md-sys-color-on-${baseName}`;
-        } else if (key === "container") {
-          cssVar = `--md-sys-color-${baseName}-container`;
-        } else if (key === "onContainer") {
-          cssVar = `--md-sys-color-on-${baseName}-container`;
-        }
-        lightThemeVars.push(`${cssVar}: var(${colorMap[point]});`);
-      });
-      colorRolePointsDark.forEach(({ key, point }) => {
-        let cssVar;
-        if (key === "main") {
-          cssVar = `--md-sys-color-${baseName}`;
-        } else if (key === "on") {
-          cssVar = `--md-sys-color-on-${baseName}`;
-        } else if (key === "container") {
-          cssVar = `--md-sys-color-${baseName}-container`;
-        } else if (key === "onContainer") {
-          cssVar = `--md-sys-color-on-${baseName}-container`;
-        }
-        darkThemeVars.push(`${cssVar}: var(${colorMap[point]});`);
-      });
     }
+
+    colorRolePoints.forEach(({ key, point }) => {
+      let cssVar;
+      if (key === "main") {
+        cssVar = `--md-sys-color-${baseName}`;
+      } else if (key === "on") {
+        cssVar = `--md-sys-color-on-${baseName}`;
+      } else if (key === "container") {
+        cssVar = `--md-sys-color-${baseName}-container`;
+      } else if (key === "onContainer") {
+        cssVar = `--md-sys-color-on-${baseName}-container`;
+      }
+      lightThemeVars.push(`${cssVar}: var(${colorMap[point]});`);
+    });
+
+    colorRolePointsDark.forEach(({ key, point }) => {
+      let cssVar;
+      if (key === "main") {
+        cssVar = `--md-sys-color-${baseName}`;
+      } else if (key === "on") {
+        cssVar = `--md-sys-color-on-${baseName}`;
+      } else if (key === "container") {
+        cssVar = `--md-sys-color-${baseName}-container`;
+      } else if (key === "onContainer") {
+        cssVar = `--md-sys-color-on-${baseName}-container`;
+      }
+      darkThemeVars.push(`${cssVar}: var(${colorMap[point]});`);
+    });
   });
 
   const themeContent = `.theme-light-mode {
@@ -145,7 +146,7 @@ export function generateTheme(colorMaps, baseColors) {
   ${darkThemeVars.join("\n  ")}
 }`;
 
-  const publicContent = `html {
+  const globalContent = `html {
   background-color: var(--md-sys-color-surface);
   color: var(--md-sys-color-on-surface);
 }
@@ -166,10 +167,6 @@ export function generateTheme(colorMaps, baseColors) {
   }
 }`;
 
-  const nonNeutralColors = baseColors.filter(
-    (c) => c.name !== "neutral" && colorMaps[c.name],
-  );
-
   const themes = [
     {
       theme: "Light Mode",
@@ -182,7 +179,7 @@ export function generateTheme(colorMaps, baseColors) {
         cssVar: "--md-sys-color-on-surface",
         point: neutralSurfacePoints.light.onSurface,
       },
-      groups: nonNeutralColors.map((baseColor) => ({
+      groups: baseColors.map((baseColor) => ({
         name: baseColor.name,
         class: "theme-color-group",
         blocks: buildColorRoleBlocks(baseColor.name, colorRolePoints),
@@ -199,7 +196,7 @@ export function generateTheme(colorMaps, baseColors) {
         cssVar: "--md-sys-color-on-surface",
         point: neutralSurfacePoints.dark.onSurface,
       },
-      groups: nonNeutralColors.map((baseColor) => ({
+      groups: baseColors.map((baseColor) => ({
         name: baseColor.name,
         blocks: buildColorRoleBlocks(baseColor.name, colorRolePointsDark),
       })),
@@ -208,7 +205,7 @@ export function generateTheme(colorMaps, baseColors) {
 
   return {
     themeContent,
-    publicContent,
+    globalContent,
     themes,
   };
 }
