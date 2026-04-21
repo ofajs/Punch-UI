@@ -9,53 +9,63 @@ const baseColors = [
   { name: "neutral", color: "#808080" },
 ];
 
-const themeNames = [
-  {
-    name: "Primary",
-    cssVar: "--md-sys-color-primary",
-    num: 40,
-    reverseNum: 100,
-  },
-  {
-    name: "On Primary",
-    cssVar: "--md-sys-color-on-primary",
-    num: 100,
-    reverseNum: 40,
-  },
-  {
-    name: "Primary Container",
-    cssVar: "--md-sys-color-primary-container",
-    num: 90,
-    reverseNum: 10,
-  },
-  {
-    name: "On Primary Container",
-    cssVar: "--md-sys-color-on-primary-container",
-    num: 10,
-    reverseNum: 90,
-  },
+const neutralSurfacePoints = {
+  light: { surface: 98, onSurface: 10 },
+  dark: { surface: 6, onSurface: 90 },
+};
+
+const colorRolePoints = [
+  { key: "main", point: 40 },
+  { key: "on", point: 100 },
+  { key: "container", point: 90 },
+  { key: "onContainer", point: 10 },
+];
+const colorRolePointsDark = [
+  { key: "main", point: 80 },
+  { key: "on", point: 20 },
+  { key: "container", point: 30 },
+  { key: "onContainer", point: 90 },
 ];
 
+function buildColorRoleBlocks(baseName, roles) {
+  return roles.map(({ key, point }) => {
+    let cssVar;
+    if (key === "main") {
+      cssVar = `--md-sys-color-${baseName}`;
+    } else if (key === "on") {
+      cssVar = `--md-sys-color-on-${baseName}`;
+    } else if (key === "container") {
+      cssVar = `--md-sys-color-${baseName}-container`;
+    } else if (key === "onContainer") {
+      cssVar = `--md-sys-color-on-${baseName}-container`;
+    }
+    return {
+      name:
+        key === "main"
+          ? baseName
+          : key === "on"
+            ? `On ${baseName}`
+            : key === "container"
+              ? `${baseName} Container`
+              : `On ${baseName} Container`,
+      cssVar,
+      point,
+    };
+  });
+}
+
 export function generatePalette() {
-  let paletteContent = "";
-
   const colorMaps = {};
-
-  baseColors.forEach((baseColor) => {
+  const colorVars = [];
+  const colors = baseColors.map((baseColor) => {
     const generatedColors = getColors(baseColor.color, points);
     const colorMap = {};
     generatedColors.forEach((color, index) => {
       const cssVar = `--md-ref-palette-${baseColor.name}${points[index]}`;
-      paletteContent += `${cssVar}: ${color};\n`;
+      colorVars.push(`  ${cssVar}: ${color};`);
       colorMap[points[index]] = cssVar;
     });
     colorMaps[baseColor.name] = colorMap;
-  });
-
-  paletteContent = `:root{${paletteContent}}`;
-
-  const colors = baseColors.map((baseColor) => {
-    const generatedColors = getColors(baseColor.color, points);
     return {
       name: baseColor.name,
       pick: baseColor.color,
@@ -67,6 +77,8 @@ export function generatePalette() {
     };
   });
 
+  const paletteContent = `:root{\n${colorVars.join("\n")}\n}`;
+
   return {
     paletteContent,
     colors,
@@ -75,9 +87,6 @@ export function generatePalette() {
 }
 
 export function generateTheme(colorMaps) {
-  let themeContent = "";
-  let publicContent = "";
-
   const lightThemeVars = [];
   const darkThemeVars = [];
 
@@ -87,43 +96,48 @@ export function generateTheme(colorMaps) {
 
     if (baseName === "neutral") {
       lightThemeVars.push(
-        `--md-sys-color-surface: var(--md-ref-palette-${baseName}98);`,
+        `--md-sys-color-surface: var(${colorMap[neutralSurfacePoints.light.surface]});`,
       );
       lightThemeVars.push(
-        `--md-sys-color-on-surface: var(--md-ref-palette-${baseName}10);`,
+        `--md-sys-color-on-surface: var(${colorMap[neutralSurfacePoints.light.onSurface]});`,
       );
       darkThemeVars.push(
-        `--md-sys-color-surface: var(--md-ref-palette-${baseName}6);`,
+        `--md-sys-color-surface: var(${colorMap[neutralSurfacePoints.dark.surface]});`,
       );
       darkThemeVars.push(
-        `--md-sys-color-on-surface: var(--md-ref-palette-${baseName}90);`,
+        `--md-sys-color-on-surface: var(${colorMap[neutralSurfacePoints.dark.onSurface]});`,
       );
     } else {
-      lightThemeVars.push(`--md-sys-color-${baseName}: var(${colorMap[40]});`);
-      lightThemeVars.push(
-        `--md-sys-color-on-${baseName}: var(${colorMap[100]});`,
-      );
-      lightThemeVars.push(
-        `--md-sys-color-${baseName}-container: var(${colorMap[90]});`,
-      );
-      lightThemeVars.push(
-        `--md-sys-color-on-${baseName}-container: var(${colorMap[10]});`,
-      );
-
-      darkThemeVars.push(`--md-sys-color-${baseName}: var(${colorMap[80]});`);
-      darkThemeVars.push(
-        `--md-sys-color-on-${baseName}: var(${colorMap[20]});`,
-      );
-      darkThemeVars.push(
-        `--md-sys-color-${baseName}-container: var(${colorMap[30]});`,
-      );
-      darkThemeVars.push(
-        `--md-sys-color-on-${baseName}-container: var(${colorMap[90]});`,
-      );
+      colorRolePoints.forEach(({ key, point }) => {
+        let cssVar;
+        if (key === "main") {
+          cssVar = `--md-sys-color-${baseName}`;
+        } else if (key === "on") {
+          cssVar = `--md-sys-color-on-${baseName}`;
+        } else if (key === "container") {
+          cssVar = `--md-sys-color-${baseName}-container`;
+        } else if (key === "onContainer") {
+          cssVar = `--md-sys-color-on-${baseName}-container`;
+        }
+        lightThemeVars.push(`${cssVar}: var(${colorMap[point]});`);
+      });
+      colorRolePointsDark.forEach(({ key, point }) => {
+        let cssVar;
+        if (key === "main") {
+          cssVar = `--md-sys-color-${baseName}`;
+        } else if (key === "on") {
+          cssVar = `--md-sys-color-on-${baseName}`;
+        } else if (key === "container") {
+          cssVar = `--md-sys-color-${baseName}-container`;
+        } else if (key === "onContainer") {
+          cssVar = `--md-sys-color-on-${baseName}-container`;
+        }
+        darkThemeVars.push(`${cssVar}: var(${colorMap[point]});`);
+      });
     }
   });
 
-  themeContent = `.theme-light-mode {
+  const themeContent = `.theme-light-mode {
   --pui-theme: light;
   color-scheme: light;
   ${lightThemeVars.join("\n  ")}
@@ -135,11 +149,11 @@ export function generateTheme(colorMaps) {
   ${darkThemeVars.join("\n  ")}
 }`;
 
-  publicContent = `html {
+  const publicContent = `html {
   background-color: var(--md-sys-color-surface);
   color: var(--md-sys-color-on-surface);
 }
-  
+
 @media (prefers-color-scheme: light) {
   html {
     --pui-theme: auto;
@@ -156,90 +170,41 @@ export function generateTheme(colorMaps) {
   }
 }`;
 
+  const nonNeutralColors = baseColors.filter((c) => c.name !== "neutral");
+
   const themes = [
     {
       theme: "Light Mode",
       class: "theme-light-mode",
       surface: {
         cssVar: "--md-sys-color-surface",
-        point: 98,
+        point: neutralSurfacePoints.light.surface,
       },
       onSurface: {
         cssVar: "--md-sys-color-on-surface",
-        point: 10,
+        point: neutralSurfacePoints.light.onSurface,
       },
-      groups: baseColors
-        .filter((c) => c.name !== "neutral")
-        .map((baseColor) => {
-          const colorMap = colorMaps[baseColor.name];
-          return {
-            name: baseColor.name,
-            class: "theme-color-group",
-            blocks: [
-              {
-                name: baseColor.name,
-                cssVar: `--md-sys-color-${baseColor.name}`,
-                point: 40,
-              },
-              {
-                name: `On ${baseColor.name}`,
-                cssVar: `--md-sys-color-on-${baseColor.name}`,
-                point: 100,
-              },
-              {
-                name: `${baseColor.name} Container`,
-                cssVar: `--md-sys-color-${baseColor.name}-container`,
-                point: 90,
-              },
-              {
-                name: `On ${baseColor.name} Container`,
-                cssVar: `--md-sys-color-on-${baseColor.name}-container`,
-                point: 10,
-              },
-            ],
-          };
-        }),
+      groups: nonNeutralColors.map((baseColor) => ({
+        name: baseColor.name,
+        class: "theme-color-group",
+        blocks: buildColorRoleBlocks(baseColor.name, colorRolePoints),
+      })),
     },
     {
       theme: "Dark Mode",
       class: "theme-dark-mode",
       surface: {
         cssVar: "--md-sys-color-surface",
-        point: 6,
+        point: neutralSurfacePoints.dark.surface,
       },
       onSurface: {
         cssVar: "--md-sys-color-on-surface",
-        point: 90,
+        point: neutralSurfacePoints.dark.onSurface,
       },
-      groups: baseColors
-        .filter((c) => c.name !== "neutral")
-        .map((baseColor) => {
-          return {
-            name: baseColor.name,
-            blocks: [
-              {
-                name: baseColor.name,
-                cssVar: `--md-sys-color-${baseColor.name}`,
-                point: 80,
-              },
-              {
-                name: `On ${baseColor.name}`,
-                cssVar: `--md-sys-color-on-${baseColor.name}`,
-                point: 20,
-              },
-              {
-                name: `${baseColor.name} Container`,
-                cssVar: `--md-sys-color-${baseColor.name}-container`,
-                point: 30,
-              },
-              {
-                name: `On ${baseColor.name} Container`,
-                cssVar: `--md-sys-color-on-${baseColor.name}-container`,
-                point: 90,
-              },
-            ],
-          };
-        }),
+      groups: nonNeutralColors.map((baseColor) => ({
+        name: baseColor.name,
+        blocks: buildColorRoleBlocks(baseColor.name, colorRolePointsDark),
+      })),
     },
   ];
 
