@@ -85,6 +85,9 @@ export function generateTheme(colorMaps, baseColors) {
 
   baseColors.forEach((baseColor) => {
     const colorMap = colorMaps[baseColor.name];
+    if (!colorMap) {
+      return;
+    }
     const baseName = baseColor.name;
 
     if (baseName === "neutral") {
@@ -163,7 +166,9 @@ export function generateTheme(colorMaps, baseColors) {
   }
 }`;
 
-  const nonNeutralColors = baseColors.filter((c) => c.name !== "neutral");
+  const nonNeutralColors = baseColors.filter(
+    (c) => c.name !== "neutral" && colorMaps[c.name],
+  );
 
   const themes = [
     {

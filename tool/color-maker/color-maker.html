@@ -12,6 +12,42 @@
   <style id="themeStyle"></style>
 
   <div class="container">
+    <section class="custom-color-section">
+      <h3>添加自定义颜色</h3>
+      <div class="custom-color-form">
+        <div class="custom-color-input-group">
+          <input
+            type="color"
+            :value="newColorValue"
+            on:input="newColorValue = $event.target.value"
+          />
+          <input
+            type="text"
+            placeholder="颜色名称"
+            :value="newColorName"
+            on:input="newColorName = $event.target.value"
+          />
+          <button on:click="addCustomColor">添加</button>
+        </div>
+        <o-fill :value="customColors">
+          <div class="custom-color-item">
+            <div
+              class="custom-color-preview"
+              :style.background="$data.color"
+            ></div>
+            <span>{{$data.name}}</span>
+            <span class="custom-color-hex">{{$data.color}}</span>
+            <button
+              class="delete-btn"
+              on:click="$host.deleteCustomColor($data)"
+            >
+              ×
+            </button>
+          </div>
+        </o-fill>
+      </div>
+    </section>
+
     <section class="color-section">
       <h3>色盘颜色预览</h3>
       <o-fill :value="colors">
@@ -159,14 +195,19 @@
             { name: "success", color: "#6b9e52" },
             { name: "error", color: "#fb4747" },
             { name: "neutral", color: "#808080" },
+            { name: "purple", color: "#990080" },
           ],
+          customColors: [],
+          newColorName: "",
+          newColorValue: "#1a7bd1",
         },
         proto: {
           generatePalette() {
-            const paletteResult = generatePalette(this.baseColors);
+            const allColors = [...this.baseColors, ...this.customColors];
+            const paletteResult = generatePalette(allColors);
             const themeResult = generateTheme(
               paletteResult.colorMaps,
-              this.baseColors,
+              allColors,
             );
 
             this.colors = paletteResult.colors;
@@ -174,6 +215,12 @@
 
             this.shadow.$("#paletteStyle").text = paletteResult.paletteContent;
             this.shadow.$("#themeStyle").text = themeResult.themeContent;
+
+            let all = "";
+            all += paletteResult.paletteContent;
+            all += themeResult.themeContent;
+            all += themeResult.publicContent;
+            $("head").push(`<style>${all}</style>`);
 
             this.shadow.$("#palette-content").text =
               paletteResult.paletteContent;
@@ -210,8 +257,56 @@
           getBlockColor(point) {
             return point > 50 ? "#000000" : "#ffffff";
           },
+
+          loadCustomColors() {
+            try {
+              const saved = localStorage.getItem("p-color-maker-custom-colors");
+              if (saved) {
+                this.customColors = JSON.parse(saved);
+              }
+            } catch (e) {
+              console.error("Failed to load custom colors:", e);
+            }
+          },
+
+          saveCustomColors() {
+            try {
+              localStorage.setItem(
+                "p-color-maker-custom-colors",
+                JSON.stringify(this.customColors),
+              );
+            } catch (e) {
+              console.error("Failed to save custom colors:", e);
+            }
+          },
+
+          addCustomColor() {
+            const name = this.newColorName.trim();
+            const color = this.newColorValue;
+            if (!name) return;
+
+            const exists = this.customColors.some((c) => c.name === name);
+            if (exists) return;
+
+            this.customColors.push({ name, color });
+            this.saveCustomColors();
+            this.newColorName = "";
+            this.generatePalette();
+          },
+
+          deleteCustomColor(data) {
+            const idx = this.customColors.findIndex(
+              (c) => c.name === data.name && c.color === data.color,
+            );
+            if (idx !== -1) {
+              this.customColors.splice(idx, 1);
+              this.saveCustomColors();
+              this.generatePalette();
+            }
+          },
         },
         attached() {
+          this.loadCustomColors();
           this.generatePalette();
         },
       };
