@@ -10,7 +10,10 @@
     ></script>
     <link rel="stylesheet" href="../css/theme.css" />
     <style>
-      .demo-container {
+      .container {
+        margin-top: 16px;
+      }
+      .demo-main {
         display: inline-flex;
         justify-content: center;
         align-items: center;
@@ -25,20 +28,34 @@
   <body>
     <l-m src="./size.html"></l-m>
 
-    <p-size>
-      <div class="demo-container">Default Size</div>
-    </p-size>
-    <p-size style="--size: s">
-      <div class="demo-container">Small Size</div>
-    </p-size>
-    <p-size style="--size: xs">
-      <div class="demo-container">Extra Small Size</div>
-    </p-size>
-    <p-size style="--size: l">
-      <div class="demo-container">Large Size</div>
-    </p-size>
-    <p-size style="--size: xl">
-      <div class="demo-container">Extra Large Size</div>
-    </p-size>
+    <div class="container">
+      <p-size>
+        <div class="demo-main">Default Size</div>
+      </p-size>
+    </div>
+
+    <div class="container">
+      <p-size size="s">
+        <div class="demo-main">Small Size</div>
+      </p-size>
+    </div>
+
+    <div class="container">
+      <p-size size="xs">
+        <div class="demo-main">Extra Small Size</div>
+      </p-size>
+    </div>
+
+    <div class="container">
+      <p-size size="l">
+        <div class="demo-main">Large Size</div>
+      </p-size>
+    </div>
+
+    <div class="container">
+      <p-size size="xl">
+        <div class="demo-main">Extra Large Size</div>
+      </p-size>
+    </div>
   </body>
 </html>

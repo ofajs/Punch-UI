@@ -7,6 +7,7 @@
       user-select: none;
       cursor: pointer;
     }
+
     .container {
       display: flex;
       align-items: center;
@@ -22,7 +23,7 @@
       padding: 0 1em;
     }
   </style>
-  <p-size>
+  <p-size :size="size">
     <div class="container">
       <p-stylization>
         <div class="inner"><slot></slot></div>
