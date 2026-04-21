@@ -2,13 +2,6 @@ import { getColors } from "../../packages/common/mcu-ts/index.js";
 
 const points = [100, 98, 95, 90, 80, 70, 60, 50, 40, 30, 20, 10, 6, 0];
 
-const baseColors = [
-  { name: "primary", color: "#1a7bd1" },
-  { name: "success", color: "#6b9e52" },
-  { name: "error", color: "#fb4747" },
-  { name: "neutral", color: "#808080" },
-];
-
 const neutralSurfacePoints = {
   light: { surface: 98, onSurface: 10 },
   dark: { surface: 6, onSurface: 90 },
@@ -54,7 +47,7 @@ function buildColorRoleBlocks(baseName, roles) {
   });
 }
 
-export function generatePalette() {
+export function generatePalette(baseColors) {
   const colorMaps = {};
   const colorVars = [];
   const colors = baseColors.map((baseColor) => {
@@ -86,7 +79,7 @@ export function generatePalette() {
   };
 }
 
-export function generateTheme(colorMaps) {
+export function generateTheme(colorMaps, baseColors) {
   const lightThemeVars = [];
   const darkThemeVars = [];
 

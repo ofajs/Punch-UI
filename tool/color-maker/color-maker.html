@@ -154,11 +154,20 @@
           publicContent: "",
           colors: [],
           themes: [],
+          baseColors: [
+            { name: "primary", color: "#1a7bd1" },
+            { name: "success", color: "#6b9e52" },
+            { name: "error", color: "#fb4747" },
+            { name: "neutral", color: "#808080" },
+          ],
         },
         proto: {
           generatePalette() {
-            const paletteResult = generatePalette();
-            const themeResult = generateTheme(paletteResult.colorMaps);
+            const paletteResult = generatePalette(this.baseColors);
+            const themeResult = generateTheme(
+              paletteResult.colorMaps,
+              this.baseColors,
+            );
 
             this.colors = paletteResult.colors;
             this.themes = themeResult.themes;
