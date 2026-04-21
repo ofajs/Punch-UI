@@ -1,0 +1,15 @@
+<template component>
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <slot></slot>
+  <script>
+    export default async ({ load }) => {
+      return {
+        tag: "p-size",
+      };
+    };
+  </script>
+</template>

@@ -4,8 +4,6 @@
     :host {
       position: relative;
       display: inline-block;
-      font-size: 16px;
-      height: 40px;
       user-select: none;
       cursor: pointer;
     }
@@ -16,24 +14,29 @@
       width: inherit;
       height: inherit;
       border-radius: 20px;
+      height: 40px;
+      font-size: 16px;
     }
 
     .inner {
       padding: 0 1em;
     }
   </style>
-  <div class="container">
-    <p-stylization>
-      <div class="inner"><slot></slot></div>
-    </p-stylization>
-    <p-ripple></p-ripple>
-  </div>
+  <p-size>
+    <div class="container">
+      <p-stylization>
+        <div class="inner"><slot></slot></div>
+      </p-stylization>
+      <p-ripple></p-ripple>
+    </div>
+  </p-size>
   <script>
     export default async ({ load }) => {
       if (!customElements.get("p-stylization")) {
         // 加载风格化组件
         await load("../stylization/stylization.html");
       }
+      await load("../size/size.html");
 
       return {
         tag: "p-button",
@@ -49,6 +52,13 @@
               this.style.setProperty("--variant", variant);
             } else {
               this.style.removeProperty("--variant");
+            }
+          },
+          size(size) {
+            if (size) {
+              this.style.setProperty("--size", size);
+            } else {
+              this.style.removeProperty("--size");
             }
           },
         },

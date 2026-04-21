@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Size Demo</title>
+    <script
+      src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs"
+      type="module"
+    ></script>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <style>
+      .demo-container {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 160px;
+        height: 40px;
+        border-radius: 14px;
+        background-color: var(--md-sys-color-primary);
+        color: var(--md-sys-color-on-primary);
+      }
+    </style>
+  </head>
+  <body>
+    <l-m src="./size.html"></l-m>
+
+    <p-size>
+      <div class="demo-container">Default Size</div>
+    </p-size>
+    <p-size style="--size: s">
+      <div class="demo-container">Small Size</div>
+    </p-size>
+    <p-size style="--size: xs">
+      <div class="demo-container">Extra Small Size</div>
+    </p-size>
+    <p-size style="--size: l">
+      <div class="demo-container">Large Size</div>
+    </p-size>
+    <p-size style="--size: xl">
+      <div class="demo-container">Extra Large Size</div>
+    </p-size>
+  </body>
+</html>
