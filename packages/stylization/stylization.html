@@ -1,0 +1,36 @@
+<template component>
+  <style>
+    :host,
+    .container {
+      display: inherit;
+      justify-content: inherit;
+      align-items: inherit;
+      width: inherit;
+      height: inherit;
+      border-radius: inherit;
+    }
+    .container {
+      color: var(--md-sys-color-on-primary);
+      background-color: var(--md-sys-color-primary);
+    }
+  </style>
+  <match-var variant="outlined">
+    <style>
+      .container {
+        color: var(--md-sys-color-primary);
+        border: var(--md-sys-color-primary) solid 1px;
+        background-color: transparent;
+      }
+    </style>
+  </match-var>
+  <div class="container">
+    <slot></slot>
+  </div>
+  <script>
+    export default async () => {
+      return {
+        tag: "p-stylization",
+      };
+    };
+  </script>
+</template>

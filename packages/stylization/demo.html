@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Button Demo</title>
+    <script
+      src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs"
+      type="module"
+    ></script>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <style>
+      .demo-container {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 120px;
+        height: 40px;
+        border-radius: 14px;
+        margin-top: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <l-m src="./stylization.html"></l-m>
+    <div class="demo-container">
+      <p-stylization>Default</p-stylization>
+    </div>
+    <div class="demo-container" style="--variant: outlined">
+      <p-stylization>Outlined</p-stylization>
+    </div>
+  </body>
+</html>
