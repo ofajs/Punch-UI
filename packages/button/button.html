@@ -2,18 +2,46 @@
   <style>
     :host {
       display: inline-block;
+      font-size: 16px;
+      height: 40px;
+    }
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: inherit;
+      height: inherit;
+      border-radius: 20px;
     }
   </style>
-  <slot></slot>
+  <div class="container">
+    <p-stylization>
+      <slot></slot>
+    </p-stylization>
+  </div>
   <script>
     export default async ({ load }) => {
+      if (!customElements.get("p-stylization")) {
+        // 加载风格化组件
+        await load("../stylization/stylization.html");
+      }
+
       return {
         tag: "p-button",
         attrs: {
-          variant: "filled",
-          size: "medium",
+          variant: null,
+          size: null,
           disabled: null,
           iconOnly: false,
+        },
+        watch: {
+          variant(variant) {
+            if (variant) {
+              this.style.setProperty("--variant", variant);
+            } else {
+              this.style.removeProperty("--variant");
+            }
+          },
         },
       };
     };
