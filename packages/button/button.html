@@ -19,25 +19,44 @@
       font-size: 16px;
     }
 
+    :host([size="xs"]) .container {
+      height: 24px;
+      font-size: 12px;
+    }
+
+    :host([size="s"]) .container,
+    :host([size="small"]) .container {
+      height: 32px;
+      font-size: 14px;
+    }
+
+    :host([size="l"]) .container,
+    :host([size="large"]) .container {
+      height: 48px;
+      font-size: 18px;
+    }
+
+    :host([size="xl"]) .container {
+      height: 56px;
+      font-size: 20px;
+    }
+
     .inner {
       padding: 0 1em;
     }
   </style>
-  <p-size :size="size">
-    <div class="container">
-      <p-stylization>
-        <div class="inner"><slot></slot></div>
-      </p-stylization>
-      <p-ripple></p-ripple>
-    </div>
-  </p-size>
+  <div class="container">
+    <p-stylization>
+      <div class="inner"><slot></slot></div>
+    </p-stylization>
+    <p-ripple></p-ripple>
+  </div>
   <script>
     export default async ({ load }) => {
       if (!customElements.get("p-stylization")) {
         // 加载风格化组件
         await load("../stylization/stylization.html");
       }
-      await load("../size/size.html");
 
       return {
         tag: "p-button",
@@ -45,7 +64,7 @@
           variant: null,
           size: null,
           disabled: null,
-          iconOnly: false,
+          iconOnly: null,
         },
         watch: {
           variant(variant) {
@@ -53,13 +72,6 @@
               this.style.setProperty("--variant", variant);
             } else {
               this.style.removeProperty("--variant");
-            }
-          },
-          size(size) {
-            if (size) {
-              this.style.setProperty("--size", size);
-            } else {
-              this.style.removeProperty("--size");
             }
           },
         },

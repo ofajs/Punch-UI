@@ -4,7 +4,7 @@
       display: block;
     }
     .size-container {
-      transform-origin: 0 0;
+      zoom: 1;
     }
   </style>
   <div class="size-container">
@@ -19,23 +19,22 @@
         },
         watch: {
           size(size) {
-            // 根据尺寸进行缩放
             switch (size) {
               case "s":
               case "small":
-                this.shadow.$(".size-container").style.transform = "scale(0.8)";
+                this.shadow.$(".size-container").style.zoom = 0.8;
                 break;
               case "xs":
               case "extra-small":
-                this.shadow.$(".size-container").style.transform = "scale(0.6)";
+                this.shadow.$(".size-container").style.zoom = 0.6;
                 break;
               case "l":
               case "large":
-                this.shadow.$(".size-container").style.transform = "scale(1.2)";
+                this.shadow.$(".size-container").style.zoom = 1.2;
                 break;
               case "xl":
               case "extra-large":
-                this.shadow.$(".size-container").style.transform = "scale(1.4)";
+                this.shadow.$(".size-container").style.zoom = 1.4;
                 break;
             }
           },
