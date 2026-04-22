@@ -32,28 +32,25 @@
 
             switch (variant) {
               case "outlined":
-                // 外边框样式
                 Object.assign(this.style, {
                   color: `var(--md-sys-color-${color})`,
                   border: `var(--md-sys-color-${color}) solid 1px`,
-                  backgroundColor: "",
+                  backgroundColor: "transparent",
                 });
                 break;
               case "text":
-                // 文本样式
                 Object.assign(this.style, {
                   color: `var(--md-sys-color-${color})`,
-                  backgroundColor: "",
-                  border: "",
+                  backgroundColor: "transparent",
+                  border: "transparent solid 1px",
                 });
                 break;
               case "filled":
               default:
-                // 默认样式
                 Object.assign(this.style, {
                   color: `var(--md-sys-color-on-${color})`,
                   backgroundColor: `var(--md-sys-color-${color})`,
-                  border: "",
+                  border: "transparent solid 1px",
                 });
                 break;
             }
