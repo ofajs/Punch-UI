@@ -157,6 +157,13 @@
             if (e.code === "Space" || e.code === "Enter") {
               e.preventDefault();
               this.ele.click();
+
+              const ripple = this.shadow.$("p-ripple");
+              const container = this.shadow.$(".container");
+              const rect = container.ele.getBoundingClientRect();
+              const centerX = rect.width / 2;
+              const centerY = rect.height / 2;
+              ripple.createRipple(centerX, centerY);
             }
           },
           focus() {

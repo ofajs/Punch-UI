@@ -82,10 +82,11 @@
           const offsetX = event.clientX - rect.left;
           const offsetY = event.clientY - rect.top;
 
-          this.createRipple(container, offsetX, offsetY);
+          this.createRipple(offsetX, offsetY);
         },
 
-        createRipple(container, offsetX, offsetY) {
+        createRipple(offsetX, offsetY) {
+          const container = this.shadow.$(".container");
           const rippleEl = $(`<div class="ripple"></div>`);
           container.push(rippleEl);
 
