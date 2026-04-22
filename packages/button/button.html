@@ -17,6 +17,7 @@
       border-radius: 28px;
       height: 40px;
       font-size: 16px;
+      --pui-ripple-color: rgb(from var(--md-sys-color-primary) r g b / 0.3);
     }
 
     :host([size="xs"]) .container {
@@ -114,8 +115,17 @@
           color(color) {
             if (color) {
               this.style.setProperty("--pui-color", color);
+              this.shadow
+                .$(".container")
+                .style.setProperty(
+                  "--pui-ripple-color",
+                  `rgb(from var(--md-sys-color-${color}) r g b / 0.3)`,
+                );
             } else {
               this.style.removeProperty("--pui-color");
+              this.shadow
+                .$(".container")
+                .style.removeProperty("--pui-ripple-color");
             }
           },
         },
