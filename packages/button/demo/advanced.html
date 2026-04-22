@@ -1,63 +1,114 @@
 <template page>
   <style>
     p-button {
-      transition: all 0.2s ease-in-out;
+      transition: all 0.2s ease;
+    }
+    .demo-section {
+      margin-bottom: 32px;
+    }
+    .demo-title {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 12px;
     }
   </style>
-  <p-button-group>
-    <p-button
-      attr:variant="activeOne === 'day' ? 'contained' : 'outlined'"
-      on:click="activeOne = 'day'"
-    >
-      Day
-    </p-button>
-    <p-button
-      attr:variant="activeOne === 'week' ? 'contained' : 'outlined'"
-      on:click="activeOne = 'week'"
-    >
-      Week
-    </p-button>
-    <p-button
-      attr:variant="activeOne === 'month' ? 'contained' : 'outlined'"
-      on:click="activeOne = 'month'"
-    >
-      Month
-    </p-button>
-  </p-button-group>
 
-  <br />
-  <br />
+  <div class="demo-section">
+    <div class="demo-title">Segmented Control - Outlined Style</div>
+    <p-button-group>
+      <p-button
+        attr:variant="selected === 'day' ? 'filled' : 'outlined'"
+        on:click="selected = 'day'"
+      >
+        Day
+      </p-button>
+      <p-button
+        attr:variant="selected === 'week' ? 'filled' : 'outlined'"
+        on:click="selected = 'week'"
+      >
+        Week
+      </p-button>
+      <p-button
+        attr:variant="selected === 'month' ? 'filled' : 'outlined'"
+        on:click="selected = 'month'"
+      >
+        Month
+      </p-button>
+    </p-button-group>
+  </div>
 
-  <p-button-group>
-    <p-button
-      attr:color="activeTwo === 'day' ? 'primary' : 'neutral'"
-      :style.border-radius="activeTwo === 'day' ? '28px' : ''"
-      on:click="activeTwo = 'day'"
-    >
-      Day
-    </p-button>
-    <p-button
-      attr:color="activeTwo === 'week' ? 'primary' : 'neutral'"
-      :style.border-radius="activeTwo === 'week' ? '28px' : ''"
-      on:click="activeTwo = 'week'"
-    >
-      Week
-    </p-button>
-    <p-button
-      attr:color="activeTwo === 'month' ? 'primary' : 'neutral'"
-      :style.border-radius="activeTwo === 'month' ? '28px' : ''"
-      on:click="activeTwo = 'month'"
-    >
-      Month
-    </p-button>
-  </p-button-group>
+  <div class="demo-section">
+    <div class="demo-title">Filter Chips - Tonal Style</div>
+    <p-button-group>
+      <p-button
+        attr:color="filters.includes('all') ? 'primary' : 'neutral'"
+        :style.border-radius="filters.includes('all') ? '28px' : ''"
+        on:click="toggleFilter('all')"
+      >
+        All
+      </p-button>
+      <p-button
+        attr:color="filters.includes('active') ? 'primary' : 'neutral'"
+        :style.border-radius="filters.includes('active') ? '28px' : ''"
+        on:click="toggleFilter('active')"
+      >
+        Active
+      </p-button>
+      <p-button
+        attr:color="filters.includes('completed') ? 'primary' : 'neutral'"
+        :style.border-radius="filters.includes('completed') ? '28px' : ''"
+        on:click="toggleFilter('completed')"
+      >
+        Completed
+      </p-button>
+    </p-button-group>
+  </div>
+
+  <div class="demo-section">
+    <div class="demo-title">Sort Options - Text Style</div>
+    <p-button-group>
+      <p-button
+        attr:color="order === 'newest' ? 'primary' : 'neutral'"
+        :style.border-radius="order === 'newest' ? '28px' : ''"
+        on:click="order = 'newest'"
+      >
+        Newest
+      </p-button>
+      <p-button
+        attr:color="order === 'oldest' ? 'primary' : 'neutral'"
+        :style.border-radius="order === 'oldest' ? '28px' : ''"
+        on:click="order = 'oldest'"
+      >
+        Oldest
+      </p-button>
+      <p-button
+        attr:color="order === 'price' ? 'primary' : 'neutral'"
+        :style.border-radius="order === 'price' ? '28px' : ''"
+        on:click="order = 'price'"
+      >
+        Price
+      </p-button>
+    </p-button-group>
+  </div>
 
   <script>
     export default async () => {
       return {
         data: {
-          activeOne: "day",
-          activeTwo: "day",
+          selected: "week",
+          filters: ["all"],
+          order: "newest",
+        },
+        proto: {
+          toggleFilter(filter) {
+            if (this.filters.includes(filter)) {
+              if (this.filters.length > 1) {
+                this.filters = this.filters.filter((f) => f !== filter);
+              }
+            } else {
+              this.filters = [...this.filters, filter];
+            }
+          },
         },
       };
     };
