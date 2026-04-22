@@ -164,6 +164,11 @@
               const centerX = rect.width / 2;
               const centerY = rect.height / 2;
               ripple.createRipple(centerX, centerY);
+
+              const duration = parseInt(ripple.duration) || 700;
+              setTimeout(() => {
+                ripple.cancelRipple();
+              }, duration);
             }
           },
           focus() {
