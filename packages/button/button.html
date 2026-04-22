@@ -17,7 +17,7 @@
       border-radius: 28px;
       height: 40px;
       font-size: 16px;
-      --pui-ripple-color: rgb(from var(--md-sys-color-primary) r g b / 0.3);
+      --pui-ripple-color: rgb(from var(--md-sys-color-primary-container) r g b / 0.3);
     }
 
     :host([size="xs"]) .container {
@@ -55,7 +55,7 @@
     }
 
     .container:focus-visible {
-      outline: 2px solid var(--md-sys-color-primary);
+      outline: 2px solid var(--md-sys-color-primary-container);
       outline-offset: 2px;
     }
 
@@ -142,7 +142,7 @@
                 .$(".container")
                 .style.setProperty(
                   "--pui-ripple-color",
-                  `rgb(from var(--md-sys-color-${color}) r g b / 0.3)`,
+                  `rgb(from var(--md-sys-color-${color}-container) r g b / 0.3)`,
                 );
             } else {
               this.style.removeProperty("--pui-color");
@@ -154,6 +154,9 @@
         },
         proto: {
           handleKeydown(e) {
+            if (this.disabled !== null) {
+              return;
+            }
             if (e.code === "Space" || e.code === "Enter") {
               e.preventDefault();
               this.ele.click();
