@@ -13,9 +13,13 @@
       p-button {
         margin: 8px;
       }
+      p-button-group {
+        margin: 8px;
+      }
     </style>
   </head>
   <body>
+    <h2>Button</h2>
     <l-m src="./button.html"></l-m>
     <div>
       <p-button>Simple Button</p-button>
@@ -78,22 +82,129 @@
       </p-button>
     </div>
 
+    <h2>Button Group</h2>
+
     <l-m src="./group.html"></l-m>
 
+    <h3>Standard Button Group</h3>
     <p-button-group>
       <p-button>按钮1</p-button>
       <p-button>按钮2</p-button>
       <p-button>按钮3</p-button>
     </p-button-group>
-    <p-button-group>
-      <p-button>首页</p-button>
-      <p-button>产品</p-button>
-      <p-button>关于</p-button>
+
+    <h3>Connected Button Group</h3>
+    <p-button-group connected>
+      <p-button variant="outlined">首页</p-button>
+      <p-button variant="outlined">产品</p-button>
+      <p-button variant="outlined">关于</p-button>
     </p-button-group>
-    <br /><br />
+
+    <h3>Button Group with Different Variants</h3>
     <p-button-group>
-      <p-button>删除</p-button>
-      <p-button>清空</p-button>
+      <p-button variant="filled">Filled</p-button>
+      <p-button variant="outlined">Outlined</p-button>
+      <p-button variant="text">Text</p-button>
+    </p-button-group>
+
+    <h3>Button Group with Colors</h3>
+    <p-button-group>
+      <p-button color="primary">Primary</p-button>
+      <p-button color="success">Success</p-button>
+      <p-button color="error">Error</p-button>
+    </p-button-group>
+
+    <h3>Button Group with Icons</h3>
+    <p-button-group>
+      <p-button icon>+</p-button>
+      <p-button icon>-</p-button>
+      <p-button icon>×</p-button>
+    </p-button-group>
+
+    <h3>Connected Button Group with Icons</h3>
+    <p-button-group connected>
+      <p-button icon variant="outlined">📁</p-button>
+      <p-button icon variant="outlined">📝</p-button>
+      <p-button icon variant="outlined">🗑️</p-button>
+    </p-button-group>
+
+    <h3>Button Group with Prefix/Suffix</h3>
+    <p-button-group>
+      <p-button>
+        <span slot="prefix">🔥</span>
+        热门
+      </p-button>
+      <p-button>
+        <span slot="prefix">⭐</span>
+        推荐
+      </p-button>
+      <p-button>
+        <span slot="prefix">💡</span>
+        最新
+      </p-button>
+    </p-button-group>
+
+    <h3>Full Width Button Group</h3>
+    <p-button-group full-width>
+      <p-button>左</p-button>
+      <p-button>中</p-button>
+      <p-button>右</p-button>
+    </p-button-group>
+
+    <h3>Connected Full Width Button Group</h3>
+    <p-button-group connected full-width>
+      <p-button variant="outlined">编辑</p-button>
+      <p-button variant="outlined">保存</p-button>
+      <p-button variant="outlined">分享</p-button>
+    </p-button-group>
+
+    <h3>Small Size Button Group</h3>
+    <p-button-group>
+      <p-button size="s">小按钮</p-button>
+      <p-button size="s">小按钮</p-button>
+      <p-button size="s">小按钮</p-button>
+    </p-button-group>
+
+    <h3>Extra Small Size Button Group</h3>
+    <p-button-group>
+      <p-button size="xs">超小</p-button>
+      <p-button size="xs">超小</p-button>
+      <p-button size="xs">超小</p-button>
+    </p-button-group>
+
+    <h3>Large Size Button Group</h3>
+    <p-button-group>
+      <p-button size="l">大按钮</p-button>
+      <p-button size="l">大按钮</p-button>
+      <p-button size="l">大按钮</p-button>
+    </p-button-group>
+
+    <h3>Button Group with Disabled State</h3>
+    <p-button-group>
+      <p-button>可用</p-button>
+      <p-button disabled>禁用</p-button>
+      <p-button>可用</p-button>
+    </p-button-group>
+
+    <h3>Multiple Button Groups in Row</h3>
+    <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center;">
+      <p-button-group>
+        <p-button variant="text">日</p-button>
+        <p-button variant="text">周</p-button>
+        <p-button variant="text">月</p-button>
+      </p-button-group>
+      <p-button-group>
+        <p-button variant="text">年</p-button>
+        <p-button variant="text">全部</p-button>
+      </p-button-group>
+    </div>
+
+    <h3>Icon Button Group (Circular)</h3>
+    <p-button-group>
+      <p-button icon>❤️</p-button>
+      <p-button icon>🔖</p-button>
+      <p-button icon>📤</p-button>
+      <p-button icon>🖤</p-button>
     </p-button-group>
   </body>
 </html>

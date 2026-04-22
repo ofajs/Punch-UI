@@ -1,3 +1,80 @@
 <template component>
-    
+  <style>
+    :host {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    :host([full-width]) {
+      width: 100%;
+    }
+
+    ::slotted(p-button) {
+      margin: 0 !important;
+    }
+
+    ::slotted(p-button:first-child) {
+      border-radius: 20px 8px 8px 20px !important;
+    }
+
+    ::slotted(p-button:last-child) {
+      border-radius: 8px 20px 20px 8px !important;
+    }
+
+    ::slotted(p-button:not(:first-child):not(:last-child)) {
+      border-radius: 8px !important;
+    }
+
+    :host([connected]) ::slotted(p-button:first-child) {
+      border-radius: 20px 8px 8px 20px !important;
+    }
+
+    :host([connected]) ::slotted(p-button:last-child) {
+      border-radius: 8px 20px 20px 8px !important;
+    }
+
+    :host([connected]) ::slotted(p-button:not(:first-child):not(:last-child)) {
+      border-radius: 8px !important;
+    }
+
+    ::slotted(p-button[icon]) {
+      border-radius: 50% !important;
+    }
+
+    :host(:not([connected])) ::slotted(p-button[icon]:first-child) {
+      border-radius: 50% 8px 8px 50% !important;
+    }
+
+    :host(:not([connected])) ::slotted(p-button[icon]:last-child) {
+      border-radius: 8px 50% 50% 8px !important;
+    }
+
+    :host([connected]) ::slotted(p-button[icon]:first-child) {
+      border-radius: 50% 8px 8px 50% !important;
+    }
+
+    :host([connected]) ::slotted(p-button[icon]:last-child) {
+      border-radius: 8px 50% 50% 8px !important;
+    }
+
+    :host([connected])
+      ::slotted(p-button[icon]:not(:first-child):not(:last-child)) {
+      border-radius: 8px !important;
+    }
+  </style>
+
+  <slot></slot>
+
+  <script>
+    export default async () => {
+      return {
+        tag: "p-button-group",
+        attrs: {
+          connected: null,
+          fullWidth: null,
+        },
+      };
+    };
+  </script>
 </template>
