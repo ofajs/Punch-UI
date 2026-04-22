@@ -6,42 +6,68 @@
       display: inline-block;
       user-select: none;
       cursor: pointer;
-    }
-
-    .container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: inherit;
-      height: inherit;
-      border-radius: 28px;
       height: 40px;
+      border-radius: 28px;
       font-size: 16px;
       --pui-ripple-color: rgb(
         from var(--md-sys-color-primary-container) r g b / 0.3
       );
     }
 
-    :host([size="xs"]) .container {
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: inherit;
+      width: inherit;
+      height: inherit;
+    }
+
+    :host([size="xs"]) {
       height: 24px;
       font-size: 12px;
     }
 
-    :host([size="s"]) .container,
-    :host([size="small"]) .container {
+    :host([size="s"]),
+    :host([size="small"]) {
       height: 32px;
       font-size: 14px;
     }
 
-    :host([size="l"]) .container,
-    :host([size="large"]) .container {
+    :host([size="l"]),
+    :host([size="large"]) {
       height: 48px;
       font-size: 18px;
     }
 
-    :host([size="xl"]) .container {
+    :host([size="xl"]) {
       height: 56px;
       font-size: 20px;
+    }
+
+    :host([icon]) {
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      border-radius: 50%;
+    }
+    :host([icon][size="xs"]) {
+      width: 24px;
+      height: 24px;
+    }
+    :host([icon][size="s"]),
+    :host([icon][size="small"]) {
+      width: 32px;
+      height: 32px;
+    }
+    :host([icon][size="l"]),
+    :host([icon][size="large"]) {
+      width: 48px;
+      height: 48px;
+    }
+    :host([icon][size="xl"]) {
+      width: 56px;
+      height: 56px;
     }
 
     :host([disabled]) {
@@ -57,7 +83,7 @@
     }
 
     .container:focus-visible {
-      outline: 2px solid var(--md-sys-color-primary-container);
+      outline: 2px solid var(--md-sys-color-primary);
       outline-offset: 2px;
     }
 
@@ -65,34 +91,6 @@
       .container:hover {
         filter: brightness(0.95);
       }
-    }
-
-    :host([icon]) .container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      padding: 0;
-      border-radius: 50%;
-    }
-    :host([icon][size="xs"]) .container {
-      width: 24px;
-      height: 24px;
-    }
-    :host([icon][size="s"]) .container,
-    :host([icon][size="small"]) .container {
-      width: 32px;
-      height: 32px;
-    }
-    :host([icon][size="l"]) .container,
-    :host([icon][size="large"]) .container {
-      width: 48px;
-      height: 48px;
-    }
-    :host([icon][size="xl"]) .container {
-      width: 56px;
-      height: 56px;
     }
 
     .inner {
@@ -133,14 +131,14 @@
           color(color) {
             if (color) {
               this.shadow
-                .$(".container")
+                .$("p-ripple")
                 .style.setProperty(
                   "--pui-ripple-color",
                   `rgb(from var(--md-sys-color-${color}-container) r g b / 0.3)`,
                 );
             } else {
               this.shadow
-                .$(".container")
+                .$("p-ripple")
                 .style.removeProperty("--pui-ripple-color");
             }
           },
@@ -161,10 +159,9 @@
               const centerY = rect.height / 2;
               ripple.createRipple(centerX, centerY);
 
-              const duration = parseInt(ripple.duration) || 700;
               setTimeout(() => {
                 ripple.cancelRipple();
-              }, duration);
+              }, 100);
             }
           },
           focus() {
