@@ -50,6 +50,21 @@
       pointer-events: none;
     }
 
+    .container:focus {
+      outline: none;
+    }
+
+    .container:focus-visible {
+      outline: 2px solid var(--md-sys-color-primary);
+      outline-offset: 2px;
+    }
+
+    @media (hover: hover) {
+      .container:hover {
+        filter: brightness(0.95);
+      }
+    }
+
     :host([icon]) .container {
       display: flex;
       align-items: center;
@@ -82,7 +97,7 @@
       padding: 0 1em;
     }
   </style>
-  <div class="container">
+  <div class="container" tabindex="0" on:keydown="handleKeydown">
     <p-stylization>
       <div class="inner"><slot></slot></div>
     </p-stylization>
@@ -103,8 +118,16 @@
           disabled: null,
           color: null,
           icon: null,
+          autofocus: null,
         },
         watch: {
+          autofocus(val) {
+            if (val !== null) {
+              requestAnimationFrame(() => {
+                this.shadow.$(".container").ele.focus();
+              });
+            }
+          },
           variant(variant) {
             if (variant) {
               this.style.setProperty("--pui-variant", variant);
@@ -127,6 +150,20 @@
                 .$(".container")
                 .style.removeProperty("--pui-ripple-color");
             }
+          },
+        },
+        proto: {
+          handleKeydown(e) {
+            if (e.code === "Space" || e.code === "Enter") {
+              e.preventDefault();
+              this.ele.click();
+            }
+          },
+          focus() {
+            this.shadow.$(".container").ele.focus();
+          },
+          blur() {
+            this.shadow.$(".container").ele.blur();
           },
         },
       };
