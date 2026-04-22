@@ -17,7 +17,9 @@
       border-radius: 28px;
       height: 40px;
       font-size: 16px;
-      --pui-ripple-color: rgb(from var(--md-sys-color-primary-container) r g b / 0.3);
+      --pui-ripple-color: rgb(
+        from var(--md-sys-color-primary-container) r g b / 0.3
+      );
     }
 
     :host([size="xs"]) .container {
@@ -98,7 +100,7 @@
     }
   </style>
   <div class="container" tabindex="0" on:keydown="handleKeydown">
-    <p-stylization>
+    <p-stylization :variant="variant" :color="color">
       <div class="inner"><slot></slot></div>
     </p-stylization>
     <p-ripple></p-ripple>
@@ -128,16 +130,8 @@
               });
             }
           },
-          variant(variant) {
-            if (variant) {
-              this.style.setProperty("--pui-variant", variant);
-            } else {
-              this.style.removeProperty("--pui-variant");
-            }
-          },
           color(color) {
             if (color) {
-              this.style.setProperty("--pui-color", color);
               this.shadow
                 .$(".container")
                 .style.setProperty(
@@ -145,7 +139,6 @@
                   `rgb(from var(--md-sys-color-${color}-container) r g b / 0.3)`,
                 );
             } else {
-              this.style.removeProperty("--pui-color");
               this.shadow
                 .$(".container")
                 .style.removeProperty("--pui-ripple-color");

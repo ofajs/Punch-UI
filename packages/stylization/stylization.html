@@ -9,118 +9,55 @@
       height: inherit;
       border-radius: inherit;
     }
-    .container {
-      color: var(--md-sys-color-on-primary);
-      background-color: var(--md-sys-color-primary);
-    }
   </style>
-  <match-var pui-variant="outlined">
-    <style>
-      .container {
-        color: var(--md-sys-color-primary);
-        border: var(--md-sys-color-primary) solid 1px;
-        background-color: transparent;
-      }
-    </style>
-  </match-var>
 
-  <match-var pui-variant="text">
-    <style>
-      .container {
-        color: var(--md-sys-color-primary);
-        background-color: transparent;
-      }
-    </style>
-  </match-var>
-
-  <match-var pui-color="success">
-    <style>
-      .container {
-        color: var(--md-sys-color-on-success);
-        background-color: var(--md-sys-color-success);
-      }
-    </style>
-  </match-var>
-  <match-var pui-variant="outlined" pui-color="success">
-    <style>
-      .container {
-        color: var(--md-sys-color-success);
-        border: var(--md-sys-color-success) solid 1px;
-        background-color: transparent;
-      }
-    </style>
-  </match-var>
-  <match-var pui-variant="text" pui-color="success">
-    <style>
-      .container {
-        color: var(--md-sys-color-success);
-        background-color: transparent;
-      }
-    </style>
-  </match-var>
-
-  <match-var pui-color="error">
-    <style>
-      .container {
-        color: var(--md-sys-color-on-error);
-        background-color: var(--md-sys-color-error);
-      }
-    </style>
-  </match-var>
-
-  <match-var pui-variant="outlined" pui-color="error">
-    <style>
-      .container {
-        color: var(--md-sys-color-error);
-        border: var(--md-sys-color-error) solid 1px;
-        background-color: transparent;
-      }
-    </style>
-  </match-var>
-
-  <match-var pui-variant="text" pui-color="error">
-    <style>
-      .container {
-        color: var(--md-sys-color-error);
-        background-color: transparent;
-      }
-    </style>
-  </match-var>
-
-  <match-var pui-color="neutral">
-    <style>
-      .container {
-        color: var(--md-sys-color-on-neutral);
-        background-color: var(--md-sys-color-neutral);
-      }
-    </style>
-  </match-var>
-
-  <match-var pui-variant="outlined" pui-color="neutral">
-    <style>
-      .container {
-        color: var(--md-sys-color-neutral);
-        border: var(--md-sys-color-neutral) solid 1px;
-        background-color: transparent;
-      }
-    </style>
-  </match-var>
-  <match-var pui-variant="text" pui-color="neutral">
-    <style>
-      .container {
-        color: var(--md-sys-color-neutral);
-        background-color: transparent;
-      }
-    </style>
-  </match-var>
-
-  <div class="container">
-    <slot></slot>
-  </div>
+  <slot></slot>
   <script>
     export default async () => {
       return {
         tag: "p-stylization",
+        data: {
+          variant: null,
+          color: null,
+        },
+        watch: {
+          ["variant,color"]([variant, color], e) {
+            if (!variant) {
+              variant = "filled";
+            }
+            if (!color) {
+              color = "primary";
+            }
+
+            switch (variant) {
+              case "outlined":
+                // 外边框样式
+                Object.assign(this.style, {
+                  color: `var(--md-sys-color-${color})`,
+                  border: `var(--md-sys-color-${color}) solid 1px`,
+                  backgroundColor: "",
+                });
+                break;
+              case "text":
+                // 文本样式
+                Object.assign(this.style, {
+                  color: `var(--md-sys-color-${color})`,
+                  backgroundColor: "",
+                  border: "",
+                });
+                break;
+              case "filled":
+              default:
+                // 默认样式
+                Object.assign(this.style, {
+                  color: `var(--md-sys-color-on-${color})`,
+                  backgroundColor: `var(--md-sys-color-${color})`,
+                  border: "",
+                });
+                break;
+            }
+          },
+        },
       };
     };
   </script>
