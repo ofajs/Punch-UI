@@ -111,6 +111,13 @@
               this.style.removeProperty("--variant");
             }
           },
+          color(color) {
+            if (color) {
+              this.style.setProperty("--color", color);
+            } else {
+              this.style.removeProperty("--color");
+            }
+          },
         },
       };
     };
