@@ -1,4 +1,9 @@
 <template page>
+  <style>
+    p-button {
+      transition: all 0.3s ease-in-out;
+    }
+  </style>
   <p-button-group>
     <p-button
       attr:variant="activeOne === 'day' ? 'contained' : 'outlined'"
@@ -20,11 +25,36 @@
     </p-button>
   </p-button-group>
 
+  <br />
+  <br />
+
+  <p-button-group>
+    <p-button
+      attr:variant="activeTwo === 'day' ? 'contained' : 'outlined'"
+      on:click="activeTwo = 'day'"
+    >
+      Day
+    </p-button>
+    <p-button
+      attr:variant="activeTwo === 'week' ? 'contained' : 'outlined'"
+      on:click="activeTwo = 'week'"
+    >
+      Week
+    </p-button>
+    <p-button
+      attr:variant="activeTwo === 'month' ? 'contained' : 'outlined'"
+      on:click="activeTwo = 'month'"
+    >
+      Month
+    </p-button>
+  </p-button-group>
+
   <script>
     export default async () => {
       return {
         data: {
           activeOne: "day",
+          activeTwo: "day",
         },
       };
     };
