@@ -49,6 +49,34 @@
       pointer-events: none;
     }
 
+    :host([icon]) .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      border-radius: 50%;
+    }
+    :host([icon][size="xs"]) .container {
+      width: 24px;
+      height: 24px;
+    }
+    :host([icon][size="s"]) .container,
+    :host([icon][size="small"]) .container {
+      width: 32px;
+      height: 32px;
+    }
+    :host([icon][size="l"]) .container,
+    :host([icon][size="large"]) .container {
+      width: 48px;
+      height: 48px;
+    }
+    :host([icon][size="xl"]) .container {
+      width: 56px;
+      height: 56px;
+    }
+
     .inner {
       padding: 0 1em;
     }
