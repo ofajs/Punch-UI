@@ -4,6 +4,7 @@
     :host {
       position: relative;
       display: inline-block;
+      vertical-align: middle;
       user-select: none;
       cursor: pointer;
       height: 40px;
@@ -87,8 +88,15 @@
       outline-offset: 2px;
     }
 
+    slot {
+      display: block;
+    }
+
     .inner {
       padding: 0 1em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
   </style>
   <style>
@@ -102,7 +110,9 @@
   </style>
   <div class="container" tabindex="0" on:keydown="handleKeydown">
     <p-stylization :variant="variant" :color="color">
-      <div class="inner"><slot></slot></div>
+      <div class="inner">
+        <slot name="prefix"></slot><slot></slot><slot name="suffix"></slot>
+      </div>
     </p-stylization>
     <p-ripple></p-ripple>
   </div>
