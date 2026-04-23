@@ -50,24 +50,6 @@
     </div>
 
     <div class="demo-section">
-      <h3>Custom Style</h3>
-      <p-input style="border-radius: 30px">
-        <span slot="label">Helper Text</span>
-        <div slot="helper">This is a helper text</div>
-      </p-input>
-      <style>
-        #custom-input::part(input) {
-          color: red;
-        }
-      </style>
-
-      <p-input id="custom-input">
-        <span slot="label">Helper Text</span>
-        <div slot="helper">This is a helper text</div>
-      </p-input>
-    </div>
-
-    <div class="demo-section">
       <h3>Color Variants</h3>
       <p-input color="primary">
         <span slot="label">Primary Color</span>
@@ -80,6 +62,24 @@
       </p-input>
       <p-input color="error">
         <span slot="label">Error Color</span>
+      </p-input>
+    </div>
+
+    <div class="demo-section">
+      <h3>Custom Style</h3>
+      <p-input style="border-radius: 30px">
+        <span slot="label">Helper Text</span>
+        <div slot="helper">This is a helper text</div>
+      </p-input>
+      <style>
+        #custom-input::part(input) {
+          color: red;
+        }
+      </style>
+
+      <p-input id="custom-input" color="error">
+        <span slot="label" style="color: red">Helper Text</span>
+        <div slot="helper">This is a helper text</div>
       </p-input>
     </div>
 
