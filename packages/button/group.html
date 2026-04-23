@@ -27,15 +27,18 @@
     }
 
     :host([connected]) ::slotted(p-button:first-child) {
-      border-radius: 20px 8px 8px 20px;
+      border-radius: 20px 0 0 20px !important;
     }
 
     :host([connected]) ::slotted(p-button:last-child) {
-      border-radius: 8px 20px 20px 8px;
+      border-radius: 0 20px 20px 0 !important;
     }
 
+    :host([connected]) {
+      gap: 0;
+    }
     :host([connected]) ::slotted(p-button:not(:first-child):not(:last-child)) {
-      border-radius: 8px;
+      border-radius: 0 !important;
     }
 
     ::slotted(p-button[icon]) {
