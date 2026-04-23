@@ -51,7 +51,7 @@
 
     <div class="demo-section">
       <h3>Custom Style</h3>
-      <p-input style="border-radius: 30px;">
+      <p-input style="border-radius: 30px ;">
         <span slot="label">Helper Text</span>
         <div slot="helper">This is a helper text</div>
       </p-input>
@@ -89,6 +89,37 @@
     <div class="demo-section">
       <h3>Number Input</h3>
       <p-input type="number"><span slot="label">Age</span> </p-input>
+    </div>
+
+    <div class="demo-section">
+      <h3>Size Variants</h3>
+      <p-input size="xs">
+        <span slot="label">Extra Small (xs)</span>
+      </p-input>
+      <p-input size="s">
+        <span slot="label">Small (s)</span>
+      </p-input>
+      <p-input>
+        <span slot="label">Default</span>
+      </p-input>
+      <p-input size="l">
+        <span slot="label">Large (l)</span>
+      </p-input>
+      <p-input size="xl">
+        <span slot="label">Extra Large (xl)</span>
+      </p-input>
+    </div>
+
+    <div class="demo-section">
+      <h3>With Placeholder</h3>
+      <p-input placeholder="Enter your name">
+        <span slot="label">Username</span>
+      </p-input>
+    </div>
+
+    <div class="demo-section">
+      <h3>Email Input</h3>
+      <p-input type="email"><span slot="label">Email</span> </p-input>
     </div>
 
     <script type="module">
