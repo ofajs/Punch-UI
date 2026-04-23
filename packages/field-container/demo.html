@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Input Demo</title>
+    <script
+      src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs"
+      type="module"
+    ></script>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <style>
+      body {
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          Segoe UI,
+          Microsoft Yahei,
+          Helvetica,
+          Arial,
+          sans-serif,
+          Apple Color Emoji,
+          Segoe UI Emoji;
+        padding: 20px;
+      }
+
+      p-field-container {
+        margin: 32px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Field Container</h2>
+    <l-m src="./field-container.html"></l-m>
+
+    <p-field-container>
+      <div slot="label">字段组件</div>
+    </p-field-container>
+
+    <p-field-container focus>
+      <div slot="label">字段组件</div>
+    </p-field-container>
+  </body>
+</html>
