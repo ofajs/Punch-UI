@@ -22,6 +22,12 @@
   background-color: var(--md-sys-color-neutral);
 }
 
+:host([variant="filled"][focus]) {
+  .bottom-line {
+    height: 2px;
+    background-color: var(--focus-stylization-color);
+  }
+}
 :host([variant="filled"][focus]),
 :host([variant="filled"][hang-label]) {
   .wrapper {
@@ -32,11 +38,6 @@
     top: 0px;
     left: -6px;
     padding: 0;
-    color: var(--md-sys-color-primary);
-  }
-
-  .bottom-line {
-    height: 2px;
-    background-color: var(--md-sys-color-primary);
+    color: var(--focus-stylization-color);
   }
 }
