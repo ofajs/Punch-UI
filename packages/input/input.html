@@ -1,15 +1,35 @@
 <template component>
+  <l-m src="../field-container/field-container.html"></l-m>
   <style>
     :host {
       display: inline-block;
     }
+    input {
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+      border: none;
+      outline: none;
+      font-size: inherit;
+      font-family: inherit;
+      color: inherit;
+    }
   </style>
+  <p-field-container :color="color" attr:focus="isFocus">
+    <input type="text" on:focus="isFocus = true" on:blur="isFocus = false" />
+    <slot name="label" slot="label"></slot>
+    <slot name="suffix" slot="suffix"></slot>
+    <slot name="prefix" slot="prefix"></slot>
+  </p-field-container>
   <script>
     export default async ({ load }) => {
       return {
         tag: "p-input",
         attrs: {
           color: null,
+        },
+        data: {
+          isFocus: false,
         },
       };
     };
