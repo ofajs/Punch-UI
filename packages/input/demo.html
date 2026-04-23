@@ -66,6 +66,21 @@
       <p-input color="error">
         <span slot="label">Error Color</span>
       </p-input>
+
+      <br />
+
+      <p-input variant="filled" color="primary">
+        <span slot="label">Primary Color</span>
+      </p-input>
+      <p-input variant="filled" color="success">
+        <span slot="label">Success Color</span>
+      </p-input>
+      <p-input variant="filled" color="neutral">
+        <span slot="label">Neutral Color</span>
+      </p-input>
+      <p-input variant="filled" color="error">
+        <span slot="label">Error Color</span>
+      </p-input>
     </div>
 
     <div class="demo-section">
@@ -75,12 +90,18 @@
         <div slot="helper">This is a helper text</div>
       </p-input>
       <style>
-        #custom-input::part(input) {
+        .custom-input::part(input) {
           color: red;
         }
       </style>
+      <p-input class="custom-input" color="error">
+        <span slot="label" style="color: red">Helper Text</span>
+        <div slot="helper">This is a helper text</div>
+      </p-input>
 
-      <p-input id="custom-input" color="error">
+      <br />
+
+      <p-input variant="filled" class="custom-input" color="error">
         <span slot="label" style="color: red">Helper Text</span>
         <div slot="helper">This is a helper text</div>
       </p-input>
@@ -88,12 +109,20 @@
 
     <div class="demo-section">
       <h3>Disabled State</h3>
-      <p-input disabled><span slot="label">Disabled Input</span> </p-input>
+      <p-input disabled>
+        <span slot="label">Disabled Input</span>
+      </p-input>
+      <p-input variant="filled" disabled>
+        <span slot="label">Disabled Input</span>
+      </p-input>
     </div>
 
     <div class="demo-section">
       <h3>With Prefix</h3>
       <p-input>
+        <span slot="prefix">+86</span><span slot="label">Phone Number</span>
+      </p-input>
+      <p-input variant="filled">
         <span slot="prefix">+86</span><span slot="label">Phone Number</span>
       </p-input>
     </div>
@@ -103,16 +132,25 @@
       <p-input>
         <span slot="label">Website</span><span slot="suffix">.com</span>
       </p-input>
+      <p-input variant="filled">
+        <span slot="label">Website</span><span slot="suffix">.com</span>
+      </p-input>
     </div>
 
     <div class="demo-section">
       <h3>Password Input</h3>
       <p-input type="password"><span slot="label">Password</span> </p-input>
+      <p-input variant="filled" type="password"
+        ><span slot="label">Password</span>
+      </p-input>
     </div>
 
     <div class="demo-section">
       <h3>Number Input</h3>
       <p-input type="number"><span slot="label">Age</span> </p-input>
+      <p-input variant="filled" type="number"
+        ><span slot="label">Age</span>
+      </p-input>
     </div>
 
     <div class="demo-section">
@@ -132,16 +170,38 @@
       <p-input size="xl">
         <span slot="label">Extra Large (xl)</span>
       </p-input>
+      <br />
+      <p-input variant="filled" size="xs">
+        <span slot="label">Extra Small (xs)</span>
+      </p-input>
+      <p-input variant="filled" size="s">
+        <span slot="label">Small (s)</span>
+      </p-input>
+      <p-input variant="filled">
+        <span slot="label">Default</span>
+      </p-input>
+      <p-input variant="filled" size="l">
+        <span slot="label">Extra Large (xl)</span>
+      </p-input>
+      <p-input variant="filled" size="xl">
+        <span slot="label">Extra Large (xl)</span>
+      </p-input>
+
+      <br />
     </div>
 
     <div class="demo-section">
       <h3>With Placeholder</h3>
       <p-input placeholder="Enter your name"></p-input>
+      <p-input variant="filled" placeholder="Enter your name"></p-input>
     </div>
 
     <div class="demo-section">
       <h3>Email Input</h3>
       <p-input type="email"><span slot="label">Email</span> </p-input>
+      <p-input variant="filled" type="email"
+        ><span slot="label">Email</span>
+      </p-input>
     </div>
 
     <script type="module">

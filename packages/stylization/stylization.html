@@ -25,6 +25,11 @@
       color: var(--main-color);
       border: 1px solid transparent;
     }
+
+    :host([variant="tonal"]) {
+      color: var(--on-main-color-container);
+      background-color: var(--main-color-container);
+    }
   </style>
 
   <slot></slot>
@@ -44,15 +49,14 @@
               color = "primary";
             }
 
-            this.style.setProperty(
-              "--main-color",
-              `var(--md-sys-color-${color})`,
-            );
-            this.style.setProperty(
+            const { style } = this;
+
+            style.setProperty("--main-color", `var(--md-sys-color-${color})`);
+            style.setProperty(
               "--on-main-color",
               `var(--md-sys-color-on-${color})`,
             );
-            this.style.setProperty(
+            style.setProperty(
               "--main-color-container",
               `var(--md-sys-color-${color}-container)`,
             );

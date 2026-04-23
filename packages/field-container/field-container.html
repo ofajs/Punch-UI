@@ -37,6 +37,10 @@
       transition: all ease 0.2s;
     }
 
+    p-stylization {
+      position: relative;
+    }
+
     .wrapper {
       flex: 1;
       position: relative;
@@ -98,14 +102,11 @@
     :host([disabled]) .container {
       opacity: 0.5;
     }
-
-    :host([variant="filled"]) {
-      background-color: var(--md-sys-color-surface);
-    }
   </style>
+  <link rel="stylesheet" href="./field-container.css" />
   <div class="container">
     <x-if :value="variant === 'filled'">
-      <p-stylization :color="'neutral'" :variant="'filled'">
+      <p-stylization :color="'neutral'" :variant="'tonal'">
         <div class="content">
           <div class="prefix">
             <slot name="prefix"></slot>
@@ -120,6 +121,7 @@
             <slot name="suffix"></slot>
           </div>
         </div>
+        <div class="bottom-line"></div>
       </p-stylization>
     </x-if>
     <x-else>
@@ -150,7 +152,7 @@
       return {
         tag: "p-field-container",
         attrs: {
-          variant: null,
+          variant: "outlined",
           color: null,
           size: null,
         },

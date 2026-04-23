@@ -49,18 +49,12 @@
       <p-field-container>
         <span slot="label">Username</span>
       </p-field-container>
-      <p-field-container>
-        <span slot="label">Username</span>
-        Jack
-      </p-field-container>
+      <p-field-container> Jack </p-field-container>
 
       <p-field-container variant="filled">
         <span slot="label">Username</span>
       </p-field-container>
-      <p-field-container variant="filled">
-        <span slot="label">Username</span>
-        Mike
-      </p-field-container>
+      <p-field-container variant="filled"> Mike </p-field-container>
     </div>
 
     <div class="demo-section">
@@ -75,7 +69,7 @@
       <p-field-container focus variant="filled">
         <span slot="label">Username</span>
       </p-field-container>
-      <p-field-container variant="filled" focus>
+      <p-field-container focus variant="filled">
         <span slot="label">Username</span>
         Mike
       </p-field-container>
@@ -87,11 +81,19 @@
         <span slot="prefix">+86</span>
         <span slot="label">Phone Number</span>
       </p-field-container>
+      <p-field-container variant="filled">
+        <span slot="prefix">+86</span>
+        <span slot="label">Phone Number</span>
+      </p-field-container>
     </div>
 
     <div class="demo-section">
       <h3>With Suffix</h3>
       <p-field-container>
+        <span slot="label">Website</span>
+        <span slot="suffix">.com</span>
+      </p-field-container>
+      <p-field-container variant="filled">
         <span slot="label">Website</span>
         <span slot="suffix">.com</span>
       </p-field-container>
@@ -102,6 +104,9 @@
       <p-field-container disabled>
         <span slot="label">Disabled Input</span>
       </p-field-container>
+      <p-field-container disabled variant="filled">
+        <span slot="label">Disabled Input</span>
+      </p-field-container>
     </div>
 
     <div class="demo-section">
@@ -110,6 +115,12 @@
         <span slot="label">Required Field</span>
       </p-field-container>
       <p-field-container color="error" focus>
+        <span slot="label">Required Field</span>
+      </p-field-container>
+      <p-field-container color="error" focus variant="filled">
+        <span slot="label">Required Field</span>
+      </p-field-container>
+      <p-field-container color="error" focus variant="filled">
         <span slot="label">Required Field</span>
       </p-field-container>
     </div>
@@ -129,6 +140,24 @@
         <span slot="label">Large (l)</span>
       </p-field-container>
       <p-field-container size="xl" focus>
+        <span slot="label">Extra Large (xl)</span>
+      </p-field-container>
+
+      <br />
+
+      <p-field-container size="xs" focus variant="filled">
+        <span slot="label">Extra Small (xs)</span>
+      </p-field-container>
+      <p-field-container size="s" variant="filled">
+        <span slot="label">Small (s)</span>
+      </p-field-container>
+      <p-field-container variant="filled">
+        <span slot="label">Default</span>
+      </p-field-container>
+      <p-field-container size="l" variant="filled">
+        <span slot="label">Large (l)</span>
+      </p-field-container>
+      <p-field-container size="xl" focus variant="filled">
         <span slot="label">Extra Large (xl)</span>
       </p-field-container>
     </div>
