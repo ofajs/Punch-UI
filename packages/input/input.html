@@ -44,10 +44,6 @@
     :slotted([slot="label"]) {
       padding: 0 8px;
     }
-
-    :host(:has([slot="label"])) {
-      background-color: red;
-    }
   </style>
   <p-field-container
     attr:disabled="disabled"
@@ -85,6 +81,11 @@
         data: {
           value: "",
           isFocus: false,
+        },
+        attached() {
+          if (this.variant == "filled" && !this.$("[slot='label']")) {
+            this.style.setProperty("--field-container-padding-top", "0");
+          }
         },
       };
     };
