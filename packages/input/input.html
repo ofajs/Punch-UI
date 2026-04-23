@@ -84,7 +84,9 @@
         },
         attached() {
           if (this.variant == "filled" && !this.$("[slot='label']")) {
-            this.style.setProperty("--field-container-padding-top", "0");
+            this.shadow
+              .$("p-field-container")
+              .style.setProperty("--field-container-padding-top", "0");
           }
         },
       };
