@@ -33,7 +33,7 @@
       outline: none;
       font-size: inherit;
       font-family: inherit;
-      color: inherit;
+      color: var(--md-sys-color-on-surface);
       -webkit-appearance: none;
     }
     p-field-container {
@@ -44,15 +44,17 @@
     attr:disabled="disabled"
     :color="color"
     :size="size"
-    attr:focus="isFocus"
+    attr:focus="isFocus || !!value"
   >
     <input
+      part="input"
       type="text"
       attr:type="type"
       attr:placeholder="placeholder"
       on:focus="isFocus = true"
       on:blur="isFocus = false"
       attr:disabled="disabled"
+      sync:value="value"
     />
     <slot name="label" slot="label"></slot>
     <slot name="suffix" slot="suffix"></slot>
@@ -70,6 +72,7 @@
           disabled: null,
         },
         data: {
+          value: "",
           isFocus: false,
         },
       };
