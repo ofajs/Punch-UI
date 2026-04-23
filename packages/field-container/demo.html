@@ -25,8 +25,9 @@
       }
 
       p-field-container {
+        display: inline-block;
+        width: 200px;
         margin: 16px;
-        display: block;
       }
 
       .demo-section {
@@ -84,6 +85,25 @@
       <h3>Error State</h3>
       <p-field-container color="error">
         <span slot="label">Required Field</span>
+      </p-field-container>
+    </div>
+
+    <div class="demo-section">
+      <h3>Size Variants</h3>
+      <p-field-container size="xs" focus>
+        <span slot="label">Extra Small (xs)</span>
+      </p-field-container>
+      <p-field-container size="s">
+        <span slot="label">Small (s)</span>
+      </p-field-container>
+      <p-field-container>
+        <span slot="label">Default</span>
+      </p-field-container>
+      <p-field-container size="l">
+        <span slot="label">Large (l)</span>
+      </p-field-container>
+      <p-field-container size="xl" focus>
+        <span slot="label">Extra Large (xl)</span>
       </p-field-container>
     </div>
   </body>
