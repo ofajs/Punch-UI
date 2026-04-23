@@ -74,7 +74,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 0 8px;
+      /* padding: 0 8px; */
       border-radius: 4px;
       height: 100%;
       font-size: 16px;
@@ -86,7 +86,6 @@
     }
 
     :host([focus]) .container {
-
     }
 
     :host([focus]) .label {
@@ -107,6 +106,10 @@
     :host([disabled]) input {
       cursor: not-allowed;
     }
+
+    ::slotted([slot="label"]) {
+      padding: 0 8px;
+    }
   </style>
   <div class="container">
     <p-stylization :color="color" :variant="'outlined'">
@@ -116,7 +119,7 @@
         </div>
         <div class="wrapper">
           <slot></slot>
-          <div class="label">
+          <div class="label" part="label">
             <slot name="label"></slot>
           </div>
         </div>

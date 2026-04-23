@@ -40,8 +40,8 @@
       border-radius: inherit;
     }
 
-    :host(:empty) slot[name="label"] {
-      display: none;
+    ::slotted([slot="label"]) {
+      padding: 0 8px;
     }
   </style>
   <p-field-container
