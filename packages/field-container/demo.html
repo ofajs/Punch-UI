@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Input Demo</title>
+    <title>Field Container Demo</title>
     <script
       src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs"
       type="module"
@@ -25,7 +25,17 @@
       }
 
       p-field-container {
-        margin: 32px;
+        margin: 16px;
+        display: block;
+      }
+
+      .demo-section {
+        margin-bottom: 32px;
+      }
+
+      .demo-section h3 {
+        margin-bottom: 16px;
+        color: #333;
       }
     </style>
   </head>
@@ -33,12 +43,56 @@
     <h2>Field Container</h2>
     <l-m src="./field-container.html"></l-m>
 
-    <p-field-container>
-      <div slot="label">字段组件</div>
-    </p-field-container>
+    <div class="demo-section">
+      <h3>Basic Usage</h3>
+      <p-field-container id="basic-demo">
+        <span slot="label">Username</span>
+      </p-field-container>
+    </div>
+    
+    <div class="demo-section">
+      <h3>Focus State Usage</h3>
+      <p-field-container focus>
+        <span slot="label">Username</span>
+      </p-field-container>
+    </div>
 
-    <p-field-container focus>
-      <div slot="label">字段组件</div>
-    </p-field-container>
+
+    <div class="demo-section">
+      <h3>With Prefix</h3>
+      <p-field-container>
+        <span slot="prefix">+86</span>
+        <span slot="label">Phone Number</span>
+      </p-field-container>
+    </div>
+
+    <div class="demo-section">
+      <h3>With Suffix</h3>
+      <p-field-container>
+        <span slot="label">Website</span>
+        <span slot="suffix">.com</span>
+      </p-field-container>
+    </div>
+
+    <div class="demo-section">
+      <h3>Disabled State</h3>
+      <p-field-container disabled>
+        <span slot="label">Disabled Input</span>
+      </p-field-container>
+    </div>
+
+    <div class="demo-section">
+      <h3>Error State</h3>
+      <p-field-container error>
+        <span slot="label">Required Field</span>
+      </p-field-container>
+    </div>
+
+    <div class="demo-section">
+      <h3>With Initial Value</h3>
+      <p-field-container value="John Doe">
+        <span slot="label">Name</span>
+      </p-field-container>
+    </div>
   </body>
 </html>
