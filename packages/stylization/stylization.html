@@ -8,7 +8,22 @@
       width: inherit;
       height: inherit;
       border-radius: inherit;
-      transition: all 0.3s ease-in-out;
+      /* transition: all 0.3s ease-in-out; */
+    }
+
+    :host([variant="filled"]) {
+      color: var(--on-main-color);
+      background-color: var(--main-color);
+    }
+
+    :host([variant="outlined"]) {
+      color: var(--main-color);
+      border: 1px solid var(--main-color);
+    }
+
+    :host([variant="text"]) {
+      color: var(--main-color);
+      border: 1px solid transparent;
     }
   </style>
 
@@ -18,42 +33,33 @@
       return {
         tag: "p-stylization",
         data: {
-          variant: null,
           color: null,
         },
+        attrs: {
+          variant: "filled",
+        },
         watch: {
-          ["variant,color"]([variant, color], e) {
-            if (!variant) {
-              variant = "filled";
-            }
+          color(color) {
             if (!color) {
               color = "primary";
             }
 
-            switch (variant) {
-              case "outlined":
-                Object.assign(this.style, {
-                  color: `var(--md-sys-color-${color})`,
-                  border: `var(--md-sys-color-${color}) solid 1px`,
-                  backgroundColor: "transparent",
-                });
-                break;
-              case "text":
-                Object.assign(this.style, {
-                  color: `var(--md-sys-color-${color})`,
-                  backgroundColor: "transparent",
-                  border: `transparent solid 1px`,
-                });
-                break;
-              case "filled":
-              default:
-                Object.assign(this.style, {
-                  color: `var(--md-sys-color-on-${color})`,
-                  backgroundColor: `var(--md-sys-color-${color})`,
-                  border: `transparent solid 1px`,
-                });
-                break;
-            }
+            this.style.setProperty(
+              "--main-color",
+              `var(--md-sys-color-${color})`,
+            );
+            this.style.setProperty(
+              "--on-main-color",
+              `var(--md-sys-color-on-${color})`,
+            );
+            this.style.setProperty(
+              "--main-color-container",
+              `var(--md-sys-color-${color}-container)`,
+            );
+            this.style.setProperty(
+              "--on-main-color-container",
+              `var(--md-sys-color-on-${color}-container)`,
+            );
           },
         },
       };

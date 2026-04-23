@@ -48,6 +48,7 @@
     attr:disabled="disabled"
     :color="color"
     :size="size"
+    :variant="variant"
     attr:focus="isFocus || !!value"
   >
     <input
@@ -69,6 +70,7 @@
       return {
         tag: "p-input",
         attrs: {
+          variant: null,
           type: null,
           placeholder: null,
           color: null,

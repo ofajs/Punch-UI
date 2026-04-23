@@ -109,7 +109,7 @@
     }
   </style>
   <div class="container" tabindex="0" on:keydown="handleKeydown">
-    <p-stylization :variant="variant" :color="color">
+    <p-stylization attr:variant="variant || 'filled'" :color="color">
       <div class="inner">
         <slot name="prefix"></slot><slot></slot><slot name="suffix"></slot>
       </div>
@@ -147,7 +147,7 @@
                 .$("p-ripple")
                 .style.setProperty(
                   "--pui-ripple-color",
-                  `rgb(from var(--md-sys-color-${color}-container) r g b / 0.1)`,
+                  `rgb(from var(--md-sys-color-${color}-container) r g b / 0.3)`,
                 );
             } else {
               this.shadow
