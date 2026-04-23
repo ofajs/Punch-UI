@@ -39,6 +39,10 @@
     p-field-container {
       border-radius: inherit;
     }
+
+    :host(:empty) slot[name="label"] {
+      display: none;
+    }
   </style>
   <p-field-container
     attr:disabled="disabled"
