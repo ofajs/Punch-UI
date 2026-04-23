@@ -3,6 +3,7 @@
   <style>
     :host {
       display: inline-block;
+      border-radius: 8px;
     }
     input {
       width: 100%;
@@ -13,10 +14,26 @@
       font-size: inherit;
       font-family: inherit;
       color: inherit;
+      -webkit-appearance: none;
+    }
+    p-field-container {
+      border-radius: inherit;
     }
   </style>
-  <p-field-container :color="color" attr:focus="isFocus">
-    <input type="text" on:focus="isFocus = true" on:blur="isFocus = false" />
+  <p-field-container
+    attr:disabled="disabled"
+    :color="color"
+    :size="size"
+    attr:focus="isFocus"
+  >
+    <input
+      type="text"
+      attr:type="type"
+      attr:placeholder="placeholder"
+      on:focus="isFocus = true"
+      on:blur="isFocus = false"
+      attr:disabled="disabled"
+    />
     <slot name="label" slot="label"></slot>
     <slot name="suffix" slot="suffix"></slot>
     <slot name="prefix" slot="prefix"></slot>
@@ -26,7 +43,11 @@
       return {
         tag: "p-input",
         attrs: {
+          type: null,
+          placeholder: null,
           color: null,
+          size: null,
+          disabled: null,
         },
         data: {
           isFocus: false,
