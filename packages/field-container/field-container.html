@@ -86,14 +86,15 @@
       box-shadow: 0 0 0 2px var(--focus-stylization-color);
     }
 
-    :host([focus]) .label {
+    :host([focus]) .label,
+    :host([hang-label]) .label {
       height: 16px;
       left: 0;
       top: -8px;
       font-size: 12px;
       background-color: var(--md-sys-color-surface);
     }
-    :host(:not([focus])) .label {
+    :host(:not([focus]):not([hang-label])) .label {
       color: var(--md-sys-color-neutral);
     }
 

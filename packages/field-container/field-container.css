@@ -16,16 +16,19 @@
   height: 1px;
   background-color: var(--md-sys-color-neutral);
 }
-:host([variant="filled"][focus]) .wrapper {
+:host([variant="filled"][focus]) .wrapper,
+:host([variant="filled"][hang-label]) .wrapper {
   padding-top: var(--field-container-padding-top, 4px);
 }
-:host([variant="filled"][focus]) .label {
+:host([variant="filled"][focus]) .label,
+:host([variant="filled"][hang-label]) .label {
   top: 0px;
   left: -6px;
   padding: 0;
   color: var(--md-sys-color-primary);
 }
-:host([variant="filled"][focus]) .bottom-line {
+:host([variant="filled"][focus]) .bottom-line,
+:host([variant="filled"][hang-label]) .bottom-line {
   height: 2px;
   background-color: var(--md-sys-color-primary);
 }
