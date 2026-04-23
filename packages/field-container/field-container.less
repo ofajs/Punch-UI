@@ -1,8 +1,11 @@
 :host([variant="filled"]) {
-  border-radius: 8px 8px 0 0;
-
   .container {
     box-shadow: none;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .wrapper {
+    transition: all 0.3s ease;
   }
 
   .label {
@@ -21,12 +24,14 @@
 
 :host([variant="filled"][focus]) {
   .wrapper {
-    padding-top: 4px;
+    padding-top: var(--field-container-padding-top, 4px);
   }
 
   .label {
     top: 0px;
+    left: -6px;
     padding: 0;
+    color: var(--md-sys-color-primary);
   }
 
   .bottom-line {

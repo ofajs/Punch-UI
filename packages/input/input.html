@@ -36,12 +36,17 @@
       color: var(--md-sys-color-on-surface);
       -webkit-appearance: none;
     }
+
     p-field-container {
       border-radius: inherit;
     }
 
-    ::slotted([slot="label"]) {
+    :slotted([slot="label"]) {
       padding: 0 8px;
+    }
+
+    :host(:has([slot="label"])) {
+      background-color: red;
     }
   </style>
   <p-field-container

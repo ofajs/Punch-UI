@@ -1,8 +1,9 @@
-:host([variant="filled"]) {
-  border-radius: 8px 8px 0 0;
-}
 :host([variant="filled"]) .container {
   box-shadow: none;
+  border-radius: 8px 8px 0 0;
+}
+:host([variant="filled"]) .wrapper {
+  transition: all 0.3s ease;
 }
 :host([variant="filled"]) .label {
   background-color: transparent;
@@ -16,11 +17,13 @@
   background-color: var(--md-sys-color-neutral);
 }
 :host([variant="filled"][focus]) .wrapper {
-  padding-top: 4px;
+  padding-top: var(--field-container-padding-top, 4px);
 }
 :host([variant="filled"][focus]) .label {
   top: 0px;
+  left: -6px;
   padding: 0;
+  color: var(--md-sys-color-primary);
 }
 :host([variant="filled"][focus]) .bottom-line {
   height: 2px;
