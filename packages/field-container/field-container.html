@@ -30,6 +30,7 @@
       width: 100%;
       height: 100%;
       border-radius: inherit;
+      transition: all ease 0.2s;
     }
 
     .wrapper {
@@ -86,7 +87,7 @@
     }
 
     :host([focus]) .container {
-      --stylization-border-width: 2px;
+      box-shadow: 0 0 0 2px var(--focus-stylization-color);
     }
 
     :host([focus]) .label {
@@ -142,6 +143,14 @@
           type: "text",
           color: null,
           size: null,
+        },
+        watch: {
+          color(color) {
+            this.style.setProperty(
+              "--focus-stylization-color",
+              `var(--md-sys-color-${color || "primary"})`,
+            );
+          },
         },
       };
     };
