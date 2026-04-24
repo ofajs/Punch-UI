@@ -44,6 +44,7 @@
       height: 32px;
       border-radius: 30px;
       transition: all 0.3s;
+      overflow: hidden;
     }
 
     :host([size="xs"]) p-stylization {
@@ -80,8 +81,9 @@
       top: 4px;
       border-radius: 50%;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      background-color: var(--main-color-container);
+      background-color: var(--main-color);
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transform: scale(0.6);
     }
 
     :host([size="xs"]) .thumb {
@@ -112,10 +114,6 @@
       height: 36px;
       left: 4px;
       top: 4px;
-    }
-
-    p-stylization.checked {
-      /* border: 2px solid var(--main-color); */
     }
 
     .thumb.checked {
@@ -189,14 +187,29 @@
     :host([disabled]) .label {
       cursor: not-allowed;
     }
+
+    .border-bg {
+      box-sizing: border-box;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 30px;
+      border: 2px solid var(--on-main-color);
+      transition: all 0.3s ease;
+    }
+
+    p-stylization.checked .border-bg {
+      border: 20px solid var(--main-color);
+    }
   </style>
   <div class="container" tabindex="0" on:keydown="handleKeydown">
     <p-stylization
       class="track"
       class:checked="checked"
-      variant="filled"
+      variant="tonal"
       :color="checked ? color : 'neutral'"
     >
+      <div class="border-bg"></div>
       <div class="thumb" class:checked="checked">
         <div class="mark"></div>
       </div>
