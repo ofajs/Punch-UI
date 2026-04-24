@@ -50,16 +50,23 @@
     :color="color"
     :size="size"
     :variant="variant"
-    attr:hang-label="!!value"
+    attr:hang-label="isHangLabel"
     attr:focus="isFocus"
   >
     <input
       part="input"
       type="text"
       attr:type="type"
+      attr:name="name"
       attr:placeholder="placeholder"
+      attr:maxlength="maxlength"
+      attr:min="min"
+      attr:max="max"
+      attr:readonly="readonly"
       on:focus="isFocus = true"
       on:blur="isFocus = false"
+      on:change="emit('change')"
+      on:input="emit('input', $event)"
       attr:disabled="disabled"
       sync:value="value"
     />
@@ -78,16 +85,54 @@
           color: null,
           size: null,
           disabled: null,
+          name: null,
+          error: null,
+          defaultValue: null,
+          autofocus: null,
+          maxlength: null,
+          min: null,
+          max: null,
+          readonly: null,
+          hangLabel: null,
         },
         data: {
           value: "",
           isFocus: false,
+        },
+        watch: {
+          autofocus(val) {
+            if (val !== null) {
+              setTimeout(() => {
+                this.shadow.$("input").ele.focus();
+              }, 150);
+            }
+          },
+        },
+        proto: {
+          get isHangLabel() {
+            if (this.hangLabel !== null) {
+              return 1;
+            }
+            if (this.isFocus || !!this.value) {
+              return 1;
+            }
+            if (this.placeholder) {
+              return 1;
+            }
+            return null;
+          },
+          focus() {
+            this.shadow.$("input").ele.focus();
+          },
         },
         attached() {
           if (this.variant == "filled" && !this.$("[slot='label']")) {
             this.shadow
               .$("p-field-container")
               .style.setProperty("--field-container-padding-top", "0");
+          }
+          if (this.defaultValue !== null) {
+            this.value = this.defaultValue;
           }
         },
       };

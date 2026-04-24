@@ -53,6 +53,11 @@
     </div>
 
     <div class="demo-section">
+      <h3>Autofocus Input</h3>
+      <p-input autofocus><span slot="label">Autofocus on load</span> </p-input>
+    </div>
+
+    <div class="demo-section">
       <h3>Color Variants</h3>
       <p-input color="primary">
         <span slot="label">Primary Color</span>
@@ -204,11 +209,78 @@
       </p-input>
     </div>
 
+    <div class="demo-section">
+      <h3>With Maxlength</h3>
+      <p-input maxlength="10"
+        ><span slot="label">Max 10 characters</span>
+      </p-input>
+      <p-input variant="filled" maxlength="10"
+        ><span slot="label">Max 10 characters</span>
+      </p-input>
+    </div>
+
+    <div class="demo-section">
+      <h3>With Name Attribute</h3>
+      <p-input name="username"><span slot="label">Username</span> </p-input>
+      <p-input variant="filled" name="email"
+        ><span slot="label">Email</span>
+      </p-input>
+    </div>
+
+    <div class="demo-section">
+      <h3>Readonly Input</h3>
+      <p-input readonly value="Cannot edit this"
+        ><span slot="label">Readonly</span>
+      </p-input>
+      <p-input variant="filled" readonly value="Cannot edit this"
+        ><span slot="label">Readonly</span>
+      </p-input>
+    </div>
+
+    <div class="demo-section">
+      <h3>With Default Value</h3>
+      <p-input default-value="John Doe"
+        ><span slot="label">Default Value</span>
+      </p-input>
+      <p-input variant="filled" default-value="John Doe"
+        ><span slot="label">Default Value</span>
+      </p-input>
+    </div>
+
+    <div class="demo-section">
+      <h3>Hang Label</h3>
+      <p-input hang-label><span slot="label">Hang Label Input</span> </p-input>
+      <p-input variant="filled" hang-label
+        ><span slot="label">Hang Label Input</span>
+      </p-input>
+    </div>
+
+    <div class="demo-section">
+      <h3>Focus Method & Events</h3>
+      <p-input id="focus-demo"
+        ><span slot="label">Click button to focus</span>
+      </p-input>
+      <button
+        id="focus-btn"
+        style="margin-top: 8px; padding: 8px 16px; cursor: pointer"
+      >
+        Focus Input
+      </button>
+      <script type="module">
+        $("#focus-btn").on("click", () => {
+          $("#focus-demo").focus();
+        });
+      </script>
+    </div>
+
     <script type="module">
       const inputs = $.all("p-input");
       inputs.forEach((input) => {
         input.on("input", (e) => {
           console.log("Input value:", e.detail.value);
+        });
+        input.on("change", (e) => {
+          console.log("Change event:", e.detail.value);
         });
         input.on("focus", (e) => {
           console.log("Focus:", e.detail.value);
