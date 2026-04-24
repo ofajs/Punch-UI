@@ -28,32 +28,6 @@
 
     p-field-container {
       height: auto !important;
-      min-height: 80px;
-    }
-
-    :host([rows="2"]) p-field-container,
-    :host([minRows="2"]) p-field-container {
-      min-height: calc(2 * 1.2em + 20px);
-    }
-
-    :host([rows="3"]) p-field-container,
-    :host([minRows="3"]) p-field-container {
-      min-height: calc(3 * 1.2em + 20px);
-    }
-
-    :host([rows="4"]) p-field-container,
-    :host([minRows="4"]) p-field-container {
-      min-height: calc(4 * 1.2em + 20px);
-    }
-
-    :host([rows="5"]) p-field-container,
-    :host([minRows="5"]) p-field-container {
-      min-height: calc(5 * 1.2em + 20px);
-    }
-
-    :host([rows="6"]) p-field-container,
-    :host([minRows="6"]) p-field-container {
-      min-height: calc(6 * 1.2em + 20px);
     }
 
     textarea {
@@ -169,12 +143,28 @@
               }, 150);
             }
           },
+          rows(val) {
+            this.updateFieldHeight("height", val);
+          },
+          minRows(val) {
+            this.updateFieldHeight("min-height", val);
+          },
+          maxRows(val) {
+            this.updateFieldHeight("max-height", val);
+          },
           value(value) {
             this.changeTextarea(value);
             this.emit("value-change", value);
           },
         },
         proto: {
+          updateFieldHeight(prop, val) {
+            const pField = this.shadow.$("p-field-container");
+            if (pField) {
+              const height = val ? `calc(${val} * 1.2em + 40px)` : "80px";
+              pField.style.setProperty(prop, height);
+            }
+          },
           get isHangLabel() {
             if (this.hangLabel !== null) {
               return 1;
