@@ -17,6 +17,16 @@
     }
 
     :host([size="l"]),
+    :host([size="xs"]) {
+      font-size: 12px;
+    }
+
+    :host([size="s"]),
+    :host([size="small"]) {
+      font-size: 13px;
+    }
+
+    :host([size="l"]),
     :host([size="large"]) {
       font-size: 16px;
     }
@@ -45,16 +55,30 @@
       transition: background-color 0.3s;
     }
 
+    :host([size="xs"]) .track {
+      width: 32px;
+      height: 20px;
+      border-radius: 10px;
+    }
+
+    :host([size="s"]) .track,
     :host([size="small"]) .track {
       width: 40px;
       height: 24px;
       border-radius: 12px;
     }
 
+    :host([size="l"]) .track,
     :host([size="large"]) .track {
       width: 64px;
       height: 40px;
       border-radius: 20px;
+    }
+
+    :host([size="xl"]) .track {
+      width: 72px;
+      height: 44px;
+      border-radius: 22px;
     }
 
     .thumb {
@@ -69,6 +93,14 @@
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
+    :host([size="xs"]) .thumb {
+      width: 14px;
+      height: 14px;
+      left: 3px;
+      top: 3px;
+    }
+
+    :host([size="s"]) .thumb,
     :host([size="small"]) .thumb {
       width: 18px;
       height: 18px;
@@ -76,9 +108,17 @@
       top: 3px;
     }
 
+    :host([size="l"]) .thumb,
     :host([size="large"]) .thumb {
       width: 32px;
       height: 32px;
+      left: 4px;
+      top: 4px;
+    }
+
+    :host([size="xl"]) .thumb {
+      width: 36px;
+      height: 36px;
       left: 4px;
       top: 4px;
     }
@@ -92,12 +132,22 @@
       background-color: var(--md-sys-color-on-primary);
     }
 
+    :host([size="xs"]) .thumb.checked {
+      transform: translateX(12px);
+    }
+
+    :host([size="s"]) .thumb.checked,
     :host([size="small"]) .thumb.checked {
       transform: translateX(16px);
     }
 
+    :host([size="l"]) .thumb.checked,
     :host([size="large"]) .thumb.checked {
       transform: translateX(24px);
+    }
+
+    :host([size="xl"]) .thumb.checked {
+      transform: translateX(28px);
     }
 
     input {
