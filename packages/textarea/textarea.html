@@ -2,9 +2,8 @@
   <l-m src="../field-container/field-container.html"></l-m>
   <style>
     :host {
-      display: block;
-      position: relative;
-      vertical-align: top;
+      display: inline-block;
+      border-radius: 8px;
       font-size: 16px;
     }
 
@@ -26,48 +25,29 @@
       font-size: 20px;
     }
 
-    p-field-container {
-      height: auto !important;
-    }
-
     textarea {
-      display: block;
-      position: absolute;
       width: 100%;
-      height: calc(100% - 10px);
-      padding: 10px 8px 0;
-      margin: 0;
+      min-height: 24px;
+      height: auto;
+      background-color: transparent;
       border: none;
       outline: none;
-      background-color: transparent;
       font-size: inherit;
       font-family: inherit;
-      line-height: 1.2em;
       color: var(--md-sys-color-on-surface);
+      -webkit-appearance: none;
       resize: none;
+      line-height: 1.5;
+      padding: 0;
       box-sizing: border-box;
     }
 
-    .fake-input {
-      display: block;
-      font-family: inherit;
-      width: 100%;
-      opacity: 0;
-      padding: 10px 8px 0;
-      line-height: 1.2em;
-      overflow: hidden;
-      white-space: pre-wrap;
-      word-break: break-all;
-      pointer-events: none;
-      box-sizing: border-box;
+    p-field-container {
+      border-radius: inherit;
     }
 
-    :host([disabled]) textarea {
-      cursor: not-allowed;
-    }
-
-    :host([error]) ::slotted([slot="helper"]) {
-      color: var(--error-color);
+    :slotted([slot="label"]) {
+      padding: 0 8px;
     }
   </style>
   <p-field-container
@@ -80,31 +60,20 @@
   >
     <textarea
       part="textarea"
-      sync:value="value"
-      on:focus="isFocus = true"
-      on:blur="isFocus = false"
-      on:change="emit('change')"
-      on:input="emit('input', $event)"
       attr:name="name"
       attr:placeholder="placeholder"
       attr:maxlength="maxlength"
-      attr:minlength="minlength"
-      attr:rows="rows"
-      attr:cols="cols"
-      attr:wrap="wrap"
       attr:readonly="readonly"
+      on:focus="isFocus = true"
+      on:blur="isFocus = false"
+      on:change="emit('change')"
+      on:input="handleInput"
       attr:disabled="disabled"
+      sync:value="value"
     ></textarea>
-    <div
-      class="fake-input"
-      :style.height="rows ? `${rows * 1.2}em` : ''"
-      :style.max-height="maxRows ? `${maxRows * 1.2}em` : ''"
-      :style.min-height="minRows ? `${minRows * 1.2}em` : ''"
-    ></div>
     <slot name="label" slot="label"></slot>
     <slot name="suffix" slot="suffix"></slot>
     <slot name="prefix" slot="prefix"></slot>
-    <slot name="helper" slot="helper"></slot>
   </p-field-container>
   <script>
     export default async ({ load }) => {
@@ -121,15 +90,8 @@
           defaultValue: null,
           autofocus: null,
           maxlength: null,
-          minlength: null,
           readonly: null,
           hangLabel: null,
-          rows: null,
-          cols: null,
-          wrap: null,
-          resize: null,
-          maxRows: null,
-          minRows: null,
         },
         data: {
           value: "",
@@ -143,28 +105,8 @@
               }, 150);
             }
           },
-          rows(val) {
-            this.updateFieldHeight("height", val);
-          },
-          minRows(val) {
-            this.updateFieldHeight("min-height", val);
-          },
-          maxRows(val) {
-            this.updateFieldHeight("max-height", val);
-          },
-          value(value) {
-            this.changeTextarea(value);
-            this.emit("value-change", value);
-          },
         },
         proto: {
-          updateFieldHeight(prop, val) {
-            const pField = this.shadow.$("p-field-container");
-            if (pField) {
-              const height = val ? `calc(${val} * 1.2em + 40px)` : "80px";
-              pField.style.setProperty(prop, height);
-            }
-          },
           get isHangLabel() {
             if (this.hangLabel !== null) {
               return 1;
@@ -177,20 +119,27 @@
             }
             return null;
           },
-          changeTextarea(value) {
-            const fakeInput = this.shadow.$(".fake-input");
-            if (fakeInput) {
-              fakeInput.text = value + " ";
-            }
-          },
           focus() {
             this.shadow.$("textarea").ele.focus();
           },
-          select() {
-            this.shadow.$("textarea").ele.select();
+          handleInput(e) {
+            const fieldContainer =
+              this._fieldContainer ||
+              (this._fieldContainer = this.shadow.$("p-field-container").ele);
+
+            const textarea = this.shadow.$("textarea").ele;
+            textarea.style.height = "auto";
+            textarea.style.height = textarea.scrollHeight + "px";
+            fieldContainer.style.height = textarea.offsetHeight + "px";
+            this.emit("input", e);
           },
         },
         attached() {
+          if (this.variant == "filled" && !this.$("[slot='label']")) {
+            this.shadow
+              .$("p-field-container")
+              .style.setProperty("--field-container-padding-top", "0");
+          }
           if (this.defaultValue !== null) {
             this.value = this.defaultValue;
           }
