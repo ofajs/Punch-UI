@@ -10,18 +10,6 @@
       height: 40px;
       border-radius: 28px;
       font-size: 16px;
-      --pui-ripple-color: rgb(
-        from var(--md-sys-color-primary-container) r g b / 0.3
-      );
-    }
-
-    .container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: inherit;
-      width: 100%;
-      height: 100%;
     }
 
     :host([size="xs"]) {
@@ -74,18 +62,9 @@
     :host([disabled]) {
       cursor: not-allowed;
     }
-    :host([disabled]) .container {
+    :host([disabled]) p-stylization {
       opacity: 0.6;
       pointer-events: none;
-    }
-
-    .container:focus {
-      outline: none;
-    }
-
-    .container:focus-visible {
-      outline: 2px solid var(--md-sys-color-primary);
-      outline-offset: 2px;
     }
 
     slot {
@@ -107,15 +86,44 @@
         );
       }
     }
+
+    p-stylization {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: inherit;
+      width: 100%;
+      height: 100%;
+      --pui-ripple-color: rgb(from var(--main-color-container) r g b / 0.3);
+    }
+
+    p-stylization:focus {
+      outline: none;
+    }
+
+    p-stylization:focus-visible {
+      outline: 2px solid var(--main-color);
+      outline-offset: 2px;
+    }
+
+    .inner {
+      padding: 0 1em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
   </style>
-  <div class="container" tabindex="0" on:keydown="handleKeydown">
-    <p-stylization attr:variant="variant || 'filled'" :color="color">
-      <div class="inner">
-        <slot name="prefix"></slot><slot></slot><slot name="suffix"></slot>
-      </div>
-    </p-stylization>
+  <p-stylization
+    tabindex="0"
+    on:keydown="handleKeydown"
+    attr:variant="variant || 'filled'"
+    :color="color"
+  >
+    <div class="inner">
+      <slot name="prefix"></slot><slot></slot><slot name="suffix"></slot>
+    </div>
     <p-ripple></p-ripple>
-  </div>
+  </p-stylization>
   <script>
     export default async ({ load }) => {
       if (!customElements.get("p-stylization")) {
@@ -137,7 +145,7 @@
           autofocus(val) {
             if (val !== null) {
               requestAnimationFrame(() => {
-                this.shadow.$(".container").ele.focus();
+                this.shadow.$("p-stylization").ele.focus();
               });
             }
           },
@@ -166,8 +174,8 @@
               this.ele.click();
 
               const ripple = this.shadow.$("p-ripple");
-              const container = this.shadow.$(".container");
-              const rect = container.ele.getBoundingClientRect();
+              const styl = this.shadow.$("p-stylization");
+              const rect = styl.ele.getBoundingClientRect();
               const centerX = rect.width / 2;
               const centerY = rect.height / 2;
               ripple.createRipple(centerX, centerY);
@@ -178,10 +186,10 @@
             }
           },
           focus() {
-            this.shadow.$(".container").ele.focus();
+            this.shadow.$("p-stylization").ele.focus();
           },
           blur() {
-            this.shadow.$(".container").ele.blur();
+            this.shadow.$("p-stylization").ele.blur();
           },
         },
       };

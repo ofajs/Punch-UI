@@ -1,5 +1,4 @@
 <template component>
-  <l-m src="../stylization/stylization.html"></l-m>
   <style>
     :host {
       display: inline-flex;
@@ -221,6 +220,10 @@
   </div>
   <script>
     export default async ({ load }) => {
+      if (!customElements.get("p-stylization")) {
+        await load("../stylization/stylization.html");
+      }
+
       return {
         tag: "p-switch",
         attrs: {
