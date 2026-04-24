@@ -120,7 +120,7 @@
   <link rel="stylesheet" href="./field-container.css" />
   <p-stylization
     attr:variant="variant === 'filled' ? 'tonal' : 'outlined'"
-    :color="variant === 'filled' ? 'neutral' : color"
+    :color="color"
   >
     <div class="content">
       <div class="prefix">
@@ -150,14 +150,6 @@
           variant: "outlined",
           color: null,
           size: null,
-        },
-        watch: {
-          color(color) {
-            this.style.setProperty(
-              "--focus-stylization-color",
-              `var(--md-sys-color-${color || "primary"})`,
-            );
-          },
         },
       };
     };

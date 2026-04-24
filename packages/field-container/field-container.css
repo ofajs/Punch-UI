@@ -1,6 +1,7 @@
 :host([variant="filled"]) p-stylization {
   box-shadow: none;
   border-radius: 8px 8px 0 0;
+  background-color: var(--neutral-color-container);
 }
 :host([variant="filled"]) .wrapper {
   transition: all 0.3s ease;
@@ -18,7 +19,7 @@
 }
 :host([variant="filled"][focus]) .bottom-line {
   height: 2px;
-  background-color: var(--focus-stylization-color);
+  background-color: var(--main-color);
 }
 :host([variant="filled"][focus]) .wrapper,
 :host([variant="filled"][hang-label]) .wrapper {
@@ -29,5 +30,5 @@
   top: 0px;
   left: -6px;
   padding: 0;
-  color: var(--focus-stylization-color);
+  color: var(--main-color);
 }
