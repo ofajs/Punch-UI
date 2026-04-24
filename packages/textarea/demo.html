@@ -43,7 +43,7 @@
     <l-m src="./textarea.html"></l-m>
     <l-m src="../../tool/theme-switch/theme-switch.html"></l-m>
 
-    <div style="position: fixed; top: 20px; right: 20px;">
+    <div style="position: fixed; top: 20px; right: 20px">
       <p-theme-switch></p-theme-switch>
     </div>
 
@@ -59,7 +59,9 @@
 
     <div class="demo-section">
       <h3>Autofocus Textarea</h3>
-      <p-textarea autofocus><span slot="label">Autofocus on load</span> </p-textarea>
+      <p-textarea autofocus
+        ><span slot="label">Autofocus on load</span>
+      </p-textarea>
     </div>
 
     <div class="demo-section">
@@ -122,7 +124,7 @@
 
     <div class="demo-section">
       <h3>Readonly</h3>
-      <p-textarea readonly>
+      <p-textarea readonly default-value="只读内容">
         <span slot="label">Readonly Textarea</span>
       </p-textarea>
     </div>

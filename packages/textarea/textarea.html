@@ -26,10 +26,14 @@
     }
 
     textarea {
-      display: block;
-      box-sizing: border-box;
+      position: absolute;
+      left: 0;
+      top: 0;
       width: 100%;
       height: 100%;
+      display: block;
+      box-sizing: border-box;
+      padding: 0.65em 0;
       background-color: transparent;
       border: none;
       outline: none;
@@ -38,16 +42,40 @@
       color: var(--md-sys-color-on-surface);
       -webkit-appearance: none;
       resize: none;
-      padding: 8px 0;
       box-sizing: border-box;
+      line-height: 1.2em;
     }
 
     p-field-container {
       border-radius: inherit;
+      height: auto;
     }
 
     :slotted([slot="label"]) {
       padding: 0 8px;
+    }
+
+    .fake-input {
+      padding: 8px 0;
+      height: 22px;
+    }
+
+    :host([size="xs"]) .fake-input {
+      height: 17px;
+    }
+
+    :host([size="s"]) .fake-input,
+    :host([size="small"]) .fake-input {
+      height: 20px;
+    }
+
+    :host([size="l"]) .fake-input,
+    :host([size="large"]) .fake-input {
+      height: 25px;
+    }
+
+    :host([size="xl"]) .fake-input {
+      height: 27px;
     }
   </style>
   <p-field-container
@@ -74,6 +102,7 @@
     <slot name="label" slot="label"></slot>
     <slot name="suffix" slot="suffix"></slot>
     <slot name="prefix" slot="prefix"></slot>
+    <div class="fake-input"></div>
   </p-field-container>
   <script>
     export default async ({ load }) => {
@@ -128,10 +157,15 @@
               (this._fieldContainer = this.shadow.$("p-field-container").ele);
 
             const textarea = this.shadow.$("textarea").ele;
-            textarea.style.height = "auto";
-            textarea.style.height = textarea.scrollHeight + "px";
-            fieldContainer.style.height = textarea.offsetHeight + "px";
-            this.emit("input", e);
+
+            // 计算多少行
+            const linesLength = this.value.split("\n").length;
+            const lineHeight = parseFloat(
+              getComputedStyle(textarea).lineHeight,
+            );
+
+            this.shadow.$(".fake-input").style.height =
+              linesLength * lineHeight + 3 + "px";
           },
         },
         attached() {
