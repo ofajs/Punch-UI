@@ -38,6 +38,11 @@
         },
         attached() {
           this.currentTheme = localStorage.getItem("pui-theme");
+          window.addEventListener("storage", (e) => {
+            if (e.key === "pui-theme" && e.newValue) {
+              this.currentTheme = e.newValue;
+            }
+          });
         },
         proto: {
           applyTheme() {
