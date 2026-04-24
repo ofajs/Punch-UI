@@ -101,46 +101,48 @@
     :host([disabled]) .container {
       opacity: 0.5;
     }
+
+    .bottom-line {
+      display: none;
+    }
+
+    :host([variant="filled"]) .bottom-line {
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--md-sys-color-neutral);
+    }
+
+    :host([variant="filled"][focus]) .bottom-line {
+      height: 2px;
+      background-color: var(--focus-stylization-color);
+    }
   </style>
   <link rel="stylesheet" href="./field-container.css" />
   <div class="container">
-    <x-if :value="variant === 'filled'">
-      <p-stylization :color="'neutral'" :variant="'tonal'">
-        <div class="content">
-          <div class="prefix">
-            <slot name="prefix"></slot>
-          </div>
-          <div class="wrapper" part="wrapper">
-            <slot></slot>
-            <div class="label" part="label">
-              <slot name="label"></slot>
-            </div>
-          </div>
-          <div class="suffix">
-            <slot name="suffix"></slot>
+    <p-stylization
+      attr:variant="variant === 'filled' ? 'tonal' : 'outlined'"
+      :color="variant === 'filled' ? 'neutral' : color"
+    >
+      <div class="content">
+        <div class="prefix">
+          <slot name="prefix"></slot>
+        </div>
+        <div class="wrapper" part="wrapper">
+          <slot></slot>
+          <div class="label" part="label">
+            <slot name="label"></slot>
           </div>
         </div>
-        <div class="bottom-line"></div>
-      </p-stylization>
-    </x-if>
-    <x-else>
-      <p-stylization :color="color" :variant="'outlined'">
-        <div class="content">
-          <div class="prefix">
-            <slot name="prefix"></slot>
-          </div>
-          <div class="wrapper">
-            <slot></slot>
-            <div class="label" part="label">
-              <slot name="label"></slot>
-            </div>
-          </div>
-          <div class="suffix">
-            <slot name="suffix"></slot>
-          </div>
+        <div class="suffix">
+          <slot name="suffix"></slot>
         </div>
-      </p-stylization>
-    </x-else>
+      </div>
+      <div class="bottom-line"></div>
+    </p-stylization>
   </div>
   <script>
     export default async ({ load }) => {
