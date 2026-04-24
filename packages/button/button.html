@@ -149,20 +149,6 @@
               });
             }
           },
-          color(color) {
-            if (color) {
-              this.shadow
-                .$("p-ripple")
-                .style.setProperty(
-                  "--pui-ripple-color",
-                  `rgb(from var(--md-sys-color-${color}-container) r g b / 0.3)`,
-                );
-            } else {
-              this.shadow
-                .$("p-ripple")
-                .style.removeProperty("--pui-ripple-color");
-            }
-          },
         },
         proto: {
           handleKeydown(e) {
