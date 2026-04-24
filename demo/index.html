@@ -10,6 +10,13 @@
     ></script>
     <link rel="stylesheet" href="../packages/css/theme.css" />
     <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+      }
       body {
         font-family:
           -apple-system,
@@ -21,10 +28,17 @@
           sans-serif,
           Apple Color Emoji,
           Segoe UI Emoji;
-        padding: 20px;
-        background-color: var(--md-sys-color-surface);
+        /* background-color: var(--md-sys-color-surface); */
         color: var(--md-sys-color-on-surface);
+        overflow: auto;
+        /* background-image: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e"); */
+        background-image: url(https://images.unsplash.com/photo-1477346611705-65d1883cee1e);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
       }
+
       h1 {
         font-size: 32px;
         margin-bottom: 8px;
@@ -73,159 +87,178 @@
     </style>
   </head>
   <body>
-    <h1>Punch-UI 组件示例</h1>
-    <p>基于 ofa.js 的 Material Design 3 风格组件库</p>
+    <script type="module">
+      const load = lm(import.meta);
 
-    <l-m src="../packages/button/button.html"></l-m>
-    <l-m src="../packages/button/group.html"></l-m>
-    <l-m src="../packages/input/input.html"></l-m>
-    <l-m src="../packages/switch/switch.html"></l-m>
-    <l-m src="../packages/textarea/textarea.html"></l-m>
-    <l-m src="../tool/theme-switch/theme-switch.html"></l-m>
+      await load("./variant/glass-stylization.html");
+    </script>
 
-    <div style="position: fixed; top: 20px; right: 20px">
-      <p-theme-switch></p-theme-switch>
-    </div>
+    <div
+      style="
+        height: 100%;
+        overflow-y: auto;
+        box-sizing: border-box;
+        padding: 16px;
+      "
+    >
+      <h1>Punch-UI 组件示例</h1>
+      <p>基于 ofa.js 的 Material Design 3 风格组件库</p>
 
-    <h2>Button 按钮</h2>
+      <l-m src="../packages/button/button.html"></l-m>
+      <l-m src="../packages/button/group.html"></l-m>
+      <l-m src="../packages/input/input.html"></l-m>
+      <l-m src="../packages/switch/switch.html"></l-m>
+      <l-m src="../packages/textarea/textarea.html"></l-m>
+      <l-m src="../tool/theme-switch/theme-switch.html"></l-m>
 
-    <div class="demo-section">
-      <h3>尺寸</h3>
-      <div class="demo-row">
-        <p-button size="xs">XS</p-button>
-        <p-button size="s">Small</p-button>
-        <p-button>Medium</p-button>
-        <p-button size="l">Large</p-button>
-        <p-button size="xl">XL</p-button>
+      <div style="position: fixed; top: 20px; right: 20px">
+        <p-theme-switch></p-theme-switch>
       </div>
-    </div>
 
-    <div class="demo-section">
-      <h3>颜色</h3>
-      <div class="demo-row">
-        <p-button>Default</p-button>
-        <p-button color="primary">Primary</p-button>
-        <p-button color="error">Error</p-button>
-        <p-button color="success">Success</p-button>
-        <p-button color="neutral">Neutral</p-button>
+      <h2>Button 按钮</h2>
+
+      <div class="demo-section">
+        <h3>尺寸</h3>
+        <div class="demo-row">
+          <p-button size="xs">XS</p-button>
+          <p-button size="s">Small</p-button>
+          <p-button>Medium</p-button>
+          <p-button size="l">Large</p-button>
+          <p-button size="xl">XL</p-button>
+        </div>
       </div>
-    </div>
 
-    <div class="demo-section">
-      <h3>变体</h3>
-      <div class="demo-row">
-        <p-button variant="outlined" color="primary">Primary Outlined</p-button>
-        <p-button variant="outlined" color="error">Error Outlined</p-button>
-        <p-button variant="outlined" color="success">Success Outlined</p-button>
-        <p-button variant="text">Text</p-button>
+      <div class="demo-section">
+        <h3>颜色</h3>
+        <div class="demo-row">
+          <p-button>Default</p-button>
+          <p-button color="primary">Primary</p-button>
+          <p-button color="error">Error</p-button>
+          <p-button color="success">Success</p-button>
+          <p-button color="neutral">Neutral</p-button>
+        </div>
       </div>
-    </div>
 
-    <div class="demo-section">
-      <h3>按钮组</h3>
-      <div class="demo-row">
-        <p-button-group>
-          <p-button>按钮 1</p-button>
-          <p-button>按钮 2</p-button>
-          <p-button>按钮 3</p-button>
-        </p-button-group>
+      <div class="demo-section">
+        <h3>变体</h3>
+        <div class="demo-row">
+          <p-button variant="outlined" color="primary"
+            >Primary Outlined</p-button
+          >
+          <p-button variant="outlined" color="error">Error Outlined</p-button>
+          <p-button variant="outlined" color="success"
+            >Success Outlined</p-button
+          >
+          <p-button variant="text">Text</p-button>
+        </div>
       </div>
-      <div class="demo-row">
-        <p-button-group connected>
-          <p-button variant="outlined">首页</p-button>
-          <p-button variant="outlined">产品</p-button>
-          <p-button variant="outlined">关于</p-button>
-        </p-button-group>
+
+      <div class="demo-section">
+        <h3>按钮组</h3>
+        <div class="demo-row">
+          <p-button-group>
+            <p-button>按钮 1</p-button>
+            <p-button>按钮 2</p-button>
+            <p-button>按钮 3</p-button>
+          </p-button-group>
+        </div>
+        <div class="demo-row">
+          <p-button-group connected>
+            <p-button variant="outlined">首页</p-button>
+            <p-button variant="outlined">产品</p-button>
+            <p-button variant="outlined">关于</p-button>
+          </p-button-group>
+        </div>
       </div>
-    </div>
 
-    <h2>Input 输入框</h2>
+      <h2>Input 输入框</h2>
 
-    <div class="demo-section">
-      <h3>颜色</h3>
-      <div class="demo-row">
-        <p-input>
-          <span slot="label">Default</span>
-        </p-input>
-        <p-input color="primary">
-          <span slot="label">Primary</span>
-        </p-input>
-        <p-input color="success">
-          <span slot="label">Success</span>
-        </p-input>
-        <p-input color="error">
-          <span slot="label">Error</span>
-        </p-input>
+      <div class="demo-section">
+        <h3>颜色</h3>
+        <div class="demo-row">
+          <p-input>
+            <span slot="label">Default</span>
+          </p-input>
+          <p-input color="primary">
+            <span slot="label">Primary</span>
+          </p-input>
+          <p-input color="success">
+            <span slot="label">Success</span>
+          </p-input>
+          <p-input color="error">
+            <span slot="label">Error</span>
+          </p-input>
+        </div>
+        <div class="demo-row">
+          <p-input variant="filled" color="primary">
+            <span slot="label">Primary Filled</span>
+          </p-input>
+          <p-input variant="filled" color="success">
+            <span slot="label">Success Filled</span>
+          </p-input>
+          <p-input variant="filled" color="error">
+            <span slot="label">Error Filled</span>
+          </p-input>
+        </div>
       </div>
-      <div class="demo-row">
-        <p-input variant="filled" color="primary">
-          <span slot="label">Primary Filled</span>
-        </p-input>
-        <p-input variant="filled" color="success">
-          <span slot="label">Success Filled</span>
-        </p-input>
-        <p-input variant="filled" color="error">
-          <span slot="label">Error Filled</span>
-        </p-input>
+
+      <div class="demo-section">
+        <h3>尺寸</h3>
+        <div class="demo-row">
+          <p-input size="xs">
+            <span slot="label">XS Size</span>
+          </p-input>
+          <p-input size="s">
+            <span slot="label">Small Size</span>
+          </p-input>
+          <p-input size="l">
+            <span slot="label">Large Size</span>
+          </p-input>
+          <p-input size="xl">
+            <span slot="label">XL Size</span>
+          </p-input>
+        </div>
       </div>
-    </div>
 
-    <div class="demo-section">
-      <h3>尺寸</h3>
-      <div class="demo-row">
-        <p-input size="xs">
-          <span slot="label">XS Size</span>
-        </p-input>
-        <p-input size="s">
-          <span slot="label">Small Size</span>
-        </p-input>
-        <p-input size="l">
-          <span slot="label">Large Size</span>
-        </p-input>
-        <p-input size="xl">
-          <span slot="label">XL Size</span>
-        </p-input>
+      <h2>Switch 开关</h2>
+
+      <div class="demo-section">
+        <h3>尺寸</h3>
+        <div class="demo-row">
+          <p-switch size="xs">XS</p-switch>
+          <p-switch size="s">Small</p-switch>
+          <p-switch>Medium</p-switch>
+          <p-switch size="l">Large</p-switch>
+          <p-switch size="xl">XL</p-switch>
+        </div>
       </div>
-    </div>
 
-    <h2>Switch 开关</h2>
-
-    <div class="demo-section">
-      <h3>尺寸</h3>
-      <div class="demo-row">
-        <p-switch size="xs">XS</p-switch>
-        <p-switch size="s">Small</p-switch>
-        <p-switch>Medium</p-switch>
-        <p-switch size="l">Large</p-switch>
-        <p-switch size="xl">XL</p-switch>
+      <div class="demo-section">
+        <h3>颜色</h3>
+        <div class="demo-row">
+          <p-switch color="primary">Primary</p-switch>
+          <p-switch color="error">Error</p-switch>
+          <p-switch color="success">Success</p-switch>
+        </div>
       </div>
-    </div>
 
-    <div class="demo-section">
-      <h3>颜色</h3>
-      <div class="demo-row">
-        <p-switch color="primary">Primary</p-switch>
-        <p-switch color="error">Error</p-switch>
-        <p-switch color="success">Success</p-switch>
+      <div class="demo-section">
+        <h3>状态</h3>
+        <div class="demo-row">
+          <p-switch checked>选中状态</p-switch>
+          <p-switch>未选中状态</p-switch>
+          <p-switch disabled>禁用</p-switch>
+        </div>
       </div>
-    </div>
 
-    <div class="demo-section">
-      <h3>状态</h3>
-      <div class="demo-row">
-        <p-switch checked>选中状态</p-switch>
-        <p-switch>未选中状态</p-switch>
-        <p-switch disabled>禁用</p-switch>
-      </div>
-    </div>
+      <h2>Textarea 多行文本</h2>
 
-    <h2>Textarea 多行文本</h2>
-
-    <div class="demo-section">
-      <div class="demo-row">
-        <p-textarea style="width: 300px">
-          <span slot="label">多行文本</span>
-        </p-textarea>
+      <div class="demo-section">
+        <div class="demo-row">
+          <p-textarea style="width: 300px">
+            <span slot="label">多行文本</span>
+          </p-textarea>
+        </div>
       </div>
     </div>
   </body>

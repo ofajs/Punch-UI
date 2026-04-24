@@ -1,0 +1,84 @@
+<template component>
+  <style>
+    :host,
+    .container {
+      display: inherit;
+      justify-content: inherit;
+      align-items: inherit;
+      width: inherit;
+      height: inherit;
+      border-radius: inherit;
+      /* transition: all 0.3s ease-in-out; */
+
+      --neutral-color: rgb(from var(--md-sys-color-neutral) r g b / 0.5);
+      --on-neutral-color: rgb(from var(--md-sys-color-on-neutral) r g b / 0.5);
+      --neutral-color-container: rgb(
+        from var(--md-sys-color-neutral-container) r g b / 0.5
+      );
+      --on-neutral-color-container: rgb(
+        from var(--md-sys-color-on-neutral-container) r g b / 0.5
+      );
+
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    :host([variant="filled"]) {
+      color: var(--on-main-color);
+      background-color: var(--main-color);
+    }
+
+    :host([variant="outlined"]) {
+      color: var(--main-color);
+      border: 1px solid var(--main-color);
+    }
+
+    :host([variant="text"]) {
+      color: var(--main-color);
+      border: 1px solid transparent;
+    }
+
+    :host([variant="tonal"]) {
+      color: var(--on-main-color-container);
+      background-color: var(--main-color-container);
+    }
+  </style>
+
+  <slot></slot>
+  <script>
+    export default async () => {
+      return {
+        tag: "p-stylization",
+        data: {
+          color: null,
+        },
+        attrs: {
+          variant: "filled",
+        },
+        watch: {
+          color(color) {
+            if (!color) {
+              color = "primary";
+            }
+
+            const { style } = this;
+
+            style.setProperty("--main-color", `var(--md-sys-color-${color})`);
+            style.setProperty(
+              "--on-main-color",
+              `var(--md-sys-color-on-${color})`,
+            );
+            style.setProperty(
+              "--main-color-container",
+              `var(--md-sys-color-${color}-container)`,
+            );
+            style.setProperty(
+              "--on-main-color-container",
+              `var(--md-sys-color-on-${color}-container)`,
+            );
+          },
+        },
+      };
+    };
+  </script>
+</template>
