@@ -123,6 +123,41 @@
       background-color: var(--on-main-color);
     }
 
+    .mark {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 10px;
+      height: 6px;
+      transform: translate(-50%, -70%) rotate(-45deg);
+      border-left: 2px solid var(--on-main-color-container);
+      border-bottom: 2px solid var(--on-main-color-container);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .thumb.checked .mark {
+      opacity: 1;
+    }
+
+    :host([size="xs"]) .mark {
+      transform: translate(-50%, -70%) rotate(-45deg) scale(0.6);
+    }
+
+    :host([size="s"]) .mark,
+    :host([size="small"]) .mark {
+      transform: translate(-50%, -70%) rotate(-45deg) scale(0.75);
+    }
+
+    :host([size="l"]) .mark,
+    :host([size="large"]) .mark {
+      transform: translate(-50%, -70%) rotate(-45deg) scale(1.25);
+    }
+
+    :host([size="xl"]) .mark {
+      transform: translate(-50%, -70%) rotate(-45deg) scale(1.5);
+    }
+
     :host([size="xs"]) .thumb.checked {
       transform: translateX(12px);
     }
@@ -162,7 +197,9 @@
       variant="filled"
       :color="checked ? color : 'neutral'"
     >
-      <div class="thumb" class:checked="checked"></div>
+      <div class="thumb" class:checked="checked">
+        <div class="mark"></div>
+      </div>
     </p-stylization>
   </div>
   <div class="label">
