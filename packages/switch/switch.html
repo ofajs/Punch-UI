@@ -230,6 +230,7 @@
           color: null,
           checkedValue: "on",
           uncheckedValue: "off",
+          defaultValue: "on",
           autofocus: null,
         },
         data: {
@@ -238,6 +239,9 @@
           isFocus: false,
         },
         watch: {
+          defaultValue(val) {
+            this.value = val;
+          },
           autofocus(val) {
             if (val !== null) {
               setTimeout(() => {
