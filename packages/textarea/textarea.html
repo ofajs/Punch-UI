@@ -156,7 +156,13 @@
               this._fieldContainer ||
               (this._fieldContainer = this.shadow.$("p-field-container").ele);
 
-            const textarea = this.shadow.$("textarea").ele;
+            const textarea =
+              this._textarea ||
+              (this._textarea = this.shadow.$("textarea").ele);
+
+            const fakeInput =
+              this._fakeInput ||
+              (this._fakeInput = this.shadow.$(".fake-input"));
 
             // 计算多少行
             const linesLength = this.value.split("\n").length;
@@ -164,8 +170,7 @@
               getComputedStyle(textarea).lineHeight,
             );
 
-            this.shadow.$(".fake-input").style.height =
-              linesLength * lineHeight + 3 + "px";
+            fakeInput.style.height = linesLength * lineHeight + 3 + "px";
           },
         },
         attached() {
