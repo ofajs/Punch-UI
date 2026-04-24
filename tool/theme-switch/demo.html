@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Theme Switch Demo</title>
+    <script
+      src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs"
+      type="module"
+    ></script>
+    <link rel="stylesheet" href="../../packages/css/theme.css" />
+    <style>
+      body {
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          Segoe UI,
+          Microsoft Yahei,
+          Helvetica,
+          Arial,
+          sans-serif,
+          Apple Color Emoji,
+          Segoe UI Emoji;
+        padding: 20px;
+      }
+      .demo-section {
+        margin-bottom: 32px;
+      }
+      .demo-section h3 {
+        margin-bottom: 16px;
+        color: #333;
+      }
+      .card {
+        padding: 20px;
+        margin: 16px 0;
+        border-radius: 8px;
+        background-color: var(--md-sys-color-surface);
+        color: var(--md-sys-color-on-surface);
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Theme Switch</h2>
+
+    <l-m src="./theme-switch.html"></l-m>
+
+    <div class="demo-section">
+      <h3>Toggle Theme</h3>
+      <p-theme-switch></p-theme-switch>
+    </div>
+
+    <div class="demo-section">
+      <h3>Theme Preview</h3>
+      <div class="card">
+        <p>Card content - This text should change color based on theme</p>
+        <p>Background also changes with theme</p>
+      </div>
+    </div>
+  </body>
+</html>

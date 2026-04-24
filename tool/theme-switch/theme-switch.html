@@ -1,0 +1,52 @@
+<template component>
+  <l-m src="../../packages/switch/switch.html"></l-m>
+  <style>
+    :host {
+      display: inline-flex;
+      align-items: center;
+    }
+  </style>
+  <p-switch
+    id="theme-switch"
+    checked-value="dark"
+    unchecked-value="light"
+    sync:value="currentTheme"
+  >
+    Dark Mode
+  </p-switch>
+  <script>
+    export default async ({ load }) => {
+      if (!localStorage.getItem("pui-theme")) {
+        localStorage.setItem(
+          "pui-theme",
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light",
+        );
+      }
+
+      return {
+        tag: "p-theme-switch",
+        data: {
+          currentTheme: localStorage.getItem("pui-theme") || "light",
+        },
+        watch: {
+          currentTheme() {
+            this.applyTheme();
+            localStorage.setItem("pui-theme", this.currentTheme);
+          },
+        },
+        attached() {
+          this.currentTheme = localStorage.getItem("pui-theme");
+        },
+        proto: {
+          applyTheme() {
+            const html = document.documentElement;
+            html.classList.remove("theme-light-mode", "theme-dark-mode");
+            html.classList.add(`theme-${this.currentTheme}-mode`);
+          },
+        },
+      };
+    };
+  </script>
+</template>
