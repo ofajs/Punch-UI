@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Switch Demo</title>
+    <script
+      src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs"
+      type="module"
+    ></script>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <style>
+      body {
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          Segoe UI,
+          Microsoft Yahei,
+          Helvetica,
+          Arial,
+          sans-serif,
+          Apple Color Emoji,
+          Segoe UI Emoji;
+        padding: 20px;
+      }
+      p-switch {
+        margin: 16px;
+      }
+      .demo-section {
+        margin-bottom: 32px;
+      }
+      .demo-section h3 {
+        margin-bottom: 16px;
+        color: #333;
+      }
+      .switch-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: center;
+      }
+      button {
+        padding: 8px 16px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Switch</h2>
+
+    <l-m src="./switch.html"></l-m>
+
+    <div class="demo-section">
+      <h3>Basic Usage</h3>
+      <div class="switch-row">
+        <p-switch>Default</p-switch>
+        <p-switch checked>Checked</p-switch>
+        <p-switch disabled>Disabled</p-switch>
+        <p-switch checked disabled>Disabled & Checked</p-switch>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>Size Variants</h3>
+      <div class="switch-row">
+        <p-switch size="small">Small</p-switch>
+        <p-switch>Default</p-switch>
+        <p-switch size="large">Large</p-switch>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>With Name Attribute</h3>
+      <div class="switch-row">
+        <p-switch name="darkmode">Enable Dark Mode</p-switch>
+        <p-switch name="notifications" checked>Enable Notifications</p-switch>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>Custom Values</h3>
+      <div class="switch-row">
+        <p-switch
+          id="custom-value-demo"
+          checked-value="enabled"
+          unchecked-value="disabled"
+        >
+          Custom Values Demo
+        </p-switch>
+        <span id="custom-value-result">Current value: disabled</span>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>Dynamic Control</h3>
+      <div class="switch-row">
+        <button id="enable-all-btn">Enable All</button>
+        <button id="disable-all-btn">Disable All</button>
+      </div>
+      <br />
+      <div class="switch-row" id="dynamic-switches">
+        <p-switch>Switch 1</p-switch>
+        <p-switch>Switch 2</p-switch>
+        <p-switch>Switch 3</p-switch>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>Focus Method</h3>
+      <p-switch id="focus-demo">Click button to focus</p-switch>
+      <br /><br />
+      <button id="focus-btn">Focus Switch</button>
+    </div>
+
+    <script type="module">
+      const switches = $.all("p-switch");
+      switches.forEach((sw) => {
+        sw.on("change", (e) => {
+          console.log("Switch change:", e.detail);
+        });
+      });
+
+      const customDemo = $("#custom-value-demo");
+      const customResult = $("#custom-value-result");
+      customDemo.on("change", () => {
+        customResult.text = `Current value: ${customDemo.value}`;
+      });
+
+      $("#enable-all-btn").on("click", () => {
+        $.all("#dynamic-switches p-switch").forEach((sw) => {
+          sw.checked = true;
+        });
+      });
+
+      $("#disable-all-btn").on("click", () => {
+        $.all("#dynamic-switches p-switch").forEach((sw) => {
+          sw.checked = false;
+        });
+      });
+
+      $("#focus-btn").on("click", () => {
+        $("#focus-demo").focus();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,205 @@
+<template component>
+  <style>
+    :host {
+      display: inline-flex;
+      align-items: center;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+
+    :host([size="xs"]) {
+      font-size: 12px;
+    }
+
+    :host([size="s"]),
+    :host([size="small"]) {
+      font-size: 13px;
+    }
+
+    :host([size="l"]),
+    :host([size="large"]) {
+      font-size: 16px;
+    }
+
+    :host([size="xl"]) {
+      font-size: 18px;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    :host([disabled]) .container {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    .track {
+      position: relative;
+      width: 52px;
+      height: 32px;
+      background-color: var(--md-sys-color-neutral-container);
+      border-radius: 16px;
+      transition: background-color 0.3s;
+    }
+
+    :host([size="small"]) .track {
+      width: 40px;
+      height: 24px;
+      border-radius: 12px;
+    }
+
+    :host([size="large"]) .track {
+      width: 64px;
+      height: 40px;
+      border-radius: 20px;
+    }
+
+    .thumb {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      left: 4px;
+      top: 4px;
+      background-color: var(--md-sys-color-neutral);
+      border-radius: 50%;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    :host([size="small"]) .thumb {
+      width: 18px;
+      height: 18px;
+      left: 3px;
+      top: 3px;
+    }
+
+    :host([size="large"]) .thumb {
+      width: 32px;
+      height: 32px;
+      left: 4px;
+      top: 4px;
+    }
+
+    .track.checked {
+      background-color: var(--md-sys-color-primary);
+    }
+
+    .thumb.checked {
+      transform: translateX(20px);
+      background-color: var(--md-sys-color-on-primary);
+    }
+
+    :host([size="small"]) .thumb.checked {
+      transform: translateX(16px);
+    }
+
+    :host([size="large"]) .thumb.checked {
+      transform: translateX(24px);
+    }
+
+    input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .label {
+      margin-left: 12px;
+      user-select: none;
+      cursor: pointer;
+    }
+
+    :host(:empty) .label {
+      display: none;
+    }
+
+    :host([disabled]) .label {
+      cursor: not-allowed;
+    }
+  </style>
+  <div class="container" tabindex="0" on:keydown="handleKeydown">
+    <div class="track" class:checked="isChecked">
+      <div class="thumb" class:checked="isChecked"></div>
+    </div>
+  </div>
+  <div class="label">
+    <slot></slot>
+  </div>
+  <script>
+    export default async ({ load }) => {
+      return {
+        tag: "p-switch",
+        attrs: {
+          name: null,
+          size: null,
+          disabled: null,
+          checkedValue: "on",
+          uncheckedValue: "off",
+          autofocus: null,
+        },
+        data: {
+          value: null,
+          infocus: false,
+          isFocus: false,
+          isChecked: false,
+        },
+        watch: {
+          autofocus(val) {
+            if (val !== null) {
+              setTimeout(() => {
+                this.shadow.$(".container").ele.focus();
+              }, 150);
+            }
+          },
+          value(val) {
+            this.isChecked = val === this.checkedValue;
+          },
+        },
+        proto: {
+          get checked() {
+            return this.value === this.checkedValue;
+          },
+          set checked(val) {
+            this.value = val ? this.checkedValue : this.uncheckedValue;
+          },
+          focus() {
+            this.shadow.$(".container").ele.focus();
+          },
+          handleKeydown(e) {
+            if (this.disabled !== null) return;
+            if (e.key === " " || e.key === "Enter") {
+              e.preventDefault();
+              this.value =
+                this.value === this.checkedValue
+                  ? this.uncheckedValue
+                  : this.checkedValue;
+              this.emit("change");
+            }
+          },
+        },
+        ready() {
+          this.on("click", (e) => {
+            if (this.disabled !== null) return;
+            this.value =
+              this.value === this.checkedValue
+                ? this.uncheckedValue
+                : this.checkedValue;
+            this.emit("change");
+          });
+        },
+        attached() {
+          if (this.checked || this.attr("checked") !== null) {
+            this.value = this.checkedValue;
+          } else {
+            this.value = this.uncheckedValue;
+          }
+          this.isChecked = this.value === this.checkedValue;
+        },
+      };
+    };
+  </script>
+</template>
