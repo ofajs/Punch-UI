@@ -205,8 +205,9 @@
     <p-stylization
       class="track"
       class:checked="checked"
-      variant="tonal"
+      :variant="variant"
       :color="checked ? color : 'neutral'"
+      style="border: none"
     >
       <div class="border-bg"></div>
       <div class="thumb" class:checked="checked">
@@ -234,6 +235,7 @@
           uncheckedValue: "off",
           defaultValue: null,
           autofocus: null,
+          variant: null,
         },
         data: {
           value: null,

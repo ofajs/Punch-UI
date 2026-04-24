@@ -46,6 +46,12 @@
     </style>
   </head>
   <body>
+    <l-m src="../../tool/theme-switch/theme-switch.html"></l-m>
+
+    <div style="position: fixed; top: 20px; right: 20px">
+      <p-theme-switch></p-theme-switch>
+    </div>
+
     <h2>Switch</h2>
 
     <l-m src="./switch.html"></l-m>
@@ -54,6 +60,7 @@
       <h3>Basic Usage</h3>
       <div class="switch-row">
         <p-switch>Default</p-switch>
+        <p-switch variant="tonal">Tonal</p-switch>
         <p-switch checked>Checked</p-switch>
         <p-switch disabled>Disabled</p-switch>
         <p-switch checked disabled>Disabled & Checked</p-switch>
