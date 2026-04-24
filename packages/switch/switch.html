@@ -1,4 +1,5 @@
 <template component>
+  <l-m src="../stylization/stylization.html"></l-m>
   <style>
     :host {
       display: inline-flex;
@@ -7,16 +8,6 @@
       vertical-align: middle;
     }
 
-    :host([size="xs"]) {
-      font-size: 12px;
-    }
-
-    :host([size="s"]),
-    :host([size="small"]) {
-      font-size: 13px;
-    }
-
-    :host([size="l"]),
     :host([size="xs"]) {
       font-size: 12px;
     }
@@ -39,6 +30,7 @@
       display: flex;
       align-items: center;
       cursor: pointer;
+      border-radius: inherit;
     }
 
     :host([disabled]) .container {
@@ -46,36 +38,35 @@
       opacity: 0.6;
     }
 
-    .track {
+    p-stylization.track {
       position: relative;
       width: 52px;
       height: 32px;
-      background-color: var(--md-sys-color-neutral-container);
       border-radius: 16px;
       transition: background-color 0.3s;
     }
 
-    :host([size="xs"]) .track {
+    :host([size="xs"]) p-stylization.track {
       width: 32px;
       height: 20px;
       border-radius: 10px;
     }
 
-    :host([size="s"]) .track,
-    :host([size="small"]) .track {
+    :host([size="s"]) p-stylization.track,
+    :host([size="small"]) p-stylization.track {
       width: 40px;
       height: 24px;
       border-radius: 12px;
     }
 
-    :host([size="l"]) .track,
-    :host([size="large"]) .track {
+    :host([size="l"]) p-stylization.track,
+    :host([size="large"]) p-stylization.track {
       width: 64px;
       height: 40px;
       border-radius: 20px;
     }
 
-    :host([size="xl"]) .track {
+    :host([size="xl"]) p-stylization.track {
       width: 72px;
       height: 44px;
       border-radius: 22px;
@@ -87,9 +78,9 @@
       height: 24px;
       left: 4px;
       top: 4px;
-      background-color: var(--md-sys-color-neutral);
       border-radius: 50%;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      background-color: var(--main-color-container);
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
@@ -123,13 +114,13 @@
       top: 4px;
     }
 
-    .track.checked {
-      background-color: var(--md-sys-color-primary);
+    p-stylization.track.checked {
+      background-color: var(--main-color);
     }
 
     .thumb.checked {
       transform: translateX(20px);
-      background-color: var(--md-sys-color-on-primary);
+      background-color: var(--on-main-color);
     }
 
     :host([size="xs"]) .thumb.checked {
@@ -150,13 +141,6 @@
       transform: translateX(28px);
     }
 
-    input {
-      position: absolute;
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
     .label {
       margin-left: 12px;
       user-select: none;
@@ -172,9 +156,14 @@
     }
   </style>
   <div class="container" tabindex="0" on:keydown="handleKeydown">
-    <div class="track" class:checked="isChecked">
-      <div class="thumb" class:checked="isChecked"></div>
-    </div>
+    <p-stylization
+      class="track"
+      class:checked="checked"
+      variant="filled"
+      :color="checked ? color : 'neutral'"
+    >
+      <div class="thumb" class:checked="checked"></div>
+    </p-stylization>
   </div>
   <div class="label">
     <slot></slot>
@@ -187,6 +176,7 @@
           name: null,
           size: null,
           disabled: null,
+          color: null,
           checkedValue: "on",
           uncheckedValue: "off",
           autofocus: null,
@@ -195,7 +185,6 @@
           value: null,
           infocus: false,
           isFocus: false,
-          isChecked: false,
         },
         watch: {
           autofocus(val) {
@@ -204,9 +193,6 @@
                 this.shadow.$(".container").ele.focus();
               }, 150);
             }
-          },
-          value(val) {
-            this.isChecked = val === this.checkedValue;
           },
         },
         proto: {
@@ -247,7 +233,6 @@
           } else {
             this.value = this.uncheckedValue;
           }
-          this.isChecked = this.value === this.checkedValue;
         },
       };
     };
