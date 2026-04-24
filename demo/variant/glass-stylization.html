@@ -25,7 +25,8 @@
 
     :host([variant="filled"]) {
       color: var(--on-main-color);
-      background-color: var(--main-color);
+      background-color: rgb(from var(--on-main-color-container) r g b / 0.5);
+      /* background-color: var(--main-color); */
     }
 
     :host([variant="outlined"]) {
