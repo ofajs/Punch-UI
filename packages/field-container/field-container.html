@@ -39,6 +39,8 @@
 
     p-stylization {
       position: relative;
+      width: 100%;
+      height: 100%;
     }
 
     .wrapper {
@@ -82,7 +84,7 @@
       pointer-events: none;
     }
 
-    :host([focus]) .container {
+    :host([focus]) p-stylization {
       box-shadow: 0 0 0 2px var(--focus-stylization-color);
     }
 
@@ -112,7 +114,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      height: 2px;
+      height: 1px;
       background-color: var(--neutral-color);
     }
 

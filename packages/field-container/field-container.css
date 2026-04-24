@@ -1,4 +1,4 @@
-:host([variant="filled"]) .container {
+:host([variant="filled"]) p-stylization {
   box-shadow: none;
   border-radius: 8px 8px 0 0;
 }
@@ -14,7 +14,7 @@
   left: 0;
   width: 100%;
   height: 1px;
-  background-color: var(--md-sys-color-neutral);
+  background-color: var(--neutral-color);
 }
 :host([variant="filled"][focus]) .bottom-line {
   height: 2px;
