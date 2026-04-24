@@ -1,0 +1,211 @@
+<template component>
+  <l-m src="../field-container/field-container.html"></l-m>
+  <style>
+    :host {
+      display: block;
+      position: relative;
+      vertical-align: top;
+      font-size: 16px;
+    }
+
+    :host([size="xs"]) {
+      font-size: 12px;
+    }
+
+    :host([size="s"]),
+    :host([size="small"]) {
+      font-size: 14px;
+    }
+
+    :host([size="l"]),
+    :host([size="large"]) {
+      font-size: 18px;
+    }
+
+    :host([size="xl"]) {
+      font-size: 20px;
+    }
+
+    p-field-container {
+      height: auto !important;
+      min-height: 80px;
+    }
+
+    :host([rows="2"]) p-field-container,
+    :host([minRows="2"]) p-field-container {
+      min-height: calc(2 * 1.2em + 20px);
+    }
+
+    :host([rows="3"]) p-field-container,
+    :host([minRows="3"]) p-field-container {
+      min-height: calc(3 * 1.2em + 20px);
+    }
+
+    :host([rows="4"]) p-field-container,
+    :host([minRows="4"]) p-field-container {
+      min-height: calc(4 * 1.2em + 20px);
+    }
+
+    :host([rows="5"]) p-field-container,
+    :host([minRows="5"]) p-field-container {
+      min-height: calc(5 * 1.2em + 20px);
+    }
+
+    :host([rows="6"]) p-field-container,
+    :host([minRows="6"]) p-field-container {
+      min-height: calc(6 * 1.2em + 20px);
+    }
+
+    textarea {
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: calc(100% - 10px);
+      padding: 10px 8px 0;
+      margin: 0;
+      border: none;
+      outline: none;
+      background-color: transparent;
+      font-size: inherit;
+      font-family: inherit;
+      line-height: 1.2em;
+      color: var(--md-sys-color-on-surface);
+      resize: none;
+      box-sizing: border-box;
+    }
+
+    .fake-input {
+      display: block;
+      font-family: inherit;
+      width: 100%;
+      opacity: 0;
+      padding: 10px 8px 0;
+      line-height: 1.2em;
+      overflow: hidden;
+      white-space: pre-wrap;
+      word-break: break-all;
+      pointer-events: none;
+      box-sizing: border-box;
+    }
+
+    :host([disabled]) textarea {
+      cursor: not-allowed;
+    }
+
+    :host([error]) ::slotted([slot="helper"]) {
+      color: var(--error-color);
+    }
+  </style>
+  <p-field-container
+    attr:disabled="disabled"
+    :color="color"
+    :size="size"
+    :variant="variant"
+    attr:hang-label="isHangLabel"
+    attr:focus="isFocus"
+  >
+    <textarea
+      part="textarea"
+      sync:value="value"
+      on:focus="isFocus = true"
+      on:blur="isFocus = false"
+      on:change="emit('change')"
+      on:input="emit('input', $event)"
+      attr:name="name"
+      attr:placeholder="placeholder"
+      attr:maxlength="maxlength"
+      attr:minlength="minlength"
+      attr:rows="rows"
+      attr:cols="cols"
+      attr:wrap="wrap"
+      attr:readonly="readonly"
+      attr:disabled="disabled"
+    ></textarea>
+    <div
+      class="fake-input"
+      :style.height="rows ? `${rows * 1.2}em` : ''"
+      :style.max-height="maxRows ? `${maxRows * 1.2}em` : ''"
+      :style.min-height="minRows ? `${minRows * 1.2}em` : ''"
+    ></div>
+    <slot name="label" slot="label"></slot>
+    <slot name="suffix" slot="suffix"></slot>
+    <slot name="prefix" slot="prefix"></slot>
+    <slot name="helper" slot="helper"></slot>
+  </p-field-container>
+  <script>
+    export default async ({ load }) => {
+      return {
+        tag: "p-textarea",
+        attrs: {
+          variant: null,
+          placeholder: null,
+          color: null,
+          size: null,
+          disabled: null,
+          name: null,
+          error: null,
+          defaultValue: null,
+          autofocus: null,
+          maxlength: null,
+          minlength: null,
+          readonly: null,
+          hangLabel: null,
+          rows: null,
+          cols: null,
+          wrap: null,
+          resize: null,
+          maxRows: null,
+          minRows: null,
+        },
+        data: {
+          value: "",
+          isFocus: false,
+        },
+        watch: {
+          autofocus(val) {
+            if (val !== null) {
+              setTimeout(() => {
+                this.shadow.$("textarea").ele.focus();
+              }, 150);
+            }
+          },
+          value(value) {
+            this.changeTextarea(value);
+            this.emit("value-change", value);
+          },
+        },
+        proto: {
+          get isHangLabel() {
+            if (this.hangLabel !== null) {
+              return 1;
+            }
+            if (this.isFocus || !!this.value) {
+              return 1;
+            }
+            if (this.placeholder) {
+              return 1;
+            }
+            return null;
+          },
+          changeTextarea(value) {
+            const fakeInput = this.shadow.$(".fake-input");
+            if (fakeInput) {
+              fakeInput.text = value + " ";
+            }
+          },
+          focus() {
+            this.shadow.$("textarea").ele.focus();
+          },
+          select() {
+            this.shadow.$("textarea").ele.select();
+          },
+        },
+        attached() {
+          if (this.defaultValue !== null) {
+            this.value = this.defaultValue;
+          }
+        },
+      };
+    };
+  </script>
+</template>

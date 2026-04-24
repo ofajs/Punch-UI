@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Textarea Demo</title>
+    <script
+      src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs"
+      type="module"
+    ></script>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <style>
+      body {
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          Segoe UI,
+          Microsoft Yahei,
+          Helvetica,
+          Arial,
+          sans-serif,
+          Apple Color Emoji,
+          Segoe UI Emoji;
+        padding: 20px;
+      }
+      p-textarea {
+        margin: 16px;
+        display: inline-block;
+        width: 300px;
+      }
+      .demo-section {
+        margin-bottom: 32px;
+      }
+      .demo-section h3 {
+        margin-bottom: 16px;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Textarea</h2>
+
+    <l-m src="./textarea.html"></l-m>
+    <l-m src="../../tool/theme-switch/theme-switch.html"></l-m>
+
+    <div style="position: fixed; top: 20px; right: 20px">
+      <p-theme-switch></p-theme-switch>
+    </div>
+
+    <div class="demo-section">
+      <h3>Basic Usage</h3>
+      <p-textarea>
+        <span slot="label">Description</span>
+      </p-textarea>
+      <p-textarea variant="filled">
+        <span slot="label">Description</span>
+      </p-textarea>
+    </div>
+
+    <div class="demo-section">
+      <h3>With Placeholder</h3>
+      <p-textarea placeholder="Enter your description...">
+        <span slot="label">Description</span>
+      </p-textarea>
+      <p-textarea variant="filled" placeholder="Enter your description...">
+        <span slot="label">Description</span>
+      </p-textarea>
+    </div>
+
+    <div class="demo-section">
+      <h3>Color Variants</h3>
+      <p-textarea color="primary">
+        <span slot="label">Primary Color</span>
+      </p-textarea>
+      <p-textarea color="success">
+        <span slot="label">Success Color</span>
+      </p-textarea>
+      <p-textarea color="error">
+        <span slot="label">Error Color</span>
+      </p-textarea>
+    </div>
+
+    <div class="demo-section">
+      <h3>Size Variants</h3>
+      <p-textarea size="s">
+        <span slot="label">Small</span>
+      </p-textarea>
+      <p-textarea>
+        <span slot="label">Default</span>
+      </p-textarea>
+      <p-textarea size="l">
+        <span slot="label">Large</span>
+      </p-textarea>
+    </div>
+
+    <div class="demo-section">
+      <h3>Disabled State</h3>
+      <p-textarea disabled>
+        <span slot="label">Disabled Textarea</span>
+      </p-textarea>
+      <p-textarea variant="filled" disabled>
+        <span slot="label">Disabled Filled</span>
+      </p-textarea>
+    </div>
+
+    <div class="demo-section">
+      <h3>With Default Value</h3>
+      <p-textarea default-value="This is a default value">
+        <span slot="label">Default Value</span>
+      </p-textarea>
+    </div>
+
+    <div class="demo-section">
+      <h3>With Rows</h3>
+      <p-textarea rows="3">
+        <span slot="label">3 Rows</span>
+      </p-textarea>
+      <p-textarea rows="5">
+        <span slot="label">5 Rows</span>
+      </p-textarea>
+    </div>
+
+    <div class="demo-section">
+      <h3>Resize Mode</h3>
+      <p-textarea resize="vertical">
+        <span slot="label">Vertical Resize Only</span>
+      </p-textarea>
+      <p-textarea resize="both">
+        <span slot="label">Both Direction Resize</span>
+      </p-textarea>
+    </div>
+
+    <div class="demo-section">
+      <h3>With Wrap</h3>
+      <p-textarea wrap="hard">
+        <span slot="label">Hard Wrap</span>
+      </p-textarea>
+    </div>
+
+    <div class="demo-section">
+      <h3>With Minlength</h3>
+      <p-textarea minlength="10">
+        <span slot="label">Min 10 characters</span>
+      </p-textarea>
+    </div>
+
+    <div class="demo-section">
+      <h3>With Helper</h3>
+      <p-textarea>
+        <span slot="label">Helper Text</span>
+        <span slot="helper">This is a helper message</span>
+      </p-textarea>
+    </div>
+
+    <div class="demo-section">
+      <h3>With MaxRows/MinRows</h3>
+      <p-textarea minRows="2" maxRows="5">
+        <span slot="label">Auto Height (2-5 rows)</span>
+      </p-textarea>
+    </div>
+
+    <div class="demo-section">
+      <h3>Readonly</h3>
+      <p-textarea readonly default-value="Cannot edit this">
+        <span slot="label">Readonly</span>
+      </p-textarea>
+    </div>
+
+    <div class="demo-section">
+      <h3>With Maxlength</h3>
+      <p-textarea maxlength="100">
+        <span slot="label">Max 100 characters</span>
+      </p-textarea>
+    </div>
+
+    <div class="demo-section">
+      <h3>Focus Method</h3>
+      <p-textarea id="focus-demo">
+        <span slot="label">Click button to focus</span>
+      </p-textarea>
+      <br /><br />
+      <button id="focus-btn" style="padding: 8px 16px; cursor: pointer">
+        Focus Textarea
+      </button>
+    </div>
+
+    <script type="module">
+      const textareas = $.all("p-textarea");
+      textareas.forEach((textarea) => {
+        textarea.on("input", (e) => {
+          console.log("Textarea value:", e.detail.value);
+        });
+        textarea.on("change", (e) => {
+          console.log("Change event:", e.detail.value);
+        });
+      });
+
+      $("#focus-btn").on("click", () => {
+        $("#focus-demo").focus();
+      });
+    </script>
+  </body>
+</html>
