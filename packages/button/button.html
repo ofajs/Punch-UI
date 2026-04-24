@@ -80,14 +80,18 @@
   </style>
   <style>
     @media (hover: hover) {
-      :host(:not([disabled]):hover) {
-        background-color: rgb(
-          from var(--md-sys-color-on-data(color)-container) r g b / 0.1
-        );
+      p-stylization:not([disabled]):hover::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: rgb(from var(--main-color-container) r g b / 0.1);
+        border-radius: inherit;
+        pointer-events: none;
       }
     }
 
     p-stylization {
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
