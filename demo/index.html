@@ -42,8 +42,6 @@
         color: var(--md-sys-color-on-surface-variant);
       }
       .demo-section {
-        margin-bottom: 32px;
-        padding: 20px;
         background-color: var(--md-sys-color-surface-container-low);
         border-radius: 16px;
       }
@@ -60,11 +58,7 @@
         gap: 8px;
         align-items: center;
       }
-      p-button,
-      p-button-group,
-      p-input {
-        margin: 4px;
-      }
+
       .form-demo {
         max-width: 400px;
       }
@@ -85,22 +79,15 @@
     <l-m src="../packages/button/button.html"></l-m>
     <l-m src="../packages/button/group.html"></l-m>
     <l-m src="../packages/input/input.html"></l-m>
+    <l-m src="../packages/switch/switch.html"></l-m>
+    <l-m src="../packages/textarea/textarea.html"></l-m>
     <l-m src="../tool/theme-switch/theme-switch.html"></l-m>
 
-    <div style="position: fixed; top: 20px; right: 20px;">
+    <div style="position: fixed; top: 20px; right: 20px">
       <p-theme-switch></p-theme-switch>
     </div>
 
     <h2>Button 按钮</h2>
-
-    <div class="demo-section">
-      <h3>基础用法</h3>
-      <div class="demo-row">
-        <p-button>Default</p-button>
-        <p-button variant="outlined">Outlined</p-button>
-        <p-button variant="text">Text</p-button>
-      </div>
-    </div>
 
     <div class="demo-section">
       <h3>尺寸</h3>
@@ -122,47 +109,15 @@
         <p-button color="success">Success</p-button>
         <p-button color="neutral">Neutral</p-button>
       </div>
-      <div class="demo-row">
-        <p-button variant="outlined" color="primary">Primary</p-button>
-        <p-button variant="outlined" color="error">Error</p-button>
-        <p-button variant="outlined" color="success">Success</p-button>
-      </div>
     </div>
 
     <div class="demo-section">
-      <h3>禁用状态</h3>
+      <h3>变体</h3>
       <div class="demo-row">
-        <p-button disabled>Default</p-button>
-        <p-button variant="outlined" disabled>Outlined</p-button>
-        <p-button variant="text" disabled>Text</p-button>
-      </div>
-    </div>
-
-    <div class="demo-section">
-      <h3>图标按钮</h3>
-      <div class="demo-row">
-        <p-button icon>+</p-button>
-        <p-button icon size="s">-</p-button>
-        <p-button icon size="l">×</p-button>
-      </div>
-    </div>
-
-    <div class="demo-section">
-      <h3>带前缀/后缀</h3>
-      <div class="demo-row">
-        <p-button>
-          <span slot="prefix">🔍</span>
-          搜索
-        </p-button>
-        <p-button>
-          设置
-          <span slot="suffix">⚙️</span>
-        </p-button>
-        <p-button variant="outlined">
-          <span slot="prefix">📧</span>
-          发送邮件
-          <span slot="suffix">→</span>
-        </p-button>
+        <p-button variant="outlined" color="primary">Primary Outlined</p-button>
+        <p-button variant="outlined" color="error">Error Outlined</p-button>
+        <p-button variant="outlined" color="success">Success Outlined</p-button>
+        <p-button variant="text">Text</p-button>
       </div>
     </div>
 
@@ -182,32 +137,16 @@
           <p-button variant="outlined">关于</p-button>
         </p-button-group>
       </div>
-      <div class="demo-row">
-        <p-button-group full-width>
-          <p-button variant="outlined">编辑</p-button>
-          <p-button variant="outlined">保存</p-button>
-          <p-button variant="outlined">分享</p-button>
-        </p-button-group>
-      </div>
     </div>
 
     <h2>Input 输入框</h2>
 
     <div class="demo-section">
-      <h3>基础用法</h3>
+      <h3>颜色</h3>
       <div class="demo-row">
         <p-input>
-          <span slot="label">用户名</span>
+          <span slot="label">Default</span>
         </p-input>
-        <p-input variant="filled">
-          <span slot="label">用户名</span>
-        </p-input>
-      </div>
-    </div>
-
-    <div class="demo-section">
-      <h3>颜色变体</h3>
-      <div class="demo-row">
         <p-input color="primary">
           <span slot="label">Primary</span>
         </p-input>
@@ -216,9 +155,6 @@
         </p-input>
         <p-input color="error">
           <span slot="label">Error</span>
-        </p-input>
-        <p-input color="neutral">
-          <span slot="label">Neutral</span>
         </p-input>
       </div>
       <div class="demo-row">
@@ -252,29 +188,45 @@
       </div>
     </div>
 
+    <h2>Switch 开关</h2>
+
     <div class="demo-section">
-      <h3>禁用状态</h3>
+      <h3>尺寸</h3>
       <div class="demo-row">
-        <p-input disabled>
-          <span slot="label">禁用输入框</span>
-        </p-input>
-        <p-input variant="filled" disabled>
-          <span slot="label">禁用填充框</span>
-        </p-input>
+        <p-switch size="xs">XS</p-switch>
+        <p-switch size="s">Small</p-switch>
+        <p-switch>Medium</p-switch>
+        <p-switch size="l">Large</p-switch>
+        <p-switch size="xl">XL</p-switch>
       </div>
     </div>
 
-    <div class="demo-section form-demo">
-      <h3>表单示例</h3>
-      <p-input>
-        <span slot="label">姓名</span>
-      </p-input>
-      <p-input color="primary">
-        <span slot="label">邮箱</span>
-      </p-input>
-      <p-input color="error">
-        <span slot="label">错误状态</span>
-      </p-input>
+    <div class="demo-section">
+      <h3>颜色</h3>
+      <div class="demo-row">
+        <p-switch color="primary">Primary</p-switch>
+        <p-switch color="error">Error</p-switch>
+        <p-switch color="success">Success</p-switch>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>状态</h3>
+      <div class="demo-row">
+        <p-switch checked>选中状态</p-switch>
+        <p-switch>未选中状态</p-switch>
+        <p-switch disabled>禁用</p-switch>
+      </div>
+    </div>
+
+    <h2>Textarea 多行文本</h2>
+
+    <div class="demo-section">
+      <div class="demo-row">
+        <p-textarea style="width: 300px">
+          <span slot="label">多行文本</span>
+        </p-textarea>
+      </div>
     </div>
   </body>
 </html>
