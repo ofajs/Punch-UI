@@ -2,13 +2,6 @@
 
 基于 [ofa.js](https://github.com/ofajs/ofa.js) 的 UI 组件库。
 
-## 组件列表
-
-- [Button 按钮组件](./packages/button/README.md)
-- [Input 输入框组件](./packages/input/README.md)
-- [Switch 开关组件](./packages/switch/README.md)
-- [Textarea 多行文本输入框](./packages/textarea/README.md)
-
 ## 快速开始
 
 ### 安装 ofa.js
@@ -19,6 +12,13 @@
   type="module"
 ></script>
 ```
+
+## 组件列表
+
+- [Button 按钮组件](./packages/button/README.md)
+- [Input 输入框组件](./packages/input/README.md)
+- [Switch 开关组件](./packages/switch/README.md)
+- [Textarea 多行文本输入框](./packages/textarea/README.md)
 
 ### 引入组件
 
@@ -36,11 +36,19 @@
 <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
 ```
 
-### 使用组件
+### 黑夜/白天模式
+
+Punch UI 支持黑夜/白天主题切换。默认情况下，组件会根据系统主题自动切换。
+
+如需手动控制主题，可以在 `html` 元素上添加对应的 class：
 
 ```html
-<p-button>按钮</p-button>
-<p-input><span slot="label">输入框</span></p-input>
-<p-switch>开关</p-switch>
-<p-textarea><span slot="label">多行文本</span></p-textarea>
+<!-- 切换到浅色主题 -->
+<html class="theme-light-mode">
+
+<!-- 切换到深色主题 -->
+<html class="theme-dark-mode">
+  
+<!-- 不添加 class，则跟随系统主题 -->
+<html>
 ```
