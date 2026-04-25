@@ -139,6 +139,8 @@
     <div class="bottom-line"></div>
   </p-stylization>
   <script>
+    import "../common/init.js";
+
     export default async ({ load }) => {
       if (!customElements.get("p-stylization")) {
         await load("../stylization/stylization.html");

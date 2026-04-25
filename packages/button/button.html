@@ -129,6 +129,8 @@
     <p-ripple></p-ripple>
   </p-stylization>
   <script>
+    import "../common/init.js";
+
     export default async ({ load }) => {
       if (!customElements.get("p-stylization")) {
         // 加载风格化组件

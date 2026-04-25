@@ -1,5 +1,3 @@
-@import "./palette.css";
-
 .theme-light-mode {
   --pui-theme: light;
   --pui-real-theme: light;
