@@ -1,0 +1,58 @@
+<template component>
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <slot></slot>
+  <script>
+    export default async function () {
+      return {
+        tag: "p-radio-group",
+        data: {
+          value: null
+        },
+        proto: {
+          updateValueFromChildren() {
+            const radios = this.all("p-radio");
+            let checkedValue = null;
+            radios.forEach(rb => {
+              if (rb.checked) {
+                checkedValue = rb.value;
+              }
+            });
+            this.value = checkedValue;
+            this.emit("change");
+          }
+        },
+        attached() {
+          this.updateValueFromChildren();
+
+          this.on("attached-radio", (e) => {
+            this.updateValueFromChildren();
+          });
+
+          this.on("change", (e) => {
+            const radio = $(e.target);
+            if (!radio.is("p-radio")) {
+              return;
+            }
+
+            e.stopPropagation();
+
+            if (radio.checked) {
+              const radios = this.all("p-radio");
+              radios.forEach(rb => {
+                if (rb !== radio && rb.checked) {
+                  rb.checked = false;
+                }
+              });
+              this.value = radio.value;
+              this.emit("change");
+            }
+          });
+        },
+      };
+    }
+  </script>
+</template>

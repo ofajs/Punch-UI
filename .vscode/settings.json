@@ -1,6 +1,6 @@
 {
   "liveServer.settings.port": 5547,
-  "editor.tabSize": 4,
+  "editor.tabSize": 2,
   "prettier.tabWidth": 2,
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

@@ -101,6 +101,11 @@ Punch UI的按钮组件依赖于 ofa.js，请先加载 ofa.js，然后通过 `l-
 
 使用 `p-button-group` 组件将多个按钮组合在一起：
 
+```html
+<!-- 引入按钮组组件 -->
+<l-m src="https://punch-ui-v2.pages.dev/packages/button/group.html"></l-m>
+```
+
 ### 基本按钮组
 
 ```html
@@ -174,3 +179,92 @@ Punch UI的按钮组件依赖于 ofa.js，请先加载 ofa.js，然后通过 `l-
 | 插槽名  | 说明                 |
 | ------- | -------------------- |
 | default | 包含的 p-button 元素 |
+
+## 作为选择组件使用
+
+### Segmented Control（单选）
+
+使用 `variant` 属性切换选中状态，通过 `filled` 和 `outlined` 区分选中与非选中按钮。
+
+```html
+<p-button-group>
+  <p-button
+    attr:variant="selected === 'day' ? 'filled' : 'outlined'"
+    on:click="selected = 'day'"
+  >
+    Day
+  </p-button>
+  <p-button
+    attr:variant="selected === 'week' ? 'filled' : 'outlined'"
+    on:click="selected = 'week'"
+  >
+    Week
+  </p-button>
+  <p-button
+    attr:variant="selected === 'month' ? 'filled' : 'outlined'"
+    on:click="selected = 'month'"
+  >
+    Month
+  </p-button>
+</p-button-group>
+```
+
+### Filter Chips（多选）
+
+使用 `color` 属性切换选中状态，通过 `primary` 和 `neutral` 区分选中与非选中按钮。
+
+```html
+<p-button-group>
+  <p-button
+    attr:color="filters.includes('all') ? 'primary' : 'neutral'"
+    :style.border-radius="filters.includes('all') ? '28px' : ''"
+    on:click="toggleFilter('all')"
+  >
+    All
+  </p-button>
+  <p-button
+    attr:color="filters.includes('active') ? 'primary' : 'neutral'"
+    :style.border-radius="filters.includes('active') ? '28px' : ''"
+    on:click="toggleFilter('active')"
+  >
+    Active
+  </p-button>
+  <p-button
+    attr:color="filters.includes('completed') ? 'primary' : 'neutral'"
+    :style.border-radius="filters.includes('completed') ? '28px' : ''"
+    on:click="toggleFilter('completed')"
+  >
+    Completed
+  </p-button>
+</p-button-group>
+```
+
+### Sort Options（单选）
+
+使用 `color` 属性和 `border-radius` 样式切换选中状态，适用于排序选项等场景。
+
+```html
+<p-button-group>
+  <p-button
+    attr:color="order === 'newest' ? 'primary' : 'neutral'"
+    :style.border-radius="order === 'newest' ? '28px' : ''"
+    on:click="order = 'newest'"
+  >
+    Newest
+  </p-button>
+  <p-button
+    attr:color="order === 'oldest' ? 'primary' : 'neutral'"
+    :style.border-radius="order === 'oldest' ? '28px' : ''"
+    on:click="order = 'oldest'"
+  >
+    Oldest
+  </p-button>
+  <p-button
+    attr:color="order === 'price' ? 'primary' : 'neutral'"
+    :style.border-radius="order === 'price' ? '28px' : ''"
+    on:click="order = 'price'"
+  >
+    Price
+  </p-button>
+</p-button-group>
+```

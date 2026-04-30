@@ -4,6 +4,7 @@
 html {
   background-color: var(--md-sys-color-surface);
   color: var(--md-sys-color-on-surface);
+  --pui-default-rounded: 4px;
 }
 
 @media (prefers-color-scheme: light) {

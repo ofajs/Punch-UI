@@ -1,0 +1,49 @@
+<template component>
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <slot></slot>
+  <script>
+    export default async function () {
+      return {
+        tag: "p-checkbox-group",
+        data: {
+          value: []
+        },
+        proto: {
+          updateValueFromChildren() {
+            const checkboxes = this.all("p-checkbox");
+            const checkedValues = [];
+            checkboxes.forEach(cb => {
+              if (cb.checked) {
+                checkedValues.push(cb.value);
+              }
+            });
+            this.value.splice(0, this.value.length, ...checkedValues);
+            this.emit("change");
+          }
+        },
+        attached() {
+          this.updateValueFromChildren();
+
+          this.on("attached-checkbox", (e) => {
+            this.updateValueFromChildren();
+          });
+
+          this.on("change", (e) => {
+            const checkbox = $(e.target);
+            if (!checkbox.is("p-checkbox")) {
+              return;
+            }
+
+            e.stopPropagation();
+
+            this.updateValueFromChildren();
+          });
+        },
+      };
+    }
+  </script>
+</template>

@@ -1,0 +1,259 @@
+<template component>
+  <l-m src="../ripple/ripple.html"></l-m>
+  <l-m src="../collapse/collapse.html"></l-m>
+
+  <style>
+    :host {
+      display: block;
+      font-size: 14px;
+      --list-item-default-radius: var(--pui-default-rounded, 4px);
+      --list-outer-radius: calc(var(--pui-default-rounded, 4px) * 3);
+      border-radius: var(--list-item-default-radius);
+      --self-item-indent: calc(
+        var(--increase-sublist-indent, 0px) + var(--sublist-indent, 0px)
+      );
+    }
+
+    ::slotted(p-list) {
+      --increase-sublist-indent: var(--self-item-indent, 0px);
+    }
+
+    .left-indent {
+      width: var(--self-item-indent, 0px);
+    }
+
+    .main {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: var(--padding, 8px 12px);
+      box-sizing: border-box;
+      --pui-ripple-color: rgb(from var(--main-color-container) r g b / 0.3);
+    }
+
+    :host(:first-child) {
+      border-radius: var(--list-outer-radius) var(--list-outer-radius)
+        var(--list-item-default-radius) var(--list-item-default-radius);
+    }
+
+    :host(:last-child) {
+      border-radius: var(--list-item-default-radius)
+        var(--list-item-default-radius) var(--list-outer-radius)
+        var(--list-outer-radius);
+    }
+
+    :host([align-top]) .main {
+      align-items: flex-start;
+    }
+
+    :host([button]) .main {
+      cursor: pointer;
+    }
+
+    :host([disabled]) .main {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    :host([disabled]) p-ripple {
+      display: none;
+      cursor: not-allowed;
+    }
+
+    .prefix {
+      display: flex;
+      align-items: center;
+    }
+
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+      color: var(--md-sys-color-on-surface);
+    }
+
+    .content-main {
+      line-height: 1.5em;
+    }
+
+    ::slotted([secondary]) {
+      font-size: 12px;
+      margin-top: 4px;
+      line-height: 1.4em;
+    }
+
+    .suffix {
+      display: flex;
+      align-items: center;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    ::slotted([slot="prefix"]) {
+      margin-right: 12px;
+    }
+
+    ::slotted([slot="suffix"]) {
+      margin-left: 12px;
+    }
+
+    ::slotted([ellipsis]) {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    ::slotted([ellipsis="1"]) {
+      -webkit-line-clamp: 1;
+    }
+
+    ::slotted([ellipsis="2"]) {
+      -webkit-line-clamp: 2;
+    }
+
+    ::slotted([ellipsis="3"]) {
+      -webkit-line-clamp: 3;
+    }
+
+    .sublist {
+      overflow: hidden;
+    }
+
+    .expand-icon {
+      transition: transform 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    :host(:not([expanded])) .expand-icon {
+      transform: rotate(90deg);
+    }
+
+    :host(:not([expanded])) .sublist {
+      overflow: visible;
+    }
+  </style>
+
+  <p-stylization
+    class="main"
+    part="main"
+    attr:variant="variant || 'text'"
+    :color="color"
+    on:click="handleClick"
+  >
+    <div class="left-indent"></div>
+    <div class="prefix">
+      <slot name="prefix"></slot>
+    </div>
+    <div class="content" part="content">
+      <div class="content-main">
+        <slot></slot>
+      </div>
+    </div>
+    <div class="suffix">
+      <slot name="suffix"></slot>
+      <o-if :value="collapsible !== null">
+        <div class="expand-icon">
+          <slot name="expand-icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m17 10l-5 5l-5-5"
+              />
+            </svg>
+          </slot>
+        </div>
+      </o-if>
+    </div>
+    <o-if :value="button !== null">
+      <p-ripple></p-ripple>
+    </o-if>
+  </p-stylization>
+
+  <div class="sublist" part="sublist">
+    <o-if :value="collapsible !== null">
+      <p-collapse attr:hide="expanded === null">
+        <slot name="sublist"></slot>
+      </p-collapse>
+    </o-if>
+    <o-else>
+      <slot name="sublist"></slot>
+    </o-else>
+  </div>
+
+  <script>
+    import "../common/init.js";
+
+    export default {
+      tag: "p-list-item",
+      attrs: {
+        variant: null,
+        color: null,
+        disabled: null,
+        alignTop: null,
+        button: null,
+        expanded: null,
+        collapsible: null,
+      },
+      proto: {
+        handleClick(e) {
+          if (e._listItemButtonClickEvent) {
+            return;
+          }
+
+          if (this.collapsible !== null) {
+            e.stopPropagation();
+            this.toggleExpand();
+            return;
+          }
+
+          if (this.button) {
+            if (this.disabled) {
+              return;
+            }
+
+            e.stopPropagation();
+
+            const target = this.$(this.button);
+
+            if (!target) {
+              console.warn("button selector not found:", this.button, this.ele);
+              return;
+            }
+
+            const event = new PointerEvent("click", {
+              bubbles: true,
+              cancelable: true,
+              pointer: e.pointer,
+            });
+
+            event._listItemButtonClickEvent = true;
+
+            target.ele.dispatchEvent(event);
+          }
+
+          this.emit("click-main");
+        },
+        toggleExpand() {
+          this._expanded = !this._expanded;
+          this.attr("expanded", this._expanded ? "" : undefined);
+        },
+      },
+      attached() {
+        this._expanded = this.expanded !== false;
+      },
+    };
+  </script>
+</template>

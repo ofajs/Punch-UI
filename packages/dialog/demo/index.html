@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dialog Demo</title>
+  <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
+  <link rel="stylesheet" href="../../css/pui-global.css" />
+  <style>
+    body {
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+      padding: 20px;
+    }
+
+    .demo-section {
+      margin-bottom: 32px;
+    }
+
+    .demo-section h3 {
+      margin-bottom: 16px;
+      color: #333;
+    }
+
+    p-button {
+      margin: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Dialog</h2>
+
+  <l-m src="../dialog.html"></l-m>
+  <l-m src="../../button/button.html"></l-m>
+  <l-m src="../../input/input.html"></l-m>
+  <l-m src="../../../tool/theme-switch/theme-switch.html"></l-m>
+
+  <div style="position: fixed; top: 20px; right: 20px;">
+    <p-theme-switch></p-theme-switch>
+  </div>
+
+  <!-- <div class="demo-section">
+    <h3>Basic Dialog</h3>
+    <p-button id="show-basic-dialog">Open Basic Dialog</p-button>
+
+    <p-dialog id="basic-dialog" auto-close>
+      <span slot="title">Dialog Title</span>
+      <div>
+        <p>This is the dialog content area.</p>
+        <p>You can place any HTML content here.</p>
+      </div>
+      <div slot="bottom">
+        <p-button color="primary" id="basic-ok-btn">OK</p-button>
+        <p-button variant="text" id="basic-cancel-btn">Cancel</p-button>
+      </div>
+    </p-dialog>
+    <script type="module">
+      const basicDialog = $("#basic-dialog");
+
+      $("#show-basic-dialog").on("click", () => {
+        basicDialog.open = true;
+      });
+
+      $("#basic-ok-btn").on("click", () => {
+        basicDialog.open = false;
+        console.log("OK clicked");
+      });
+
+      $("#basic-cancel-btn").on("click", () => {
+        basicDialog.open = false;
+        console.log("Cancel clicked");
+      });
+    </script>
+  </div>
+
+  <div class="demo-section">
+    <h3>Dialog with Form</h3>
+    <p-button id="show-form-dialog">Open Form Dialog</p-button>
+
+    <p-dialog id="form-dialog">
+      <span slot="title">User Information</span>
+      <div>
+        <p-input>
+          <span slot="label">Username</span>
+        </p-input>
+        <br />
+        <p-input>
+          <span slot="label">Email</span>
+        </p-input>
+      </div>
+      <div slot="bottom">
+        <p-button color="primary" id="form-submit-btn">Submit</p-button>
+        <p-button variant="text" id="form-close-btn">Close</p-button>
+      </div>
+    </p-dialog>
+    <script type="module">
+      const formDialog = $("#form-dialog");
+
+      $("#show-form-dialog").on("click", () => {
+        formDialog.open = true;
+      });
+
+      $("#form-submit-btn").on("click", () => {
+        formDialog.open = false;
+        console.log("Form submitted");
+      });
+
+      $("#form-close-btn").on("click", () => {
+        formDialog.open = false;
+        console.log("Form closed");
+      });
+    </script>
+  </div>
+
+  <div class="demo-section">
+    <h3>Dialog with Autofocus</h3>
+    <p-button id="show-autofocus-dialog">Open Autofocus Dialog</p-button>
+
+    <p-dialog id="autofocus-dialog" auto-close>
+      <span slot="title">Quick Input</span>
+      <div>
+        <p-input autofocus>
+          <span slot="label">Type something</span>
+        </p-input>
+      </div>
+      <div slot="bottom">
+        <p-button color="primary" id="autofocus-ok-btn">Done</p-button>
+      </div>
+    </p-dialog>
+    <script type="module">
+      const autofocusDialog = $("#autofocus-dialog");
+
+      $("#show-autofocus-dialog").on("click", () => {
+        autofocusDialog.open = true;
+      });
+
+      $("#autofocus-ok-btn").on("click", () => {
+        autofocusDialog.open = false;
+        console.log("Done clicked");
+      });
+    </script>
+  </div> -->
+
+  <o-page src="./demo-page.html"></o-page>
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snackbar Demo</title>
+  <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
+  <link rel="stylesheet" href="../css/pui-global.css" />
+  <style>
+    body {
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+      padding: 20px;
+    }
+
+    .demo-section {
+      margin-bottom: 32px;
+    }
+
+    .demo-section p-snackbar {
+      margin: 16px 0;
+      display: block;
+    }
+
+
+    .demo-section h3 {
+      margin-bottom: 16px;
+      color: #333;
+    }
+
+    p-button {
+      margin: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Snackbar</h2>
+
+  <l-m src="../../tool/theme-switch/theme-switch.html"></l-m>
+  <l-m src="../button/button.html"></l-m>
+
+  <div style="position: fixed; top: 20px; right: 20px;">
+    <p-theme-switch></p-theme-switch>
+  </div>
+
+  <div class="demo-section">
+    <h3>Basic Usage</h3>
+    <l-m src="./snackbar.html"></l-m>
+    <p-snackbar>
+      This is a snackbar message
+      <p-button slot="action" size="small" variant="tonal">Action</p-button>
+    </p-snackbar>
+    <p-snackbar variant="tonal">
+      This is a snackbar message
+      <p-button slot="action" size="small">Action</p-button>
+    </p-snackbar>
+  </div>
+
+  <div class="demo-section">
+    <h3>Color Variants</h3>
+    <p-snackbar color="primary">
+      Primary snackbar
+      <p-button slot="action" size="small" variant="tonal">Action</p-button>
+    </p-snackbar>
+    <p-snackbar color="neutral">
+      Neutral snackbar
+      <p-button slot="action" size="small" variant="tonal">Action</p-button>
+    </p-snackbar>
+    <p-snackbar color="error">
+      Error snackbar
+      <p-button slot="action" size="small" variant="tonal" color="error">Action</p-button>
+    </p-snackbar>
+    <p-snackbar color="success">
+      Success snackbar
+      <p-button slot="action" size="small" variant="tonal" color="success">Action</p-button>
+    </p-snackbar>
+  </div>
+
+  <div class="demo-section">
+    <h3>Outlined Variant</h3>
+    <p-snackbar variant="outlined">
+      Outlined snackbar message
+      <p-button slot="action" size="small" variant="text">Action</p-button>
+    </p-snackbar>
+  </div>
+
+  <div class="demo-section">
+    <h3>With Close Button</h3>
+    <p-snackbar color="primary">
+      Message with close button
+      <p-button slot="action" size="small" variant="tonal">Action</p-button>
+      <div slot="action" style="margin-right: 4px;cursor: pointer;">
+        ✕
+      </div>
+    </p-snackbar>
+  </div>
+
+  <div class="demo-section">
+    <h3>Toast Util (uses snackbar component)</h3>
+    <p-button id="show-toast">Show Toast</p-button>
+    <p-button id="show-toast-duration">Toast (5s)</p-button>
+    <p-button id="show-toast-error">Error Toast</p-button>
+    <div class="result">
+      <span>toast(message, options) - 显示轻提示，默认3秒后消失</span>
+    </div>
+    <script type="module">
+      import toast from "../util/toast.js";
+
+      $("#show-toast").on("click", () => {
+        toast("This is a toast message!");
+      });
+
+      $("#show-toast-duration").on("click", () => {
+        toast({
+          message: "This toast will last 5 seconds",
+          duration: 5000,
+        });
+      });
+
+      $("#show-toast-error").on("click", () => {
+        toast({
+          message: "An error occurred",
+          color: "error",
+        });
+      });
+    </script>
+  </div>
+</body>
+
+</html>

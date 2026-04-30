@@ -19,6 +19,10 @@
 - [Input 输入框组件](./packages/input/README.md)
 - [Switch 开关组件](./packages/switch/README.md)
 - [Textarea 多行文本输入框](./packages/textarea/README.md)
+- [Checkbox 复选框组件](./packages/checkbox/README.md)
+- [Radio 单选框组件](./packages/radio/README.md)
+- [Dialog 对话框组件](./packages/dialog/README.md)
+- [List 列表组件](./packages/list/README.md)
 
 ### 引入组件
 
@@ -34,6 +38,8 @@
 
 <!-- 多行文本输入框组件 -->
 <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+
+...
 ```
 
 ### 黑夜/白天模式

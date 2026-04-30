@@ -1,0 +1,266 @@
+<template component>
+  <style>
+    :host {
+      display: inline-flex;
+      align-items: center;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+
+    :host([size="xs"]) {
+      font-size: 12px;
+    }
+
+    :host([size="s"]),
+    :host([size="small"]) {
+      font-size: 13px;
+    }
+
+    :host([size="l"]),
+    :host([size="large"]) {
+      font-size: 16px;
+    }
+
+    :host([size="xl"]) {
+      font-size: 18px;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      border-radius: inherit;
+      outline: none;
+    }
+
+    .container:focus-visible,
+    .container.focus {
+      outline: 2px solid var(--md-sys-color-primary);
+      outline-offset: 2px;
+    }
+
+    :host([disabled]) .container {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    p-stylization {
+      position: relative;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      transition: all 0.3s;
+      overflow: hidden;
+    }
+
+    :host([size="xs"]) p-stylization {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+    }
+
+    :host([size="s"]) p-stylization,
+    :host([size="small"]) p-stylization {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+    }
+
+    :host([size="l"]) p-stylization,
+    :host([size="large"]) p-stylization {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+    }
+
+    :host([size="xl"]) p-stylization {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+    }
+
+    .dot {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background-color: var(--on-main-color);
+      transition: opacity 0.2s cubic-bezier(0.25, 0.1, 0.36, 1.63), width 0.3s cubic-bezier(0.25, 0.1, 0.36, 1.63), height 0.3s cubic-bezier(0.25, 0.1, 0.36, 1.63);
+    }
+
+    p-stylization.checked .dot {
+      opacity: 1;
+      width: 11px;
+      height: 11px;
+    }
+
+    :host([size="xs"]) p-stylization.checked .dot {
+      width: 7px;
+      height: 7px;
+    }
+
+    :host([size="s"]) p-stylization.checked .dot,
+    :host([size="small"]) p-stylization.checked .dot {
+      width: 9px;
+      height: 9px;
+    }
+
+    :host([size="l"]) p-stylization.checked .dot,
+    :host([size="large"]) p-stylization.checked .dot {
+      width: 14px;
+      height: 14px;
+    }
+
+    :host([size="xl"]) p-stylization.checked .dot {
+      width: 18px;
+      height: 18px;
+    }
+
+    .border-bg {
+      box-sizing: border-box;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px solid var(--main-color);
+      transition: all 0.2s ease;
+    }
+
+    :host([size="xs"]) .border-bg {
+      border-width: 1.5px;
+    }
+
+    :host([size="s"]) .border-bg,
+    :host([size="small"]) .border-bg {
+      border-width: 1.5px;
+    }
+
+    :host([size="l"]) .border-bg,
+    :host([size="large"]) .border-bg {
+      border-width: 2px;
+    }
+
+    :host([size="xl"]) .border-bg {
+      border-width: 2px;
+    }
+
+    p-stylization.checked .border-bg {
+      border: 13px solid var(--main-color);
+    }
+
+    :host([size="xs"]) p-stylization.checked .border-bg {
+      border: 8px solid var(--main-color);
+    }
+
+    :host([size="s"]) p-stylization.checked .border-bg,
+    :host([size="small"]) p-stylization.checked .border-bg {
+      border: 10px solid var(--main-color);
+    }
+
+    :host([size="l"]) p-stylization.checked .border-bg,
+    :host([size="large"]) p-stylization.checked .border-bg {
+      border: 16px solid var(--main-color);
+    }
+
+    :host([size="xl"]) p-stylization.checked .border-bg {
+      border: 20px solid var(--main-color);
+    }
+
+    .label {
+      margin-left: 12px;
+      user-select: none;
+      cursor: pointer;
+    }
+
+    :host(:empty) .label {
+      display: none;
+    }
+
+    :host([disabled]) .label {
+      cursor: not-allowed;
+    }
+  </style>
+  <div class="container" class:focus="isFocus" tabindex="0" on:keydown="handleKeydown" on:blur="handleBlur">
+    <p-stylization class="track" class:checked="checked" :variant="variant" :color="checked ? color : 'neutral'"
+      style="border: none">
+      <div class="border-bg"></div>
+      <div class="dot"></div>
+    </p-stylization>
+  </div>
+  <div class="label">
+    <slot></slot>
+  </div>
+  <script>
+    import "../common/init.js";
+
+    export default async ({ load }) => {
+      if (!customElements.get("p-stylization")) {
+        await load("../stylization/stylization.html");
+      }
+
+      return {
+        tag: "p-radio",
+        attrs: {
+          name: null,
+          size: null,
+          disabled: null,
+          color: null,
+          value: null,
+          autofocus: null,
+          variant: null,
+        },
+        data: {
+          infocus: false,
+          isFocus: false,
+          checked: false,
+        },
+        watch: {
+          autofocus(val) {
+            if (val !== null) {
+              setTimeout(() => {
+                this.shadow.$(".container").ele.focus();
+              }, 150);
+            }
+          },
+        },
+        proto: {
+          focus() {
+            this.isFocus = true;
+            this.shadow.$(".container").ele.focus();
+          },
+          handleKeydown(e) {
+            if (this.disabled !== null) return;
+            if (e.key === " " || e.key === "Enter") {
+              e.preventDefault();
+              this.checked = !this.checked;
+              this.emit("change");
+            }
+          },
+          handleBlur() {
+            this.isFocus = false;
+          },
+        },
+        ready() {
+          this.on("click", (e) => {
+            if (this.disabled !== null) return;
+            if (!this.checked) {
+              this.checked = true;
+              this.emit("change");
+            }
+          });
+        },
+        attached() {
+          if (this.attr("checked") !== null) {
+            this.checked = true;
+          } else {
+            this.checked = false;
+          }
+          this.emit("attached-radio");
+        },
+      };
+    };
+  </script>
+</template>

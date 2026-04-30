@@ -61,6 +61,7 @@
       color: var(--neutral-color);
       background-color: transparent;
     }
+
     .label {
       position: absolute;
       left: 0;
@@ -88,8 +89,10 @@
       left: 0;
       top: -8px;
       font-size: 12px;
-      background-color: var(--label-bg-color, var(--md-sys-color-surface));
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
     }
+
     :host(:not([focus]):not([hang-label])) .label {
       color: var(--neutral-color);
     }
@@ -118,10 +121,7 @@
     }
   </style>
   <link rel="stylesheet" href="./field-container.css" />
-  <p-stylization
-    attr:variant="variant === 'filled' ? 'tonal' : 'outlined'"
-    :color="color"
-  >
+  <p-stylization attr:variant="variant === 'filled' ? 'tonal' : 'outlined'" :color="color">
     <div class="content">
       <div class="prefix">
         <slot name="prefix"></slot>

@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>List Demo</title>
+    <script
+      src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs"
+      type="module"
+    ></script>
+    <script src="https://code.iconify.design/iconify/1.0.0/iconify.min.js"></script>
+    <link rel="stylesheet" href="../../css/pui-global.css" />
+    <style>
+      body {
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          Segoe UI,
+          Microsoft Yahei,
+          Helvetica,
+          Arial,
+          sans-serif,
+          Apple Color Emoji,
+          Segoe UI Emoji;
+        padding: 20px;
+      }
+
+      .demo-section {
+        margin-bottom: 32px;
+      }
+
+      .demo-section h3 {
+        margin-bottom: 16px;
+        color: #333;
+      }
+
+      p-list {
+        max-width: 600px;
+        background-color: var(--md-sys-color-surface);
+      }
+
+      .avatar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        /* background-color: var(--md-sys-color-primary-container); */
+        background-color: var(--main-color-container);
+        color: var(--md-sys-color-on-primary-container);
+        font-weight: 500;
+      }
+
+      .avatar-large {
+        width: 56px;
+        height: 56px;
+        border-radius: 12px;
+      }
+
+      .avatar-img {
+        width: 56px;
+        height: 56px;
+        border-radius: 12px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-image: url(https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=3174&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+      }
+
+      /* 不要这样写，list在item内，颜色会重叠 */
+      /* p-list-item {
+        background-color: rgb(from var(--md-sys-color-on-surface) r g b / 0.1);
+      } */
+
+      p-list-item::part(main) {
+        background-color: rgb(from var(--md-sys-color-on-surface) r g b / 0.1);
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>List</h2>
+
+    <l-m src="../../../tool/theme-switch/theme-switch.html"></l-m>
+
+    <div style="position: fixed; top: 20px; right: 20px; z-index: 100">
+      <p-theme-switch></p-theme-switch>
+    </div>
+
+    <l-m src="../list.html"></l-m>
+
+    <div class="demo-section">
+      <h3>Basic List</h3>
+      <p-list>
+        <p-list-item variant="outlined">Single-line item</p-list-item>
+        <p-list-item>Single-line item</p-list-item>
+        <p-list-item>Single-line item</p-list-item>
+      </p-list>
+    </div>
+
+    <div class="demo-section">
+      <h3>With Leading Icon</h3>
+      <p-list>
+        <p-list-item>
+          <span slot="prefix" class="avatar">A</span>
+          Single-line item
+        </p-list-item>
+        <p-list-item>
+          <span slot="prefix" class="avatar">B</span>
+          Single-line item
+        </p-list-item>
+        <p-list-item>
+          <span slot="prefix" class="avatar">C</span>
+          Single-line item
+        </p-list-item>
+      </p-list>
+    </div>
+
+    <div class="demo-section">
+      <h3>With Leading Image</h3>
+      <p-list>
+        <p-list-item>
+          <div slot="prefix" class="avatar-img"></div>
+          Single-line item
+        </p-list-item>
+        <p-list-item>
+          <div
+            slot="prefix"
+            class="avatar-img"
+            style="
+              background-image: url(https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=987&auto=format&fit=crop);
+            "
+          ></div>
+          Single-line item
+        </p-list-item>
+        <p-list-item>
+          <div
+            slot="prefix"
+            class="avatar-img"
+            style="
+              background-image: url(https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=987&auto=format&fit=crop);
+            "
+          ></div>
+          Single-line item
+        </p-list-item>
+      </p-list>
+    </div>
+
+    <div class="demo-section">
+      <h3>With Leading Thumbnail</h3>
+      <p-list>
+        <p-list-item>
+          <div
+            slot="prefix"
+            class="avatar-large"
+            style="
+              background-color: var(--md-sys-color-error-container);
+              color: var(--md-sys-color-on-error-container);
+            "
+          >
+            A
+          </div>
+          Single-line item
+        </p-list-item>
+        <p-list-item>
+          <div
+            slot="prefix"
+            class="avatar-large"
+            style="
+              background-color: var(--md-sys-color-primary-container);
+              color: var(--md-sys-color-on-primary-container);
+            "
+          >
+            B
+          </div>
+          Single-line item
+        </p-list-item>
+        <p-list-item>
+          <div
+            slot="prefix"
+            class="avatar-large"
+            style="
+              background-color: var(--md-sys-color-tertiary-container);
+              color: var(--md-sys-color-on-tertiary-container);
+            "
+          >
+            C
+          </div>
+          Single-line item
+        </p-list-item>
+      </p-list>
+    </div>
+
+    <div class="demo-section">
+      <h3>Two-line List</h3>
+      <p-list>
+        <p-list-item>
+          <span slot="prefix" class="avatar">A</span>
+          Two-line item
+          <div secondary>Secondary text</div>
+        </p-list-item>
+        <p-list-item>
+          <span slot="prefix" class="avatar">B</span>
+          Two-line item
+          <div secondary>Secondary text</div>
+        </p-list-item>
+        <p-list-item>
+          <span slot="prefix" class="avatar">C</span>
+          Two-line item
+          <div secondary>Secondary text</div>
+        </p-list-item>
+      </p-list>
+    </div>
+
+    <div class="demo-section">
+      <h3>With Trailing Element</h3>
+      <p-list>
+        <p-list-item>
+          <span slot="prefix" class="avatar">A</span>
+          Two-line item
+          <div secondary>Secondary text</div>
+          <span slot="suffix">99+</span>
+        </p-list-item>
+        <p-list-item>
+          <span slot="prefix" class="avatar">B</span>
+          Two-line item
+          <div secondary>Secondary text</div>
+          <span slot="suffix">50</span>
+        </p-list-item>
+        <p-list-item>
+          <span slot="prefix" class="avatar">C</span>
+          Two-line item
+          <div secondary>Secondary text</div>
+          <span slot="suffix">30</span>
+        </p-list-item>
+      </p-list>
+    </div>
+
+    <div class="demo-section">
+      <h3>With Divider</h3>
+      <p-list>
+        <p-list-item>Single-line item</p-list-item>
+        <p-list-item>Single-line item</p-list-item>
+        <p-list-item>Single-line item</p-list-item>
+        <p-list-item>Single-line item</p-list-item>
+      </p-list>
+    </div>
+
+    <div class="demo-section">
+      <h3>Active State</h3>
+      <p-list>
+        <p-list-item>
+          <span slot="prefix" class="avatar">A</span>
+          Two-line item
+          <div secondary>Secondary text</div>
+        </p-list-item>
+        <p-list-item active>
+          <span slot="prefix" class="avatar">B</span>
+          Active item
+          <div secondary>Secondary text</div>
+        </p-list-item>
+        <p-list-item>
+          <span slot="prefix" class="avatar">C</span>
+          Two-line item
+          <div secondary>Secondary text</div>
+        </p-list-item>
+      </p-list>
+    </div>
+
+    <div class="demo-section">
+      <h3>Disabled State</h3>
+      <p-list>
+        <p-list-item button>
+          <span slot="prefix" class="avatar">A</span>
+          Normal item
+        </p-list-item>
+        <p-list-item button disabled>
+          <span slot="prefix" class="avatar">B</span>
+          Disabled item
+          <div secondary>Cannot be clicked</div>
+        </p-list-item>
+        <p-list-item button disabled>
+          <span slot="prefix" class="avatar">C</span>
+          Disabled item
+          <div secondary>With secondary text</div>
+        </p-list-item>
+      </p-list>
+    </div>
+
+    <div class="demo-section">
+      <h3>Align Top (Two-line with long text)</h3>
+      <p-list>
+        <p-list-item align-top>
+          <span slot="prefix" class="avatar">A</span>
+          Two-line item with long text that should wrap to multiple lines
+          <div secondary>Secondary text aligned to top with avatar</div>
+        </p-list-item>
+        <p-list-item align-top>
+          <span slot="prefix" class="avatar">B</span>
+          Short text
+          <div secondary>Secondary text</div>
+        </p-list-item>
+      </p-list>
+    </div>
+
+    <div class="demo-section">
+      <h3>Button Items (with ripple)</h3>
+      <p-list>
+        <p-list-item button>
+          <span slot="prefix" class="avatar">A</span>
+          Clickable item with ripple
+          <div secondary>Tap to see ripple effect</div>
+        </p-list-item>
+        <p-list-item button>
+          <span slot="prefix" class="avatar">B</span>
+          Clickable item with ripple
+          <div secondary>Tap to see ripple effect</div>
+        </p-list-item>
+        <p-list-item button>
+          <span slot="prefix" class="avatar">C</span>
+          Clickable item with ripple
+          <div secondary>Tap to see ripple effect</div>
+        </p-list-item>
+      </p-list>
+    </div>
+
+    <div class="demo-section">
+      <h3>Button with Color</h3>
+      <p-list>
+        <p-list-item button color="primary">
+          <span slot="prefix" class="avatar">A</span>
+          Primary color item
+          <div secondary>With tonal background</div>
+        </p-list-item>
+        <p-list-item button color="error">
+          <span slot="prefix" class="avatar">B</span>
+          Error color item
+          <div secondary>With tonal background</div>
+        </p-list-item>
+      </p-list>
+    </div>
+
+    <l-m src="../../checkbox/checkbox.html"></l-m>
+    <l-m src="../../checkbox/group.html"></l-m>
+
+    <div class="demo-section">
+      <h3>Button With Checkbox</h3>
+      <p-checkbox-group>
+        <p-list>
+          <p-list-item button="p-checkbox">
+            <span slot="prefix" class="avatar">A</span>
+            Clickable item with ripple
+            <div secondary>Tap to see ripple effect</div>
+            <p-checkbox slot="suffix"></p-checkbox>
+          </p-list-item>
+          <p-list-item button="p-checkbox">
+            <span slot="prefix" class="avatar">B</span>
+            Clickable item with ripple
+            <div secondary>Tap to see ripple effect</div>
+            <p-checkbox slot="suffix"></p-checkbox>
+          </p-list-item>
+          <p-list-item button="p-checkbox">
+            <span slot="prefix" class="avatar">C</span>
+            Clickable item with ripple
+            <div secondary>Tap to see ripple effect</div>
+            <p-checkbox slot="suffix"></p-checkbox>
+          </p-list-item>
+        </p-list>
+      </p-checkbox-group>
+    </div>
+
+    <div class="demo-section">
+      <h3>Button With Radio</h3>
+      <p-radio-group>
+        <p-list>
+          <p-list-item button="p-radio">
+            <p-radio slot="prefix"></p-radio>
+            <span slot="prefix" class="avatar">A</span>
+            Clickable item with ripple
+            <div secondary>Tap to see ripple effect</div>
+          </p-list-item>
+          <p-list-item button="p-radio">
+            <p-radio slot="prefix"></p-radio>
+            <span slot="prefix" class="avatar">B</span>
+            Clickable item with ripple
+            <div secondary>Tap to see ripple effect</div>
+          </p-list-item>
+          <p-list-item button="p-radio">
+            <p-radio slot="prefix"></p-radio>
+            <span slot="prefix" class="avatar">C</span>
+            Clickable item with ripple
+            <div secondary>Tap to see ripple effect</div>
+          </p-list-item>
+        </p-list>
+      </p-radio-group>
+    </div>
+
+    <style>
+      .demo-section-list p-list-item > p-list {
+        margin-left: 16px;
+      }
+    </style>
+
+    <div class="demo-section">
+      <h3>Sublist / Expandable Items</h3>
+      <h4>Use CSS margin to indent sub-items</h4>
+      <p-list class="demo-section-list">
+        <p-list-item>
+          <span slot="prefix" class="avatar">A</span>
+          Single-line item
+        </p-list-item>
+        <p-list-item collapsible expanded button>
+          <span slot="prefix" class="avatar">B</span>
+          Expandable item
+          <div secondary>Click to expand/collapse</div>
+          <!-- <div slot="expand-icon">▿</div> -->
+          <p-list slot="sublist">
+            <p-list-item>
+              <span slot="prefix" class="avatar">B1</span>
+              Sub-item 1
+            </p-list-item>
+            <p-list-item>
+              <span slot="prefix" class="avatar">B2</span>
+              Sub-item 2
+            </p-list-item>
+            <p-list-item expanded>
+              <span slot="prefix" class="avatar">B3</span>
+              Nested (not collapsible)
+              <p-list slot="sublist">
+                <p-list-item>
+                  <span slot="prefix" class="avatar">B3-1</span>
+                  Nested item 1
+                </p-list-item>
+                <p-list-item>
+                  <span slot="prefix" class="avatar">B3-2</span>
+                  Nested item 2
+                </p-list-item>
+              </p-list>
+            </p-list-item>
+          </p-list>
+        </p-list-item>
+        <p-list-item>
+          <span slot="prefix" class="avatar">C</span>
+          Single-line item
+        </p-list-item>
+      </p-list>
+
+      <br />
+      <br />
+
+      <h4>Custom Expand Icon</h4>
+      <p-list>
+        <p-list-item collapsible expanded>
+          <span slot="prefix" class="avatar">A</span>
+          Item with custom expand icon
+          <div secondary>Click to toggle</div>
+          <div slot="expand-icon" style="font-size: 18px">▾</div>
+          <p-list slot="sublist" style="--sublist-indent: 16px">
+            <p-list-item>
+              <span slot="prefix" class="avatar">A1</span>
+              Sub-item 1
+            </p-list-item>
+            <p-list-item>
+              <span slot="prefix" class="avatar">A2</span>
+              Sub-item 2
+            </p-list-item>
+          </p-list>
+        </p-list-item>
+        <p-list-item collapsible>
+          <span slot="prefix" class="avatar">B</span>
+          Another item with custom icon
+          <div secondary>Using arrow icon</div>
+          <span
+            slot="expand-icon"
+            class="iconify"
+            data-icon="mdi:chevron-down"
+          ></span>
+          <p-list slot="sublist" style="--sublist-indent: 16px">
+            <p-list-item>
+              <span slot="prefix" class="avatar">B1</span>
+              Sub-item 1
+            </p-list-item>
+            <p-list-item>
+              <span slot="prefix" class="avatar">B2</span>
+              Sub-item 2
+            </p-list-item>
+          </p-list>
+        </p-list-item>
+      </p-list>
+
+      <br />
+      <br />
+
+      <h4>Use CSS --sublist-indent to indent sub-items</h4>
+      <p-list>
+        <p-list-item>
+          <span slot="prefix" class="avatar">A</span>
+          Single-line item
+        </p-list-item>
+        <p-list-item collapsible expanded>
+          <span slot="prefix" class="avatar">B</span>
+          <!-- <div slot="expand-icon">▿</div> -->
+          Expandable item
+          <div secondary>Click to expand/collapse</div>
+          <p-list slot="sublist" style="--sublist-indent: 16px">
+            <p-list-item>
+              <span slot="prefix" class="avatar">B1</span>
+              Sub-item 1
+            </p-list-item>
+            <p-list-item>
+              <span slot="prefix" class="avatar">B2</span>
+              Sub-item 2
+            </p-list-item>
+            <p-list-item expanded>
+              <span slot="prefix" class="avatar">B3</span>
+              Nested (not collapsible)
+              <p-list slot="sublist">
+                <p-list-item expanded>
+                  <span slot="prefix" class="avatar">B3-1</span>
+                  Nested item 1
+                  <p-list slot="sublist">
+                    <p-list-item>
+                      <span slot="prefix" class="avatar">B3-1-1</span>
+                      Nested item 1
+                    </p-list-item>
+                    <p-list-item>
+                      <span slot="prefix" class="avatar">B3-1-2</span>
+                      Nested item 2
+                    </p-list-item>
+                  </p-list>
+                </p-list-item>
+                <p-list-item>
+                  <span slot="prefix" class="avatar">B3-2</span>
+                  Nested item 2
+                </p-list-item>
+              </p-list>
+            </p-list-item>
+          </p-list>
+        </p-list-item>
+        <p-list-item>
+          <span slot="prefix" class="avatar">C</span>
+          Single-line item
+        </p-list-item>
+      </p-list>
+    </div>
+
+    <l-m src="../../radio/radio.html"></l-m>
+    <l-m src="../../radio/group.html"></l-m>
+
+    <o-page src="./advanced.html"></o-page>
+  </body>
+</html>

@@ -1,0 +1,132 @@
+<template page>
+  <l-m src="../list.html"></l-m>
+  <style>
+    .demo-section {
+      margin-bottom: 32px;
+    }
+    .demo-title {
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    p-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    p-list-item {
+      background-color: rgba(from var(--md-sys-color-neutral) r g b / 0.1);
+      transition:
+        border-radius ease 0.3s,
+        background-color ease 0.1s;
+    }
+
+    .active {
+      background-color: var(--md-sys-color-primary);
+      border-radius: 12px;
+    }
+
+    p-list-item.active div {
+      color: var(--md-sys-color-on-primary);
+    }
+  </style>
+
+  <div class="demo-section">
+    <div class="demo-title">Settings List（单选）</div>
+    <p-list>
+      <p-list-item
+        class:active="selected === 'account'"
+        on:click="selected = 'account'"
+        button
+      >
+        <span slot="prefix" class="icon">👤</span>
+        <div>Account</div>
+      </p-list-item>
+      <p-list-item
+        class:active="selected === 'notifications'"
+        on:click="selected = 'notifications'"
+        button
+      >
+        <span slot="prefix" class="icon">🔔</span>
+        <div>Notifications</div>
+      </p-list-item>
+      <p-list-item
+        class:active="selected === 'privacy'"
+        on:click="selected = 'privacy'"
+        button
+      >
+        <span slot="prefix" class="icon">🔒</span>
+        <div>Privacy</div>
+      </p-list-item>
+      <p-list-item
+        class:active="selected === 'help'"
+        on:click="selected = 'help'"
+        button
+      >
+        <span slot="prefix" class="icon">❓</span>
+        <div>Help</div>
+      </p-list-item>
+    </p-list>
+  </div>
+
+  <div class="demo-section">
+    <div class="demo-title">Category Filter（多选）</div>
+    <p-list>
+      <p-list-item
+        class:active="filters.includes('all')"
+        on:click="toggleFilter('all')"
+        button
+      >
+        <span slot="prefix" class="icon">📁</span>
+        <div>All</div>
+      </p-list-item>
+      <p-list-item
+        class:active="filters.includes('electronics')"
+        on:click="toggleFilter('electronics')"
+        button
+      >
+        <span slot="prefix" class="icon">📱</span>
+        <div>Electronics</div>
+      </p-list-item>
+      <p-list-item
+        class:active="filters.includes('clothing')"
+        on:click="toggleFilter('clothing')"
+        button
+      >
+        <span slot="prefix" class="icon">👕</span>
+        <div>Clothing</div>
+      </p-list-item>
+      <p-list-item
+        class:active="filters.includes('books')"
+        on:click="toggleFilter('books')"
+        button
+      >
+        <span slot="prefix" class="icon">📚</span>
+        <div>Books</div>
+      </p-list-item>
+    </p-list>
+  </div>
+
+  <script>
+    export default async () => {
+      return {
+        data: {
+          selected: "account",
+          filters: ["all"],
+        },
+        proto: {
+          toggleFilter(filter) {
+            if (this.filters.includes(filter)) {
+              if (this.filters.length > 1) {
+                this.filters = this.filters.filter((f) => f !== filter);
+              }
+            } else {
+              this.filters = [...this.filters, filter];
+            }
+          },
+        },
+      };
+    };
+  </script>
+</template>

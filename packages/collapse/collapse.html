@@ -1,0 +1,74 @@
+<template component>
+  <style>
+    :host {
+      display: block;
+      position: relative;
+      --duration: 0.4s;
+      transition: height cubic-bezier(0.2, 0, 0, 1.2) 0s;
+      overflow: hidden;
+    }
+
+    :host([hide]) {
+      height: 0 !important;
+    }
+
+    .container {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+    }
+
+    .content {
+      padding-top: 0.1px;
+    }
+  </style>
+  <div class="container">
+    <div class="content">
+      <slot></slot>
+    </div>
+  </div>
+  <script>
+    export default {
+      tag: "p-collapse",
+      attrs: {
+        hide: null,
+      },
+      proto: {
+        _refreshHeight(height) {
+          if (this.hide !== null) {
+            this.style.height = "0px";
+            return;
+          }
+
+          const targetHeight =
+            height ?? this.shadow.$(".content").ele.scrollHeight;
+          this.style.height = targetHeight + "px";
+        },
+      },
+      watch: {
+        hide() {
+          if (this._initialized) {
+            this.style.transitionDuration = "var(--duration)";
+            this.one("transitionend", () => {
+              this.style.transitionDuration = "";
+            });
+          }
+          this._refreshHeight();
+          this._initialized = true;
+        },
+      },
+      attached() {
+        this._resizeObserver = new ResizeObserver((entries) => {
+          const { height } = entries[0].contentRect;
+          this._refreshHeight(height);
+        });
+
+        this._resizeObserver.observe(this.shadow.$(".content").ele);
+      },
+      detached() {
+        this._resizeObserver?.disconnect();
+      },
+    };
+  </script>
+</template>

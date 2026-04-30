@@ -1,0 +1,57 @@
+<template component>
+  <style>
+    :host {
+      display: block;
+      font-size: 14px;
+    }
+
+    .main {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 14px 48px 14px 16px;
+      min-width: 200px;
+      border-radius: var(--snackbar-border-radius, 8px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .content {
+      flex: 1;
+      line-height: 1.4em;
+    }
+
+    .actions {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+    }
+
+    ::slotted([slot="action"]) {
+      margin-left: 4px;
+    }
+  </style>
+
+  <p-stylization class="main" part="main" attr:variant="variant || 'filled'" :color="color">
+    <div class="content">
+      <slot></slot>
+    </div>
+    <div class="actions">
+      <slot name="action"></slot>
+    </div>
+  </p-stylization>
+
+  <script>
+    import "../common/init.js";
+
+    export default {
+      tag: "p-snackbar",
+      attrs: {
+        variant: "filled",
+        color: "primary",
+      },
+    };
+  </script>
+</template>

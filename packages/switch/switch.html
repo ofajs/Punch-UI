@@ -124,35 +124,78 @@
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 10px;
-      height: 6px;
-      transform: translate(-50%, -70%) rotate(-45deg);
-      border-left: 2px solid var(--on-main-color-container);
-      border-bottom: 2px solid var(--on-main-color-container);
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mark svg {
+      color: var(--on-main-color-container);
+      width: 16px;
+      height: 16px;
       opacity: 0;
       transition: opacity 0.3s;
     }
 
-    .thumb.checked .mark {
+    .thumb.checked .mark svg {
       opacity: 1;
     }
 
+    :host([size="xs"]) .mark svg {
+      width: 11px;
+      height: 11px;
+    }
+
+    :host([size="s"]) .mark svg,
+    :host([size="small"]) .mark svg {
+      width: 13px;
+      height: 13px;
+    }
+
+    :host([size="l"]) .mark svg,
+    :host([size="large"]) .mark svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    :host([size="xl"]) .mark svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .mark svg path {
+      stroke-dasharray: 26;
+      stroke-dashoffset: 26;
+    }
+
+    .thumb.checked .mark svg path {
+      animation: tick-draw 0.16s ease-out forwards;
+      animation-delay: 0.16s;
+    }
+
+    @keyframes tick-draw {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
     :host([size="xs"]) .mark {
-      transform: translate(-50%, -70%) rotate(-45deg) scale(0.6);
+      transform: translate(-50%, -50%) scale(0.6);
     }
 
     :host([size="s"]) .mark,
     :host([size="small"]) .mark {
-      transform: translate(-50%, -70%) rotate(-45deg) scale(0.75);
+      transform: translate(-50%, -50%) scale(0.75);
     }
 
     :host([size="l"]) .mark,
     :host([size="large"]) .mark {
-      transform: translate(-50%, -70%) rotate(-45deg) scale(1.25);
+      transform: translate(-50%, -50%) scale(1.25);
     }
 
     :host([size="xl"]) .mark {
-      transform: translate(-50%, -70%) rotate(-45deg) scale(1.5);
+      transform: translate(-50%, -50%) scale(1.5);
     }
 
     :host([size="xs"]) .thumb.checked {
@@ -202,16 +245,16 @@
     }
   </style>
   <div class="container" tabindex="0" on:keydown="handleKeydown">
-    <p-stylization
-      class="track"
-      class:checked="checked"
-      :variant="variant"
-      :color="checked ? color : 'neutral'"
-      style="border: none"
-    >
+    <p-stylization class="track" class:checked="checked" :variant="variant" :color="checked ? color : 'neutral'"
+      style="border: none">
       <div class="border-bg"></div>
       <div class="thumb" class:checked="checked">
-        <div class="mark"></div>
+        <div class="mark">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+              d="M5 11l6 6l10 -10" />
+          </svg>
+        </div>
       </div>
     </p-stylization>
   </div>

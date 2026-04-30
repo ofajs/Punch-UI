@@ -1,0 +1,152 @@
+<template page>
+  <l-m src="../../button/button.html"></l-m>
+  <l-m src="../../input/input.html"></l-m>
+
+  <style>
+    .demo-section {
+      margin-bottom: 32px;
+    }
+
+    .demo-title {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 12px;
+    }
+
+    p-input {
+      display: block;
+      margin: 8px 8px 12px;
+    }
+  </style>
+
+  <div class="demo-section">
+    <div class="demo-title">Basic Dialog</div>
+    <p-button on:click="basicOpen = true">Open Basic Dialog</p-button>
+
+    <p-dialog sync:open="basicOpen" auto-close>
+      <span slot="title">Dialog Title</span>
+      <div>
+        <p>This is the dialog content area.</p>
+        <p>You can place any HTML content here.</p>
+      </div>
+      <div slot="bottom">
+        <p-button color="primary" on:click="basicOpen = false">OK</p-button>
+        <p-button variant="text" on:click="basicOpen = false">Cancel</p-button>
+      </div>
+    </p-dialog>
+  </div>
+
+  <div class="demo-section">
+    <div class="demo-title">Dialog with Form</div>
+    <p-button on:click="formOpen = true">Open Form Dialog</p-button>
+
+    <p-dialog sync:open="formOpen">
+      <span slot="title">User Information</span>
+      <div>
+        <p-input>
+          <span slot="label">Username</span>
+        </p-input>
+        <p-input>
+          <span slot="label">Email</span>
+        </p-input>
+      </div>
+      <div slot="bottom">
+        <p-button color="primary" on:click="formOpen = false">Submit</p-button>
+        <p-button variant="text" on:click="formOpen = false">Close</p-button>
+      </div>
+    </p-dialog>
+  </div>
+
+  <div class="demo-section">
+    <div class="demo-title">Dialog with Autofocus</div>
+    <p-button on:click="autofocusOpen = true">Open Autofocus Dialog</p-button>
+
+    <p-dialog sync:open="autofocusOpen" auto-close>
+      <span slot="title">Quick Input</span>
+      <div>
+        <p-input autofocus>
+          <span slot="label">Type something</span>
+        </p-input>
+      </div>
+      <div slot="bottom">
+        <p-button color="primary" on:click="autofocusOpen = false">Done</p-button>
+      </div>
+    </p-dialog>
+  </div>
+
+  <div class="demo-section">
+    <div class="demo-title">Click Mask Event</div>
+    <p-button on:click="maskDialogOpen = true">Open Dialog</p-button>
+    <p style="margin-top: 8px; color: #666;">Last mask click: {{maskClickMsg}}</p>
+
+    <p-dialog sync:open="maskDialogOpen" on:click-mask="handleMaskClick">
+      <span slot="title">Click Mask Demo</span>
+      <div>
+        <p>Click on the mask (outside this dialog) to trigger the click-mask event.</p>
+      </div>
+      <div slot="bottom">
+        <p-button color="primary" on:click="maskDialogOpen = false">Close</p-button>
+      </div>
+    </p-dialog>
+  </div>
+
+  <div class="demo-section">
+    <div class="demo-title">Color Variants</div>
+    <p-button on:click="primaryOpen = true">Primary</p-button>
+    <p-button on:click="successOpen = true">Success</p-button>
+    <p-button on:click="errorOpen = true">Error</p-button>
+
+    <p-dialog sync:open="primaryOpen" color="primary" auto-close>
+      <span slot="title">Primary Color</span>
+      <div>
+        <p>This dialog uses primary color.</p>
+      </div>
+      <div slot="bottom">
+        <p-button color="primary" on:click="primaryOpen = false">Close</p-button>
+      </div>
+    </p-dialog>
+
+    <p-dialog sync:open="successOpen" color="success" auto-close>
+      <span slot="title">Success Color</span>
+      <div>
+        <p>This dialog uses success color.</p>
+      </div>
+      <div slot="bottom">
+        <p-button color="success" on:click="successOpen = false">Close</p-button>
+      </div>
+    </p-dialog>
+
+    <p-dialog sync:open="errorOpen" color="error" auto-close>
+      <span slot="title">Error Color</span>
+      <div>
+        <p>This dialog uses error color.</p>
+      </div>
+      <div slot="bottom">
+        <p-button color="error" on:click="errorOpen = false">Close</p-button>
+      </div>
+    </p-dialog>
+  </div>
+
+  <script>
+    export default async () => {
+      return {
+        data: {
+          basicOpen: false,
+          formOpen: false,
+          autofocusOpen: false,
+          maskDialogOpen: false,
+          maskClickMsg: "None",
+          primaryOpen: false,
+          successOpen: false,
+          errorOpen: false,
+        },
+        proto: {
+          handleMaskClick() {
+            this.maskClickMsg = new Date().toLocaleTimeString();
+            this.maskDialogOpen = false;
+          },
+        },
+      };
+    };
+  </script>
+</template>

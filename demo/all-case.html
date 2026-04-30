@@ -51,6 +51,12 @@
   <l-m src="../packages/input/input.html"></l-m>
   <l-m src="../packages/switch/switch.html"></l-m>
   <l-m src="../packages/textarea/textarea.html"></l-m>
+  <l-m src="../packages/checkbox/checkbox.html"></l-m>
+  <l-m src="../packages/checkbox/group.html"></l-m>
+  <l-m src="../packages/radio/radio.html"></l-m>
+  <l-m src="../packages/radio/group.html"></l-m>
+  <l-m src="../packages/list/list.html"></l-m>
+  <l-m src="../packages/dialog/dialog.html"></l-m>
   <l-m src="../tool/theme-switch/theme-switch.html"></l-m>
 
   <div style="position: fixed; top: 20px; right: 20px">
@@ -198,4 +204,257 @@
       </p-textarea>
     </div>
   </div>
+
+  <h2>Checkbox 复选框</h2>
+
+  <div class="demo-section">
+    <h3>尺寸</h3>
+    <div class="demo-row">
+      <p-checkbox size="xs">XS</p-checkbox>
+      <p-checkbox size="s">Small</p-checkbox>
+      <p-checkbox>Medium</p-checkbox>
+      <p-checkbox size="l">Large</p-checkbox>
+      <p-checkbox size="xl">XL</p-checkbox>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>颜色</h3>
+    <div class="demo-row">
+      <p-checkbox color="primary" checked>Primary</p-checkbox>
+      <p-checkbox color="success" checked>Success</p-checkbox>
+      <p-checkbox color="error" checked>Error</p-checkbox>
+      <p-checkbox color="neutral" checked>Neutral</p-checkbox>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>状态</h3>
+    <div class="demo-row">
+      <p-checkbox>Default</p-checkbox>
+      <p-checkbox variant="tonal">Tonal</p-checkbox>
+      <p-checkbox checked>Checked</p-checkbox>
+      <p-checkbox disabled>Disabled</p-checkbox>
+      <p-checkbox indeterminate>Indeterminate</p-checkbox>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Checkbox Group</h3>
+    <div class="demo-row">
+      <p-checkbox-group id="demo-checkbox-group" :value="demoCheckboxGroupValue">
+        <p-checkbox value="1">选项 1</p-checkbox>
+        <p-checkbox value="2" checked>选项 2</p-checkbox>
+        <p-checkbox value="3">选项 3</p-checkbox>
+      </p-checkbox-group>
+    </div>
+    <div class="demo-row">
+      <span>选中值: </span>
+      <span :text="demoCheckboxGroupValue.join(', ')"></span>
+    </div>
+  </div>
+
+  <h2>Radio 单选框</h2>
+
+  <div class="demo-section">
+    <h3>尺寸</h3>
+    <div class="demo-row">
+      <p-radio size="xs">XS</p-radio>
+      <p-radio size="s">Small</p-radio>
+      <p-radio>Medium</p-radio>
+      <p-radio size="l">Large</p-radio>
+      <p-radio size="xl">XL</p-radio>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>颜色</h3>
+    <div class="demo-row">
+      <p-radio color="primary" checked>Primary</p-radio>
+      <p-radio color="success" checked>Success</p-radio>
+      <p-radio color="error" checked>Error</p-radio>
+      <p-radio color="neutral" checked>Neutral</p-radio>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>状态</h3>
+    <div class="demo-row">
+      <p-radio>Default</p-radio>
+      <p-radio variant="tonal">Tonal</p-radio>
+      <p-radio checked>Checked</p-radio>
+      <p-radio disabled>Disabled</p-radio>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Radio Group</h3>
+    <div class="demo-row">
+      <p-radio-group id="demo-radio-group" :value="demoRadioGroupValue">
+        <p-radio value="a">选项 A</p-radio>
+        <p-radio value="b" checked>选项 B</p-radio>
+        <p-radio value="c">选项 C</p-radio>
+      </p-radio-group>
+    </div>
+    <div class="demo-row">
+      <span>选中值: </span>
+      <span :text="demoRadioGroupValue"></span>
+    </div>
+  </div>
+
+  <h2>List 列表</h2>
+
+  <div class="demo-section">
+    <h3>基本列表</h3>
+    <p-list style="max-width: 400px">
+      <p-list-item>单行列表项</p-list-item>
+      <p-list-item>单行列表项</p-list-item>
+      <p-list-item>单行列表项</p-list-item>
+    </p-list>
+  </div>
+
+  <div class="demo-section">
+    <h3>带前缀图标</h3>
+    <p-list style="max-width: 400px">
+      <p-list-item>
+        <span
+          slot="prefix"
+          style="
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          "
+          >A</span
+        >
+        用户名
+        <div secondary>user@example.com</div>
+      </p-list-item>
+      <p-list-item>
+        <span
+          slot="prefix"
+          style="
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--md-sys-color-secondary-container);
+            color: var(--md-sys-color-on-secondary-container);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          "
+          >B</span
+        >
+        用户名
+        <div secondary>user@example.com</div>
+      </p-list-item>
+    </p-list>
+  </div>
+
+  <div class="demo-section">
+    <h3>带后缀</h3>
+    <p-list style="max-width: 400px">
+      <p-list-item>
+        <span
+          slot="prefix"
+          style="
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--md-sys-color-tertiary-container);
+            color: var(--md-sys-color-on-tertiary-container);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          "
+          >C</span
+        >
+        列表项
+        <span
+          slot="suffix"
+          style="color: var(--md-sys-color-on-surface-variant)"
+          >›</span
+        >
+      </p-list-item>
+      <p-list-item>
+        <span
+          slot="prefix"
+          style="
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--md-sys-color-error-container);
+            color: var(--md-sys-color-on-error-container);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          "
+          >D</span
+        >
+        列表项
+        <span
+          slot="suffix"
+          style="color: var(--md-sys-color-on-surface-variant)"
+          >›</span
+        >
+      </p-list-item>
+    </p-list>
+  </div>
+
+  <h2>Dialog 对话框</h2>
+
+  <div class="demo-section">
+    <h3>基本对话框</h3>
+    <div class="demo-row">
+      <p-button id="show-dialog-btn" on:click="demoDialogOpen = true">
+        打开对话框
+      </p-button>
+    </div>
+    <p-dialog id="demo-dialog" auto-close sync:open="demoDialogOpen">
+      <span slot="title">对话框标题</span>
+      <div>
+        <p>这是一个对话框示例。</p>
+        <p>点击遮罩层可以关闭对话框。</p>
+      </div>
+      <div slot="bottom">
+        <p-button color="primary" id="dialog-ok-btn" on:click="demoDialogOpen = false">确定</p-button>
+        <p-button variant="text" id="dialog-cancel-btn" on:click="demoDialogOpen = false">取消</p-button>
+      </div>
+    </p-dialog>
+  </div>
+
+  <div class="demo-section">
+    <h3>变体</h3>
+    <div class="demo-row">
+      <p-button id="show-filled-dialog-btn" on:click="filledDialogOpen = true">
+        Filled
+      </p-button>
+    </div>
+    <p-dialog id="demo-filled-dialog" variant="filled" sync:open="filledDialogOpen">
+      <span slot="title">Filled 对话框</span>
+      <div>
+        <p>这是一个 Filled 样式的对话框。</p>
+      </div>
+      <div slot="bottom">
+        <p-button color="primary" on:click="filledDialogOpen = false">确定</p-button>
+      </div>
+    </p-dialog>
+  </div>
+
+  <script>
+    export default async function () {
+      return {
+        data: {
+          demoDialogOpen: false,
+          filledDialogOpen: false,
+          demoCheckboxGroupValue: [],
+          demoRadioGroupValue: null,
+        },
+      };
+    }
+  </script>
 </template>

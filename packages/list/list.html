@@ -1,0 +1,39 @@
+<template component>
+  <l-m src="./list-item.html"></l-m>
+
+  <inject-host style="display: none;">
+    <style>
+      p-list-item > p-list > p-list-item:first-child,
+      p-list-item > p-list > p-list-item:last-child {
+        border-radius: var(--list-item-default-radius);
+      }
+    </style>
+  </inject-host>
+
+  <style>
+    :host {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    ::slotted(hr) {
+      box-sizing: border-box;
+      display: block;
+      width: 100%;
+      border: none;
+      border-top: 1px solid var(--md-sys-color-neutral);
+      margin: 0;
+    }
+  </style>
+
+  <slot></slot>
+
+  <script>
+    import "../common/init.js";
+
+    export default {
+      tag: "p-list",
+    };
+  </script>
+</template>

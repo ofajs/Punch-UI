@@ -1,0 +1,158 @@
+<template component>
+  <style>
+    :host {
+      display: block;
+      font-size: 14px;
+    }
+
+    .main {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-sizing: border-box;
+      padding: 24px 16px;
+      border-radius: var(--dialog-border-radius, 30px);
+      width: var(--dialog-width, auto);
+      min-width: 320px;
+      transition: transform 0.3s ease;
+    }
+
+    .title {
+      display: flex;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1.2em;
+    }
+
+    ::slotted([slot="title"]) {
+      margin-bottom: 12px;
+    }
+
+    .content {
+      line-height: 1.6em;
+      overflow: auto;
+    }
+
+    .bottom {
+      display: flex;
+      justify-content: var(--bottom-align, flex-end);
+    }
+
+    ::slotted([slot="bottom"]) {
+      margin: 24px 6px 0;
+    }
+
+    ::slotted([slot="bottom"]:first-child) {
+      margin-left: 0;
+    }
+
+    ::slotted([slot="bottom"]:last-child) {
+      margin-right: 0;
+    }
+
+    .main {
+      pointer-events: none;
+    }
+
+    .showall.main {
+      pointer-events: auto;
+    }
+
+    .main>* {
+      opacity: 0;
+      transition: opacity ease 0.2s;
+      transition-delay: 0.2s;
+    }
+
+    .showall.main>* {
+      opacity: 1;
+    }
+  </style>
+
+  <style>
+    @media screen and (max-width: data(autoToMobileWidth)) {
+      p-mask {
+        --container-init-transform: translate(0, 100px);
+      }
+
+      .main {
+        width: 100%;
+        border-radius: 0;
+        border-top-left-radius: var(--dialog-border-radius, 30px);
+        border-top-right-radius: var(--dialog-border-radius, 30px);
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        transform: translateY(100%);
+      }
+
+      .showall.main {
+        transform: translateY(0);
+      }
+    }
+  </style>
+
+  <p-mask sync:open="open" on:click-mask="clickMask">
+    <p-stylization class="main" class:showall="open" part="main" attr:variant="variant || 'tonal'" :color="color">
+      <div class="title">
+        <slot name="title"></slot>
+      </div>
+      <div class="content" part="content">
+        <slot></slot>
+      </div>
+      <div class="bottom">
+        <slot name="bottom"></slot>
+      </div>
+    </p-stylization>
+  </p-mask>
+
+  <script>
+    import "../common/init.js";
+
+    export default async ({ load }) => {
+      if (!customElements.get("p-mask")) {
+        await load("./mask.html");
+      }
+      if (!customElements.get("p-stylization")) {
+        await load("../stylization/stylization.html");
+      }
+
+      return {
+        tag: "p-dialog",
+        attrs: {
+          variant: null,
+          color: 'neutral',
+          autoClose: null,
+          autoToMobileWidth: "540px",
+        },
+        data: {
+          open: false,
+        },
+        watch: {
+          open(val) {
+            if (val) {
+              setTimeout(() => {
+                let targetInput = this.$("[autofocus]");
+
+                if (targetInput) {
+                  if (targetInput.focus) {
+                    targetInput.focus();
+                  } else if (targetInput.ele.focus) {
+                    targetInput.ele.focus();
+                  }
+                }
+
+              }, 150);
+            }
+          },
+        },
+        proto: {
+          clickMask() {
+            this.autoClose !== null && (this.open = false);
+            this.emit("click-mask", { bubbles: false });
+          },
+        },
+      };
+    };
+  </script>
+</template>

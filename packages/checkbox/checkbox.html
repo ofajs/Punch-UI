@@ -1,0 +1,361 @@
+<template component>
+  <style>
+    :host {
+      display: inline-flex;
+      align-items: center;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+
+    :host([size="xs"]) {
+      font-size: 12px;
+    }
+
+    :host([size="s"]),
+    :host([size="small"]) {
+      font-size: 13px;
+    }
+
+    :host([size="l"]),
+    :host([size="large"]) {
+      font-size: 16px;
+    }
+
+    :host([size="xl"]) {
+      font-size: 18px;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      border-radius: inherit;
+      outline: none;
+    }
+
+    .container:focus-visible,
+    .container.focused {
+      outline: 2px solid var(--md-sys-color-primary);
+      outline-offset: 2px;
+    }
+
+    :host([disabled]) .container {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    p-stylization {
+      position: relative;
+      width: 22px;
+      height: 22px;
+      border-radius: 5px;
+      transition: all 0.3s;
+      overflow: hidden;
+    }
+
+    :host([size="xs"]) p-stylization {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+    }
+
+    :host([size="s"]) p-stylization,
+    :host([size="small"]) p-stylization {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+    }
+
+    :host([size="l"]) p-stylization,
+    :host([size="large"]) p-stylization {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+    }
+
+    :host([size="xl"]) p-stylization {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+    }
+
+    .checkmark {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+
+    p-stylization.checked .checkmark {
+      opacity: 1;
+    }
+
+    :host([indeterminate]) .checkmark {
+      opacity: 0;
+    }
+
+    .checkmark svg {
+      color: var(--on-main-color);
+      width: 18px;
+      height: 18px;
+    }
+
+    :host([size="xs"]) .checkmark svg {
+      width: 10px;
+      height: 10px;
+    }
+
+    :host([size="s"]) .checkmark svg,
+    :host([size="small"]) .checkmark svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    :host([size="l"]) .checkmark svg,
+    :host([size="large"]) .checkmark svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    :host([size="xl"]) .checkmark svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    .checkmark svg path {
+      stroke-dasharray: 26;
+      stroke-dashoffset: 26;
+    }
+
+    p-stylization.checked .checkmark svg path {
+      animation: checkmark-draw 0.16s ease-out forwards;
+      animation-delay: 0.16s;
+    }
+
+    @keyframes checkmark-draw {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    .indeterminate-line {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 12px;
+      height: 2px;
+      border-radius: 2px;
+      background-color: var(--on-main-color);
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+
+    :host([indeterminate]) .indeterminate-line {
+      opacity: 1;
+    }
+
+    :host([size="xs"]) .indeterminate-line {
+      width: 8px;
+      height: 1.5px;
+    }
+
+    :host([size="s"]) .indeterminate-line,
+    :host([size="small"]) .indeterminate-line {
+      width: 10px;
+      height: 1.5px;
+    }
+
+    :host([size="l"]) .indeterminate-line,
+    :host([size="large"]) .indeterminate-line {
+      width: 16px;
+      height: 3px;
+    }
+
+    :host([size="xl"]) .indeterminate-line {
+      width: 20px;
+      height: 3px;
+    }
+
+    .border-bg {
+      box-sizing: border-box;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 5px;
+      border: 2px solid var(--main-color);
+      transition: all 0.16s ease;
+    }
+
+    :host([size="xs"]) .border-bg {
+      border-radius: 3px;
+      border-width: 1.5px;
+    }
+
+    :host([size="s"]) .border-bg,
+    :host([size="small"]) .border-bg {
+      border-radius: 4px;
+      border-width: 1.5px;
+    }
+
+    :host([size="l"]) .border-bg,
+    :host([size="large"]) .border-bg {
+      border-radius: 6px;
+      border-width: 2px;
+    }
+
+    :host([size="xl"]) .border-bg {
+      border-radius: 8px;
+      border-width: 2.5px;
+    }
+
+    p-stylization.checked .border-bg,
+    :host([indeterminate]) .border-bg {
+      border: 13px solid var(--main-color);
+    }
+
+    :host([size="xs"]) p-stylization.checked .border-bg,
+    :host([size="xs"][indeterminate]) .border-bg {
+      border: 8px solid var(--main-color);
+    }
+
+    :host([size="s"]) p-stylization.checked .border-bg,
+    :host([size="s"][indeterminate]) .border-bg,
+    :host([size="small"]) p-stylization.checked .border-bg,
+    :host([size="small"][indeterminate]) .border-bg {
+      border: 10px solid var(--main-color);
+    }
+
+    :host([size="l"]) p-stylization.checked .border-bg,
+    :host([size="l"][indeterminate]) .border-bg,
+    :host([size="large"]) p-stylization.checked .border-bg,
+    :host([size="large"][indeterminate]) .border-bg {
+      border: 16px solid var(--main-color);
+    }
+
+    :host([size="xl"]) p-stylization.checked .border-bg,
+    :host([size="xl"][indeterminate]) .border-bg {
+      border: 20px solid var(--main-color);
+    }
+
+    .label {
+      margin-left: 12px;
+      user-select: none;
+      cursor: pointer;
+    }
+
+    :host(:empty) .label {
+      display: none;
+    }
+
+    :host([disabled]) .label {
+      cursor: not-allowed;
+    }
+  </style>
+  <div class="container" tabindex="0" on:keydown="handleKeydown">
+    <p-stylization
+      class="track"
+      class:checked="checked"
+      :variant="variant"
+      :color="checked ? color : 'neutral'"
+      style="border: none"
+    >
+      <div class="border-bg"></div>
+      <div class="checkmark">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="3"
+            d="M5 11l6 6l10 -10"
+          />
+        </svg>
+      </div>
+      <div class="indeterminate-line"></div>
+    </p-stylization>
+  </div>
+  <div class="label">
+    <slot></slot>
+  </div>
+  <script>
+    import "../common/init.js";
+
+    export default async ({ load }) => {
+      if (!customElements.get("p-stylization")) {
+        await load("../stylization/stylization.html");
+      }
+
+      return {
+        tag: "p-checkbox",
+        attrs: {
+          name: null,
+          size: null,
+          disabled: null,
+          color: null,
+          value: null,
+          autofocus: null,
+          variant: null,
+          indeterminate: null,
+        },
+        data: {
+          infocus: false,
+          isFocus: false,
+          checked: false,
+        },
+        watch: {
+          autofocus(val) {
+            if (val !== null) {
+              setTimeout(() => {
+                this.shadow.$(".container").ele.focus();
+              }, 150);
+            }
+          },
+        },
+        proto: {
+          focus() {
+            this.shadow.$(".container").ele.focus();
+            this.shadow.$(".container").ele.classList.add("focused");
+          },
+          handleKeydown(e) {
+            if (this.disabled !== null) return;
+            if (e.key === " " || e.key === "Enter") {
+              e.preventDefault();
+              this.checked = !this.checked;
+              this.emit("change");
+            }
+          },
+        },
+        ready() {
+          this.on("click", (e) => {
+            if (this.disabled !== null) return;
+            this.checked = !this.checked;
+            this.emit("change");
+          });
+          this.shadow.$(".container").ele.addEventListener("blur", () => {
+            this.shadow.$(".container").ele.classList.remove("focused");
+          }, true);
+        },
+        attached() {
+          if (this.attr("checked") !== null) {
+            this.checked = true;
+          } else {
+            this.checked = false;
+          }
+          this.emit("attached-checkbox");
+        },
+      };
+    };
+  </script>
+</template>
