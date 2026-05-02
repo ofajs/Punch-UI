@@ -23,6 +23,8 @@
 - [Radio 单选框组件](./packages/radio/README.md)
 - [Dialog 对话框组件](./packages/dialog/README.md)
 - [List 列表组件](./packages/list/README.md)
+- [NavBar 导航栏组件](./packages/navigation/README.md)
+
 
 ### 引入组件
 
