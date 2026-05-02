@@ -44,17 +44,27 @@
 
 ### 黑夜/白天模式
 
-Punch UI 支持黑夜/白天主题切换。默认情况下，组件会根据系统主题自动切换。
+首先引入全局样式：
 
-如需手动控制主题，可以在 `html` 元素上添加对应的 class：
+```html
+<link
+  rel="stylesheet"
+  href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css"
+/>
+```
+
+Punch UI 支持黑夜/白天主题切换。默认情况下，组件会跟随系统主题自动调整。
+
+如需手动控制主题，可在 `html` 元素上添加对应的 class：
 
 ```html
 <!-- 切换到浅色主题 -->
 <html class="theme-light-mode">
+  ...
+</html>
 
 <!-- 切换到深色主题 -->
 <html class="theme-dark-mode">
-  
-<!-- 不添加 class，则跟随系统主题 -->
-<html>
+  ...
+</html>
 ```

@@ -1,0 +1,85 @@
+<template page>
+  <style>
+    :host {
+      display: block;
+      width: 1280px;
+      height: 720px;
+      margin-top: 32px;
+      border: 1px solid #8a8a8a;
+    }
+
+    button {
+      margin: 8px;
+    }
+  </style>
+
+  <l-m src="../nav-layout.html"></l-m>
+
+  <p-nav-layout>
+    <div
+      style="
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <button on:click="changeSize('mobile')">📱 Mobile</button>
+      <button on:click="changeSize('tablet')">📱 Tablet</button>
+      <button on:click="changeSize('desktop')">🖥️ Desktop</button>
+    </div>
+    <p-nav-bar slot="nav">
+      <p-nav-item attr:active="active === 'home'" on:click="active = 'home'">
+        <iconify-icon icon="mdi:home" slot="icon"></iconify-icon>
+        <span>Home</span>
+      </p-nav-item>
+      <p-nav-item
+        attr:active="active === 'bookmarks'"
+        on:click="active = 'bookmarks'"
+      >
+        <iconify-icon
+          icon="material-symbols:bookmark-star-outline"
+          slot="icon"
+        ></iconify-icon>
+        <span>Bookmarks</span>
+      </p-nav-item>
+      <p-nav-item attr:active="active === 'about'" on:click="active = 'about'">
+        <iconify-icon icon="mdi:account" slot="icon"></iconify-icon>
+        <span>About</span>
+      </p-nav-item>
+      <p-nav-item
+        attr:active="active === 'settings'"
+        on:click="active = 'settings'"
+        disabled
+      >
+        <iconify-icon icon="mdi:settings" slot="icon"></iconify-icon>
+        <span>Settings</span>
+      </p-nav-item>
+    </p-nav-bar>
+  </p-nav-layout>
+
+  <script>
+    export default async () => {
+      return {
+        data: {
+          active: "home",
+        },
+        proto: {
+          changeSize(type) {
+            if (type === "mobile") {
+              this.style.width = "400px";
+              this.style.height = "600px";
+            } else if (type === "desktop") {
+              this.style.width = "1280px";
+              this.style.height = "600px";
+            } else if (type === "tablet") {
+              this.style.width = "800px";
+              this.style.height = "480px";
+            }
+          },
+        },
+      };
+    };
+  </script>
+</template>

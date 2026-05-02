@@ -5,6 +5,12 @@
       align-items: center;
       font-size: 14px;
       vertical-align: middle;
+      cursor: pointer;
+    }
+
+    :host([disabled]) {
+      cursor: not-allowed;
+      opacity: 0.6;
     }
 
     :host([size="xs"]) {
@@ -28,13 +34,7 @@
     .container {
       display: flex;
       align-items: center;
-      cursor: pointer;
       border-radius: inherit;
-    }
-
-    :host([disabled]) .container {
-      cursor: not-allowed;
-      opacity: 0.6;
     }
 
     p-stylization {
@@ -219,7 +219,6 @@
     .label {
       margin-left: 12px;
       user-select: none;
-      cursor: pointer;
     }
 
     :host(:empty) .label {
@@ -245,14 +244,30 @@
     }
   </style>
   <div class="container" tabindex="0" on:keydown="handleKeydown">
-    <p-stylization class="track" class:checked="checked" :variant="variant" :color="checked ? color : 'neutral'"
-      style="border: none">
+    <p-stylization
+      class="track"
+      class:checked="checked"
+      :variant="variant"
+      :color="checked ? color : 'neutral'"
+      style="border: none"
+    >
       <div class="border-bg"></div>
       <div class="thumb" class:checked="checked">
         <div class="mark">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-              d="M5 11l6 6l10 -10" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="3"
+              d="M5 11l6 6l10 -10"
+            />
           </svg>
         </div>
       </div>

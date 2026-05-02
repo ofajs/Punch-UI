@@ -242,7 +242,10 @@
   <div class="demo-section">
     <h3>Checkbox Group</h3>
     <div class="demo-row">
-      <p-checkbox-group id="demo-checkbox-group" :value="demoCheckboxGroupValue">
+      <p-checkbox-group
+        id="demo-checkbox-group"
+        :value="demoCheckboxGroupValue"
+      >
         <p-checkbox value="1">选项 1</p-checkbox>
         <p-checkbox value="2" checked>选项 2</p-checkbox>
         <p-checkbox value="3">选项 3</p-checkbox>
@@ -421,8 +424,18 @@
         <p>点击遮罩层可以关闭对话框。</p>
       </div>
       <div slot="bottom">
-        <p-button color="primary" id="dialog-ok-btn" on:click="demoDialogOpen = false">确定</p-button>
-        <p-button variant="text" id="dialog-cancel-btn" on:click="demoDialogOpen = false">取消</p-button>
+        <p-button
+          color="primary"
+          id="dialog-ok-btn"
+          on:click="demoDialogOpen = false"
+          >确定</p-button
+        >
+        <p-button
+          variant="text"
+          id="dialog-cancel-btn"
+          on:click="demoDialogOpen = false"
+          >取消</p-button
+        >
       </div>
     </p-dialog>
   </div>
@@ -434,16 +447,25 @@
         Filled
       </p-button>
     </div>
-    <p-dialog id="demo-filled-dialog" variant="filled" sync:open="filledDialogOpen">
+    <p-dialog
+      id="demo-filled-dialog"
+      variant="filled"
+      sync:open="filledDialogOpen"
+    >
       <span slot="title">Filled 对话框</span>
       <div>
         <p>这是一个 Filled 样式的对话框。</p>
       </div>
       <div slot="bottom">
-        <p-button color="primary" on:click="filledDialogOpen = false">确定</p-button>
+        <p-button color="primary" on:click="filledDialogOpen = false"
+          >确定</p-button
+        >
       </div>
     </p-dialog>
   </div>
+
+  <o-page src="../packages/navigation/demo/nav-bar-demo.html"></o-page>
+  <o-page src="../packages/navigation/demo/nav-layout-demo.html"></o-page>
 
   <script>
     export default async function () {

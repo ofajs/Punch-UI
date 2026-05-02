@@ -58,13 +58,13 @@
       pointer-events: auto;
     }
 
-    .main>* {
+    .main > * {
       opacity: 0;
       transition: opacity ease 0.2s;
       transition-delay: 0.2s;
     }
 
-    .showall.main>* {
+    .showall.main > * {
       opacity: 1;
     }
   </style>
@@ -93,15 +93,23 @@
   </style>
 
   <p-mask sync:open="open" on:click-mask="clickMask">
-    <p-stylization class="main" class:showall="open" part="main" attr:variant="variant || 'tonal'" :color="color">
+    <p-stylization
+      class="main"
+      class:showall="open"
+      part="main"
+      attr:variant="variant || 'tonal'"
+      :color="color"
+    >
       <div class="title">
         <slot name="title"></slot>
+        <slot name="header"></slot>
       </div>
       <div class="content" part="content">
         <slot></slot>
       </div>
       <div class="bottom">
         <slot name="bottom"></slot>
+        <slot name="footer"></slot>
       </div>
     </p-stylization>
   </p-mask>
@@ -121,7 +129,7 @@
         tag: "p-dialog",
         attrs: {
           variant: null,
-          color: 'neutral',
+          color: "neutral",
           autoClose: null,
           autoToMobileWidth: "540px",
         },
@@ -141,7 +149,6 @@
                     targetInput.ele.focus();
                   }
                 }
-
               }, 150);
             }
           },

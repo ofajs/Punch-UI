@@ -1,0 +1,68 @@
+<template component>
+  <style>
+    :host {
+      display: block;
+      height: 100%;
+      width: 100%;
+      container-type: inline-size;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      width: 100%;
+    }
+    .main {
+      position: relative;
+      flex: 1;
+      overflow: auto;
+    }
+
+    ::slotted(p-nav-bar) {
+      background-color: var(--md-sys-color-on-neutral);
+    }
+
+    @container (min-width: 768px) {
+      .nav {
+        --label-parallel: true;
+      }
+
+      ::slotted([slot="nav"]) {
+        padding: 8px;
+      }
+    }
+
+    @container (min-width: 1024px) {
+      .nav {
+        --label-parallel: false;
+        height: 100%;
+      }
+      ::slotted([slot="nav"]) {
+        flex-direction: column;
+        justify-content: flex-start;
+        height: 100%;
+        padding: 4px;
+      }
+      .container {
+        flex-direction: row-reverse;
+      }
+    }
+  </style>
+  <div class="container">
+    <div class="main">
+      <slot></slot>
+    </div>
+    <div class="nav">
+      <slot name="nav"></slot>
+    </div>
+  </div>
+  <script>
+    export default async ({ load }) => {
+      return {
+        tag: "p-nav-layout",
+        data: {},
+        proto: {},
+      };
+    };
+  </script>
+</template>

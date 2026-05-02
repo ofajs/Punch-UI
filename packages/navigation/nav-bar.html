@@ -1,0 +1,130 @@
+<template component>
+  <l-m src="./nav-item.html"></l-m>
+  <style>
+    :host {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .active-bg {
+      position: absolute;
+      top: 12px;
+      width: 56px;
+      height: 32px;
+      border-radius: 20px;
+      opacity: 1;
+      transition:
+        all 0.3s ease,
+        left 0.3s cubic-bezier(0.4, 0, 0.27, 1.25),
+        top 0.3s cubic-bezier(0.4, 0, 0.27, 1.25);
+    }
+
+    .active-bg:not(.has-active) {
+      opacity: 0;
+    }
+
+    .not-animate {
+      transition: none !important;
+    }
+  </style>
+  <slot></slot>
+  <p-stylization
+    class="active-bg"
+    variant="tonal"
+    :style.left="activeLeft + 'px'"
+    :style.top="activeTop + 'px'"
+    :style.width="activeWidth + 'px'"
+    :style.height="activeHeight + 'px'"
+    class:has-active="hasActive"
+    class:not-animate="noAnimate"
+  >
+  </p-stylization>
+  <script>
+    import "../common/init.js";
+
+    export default async ({ load }) => {
+      if (!customElements.get("p-stylization")) {
+        // 加载风格化组件
+        await load("../stylization/stylization.html");
+      }
+
+      await load("./nav-item.html");
+
+      return {
+        tag: "p-nav-bar",
+        data: {
+          hasActive: false,
+          noAnimate: true,
+          activeLeft: 0,
+          activeTop: 0,
+          activeWidth: 0,
+          activeHeight: 0,
+        },
+        proto: {
+          updateActive(e) {
+            if (this._timer) {
+              return;
+            }
+            this._timer = setTimeout(() => {
+              const items = this.all("p-nav-item");
+              const activeItem = items.find((item) => item.active !== null);
+
+              if (!activeItem) {
+                this.hasActive = false;
+                return;
+              }
+
+              this.hasActive = true;
+
+              let iconHoverBg = activeItem.shadow.$(".icon-hover-bg");
+
+              // 如果 css 变量 --label-parallel: true，则使用 container-hover-bg
+              if (
+                getComputedStyle(this.ele).getPropertyValue(
+                  "--label-parallel",
+                ) == "true"
+              ) {
+                iconHoverBg = activeItem.shadow.$(".container-hover-bg");
+              }
+
+              const iconHoverBgRect = iconHoverBg.ele.getBoundingClientRect();
+              const hostRect = this.ele.getBoundingClientRect();
+
+              this.activeLeft = iconHoverBgRect.left - hostRect.left;
+              this.activeTop = iconHoverBgRect.top - hostRect.top;
+              this.activeWidth = iconHoverBgRect.width;
+              this.activeHeight = iconHoverBgRect.height;
+              this._timer = null;
+            }, 30);
+          },
+        },
+        ready() {
+          this.on("change-active", (e) => this.updateActive(e));
+        },
+        attached() {
+          let timer = null;
+          this._resizeObserver = new ResizeObserver(() => {
+            this.noAnimate = true;
+            this.updateActive();
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+              this.noAnimate = false;
+            }, 50);
+          });
+          this._resizeObserver.observe(this.ele);
+          setTimeout(() => {
+            // 一开始不需要动画
+            this.noAnimate = false;
+          }, 300);
+        },
+        detached() {
+          this._resizeObserver?.disconnect();
+          this._resizeObserver = null;
+        },
+      };
+    };
+  </script>
+</template>

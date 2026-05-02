@@ -3,49 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Punch-UI Demo</title>
+    <title>Navigation Demo</title>
     <script
       src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs#debug"
       type="module"
     ></script>
     <script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script>
-   
-    <!-- <link rel="stylesheet" href="../packages/css/pui-global.css" /> -->
+    <link rel="stylesheet" href="../../css/pui-global.css" />
     <style>
-      html,
-      body {
-        width: 100%;
-        height: 100%;
-        padding: 0;
-        margin: 0;
-      }
       body {
         font-family:
           -apple-system,
           BlinkMacSystemFont,
           Segoe UI,
-          Microsoft YaHei,
+          Microsoft Yahei,
           Helvetica,
           Arial,
           sans-serif,
           Apple Color Emoji,
           Segoe UI Emoji;
+        margin: 0;
+        padding: 20px;
         background-color: var(--md-sys-color-surface);
         color: var(--md-sys-color-on-surface);
-        overflow: auto;
       }
     </style>
   </head>
+
   <body>
-    <div
-      style="
-        height: 100%;
-        overflow-y: auto;
-        box-sizing: border-box;
-        padding: 16px;
-      "
-    >
-      <o-page src="./all-case.html"></o-page>
+    <h2>Navigation</h2>
+
+    <l-m src="../../../tool/theme-switch/theme-switch.html"></l-m>
+
+    <div style="position: fixed; top: 20px; right: 20px; z-index: 100">
+      <p-theme-switch></p-theme-switch>
     </div>
+
+    <o-page src="./nav-bar-demo.html"></o-page>
+
+    <o-page src="./nav-layout-demo.html"></o-page>
+
+    
+
+    <!-- <o-page src="./nav-bar.html"></o-page> -->
+    <!-- <o-page src="./nav-rail.html"></o-page> -->
+    <!-- <o-page src="./nav-drawer.html"></o-page> -->
   </body>
 </html>
