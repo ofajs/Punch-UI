@@ -1,0 +1,328 @@
+<template component>
+  <l-m src="../field-container/field-container.html"></l-m>
+  <l-m src="./option.html"></l-m>
+
+  <style>
+    :host {
+      display: inline-block;
+      border-radius: 8px;
+      font-size: 16px;
+      position: relative;
+    }
+
+    :host([size="xs"]) {
+      font-size: 12px;
+    }
+
+    :host([size="s"]),
+    :host([size="small"]) {
+      font-size: 14px;
+    }
+
+    :host([size="l"]),
+    :host([size="large"]) {
+      font-size: 18px;
+    }
+
+    :host([size="xl"]) {
+      font-size: 20px;
+    }
+
+    p-field-container {
+      border-radius: inherit;
+      cursor: pointer;
+    }
+
+    :host([disabled]) p-field-container {
+      cursor: not-allowed;
+    }
+
+    .select-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .native-select {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+      font-size: inherit;
+      z-index: 1;
+    }
+
+    :host([disabled]) .native-select {
+      cursor: not-allowed;
+    }
+
+    .select-display {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      min-height: 20px;
+      pointer-events: none;
+    }
+
+    .select-value {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--md-sys-color-on-surface);
+    }
+
+    .placeholder {
+      color: var(--md-sys-color-on-surface-variant);
+      opacity: 0.6;
+    }
+
+    .arrow-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 4px;
+      transition: transform 0.2s ease;
+      color: var(--md-sys-color-on-surface-variant);
+      pointer-events: none;
+    }
+
+    :host(:focus-within) .arrow-icon {
+      transform: rotate(180deg);
+    }
+
+    :slotted([slot="label"]) {
+      padding: 0 8px;
+    }
+  </style>
+
+  <p-field-container
+    attr:disabled="disabled"
+    :color="color"
+    :size="size"
+    :variant="variant"
+    attr:hang-label="isHangLabel"
+    attr:focus="isFocus"
+  >
+    <div class="select-wrapper">
+      <select
+        class="native-select"
+        attr:name="name"
+        attr:disabled="disabled"
+        on:focus="handleFocus"
+        on:blur="handleBlur"
+        sync:value="value"
+      ></select>
+      <div class="select-display">
+        <div class="select-value" class:placeholder="!value">
+          {{ value ? displayText : (placeholder || '') }}
+        </div>
+        <div class="arrow-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="m6 9l6 6l6-6" />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <slot name="label" slot="label"></slot>
+    <slot name="suffix" slot="suffix"></slot>
+    <slot name="prefix" slot="prefix"></slot>
+  </p-field-container>
+
+  <script>
+    import "../common/init.js";
+
+    export default async ({ load }) => {
+      return {
+        tag: "p-select",
+        attrs: {
+          variant: null,
+          placeholder: null,
+          color: null,
+          size: null,
+          disabled: null,
+          name: null,
+          hangLabel: null,
+        },
+        data: {
+          value: null,
+          isFocus: false,
+          hasEmptyOption: false,
+        },
+        watch: {
+          value(val) {
+            // 删除默认空选项
+            if (val !== null && this.hasEmptyOption) {
+              const nativeSelect = this.shadow.$(".native-select");
+              const emptyOption = nativeSelect.$('[default-empty-option]');
+              if (emptyOption) {
+                emptyOption.remove();
+                this.hasEmptyOption = false;
+              }
+            }
+
+            if (val === null) {
+              return;
+            }
+
+            this.emit("change", {
+              data: { value: val },
+            });
+          },
+        },
+        proto: {
+          get isHangLabel() {
+            if (this.hangLabel !== null) {
+              return 1;
+            }
+            if (this.isFocus || !!this.value) {
+              return 1;
+            }
+            if (this.placeholder) {
+              return 1;
+            }
+            return null;
+          },
+          get displayText() {
+            const nativeSelect = this.shadow.$(".native-select").ele;
+            if (nativeSelect.selectedIndex >= 0) {
+              const selectedOption =
+                nativeSelect.options[nativeSelect.selectedIndex];
+              return selectedOption ? selectedOption.text : "";
+            }
+            return "";
+          },
+          focus() {
+            this.shadow.$(".native-select").ele.focus();
+          },
+          handleFocus() {
+            this.isFocus = true;
+          },
+          handleBlur() {
+            this.isFocus = false;
+          },
+          addEmptyOption() {
+            const nativeSelect = this.shadow.$(".native-select");
+            
+            // 检查是否已经有空选项
+            const existingEmpty = nativeSelect.$('[default-empty-option]');
+            if (existingEmpty) {
+              return;
+            }
+            
+            // 创建空选项
+            const emptyOption = $({
+              tag: "option",
+              text: this.placeholder || ""
+            });
+            emptyOption.attr("value", "");
+            emptyOption.attr("disabled", "");
+            emptyOption.attr("default-empty-option", "");
+            
+            // 插入到第一个位置
+            nativeSelect.unshift(emptyOption);
+            this.hasEmptyOption = true;
+          },
+          addOption(optionData) {
+            const nativeSelect = this.shadow.$(".native-select");
+
+            // 创建 option 元素
+            const optionEl = $({
+              tag: "option",
+              text: optionData.label
+            });
+            optionEl.attr("value", optionData.value);
+            
+            if (optionData.disabled) {
+              optionEl.attr("disabled", "");
+            }
+
+            // 添加到原生 select
+            nativeSelect.push(optionEl);
+
+            // 如果是默认选中
+            if (optionData.selected && !this.value) {
+              this.value = optionData.value;
+            }
+          },
+          syncOptionsFromChildren() {
+            const nativeSelect = this.shadow.$(".native-select");
+
+            // 清空原生 select
+            nativeSelect.html = "";
+
+            // 添加默认空选项
+            if (!this.value) {
+              this.addEmptyOption();
+            }
+
+            // 遍历所有 p-option 子元素
+            const pOptions = this.all("p-option");
+            pOptions.forEach((opt) => {
+              const optionEl = $({
+                tag: "option",
+                text: opt.text
+              });
+              optionEl.attr("value", opt.attr("value") || opt.text);
+              
+              if (opt.attr("disabled") !== null) {
+                optionEl.attr("disabled", "");
+              }
+
+              nativeSelect.push(optionEl);
+
+              if (opt.attr("selected") !== null && !this.value) {
+                this.value = optionEl.attr("value");
+              }
+            });
+          },
+        },
+        ready() {
+          // 监听 p-option-attached 事件
+          this.on("p-option-attached", (e) => {
+            e.stopPropagation();
+            this.syncOptionsFromChildren();
+          });
+        },
+        attached() {
+          if (this.variant == "filled" && !this.$("[slot='label']")) {
+            this.shadow
+              .$("p-field-container")
+              .style.setProperty("--field-container-padding-top", "0");
+          }
+
+          // 添加默认空选项
+          this.addEmptyOption();
+
+          // 处理原生 option 元素
+          const nativeOptions = this.ele.querySelectorAll("option");
+          nativeOptions.forEach((opt) => {
+            this.addOption({
+              value: opt.value || opt.textContent,
+              label: opt.textContent,
+              disabled: opt.disabled,
+              selected: opt.selected,
+            });
+          });
+
+          // 同步 p-option 元素
+          this.syncOptionsFromChildren();
+        },
+      };
+    };
+  </script>
+</template>

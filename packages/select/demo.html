@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Select Demo</title>
+    <script
+      src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs#debug"
+      type="module"
+    ></script>
+    <link rel="stylesheet" href="../css/pui-global.css" />
+    <style>
+      body {
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          Segoe UI,
+          Microsoft Yahei,
+          Helvetica,
+          Arial,
+          sans-serif,
+          Apple Color Emoji,
+          Segoe UI Emoji;
+        padding: 20px;
+      }
+      p-select {
+        margin: 16px;
+        display: inline-block;
+        width: 200px;
+      }
+      .demo-section {
+        margin-bottom: 32px;
+      }
+      .demo-section h3 {
+        margin-bottom: 16px;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Select</h2>
+
+    <l-m src="./select.html"></l-m>
+    <l-m src="../../tool/theme-switch/theme-switch.html"></l-m>
+
+    <div style="position: fixed; top: 20px; right: 20px;">
+      <p-theme-switch></p-theme-switch>
+    </div>
+
+    <div class="demo-section">
+      <h3>Basic Usage</h3>
+      <p-select>
+        <span slot="label">Select Country</span>
+        <p-option value="us">United States</p-option>
+        <p-option value="uk">United Kingdom</p-option>
+        <p-option value="cn">China</p-option>
+        <p-option value="jp">Japan</p-option>
+      </p-select>
+      <p-select variant="filled">
+        <span slot="label">Select Country</span>
+        <p-option value="us">United States</p-option>
+        <p-option value="uk">United Kingdom</p-option>
+        <p-option value="cn">China</p-option>
+        <p-option value="jp">Japan</p-option>
+      </p-select>
+    </div>
+
+    <div class="demo-section">
+      <h3>Color Variants</h3>
+      <p-select color="primary">
+        <span slot="label">Primary Color</span>
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2">Option 2</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+      <p-select color="success">
+        <span slot="label">Success Color</span>
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2">Option 2</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+      <p-select color="neutral">
+        <span slot="label">Neutral Color</span>
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2">Option 2</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+      <p-select color="error">
+        <span slot="label">Error Color</span>
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2">Option 2</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+
+      <br />
+
+      <p-select variant="filled" color="primary">
+        <span slot="label">Primary Color</span>
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2">Option 2</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+      <p-select variant="filled" color="success">
+        <span slot="label">Success Color</span>
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2">Option 2</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+      <p-select variant="filled" color="neutral">
+        <span slot="label">Neutral Color</span>
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2">Option 2</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+      <p-select variant="filled" color="error">
+        <span slot="label">Error Color</span>
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2">Option 2</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+    </div>
+
+    <div class="demo-section">
+      <h3>Size Variants</h3>
+      <p-select size="xs">
+        <span slot="label">Extra Small (xs)</span>
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2">Option 2</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+      <p-select size="s">
+        <span slot="label">Small (s)</span>
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2">Option 2</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+      <p-select>
+        <span slot="label">Default</span>
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2">Option 2</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+      <p-select size="l">
+        <span slot="label">Large (l)</span>
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2">Option 2</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+      <p-select size="xl">
+        <span slot="label">Extra Large (xl)</span>
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2">Option 2</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+      <br />
+      <p-select variant="filled" size="xs">
+        <span slot="label">Extra Small (xs)</span>
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2">Option 2</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+      <p-select variant="filled" size="s">
+        <span slot="label">Small (s)</span>
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2">Option 2</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+      <p-select variant="filled">
+        <span slot="label">Default</span>
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2">Option 2</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+      <p-select variant="filled" size="l">
+        <span slot="label">Large (l)</span>
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2">Option 2</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+      <p-select variant="filled" size="xl">
+        <span slot="label">Extra Large (xl)</span>
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2">Option 2</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+    </div>
+
+    <div class="demo-section">
+      <h3>Disabled State</h3>
+      <p-select disabled>
+        <span slot="label">Disabled Select</span>
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2">Option 2</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+      <p-select variant="filled" disabled>
+        <span slot="label">Disabled Select</span>
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2">Option 2</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+    </div>
+
+    <div class="demo-section">
+      <h3>With Placeholder</h3>
+      <p-select placeholder="Choose an option">
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2">Option 2</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+      <p-select variant="filled" placeholder="Choose an option">
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2">Option 2</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+    </div>
+
+    <div class="demo-section">
+      <h3>Multiple Selection</h3>
+      <p-select multiple style="width: 300px;">
+        <span slot="label">Select Tags</span>
+        <p-option value="javascript">JavaScript</p-option>
+        <p-option value="typescript">TypeScript</p-option>
+        <p-option value="python">Python</p-option>
+        <p-option value="java">Java</p-option>
+        <p-option value="csharp">C#</p-option>
+        <p-option value="go">Go</p-option>
+      </p-select>
+      <p-select variant="filled" multiple style="width: 300px;">
+        <span slot="label">Select Tags</span>
+        <p-option value="javascript">JavaScript</p-option>
+        <p-option value="typescript">TypeScript</p-option>
+        <p-option value="python">Python</p-option>
+        <p-option value="java">Java</p-option>
+        <p-option value="csharp">C#</p-option>
+        <p-option value="go">Go</p-option>
+      </p-select>
+    </div>
+
+    <div class="demo-section">
+      <h3>Searchable Select</h3>
+      <p-select searchable style="width: 250px;">
+        <span slot="label">Search Country</span>
+        <p-option value="us">United States</p-option>
+        <p-option value="uk">United Kingdom</p-option>
+        <p-option value="cn">China</p-option>
+        <p-option value="jp">Japan</p-option>
+        <p-option value="kr">South Korea</p-option>
+        <p-option value="de">Germany</p-option>
+        <p-option value="fr">France</p-option>
+        <p-option value="it">Italy</p-option>
+        <p-option value="es">Spain</p-option>
+        <p-option value="au">Australia</p-option>
+      </p-select>
+      <p-select variant="filled" searchable multiple style="width: 300px;">
+        <span slot="label">Search & Multiple</span>
+        <p-option value="javascript">JavaScript</p-option>
+        <p-option value="typescript">TypeScript</p-option>
+        <p-option value="python">Python</p-option>
+        <p-option value="java">Java</p-option>
+        <p-option value="csharp">C#</p-option>
+        <p-option value="go">Go</p-option>
+        <p-option value="rust">Rust</p-option>
+        <p-option value="cpp">C++</p-option>
+      </p-select>
+    </div>
+
+    <div class="demo-section">
+      <h3>With Prefix and Suffix</h3>
+      <p-select>
+        <span slot="prefix">🌐</span>
+        <span slot="label">Language</span>
+        <p-option value="en">English</p-option>
+        <p-option value="zh">中文</p-option>
+        <p-option value="ja">日本語</p-option>
+      </p-select>
+      <p-select variant="filled">
+        <span slot="label">Currency</span>
+        <span slot="suffix">💰</span>
+        <p-option value="usd">USD</p-option>
+        <p-option value="eur">EUR</p-option>
+        <p-option value="cny">CNY</p-option>
+      </p-select>
+    </div>
+
+    <div class="demo-section">
+      <h3>Hang Label</h3>
+      <p-select hang-label>
+        <span slot="label">Hang Label Select</span>
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2">Option 2</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+      <p-select variant="filled" hang-label>
+        <span slot="label">Hang Label Select</span>
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2">Option 2</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+    </div>
+
+    <div class="demo-section">
+      <h3>Disabled Options</h3>
+      <p-select>
+        <span slot="label">Select Option</span>
+        <p-option value="1">Available Option 1</p-option>
+        <p-option value="2" disabled>Disabled Option 2</p-option>
+        <p-option value="3">Available Option 3</p-option>
+        <p-option value="4" disabled>Disabled Option 4</p-option>
+        <p-option value="5">Available Option 5</p-option>
+      </p-select>
+    </div>
+
+    <div class="demo-section">
+      <h3>Default Selected Option</h3>
+      <p-select>
+        <span slot="label">Default Selected</span>
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2" selected>Option 2 (Selected)</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+      <p-select variant="filled">
+        <span slot="label">Default Selected</span>
+        <p-option value="apple">Apple</p-option>
+        <p-option value="banana">Banana</p-option>
+        <p-option value="orange" selected>Orange (Selected)</p-option>
+      </p-select>
+    </div>
+
+    <div class="demo-section">
+      <h3>Programmatic Control</h3>
+      <p-select id="demo-select">
+        <span slot="label">Controlled Select</span>
+        <p-option value="apple">Apple</p-option>
+        <p-option value="banana">Banana</p-option>
+        <p-option value="orange">Orange</p-option>
+      </p-select>
+      <div style="margin-top: 8px; display: flex; gap: 8px;">
+        <button id="set-value-btn" style="padding: 8px 16px; cursor: pointer;">
+          Set to Banana
+        </button>
+        <button id="get-value-btn" style="padding: 8px 16px; cursor: pointer;">
+          Get Value
+        </button>
+        <button id="clear-btn" style="padding: 8px 16px; cursor: pointer;">
+          Clear
+        </button>
+      </div>
+      <script type="module">
+        $("#set-value-btn").on("click", () => {
+          $("#demo-select").value = "banana";
+        });
+        
+        $("#get-value-btn").on("click", () => {
+          const value = $("#demo-select").value;
+          alert(`Current value: ${value || 'none'}`);
+        });
+        
+        $("#clear-btn").on("click", () => {
+          $("#demo-select").value = "";
+        });
+      </script>
+    </div>
+
+    <div class="demo-section">
+      <h3>Events</h3>
+      <p-select id="event-select">
+        <span slot="label">Event Demo</span>
+        <p-option value="1">Option 1</p-option>
+        <p-option value="2">Option 2</p-option>
+        <p-option value="3">Option 3</p-option>
+      </p-select>
+      <div id="event-log" style="margin-top: 8px; padding: 8px; background: #f5f5f5; border-radius: 4px; min-height: 60px; font-family: monospace; font-size: 12px;">
+        Events will be logged here...
+      </div>
+      <script type="module">
+        const eventLog = $("#event-log");
+        let logCount = 0;
+        
+        const logEvent = (eventName, detail) => {
+          logCount++;
+          const time = new Date().toLocaleTimeString();
+          const message = `[${time}] ${eventName}: ${JSON.stringify(detail)}`;
+          eventLog.text = `${logCount}. ${message}\n${eventLog.text}`;
+        };
+        
+        $("#event-select").on("change", (e) => {
+          logEvent("change", e.detail);
+        });
+      </script>
+    </div>
+
+    <script type="module">
+      const selects = $.all("p-select");
+      selects.forEach((select) => {
+        select.on("change", (e) => {
+          console.log("Select changed:", e.data.value);
+        });
+      });
+    </script>
+  </body>
+</html>

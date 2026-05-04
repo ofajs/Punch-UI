@@ -1,0 +1,36 @@
+<template component>
+  <style>
+    :host {
+      display: none;
+    }
+  </style>
+
+  <slot></slot>
+
+  <script>
+    export default {
+      tag: "p-option",
+      attrs: {
+        value: null,
+        disabled: null,
+        selected: null,
+      },
+      data: {
+        label: "",
+      },
+      attached() {
+        this.label = this.ele.textContent || "";
+
+        // 通知父级 select 组件
+        this.emit("p-option-attached", {
+          data: {
+            value: this.value !== null ? this.value : this.label,
+            label: this.label,
+            disabled: this.disabled !== null,
+            selected: this.selected !== null,
+          },
+        });
+      },
+    };
+  </script>
+</template>

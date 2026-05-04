@@ -17,6 +17,7 @@
 
 - [Button 按钮组件](./packages/button/README.md)
 - [Input 输入框组件](./packages/input/README.md)
+- [Select 选择器组件](./packages/select/README.md)
 - [Switch 开关组件](./packages/switch/README.md)
 - [Textarea 多行文本输入框](./packages/textarea/README.md)
 - [Checkbox 复选框组件](./packages/checkbox/README.md)
@@ -34,6 +35,9 @@
 
 <!-- 输入框组件 -->
 <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+
+<!-- 选择器组件 -->
+<l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
 
 <!-- 开关组件 -->
 <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
