@@ -25,6 +25,11 @@
 - [Dialog 对话框组件](./packages/dialog/README.md)
 - [List 列表组件](./packages/list/README.md)
 - [NavBar 导航栏组件](./packages/navigation/README.md)
+- [Util 工具函数](./packages/util/README.md)
+  - Toast 提示
+  - Alert 警告框
+  - Confirm 确认框
+  - Prompt 输入框
 
 
 ### 引入组件
