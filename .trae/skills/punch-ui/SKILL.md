@@ -431,6 +431,150 @@ Punch-UI 支持深色/浅色主题切换。默认跟随系统主题，也可以�
 - `default` - 列表项主内容
 - `suffix` - 后缀内容
 
+### Select 选择器组件
+
+引入组件：
+```html
+<l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+```
+
+**基本用法**：
+```html
+<p-select placeholder="Please select">
+  <span slot="label">Select Country</span>
+  <p-option value="us">United States</p-option>
+  <p-option value="uk">United Kingdom</p-option>
+  <p-option value="cn">China</p-option>
+  <p-option value="jp">Japan</p-option>
+</p-select>
+```
+
+**变体**：
+```html
+<p-select>
+  <span slot="label">Outlined Select</span>
+  <p-option value="1">Option 1</p-option>
+  <p-option value="2">Option 2</p-option>
+</p-select>
+<p-select variant="filled">
+  <span slot="label">Filled Select</span>
+  <p-option value="1">Option 1</p-option>
+  <p-option value="2">Option 2</p-option>
+</p-select>
+```
+
+**尺寸**：
+```html
+<p-select size="xs">
+  <span slot="label">Extra Small (xs)</span>
+  <p-option value="1">Option 1</p-option>
+</p-select>
+<p-select size="s">
+  <span slot="label">Small (s)</span>
+  <p-option value="1">Option 1</p-option>
+</p-select>
+<p-select>
+  <span slot="label">Default</span>
+  <p-option value="1">Option 1</p-option>
+</p-select>
+<p-select size="l">
+  <span slot="label">Large (l)</span>
+  <p-option value="1">Option 1</p-option>
+</p-select>
+<p-select size="xl">
+  <span slot="label">Extra Large (xl)</span>
+  <p-option value="1">Option 1</p-option>
+</p-select>
+```
+
+**颜色**：
+```html
+<p-select color="primary">
+  <span slot="label">Primary Color</span>
+  <p-option value="1">Option 1</p-option>
+</p-select>
+<p-select color="success">
+  <span slot="label">Success Color</span>
+  <p-option value="1">Option 1</p-option>
+</p-select>
+<p-select color="neutral">
+  <span slot="label">Neutral Color</span>
+  <p-option value="1">Option 1</p-option>
+</p-select>
+<p-select color="error">
+  <span slot="label">Error Color</span>
+  <p-option value="1">Option 1</p-option>
+</p-select>
+```
+
+**前缀和后缀**：
+```html
+<p-select>
+  <span slot="prefix">🌐</span>
+  <span slot="label">Language</span>
+  <p-option value="en">English</p-option>
+  <p-option value="zh">中文</p-option>
+</p-select>
+<p-select>
+  <span slot="label">Currency</span>
+  <span slot="suffix">💰</span>
+  <p-option value="usd">USD</p-option>
+  <p-option value="eur">EUR</p-option>
+</p-select>
+```
+
+**禁用状态**：
+```html
+<p-select disabled>
+  <span slot="label">Disabled Select</span>
+  <p-option value="1">Option 1</p-option>
+</p-select>
+```
+
+**禁用选项**：
+```html
+<p-select>
+  <span slot="label">Select Option</span>
+  <p-option value="1">Available Option 1</p-option>
+  <p-option value="2" disabled>Disabled Option 2</p-option>
+  <p-option value="3">Available Option 3</p-option>
+</p-select>
+```
+
+**主要属性**：
+- `variant` - 选择器样式（filled, outlined）
+- `size` - 选择器尺寸（xs, s, l, xl）
+- `color` - 选择器颜色（primary, success, neutral, error）
+- `placeholder` - 占位文本
+- `disabled` - 是否禁用
+- `hang-label` - 标签是否浮动
+
+**p-option 属性**：
+- `value` - 选项的值
+- `disabled` - 是否禁用
+- `selected` - 是否默认选中
+
+**插槽**：
+- `label` - 标签内容
+- `prefix` - 前缀内容
+- `suffix` - 后缀内容
+- `default` - 选项内容（p-option 元素）
+
+**事件**：
+- `change` - 值改变时触发
+
+**编程控制**：
+```javascript
+// 设置值
+$("p-select").value = "option1";
+
+// 获取值
+const value = $("p-select").value;
+
+// 清空选择
+$("p-select").value = null;
+```
+
 ### Dialog 对话框组件
 
 引入组件：
@@ -483,6 +627,125 @@ Punch-UI 支持深色/浅色主题切换。默认跟随系统主题，也可以�
 
 **事件**：
 - `click-mask` - 点击遮罩层时触发
+
+### Navigation 导航组件
+
+Navigation 组件包提供了导航栏、导航项和导航布局组件，用于构建响应式的应用导航系统。
+
+**引入组件**：
+```html
+<l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-bar.html"></l-m>
+```
+
+**基本用法 - 导航栏**：
+```html
+<p-nav-bar>
+  <p-nav-item attr:active="active === 'home'" on:click="active = 'home'">
+    <span slot="icon">🏠</span>
+    <span>Home</span>
+  </p-nav-item>
+  <p-nav-item attr:active="active === 'bookmarks'" on:click="active = 'bookmarks'">
+    <span slot="icon">📑</span>
+    <span>Bookmarks</span>
+  </p-nav-item>
+  <p-nav-item attr:active="active === 'about'" on:click="active = 'about'">
+    <span slot="icon">👤</span>
+    <span>About</span>
+  </p-nav-item>
+</p-nav-bar>
+```
+
+**垂直导航栏**：
+```html
+<p-nav-bar style="height: 400px; display: inline-flex; flex-direction: column">
+  <p-nav-item attr:active="active === 'home'" on:click="active = 'home'">
+    <span slot="icon">🏠</span>
+    <span>Home</span>
+  </p-nav-item>
+  <p-nav-item attr:active="active === 'settings'" on:click="active = 'settings'">
+    <span slot="icon">⚙️</span>
+    <span>Settings</span>
+  </p-nav-item>
+</p-nav-bar>
+```
+
+**标签平行模式**：
+```html
+<p-nav-bar style="--label-parallel: true; padding: 8px 12px;">
+  <p-nav-item attr:active="active === 'home'" on:click="active = 'home'">
+    <span slot="icon">🏠</span>
+    <span>Home</span>
+  </p-nav-item>
+  <p-nav-item attr:active="active === 'about'" on:click="active = 'about'">
+    <span slot="icon">👤</span>
+    <span>About</span>
+  </p-nav-item>
+</p-nav-bar>
+```
+
+**禁用状态**：
+```html
+<p-nav-item disabled>
+  <span slot="icon">⚙️</span>
+  <span>Settings</span>
+</p-nav-item>
+```
+
+**导航布局**：
+```html
+<l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-layout.html"></l-m>
+
+<p-nav-layout>
+  <!-- 主内容区域 -->
+  <div>
+    <h1>Main Content</h1>
+    <p>Your content goes here...</p>
+  </div>
+  
+  <!-- 导航栏 -->
+  <p-nav-bar slot="nav">
+    <p-nav-item attr:active="active === 'home'" on:click="active = 'home'">
+      <span slot="icon">🏠</span>
+      <span>Home</span>
+    </p-nav-item>
+    <p-nav-item attr:active="active === 'bookmarks'" on:click="active = 'bookmarks'">
+      <span slot="icon">📑</span>
+      <span>Bookmarks</span>
+    </p-nav-item>
+    <p-nav-item attr:active="active === 'about'" on:click="active = 'about'">
+      <span slot="icon">👤</span>
+      <span>About</span>
+    </p-nav-item>
+  </p-nav-bar>
+</p-nav-layout>
+```
+
+**响应式行为**：
+- **移动端 (< 768px)**：底部导航栏，图标和标签垂直排列
+- **平板 (768px - 1024px)**：底部导航栏，图标和标签水平排列
+- **桌面端 (> 1024px)**：左侧垂直导航栏
+
+**主要属性 - p-nav-item**：
+- `active` - 是否为激活状态
+- `disabled` - 是否禁用
+
+**插槽 - p-nav-bar**：
+- `default` - 包含的 p-nav-item 元素
+
+**插槽 - p-nav-item**：
+- `icon` - 导航项图标
+- `default` - 导航项标签
+
+**插槽 - p-nav-layout**：
+- `default` - 主内容区域
+- `nav` - 导航栏（p-nav-bar）
+
+**CSS 变量 - p-nav-bar**：
+- `--label-parallel` - 图标和标签是否水平排列（true/false）
+
+**事件 - p-nav-item**：
+- `change-active` - 激活状态改变时触发
+- `click` - 点击导航项时触发
 
 ## 工具函数
 
