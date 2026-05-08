@@ -116,7 +116,7 @@
               </div>
             </o-fill>
           </div>
-          <div style="display: flex">
+          <div style="display: flex; flex-wrap: wrap">
             <div
               class="theme-color-block"
               :style.background="'var(' + $data.surface.cssVar + ')'"
@@ -152,6 +152,86 @@
                 <div class="theme-color-name">On Surface</div>
                 <div class="theme-color-css-var">
                   {{$data.onSurface.cssVar}}
+                </div>
+              </o-else>
+            </div>
+            <div
+              class="theme-color-block"
+              :style.background="'var(' + $data.surfaceVariant.cssVar + ')'"
+              :style.color="$host.getBlockColor($data.surfaceVariant.point)"
+              on:click="$host.copyCssVar($data.surfaceVariant)"
+              on:keydown="$host.handleKeydown($event, $data.surfaceVariant)"
+              role="button"
+              tabindex="0"
+              :aria-label="'Copy CSS variable: ' + $data.surfaceVariant.cssVar"
+            >
+              <o-if :value="$data.surfaceVariant.copySuccess">
+                <div class="theme-color-css-var" aria-live="polite">Copied</div>
+              </o-if>
+              <o-else>
+                <div class="theme-color-name">Surface Variant</div>
+                <div class="theme-color-css-var">
+                  {{$data.surfaceVariant.cssVar}}
+                </div>
+              </o-else>
+            </div>
+            <div
+              class="theme-color-block"
+              :style.background="'var(' + $data.onSurfaceVariant.cssVar + ')'"
+              :style.color="$host.getBlockColor($data.onSurfaceVariant.point)"
+              on:click="$host.copyCssVar($data.onSurfaceVariant)"
+              on:keydown="$host.handleKeydown($event, $data.onSurfaceVariant)"
+              role="button"
+              tabindex="0"
+              :aria-label="'Copy CSS variable: ' + $data.onSurfaceVariant.cssVar"
+            >
+              <o-if :value="$data.onSurfaceVariant.copySuccess">
+                <div class="theme-color-css-var" aria-live="polite">Copied</div>
+              </o-if>
+              <o-else>
+                <div class="theme-color-name">On Surface Variant</div>
+                <div class="theme-color-css-var">
+                  {{$data.onSurfaceVariant.cssVar}}
+                </div>
+              </o-else>
+            </div>
+            <div
+              class="theme-color-block"
+              :style.background="'var(' + $data.inverseSurface.cssVar + ')'"
+              :style.color="$host.getBlockColor($data.inverseSurface.point)"
+              on:click="$host.copyCssVar($data.inverseSurface)"
+              on:keydown="$host.handleKeydown($event, $data.inverseSurface)"
+              role="button"
+              tabindex="0"
+              :aria-label="'Copy CSS variable: ' + $data.inverseSurface.cssVar"
+            >
+              <o-if :value="$data.inverseSurface.copySuccess">
+                <div class="theme-color-css-var" aria-live="polite">Copied</div>
+              </o-if>
+              <o-else>
+                <div class="theme-color-name">Inverse Surface</div>
+                <div class="theme-color-css-var">
+                  {{$data.inverseSurface.cssVar}}
+                </div>
+              </o-else>
+            </div>
+            <div
+              class="theme-color-block"
+              :style.background="'var(' + $data.inverseOnSurface.cssVar + ')'"
+              :style.color="$host.getBlockColor($data.inverseOnSurface.point)"
+              on:click="$host.copyCssVar($data.inverseOnSurface)"
+              on:keydown="$host.handleKeydown($event, $data.inverseOnSurface)"
+              role="button"
+              tabindex="0"
+              :aria-label="'Copy CSS variable: ' + $data.inverseOnSurface.cssVar"
+            >
+              <o-if :value="$data.inverseOnSurface.copySuccess">
+                <div class="theme-color-css-var" aria-live="polite">Copied</div>
+              </o-if>
+              <o-else>
+                <div class="theme-color-name">Inverse On Surface</div>
+                <div class="theme-color-css-var">
+                  {{$data.inverseOnSurface.cssVar}}
                 </div>
               </o-else>
             </div>

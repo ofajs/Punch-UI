@@ -3,8 +3,22 @@ import { getColors } from "../../packages/common/mcu-ts/index.js";
 const points = [100, 98, 95, 90, 80, 70, 60, 50, 40, 30, 20, 10, 6, 0];
 
 const neutralSurfacePoints = {
-  light: { surface: 98, onSurface: 10 },
-  dark: { surface: 6, onSurface: 90 },
+  light: {
+    surface: 98,
+    onSurface: 10,
+    surfaceVariant: 90,
+    onSurfaceVariant: 30,
+    inverseSurface: 20,
+    inverseOnSurface: 95,
+  },
+  dark: {
+    surface: 6,
+    onSurface: 90,
+    surfaceVariant: 30,
+    onSurfaceVariant: 80,
+    inverseSurface: 90,
+    inverseOnSurface: 20,
+  },
 };
 
 const colorRolePoints = [
@@ -97,11 +111,35 @@ export function generateTheme(colorMaps, baseColors) {
       lightThemeVars.push(
         `--md-sys-color-on-surface: var(${colorMap[neutralSurfacePoints.light.onSurface]});`,
       );
+      lightThemeVars.push(
+        `--md-sys-color-surface-variant: var(${colorMap[neutralSurfacePoints.light.surfaceVariant]});`,
+      );
+      lightThemeVars.push(
+        `--md-sys-color-on-surface-variant: var(${colorMap[neutralSurfacePoints.light.onSurfaceVariant]});`,
+      );
+      lightThemeVars.push(
+        `--md-sys-color-inverse-surface: var(${colorMap[neutralSurfacePoints.light.inverseSurface]});`,
+      );
+      lightThemeVars.push(
+        `--md-sys-color-inverse-on-surface: var(${colorMap[neutralSurfacePoints.light.inverseOnSurface]});`,
+      );
       darkThemeVars.push(
         `--md-sys-color-surface: var(${colorMap[neutralSurfacePoints.dark.surface]});`,
       );
       darkThemeVars.push(
         `--md-sys-color-on-surface: var(${colorMap[neutralSurfacePoints.dark.onSurface]});`,
+      );
+      darkThemeVars.push(
+        `--md-sys-color-surface-variant: var(${colorMap[neutralSurfacePoints.dark.surfaceVariant]});`,
+      );
+      darkThemeVars.push(
+        `--md-sys-color-on-surface-variant: var(${colorMap[neutralSurfacePoints.dark.onSurfaceVariant]});`,
+      );
+      darkThemeVars.push(
+        `--md-sys-color-inverse-surface: var(${colorMap[neutralSurfacePoints.dark.inverseSurface]});`,
+      );
+      darkThemeVars.push(
+        `--md-sys-color-inverse-on-surface: var(${colorMap[neutralSurfacePoints.dark.inverseOnSurface]});`,
       );
     }
 
@@ -179,6 +217,22 @@ export function generateTheme(colorMaps, baseColors) {
         cssVar: "--md-sys-color-on-surface",
         point: neutralSurfacePoints.light.onSurface,
       },
+      surfaceVariant: {
+        cssVar: "--md-sys-color-surface-variant",
+        point: neutralSurfacePoints.light.surfaceVariant,
+      },
+      onSurfaceVariant: {
+        cssVar: "--md-sys-color-on-surface-variant",
+        point: neutralSurfacePoints.light.onSurfaceVariant,
+      },
+      inverseSurface: {
+        cssVar: "--md-sys-color-inverse-surface",
+        point: neutralSurfacePoints.light.inverseSurface,
+      },
+      inverseOnSurface: {
+        cssVar: "--md-sys-color-inverse-on-surface",
+        point: neutralSurfacePoints.light.inverseOnSurface,
+      },
       groups: baseColors.map((baseColor) => ({
         name: baseColor.name,
         class: "theme-color-group",
@@ -195,6 +249,22 @@ export function generateTheme(colorMaps, baseColors) {
       onSurface: {
         cssVar: "--md-sys-color-on-surface",
         point: neutralSurfacePoints.dark.onSurface,
+      },
+      surfaceVariant: {
+        cssVar: "--md-sys-color-surface-variant",
+        point: neutralSurfacePoints.dark.surfaceVariant,
+      },
+      onSurfaceVariant: {
+        cssVar: "--md-sys-color-on-surface-variant",
+        point: neutralSurfacePoints.dark.onSurfaceVariant,
+      },
+      inverseSurface: {
+        cssVar: "--md-sys-color-inverse-surface",
+        point: neutralSurfacePoints.dark.inverseSurface,
+      },
+      inverseOnSurface: {
+        cssVar: "--md-sys-color-inverse-on-surface",
+        point: neutralSurfacePoints.dark.inverseOnSurface,
       },
       groups: baseColors.map((baseColor) => ({
         name: baseColor.name,
