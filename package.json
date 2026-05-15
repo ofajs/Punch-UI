@@ -3,7 +3,7 @@
   "version": "1.0.5",
   "description": "UI component library based on ofa.js development",
   "scripts": {
-    "dev": "http-server -p 5002 -c-1 --cors"
+    "static": "http-server -p 5002 -c-1 --cors"
   },
   "type": "module",
   "keywords": [
