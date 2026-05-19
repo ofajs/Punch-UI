@@ -1,156 +1,175 @@
 <!doctype html>
 <html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Radio Demo</title>
+    <script
+      src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs"
+      type="module"
+    ></script>
+    <link rel="stylesheet" href="../../css/pui-global.css" />
+    <style>
+      body {
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          Segoe UI,
+          Microsoft Yahei,
+          Helvetica,
+          Arial,
+          sans-serif,
+          Apple Color Emoji,
+          Segoe UI Emoji;
+        padding: 20px;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Radio Demo</title>
-  <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
-  <link rel="stylesheet" href="../../css/pui-global.css" />
-  <style>
-    body {
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        Segoe UI,
-        Microsoft Yahei,
-        Helvetica,
-        Arial,
-        sans-serif,
-        Apple Color Emoji,
-        Segoe UI Emoji;
-      padding: 20px;
-    }
+      p-radio {
+        margin: 16px;
+      }
 
-    p-radio {
-      margin: 16px;
-    }
+      .demo-section {
+        margin-bottom: 32px;
+      }
 
-    .demo-section {
-      margin-bottom: 32px;
-    }
+      .demo-section h3 {
+        margin-bottom: 16px;
+        color: #333;
+      }
 
-    .demo-section h3 {
-      margin-bottom: 16px;
-      color: #333;
-    }
+      .radio-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: center;
+      }
 
-    .radio-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      align-items: center;
-    }
+      button {
+        padding: 8px 16px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
 
-    button {
-      padding: 8px 16px;
-      cursor: pointer;
-    }
-  </style>
-</head>
+  <body>
+    <l-m src="../../../tool/theme-switch/theme-switch.html"></l-m>
 
-<body>
-  <l-m src="../../../tool/theme-switch/theme-switch.html"></l-m>
-
-  <div style="position: fixed; top: 20px; right: 20px">
-    <p-theme-switch></p-theme-switch>
-  </div>
-
-  <h2>Radio</h2>
-
-  <l-m src="../group.html"></l-m>
-  <l-m src="../radio.html"></l-m>
-
-  <div class="demo-section">
-    <h3>Basic Usage</h3>
-    <div class="radio-row">
-      <p-radio>Default</p-radio>
-      <p-radio variant="tonal">Tonal</p-radio>
-      <p-radio checked>Checked</p-radio>
-      <p-radio disabled>Disabled</p-radio>
-      <p-radio checked disabled>Disabled & Checked</p-radio>
+    <div style="position: fixed; top: 20px; right: 20px">
+      <p-theme-switch></p-theme-switch>
     </div>
-  </div>
 
-  <div class="demo-section">
-    <h3>Size Variants</h3>
-    <div class="radio-row">
-      <p-radio size="xs">Extra Small</p-radio>
-      <p-radio size="s">Small</p-radio>
-      <p-radio>Default</p-radio>
-      <p-radio size="l">Large</p-radio>
-      <p-radio size="xl">Extra Large</p-radio>
-    </div>
-  </div>
+    <h2>Radio</h2>
 
-  <div class="demo-section">
-    <h3>Color Variants</h3>
-    <div class="radio-row">
-      <p-radio color="primary" checked>Primary</p-radio>
-      <p-radio color="success" checked>Success</p-radio>
-      <p-radio color="error" checked>Error</p-radio>
-      <p-radio color="neutral" checked>Neutral</p-radio>
-    </div>
-  </div>
+    <l-m src="../group.html"></l-m>
+    <l-m src="../radio.html"></l-m>
 
-  <div class="demo-section">
-    <h3>With Name Attribute</h3>
-    <div class="radio-row">
-      <p-radio name="option">Option A</p-radio>
-      <p-radio name="option">Option B</p-radio>
-      <p-radio name="option" checked>Option C</p-radio>
-    </div>
-  </div>
-
-  <div class="demo-section">
-    <h3>With Value Attribute</h3>
-    <div class="radio-row">
-      <p-radio value="a">Value A</p-radio>
-      <p-radio value="b">Value B</p-radio>
-      <p-radio value="c">Value C</p-radio>
-    </div>
-  </div>
-
-  <div class="demo-section">
-    <h3>Focus Method</h3>
-    <p-radio id="focus-demo">Click button to focus</p-radio>
-    <br /><br />
-    <button id="focus-btn">Focus Radio</button>
-  </div>
-
-  <div class="demo-section">
-    <h3>Group Control</h3>
-    <p-radio-group id="group-demo">
-      <div>
-        <p-radio value="1">Radio 1</p-radio>
-        <p-radio value="2" checked>Radio 2</p-radio>
-        <p-radio value="3">Radio 3</p-radio>
+    <div class="demo-section">
+      <h3>Basic Usage</h3>
+      <div class="radio-row">
+        <p-radio>Default</p-radio>
+        <p-radio variant="tonal">Tonal</p-radio>
+        <p-radio checked>Checked</p-radio>
+        <p-radio disabled>Disabled</p-radio>
+        <p-radio checked disabled>Disabled & Checked</p-radio>
       </div>
-    </p-radio-group>
-    <div>
-      selected: <span id="selected-value"></span>
     </div>
+
+    <div class="demo-section">
+      <h3>Size Variants</h3>
+      <div class="radio-row">
+        <p-radio size="xs">Extra Small</p-radio>
+        <p-radio size="s">Small</p-radio>
+        <p-radio>Default</p-radio>
+        <p-radio size="l">Large</p-radio>
+        <p-radio size="xl">Extra Large</p-radio>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>Color Variants</h3>
+      <div class="radio-row">
+        <p-radio color="primary" checked>Primary</p-radio>
+        <p-radio color="success" checked>Success</p-radio>
+        <p-radio color="error" checked>Error</p-radio>
+        <p-radio color="neutral" checked>Neutral</p-radio>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>With Name Attribute</h3>
+      <div class="radio-row">
+        <p-radio name="option">Option A</p-radio>
+        <p-radio name="option">Option B</p-radio>
+        <p-radio name="option" checked>Option C</p-radio>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>With Value Attribute</h3>
+      <div class="radio-row">
+        <p-radio value="a">Value A</p-radio>
+        <p-radio value="b">Value B</p-radio>
+        <p-radio value="c">Value C</p-radio>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>Focus Method</h3>
+      <p-radio id="focus-demo">Click button to focus</p-radio>
+      <br /><br />
+      <button id="focus-btn">Focus Radio</button>
+    </div>
+
+    <div class="demo-section">
+      <h3>Group Control</h3>
+      <p-radio-group id="group-demo">
+        <div>
+          <p-radio value="1">Radio 1</p-radio>
+          <p-radio value="2" checked>Radio 2</p-radio>
+          <p-radio value="3">Radio 3</p-radio>
+        </div>
+      </p-radio-group>
+      <div>selected: <span id="selected-value"></span></div>
+      <script type="module">
+        const group = $("#group-demo");
+        group.on("change", (e) => {
+          console.log("Group change:", group.value);
+          $("#selected-value").text = group.value;
+        });
+      </script>
+    </div>
+
+    <div class="demo-section">
+      <h3>Set Group Value</h3>
+      <p-radio-group id="group-demo2">
+        <div>
+          <p-radio value="1">Radio 1</p-radio>
+          <p-radio value="2">Radio 2</p-radio>
+          <p-radio value="3">Radio 3</p-radio>
+        </div>
+      </p-radio-group>
+      <div>selected: <span id="selected-value2"></span></div>
+      <script type="module">
+        const group2 = $("#group-demo2");
+        group2.value = "3";
+        group2.on("change", (e) => {
+          $("#selected-value2").text = group2.value;
+        });
+        $("#selected-value2").text = group2.value;
+      </script>
+    </div>
+
     <script type="module">
-      const group = $("#group-demo");
-      group.on("change", (e) => {
-        console.log("Group change:", group.value);
-        $("#selected-value").text = group.value;
+      const radios = $.all("p-radio");
+      radios.forEach((rb) => {
+        rb.on("change", (e) => {
+          console.log("Radio change:", $(e.target).checked);
+        });
+      });
+
+      $("#focus-btn").on("click", () => {
+        $("#focus-demo").focus();
       });
     </script>
-  </div>
-
-  <script type="module">
-    const radios = $.all("p-radio");
-    radios.forEach((rb) => {
-      rb.on("change", (e) => {
-        console.log("Radio change:", $(e.target).checked);
-      });
-    });
-
-    $("#focus-btn").on("click", () => {
-      $("#focus-demo").focus();
-    });
-  </script>
-</body>
-
+  </body>
 </html>

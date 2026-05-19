@@ -6,33 +6,46 @@
   </style>
   <slot></slot>
   <script>
-    export default async function () {
+    export default async function ({ load }) {
+      await load("./checkbox.html");
+
       return {
         tag: "p-checkbox-group",
         data: {
-          value: []
+          value: [],
+        },
+        watch: {
+          value(val) {
+            if (!this._init_checked && !val.length) return;
+            if (!Array.isArray(val)) return;
+            const checkboxes = this.all("p-checkbox");
+            checkboxes.forEach((cb) => {
+              cb.checked = val.includes(cb.value);
+            });
+            this.emit("change");
+          },
         },
         proto: {
           updateValueFromChildren() {
             const checkboxes = this.all("p-checkbox");
             const checkedValues = [];
-            checkboxes.forEach(cb => {
+            checkboxes.forEach((cb) => {
               if (cb.checked) {
                 checkedValues.push(cb.value);
               }
             });
             this.value.splice(0, this.value.length, ...checkedValues);
-            this.emit("change");
-          }
+          },
         },
         attached() {
           this.updateValueFromChildren();
+          this._init_checked = 1;
 
           this.on("attached-checkbox", (e) => {
             this.updateValueFromChildren();
           });
 
-          this.on("change", (e) => {
+          this.shadow.on("change", (e) => {
             const checkbox = $(e.target);
             if (!checkbox.is("p-checkbox")) {
               return;

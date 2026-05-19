@@ -343,9 +343,13 @@
             this.checked = !this.checked;
             this.emit("change");
           });
-          this.shadow.$(".container").ele.addEventListener("blur", () => {
-            this.shadow.$(".container").ele.classList.remove("focused");
-          }, true);
+          this.shadow.$(".container").ele.addEventListener(
+            "blur",
+            () => {
+              this.shadow.$(".container").ele.classList.remove("focused");
+            },
+            true,
+          );
         },
         attached() {
           if (this.attr("checked") !== null) {

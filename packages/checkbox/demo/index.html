@@ -1,186 +1,209 @@
 <!doctype html>
 <html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkbox Demo</title>
+    <script
+      src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs#debug"
+      type="module"
+    ></script>
+    <link rel="stylesheet" href="../../css/pui-global.css" />
+    <style>
+      body {
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          Segoe UI,
+          Microsoft Yahei,
+          Helvetica,
+          Arial,
+          sans-serif,
+          Apple Color Emoji,
+          Segoe UI Emoji;
+        padding: 20px;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Checkbox Demo</title>
-  <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
-  <link rel="stylesheet" href="../../css/pui-global.css" />
-  <style>
-    body {
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        Segoe UI,
-        Microsoft Yahei,
-        Helvetica,
-        Arial,
-        sans-serif,
-        Apple Color Emoji,
-        Segoe UI Emoji;
-      padding: 20px;
-    }
+      p-checkbox {
+        margin: 16px;
+      }
 
-    p-checkbox {
-      margin: 16px;
-    }
+      .demo-section {
+        margin-bottom: 32px;
+      }
 
-    .demo-section {
-      margin-bottom: 32px;
-    }
+      .demo-section h3 {
+        margin-bottom: 16px;
+        color: #333;
+      }
 
-    .demo-section h3 {
-      margin-bottom: 16px;
-      color: #333;
-    }
+      .checkbox-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: center;
+      }
 
-    .checkbox-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      align-items: center;
-    }
+      button {
+        padding: 8px 16px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
 
-    button {
-      padding: 8px 16px;
-      cursor: pointer;
-    }
-  </style>
-</head>
+  <body>
+    <l-m src="../../../tool/theme-switch/theme-switch.html"></l-m>
 
-<body>
-  <l-m src="../../../tool/theme-switch/theme-switch.html"></l-m>
-
-  <div style="position: fixed; top: 20px; right: 20px">
-    <p-theme-switch></p-theme-switch>
-  </div>
-
-  <h2>Checkbox</h2>
-
-  <l-m src="../group.html"></l-m>
-  <l-m src="../checkbox.html"></l-m>
-
-  <div class="demo-section">
-    <h3>Basic Usage</h3>
-    <div class="checkbox-row">
-      <p-checkbox>Default</p-checkbox>
-      <p-checkbox variant="tonal">Tonal</p-checkbox>
-      <p-checkbox checked>Checked</p-checkbox>
-      <p-checkbox disabled>Disabled</p-checkbox>
-      <p-checkbox checked disabled>Disabled & Checked</p-checkbox>
+    <div style="position: fixed; top: 20px; right: 20px">
+      <p-theme-switch></p-theme-switch>
     </div>
-  </div>
 
-  <div class="demo-section">
-    <h3>Size Variants</h3>
-    <div class="checkbox-row">
-      <p-checkbox size="xs">Extra Small</p-checkbox>
-      <p-checkbox size="s">Small</p-checkbox>
-      <p-checkbox>Default</p-checkbox>
-      <p-checkbox size="l">Large</p-checkbox>
-      <p-checkbox size="xl">Extra Large</p-checkbox>
-    </div>
-  </div>
+    <h2>Checkbox</h2>
 
-  <div class="demo-section">
-    <h3>Color Variants</h3>
-    <div class="checkbox-row">
-      <p-checkbox color="primary" checked>Primary</p-checkbox>
-      <p-checkbox color="success" checked>Success</p-checkbox>
-      <p-checkbox color="error" checked>Error</p-checkbox>
-      <p-checkbox color="neutral" checked>Neutral</p-checkbox>
-    </div>
-  </div>
+    <l-m src="../group.html"></l-m>
+    <l-m src="../checkbox.html"></l-m>
 
-  <div class="demo-section">
-    <h3>With Name Attribute</h3>
-    <div class="checkbox-row">
-      <p-checkbox name="agree">I agree to terms</p-checkbox>
-      <p-checkbox name="subscribe" checked>Subscribe to newsletter</p-checkbox>
-    </div>
-  </div>
-
-  <div class="demo-section">
-    <h3>Dynamic Control</h3>
-    <div class="checkbox-row">
-      <button id="check-all-btn">Check All</button>
-      <button id="uncheck-all-btn">Uncheck All</button>
-    </div>
-    <br />
-    <div class="checkbox-row" id="dynamic-checkboxes">
-      <p-checkbox>Checkbox 1</p-checkbox>
-      <p-checkbox>Checkbox 2</p-checkbox>
-      <p-checkbox>Checkbox 3</p-checkbox>
-    </div>
-  </div>
-
-  <div class="demo-section">
-    <h3>Indeterminate State</h3>
-    <div class="checkbox-row">
-      <p-checkbox id="indeterminate-demo" indeterminate>Indeterminate</p-checkbox>
-      <button id="toggle-indeterminate-btn">Toggle Indeterminate</button>
-    </div>
-  </div>
-
-  <div class="demo-section">
-    <h3>Focus Method</h3>
-    <p-checkbox id="focus-demo">Click button to focus</p-checkbox>
-    <br /><br />
-    <button id="focus-btn">Focus Checkbox</button>
-  </div>
-
-  <div class="demo-section">
-    <h3>Group Control</h3>
-    <p-checkbox-group id="group-demo">
-      <div>
-        <!-- 不需一定要在 group 元素第一级子元素中 -->
-        <p-checkbox value="1">Checkbox 1</p-checkbox>
-        <p-checkbox value="2" checked>Checkbox 2</p-checkbox>
-        <p-checkbox value="3">Checkbox 3</p-checkbox>
+    <div class="demo-section">
+      <h3>Basic Usage</h3>
+      <div class="checkbox-row">
+        <p-checkbox>Default</p-checkbox>
+        <p-checkbox variant="tonal">Tonal</p-checkbox>
+        <p-checkbox checked>Checked</p-checkbox>
+        <p-checkbox disabled>Disabled</p-checkbox>
+        <p-checkbox checked disabled>Disabled & Checked</p-checkbox>
       </div>
-    </p-checkbox-group>
-    <div>
-      selected: <span id="selected-values"></span>
     </div>
+
+    <div class="demo-section">
+      <h3>Size Variants</h3>
+      <div class="checkbox-row">
+        <p-checkbox size="xs">Extra Small</p-checkbox>
+        <p-checkbox size="s">Small</p-checkbox>
+        <p-checkbox>Default</p-checkbox>
+        <p-checkbox size="l">Large</p-checkbox>
+        <p-checkbox size="xl">Extra Large</p-checkbox>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>Color Variants</h3>
+      <div class="checkbox-row">
+        <p-checkbox color="primary" checked>Primary</p-checkbox>
+        <p-checkbox color="success" checked>Success</p-checkbox>
+        <p-checkbox color="error" checked>Error</p-checkbox>
+        <p-checkbox color="neutral" checked>Neutral</p-checkbox>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>With Name Attribute</h3>
+      <div class="checkbox-row">
+        <p-checkbox name="agree">I agree to terms</p-checkbox>
+        <p-checkbox name="subscribe" checked
+          >Subscribe to newsletter</p-checkbox
+        >
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>Dynamic Control</h3>
+      <div class="checkbox-row">
+        <button id="check-all-btn">Check All</button>
+        <button id="uncheck-all-btn">Uncheck All</button>
+      </div>
+      <br />
+      <div class="checkbox-row" id="dynamic-checkboxes">
+        <p-checkbox>Checkbox 1</p-checkbox>
+        <p-checkbox>Checkbox 2</p-checkbox>
+        <p-checkbox>Checkbox 3</p-checkbox>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>Indeterminate State</h3>
+      <div class="checkbox-row">
+        <p-checkbox id="indeterminate-demo" indeterminate
+          >Indeterminate</p-checkbox
+        >
+        <button id="toggle-indeterminate-btn">Toggle Indeterminate</button>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>Focus Method</h3>
+      <p-checkbox id="focus-demo">Click button to focus</p-checkbox>
+      <br /><br />
+      <button id="focus-btn">Focus Checkbox</button>
+    </div>
+
+    <div class="demo-section">
+      <h3>Group Control</h3>
+      <p-checkbox-group id="group-demo">
+        <div>
+          <div style="display: none">不需一定要在 group 元素第一级子元素中</div>
+          <p-checkbox value="1">Checkbox 1</p-checkbox>
+          <p-checkbox value="2" checked>Checkbox 2</p-checkbox>
+          <p-checkbox value="3">Checkbox 3</p-checkbox>
+        </div>
+      </p-checkbox-group>
+      <div>selected: <span id="selected-values"></span></div>
+      <script type="module">
+        const group = $("#group-demo");
+        group.on("change", (e) => {
+          console.log("Group change:", group.value);
+          $("#selected-values").text = group.value.join(", ");
+        });
+      </script>
+    </div>
+
+    <div class="demo-section">
+      <h3>Set Group Value</h3>
+      <p-checkbox-group id="group-demo2">
+        <div>
+          <p-checkbox value="1">Checkbox 1</p-checkbox>
+          <p-checkbox value="2">Checkbox 2</p-checkbox>
+          <p-checkbox value="3">Checkbox 3</p-checkbox>
+        </div>
+      </p-checkbox-group>
+      <div>selected: <span id="selected-values2"></span></div>
+      <script type="module">
+        const group2 = $("#group-demo2");
+        group2.value = ["1", "3"];
+        group2.on("change", (e) => {
+          $("#selected-values2").text = group2.value.join(", ");
+        });
+        $("#selected-values2").text = group2.value.join(", ");
+      </script>
+    </div>
+
     <script type="module">
-      const group = $("#group-demo");
-      group.on("change", (e) => {
-        console.log("Group change:", group.value);
-        $("#selected-values").text = group.value.join(", ");
+      const checkboxes = $.all("p-checkbox");
+      checkboxes.forEach((cb) => {
+        cb.on("change", (e) => {
+          console.log("Checkbox change:", $(e.target).checked);
+        });
+      });
+
+      $("#check-all-btn").on("click", () => {
+        $.all("#dynamic-checkboxes p-checkbox").forEach((cb) => {
+          cb.checked = true;
+        });
+      });
+
+      $("#uncheck-all-btn").on("click", () => {
+        $.all("#dynamic-checkboxes p-checkbox").forEach((cb) => {
+          cb.checked = false;
+        });
+      });
+
+      $("#focus-btn").on("click", () => {
+        $("#focus-demo").focus();
+      });
+
+      $("#toggle-indeterminate-btn").on("click", () => {
+        const cb = $("#indeterminate-demo");
+        cb.indeterminate = cb.indeterminate === null ? "" : null;
       });
     </script>
-  </div>
-
-  <script type="module">
-    const checkboxes = $.all("p-checkbox");
-    checkboxes.forEach((cb) => {
-      cb.on("change", (e) => {
-        console.log("Checkbox change:", $(e.target).checked);
-      });
-    });
-
-    $("#check-all-btn").on("click", () => {
-      $.all("#dynamic-checkboxes p-checkbox").forEach((cb) => {
-        cb.checked = true;
-      });
-    });
-
-    $("#uncheck-all-btn").on("click", () => {
-      $.all("#dynamic-checkboxes p-checkbox").forEach((cb) => {
-        cb.checked = false;
-      });
-    });
-
-    $("#focus-btn").on("click", () => {
-      $("#focus-demo").focus();
-    });
-
-    $("#toggle-indeterminate-btn").on("click", () => {
-      const cb = $("#indeterminate-demo");
-      cb.indeterminate = cb.indeterminate === null ? "" : null;
-    });
-  </script>
-</body>
-
+  </body>
 </html>

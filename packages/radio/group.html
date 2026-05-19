@@ -10,20 +10,36 @@
       return {
         tag: "p-radio-group",
         data: {
-          value: null
+          value: null,
+        },
+        watch: {
+          value(val) {
+            if (val === null) return;
+            const radios = this.all("p-radio");
+            radios.forEach((rb) => {
+              rb.checked = rb.value === val;
+            });
+
+            this.emit("change");
+          },
         },
         proto: {
           updateValueFromChildren() {
             const radios = this.all("p-radio");
-            let checkedValue = null;
-            radios.forEach(rb => {
-              if (rb.checked) {
-                checkedValue = rb.value;
-              }
-            });
-            this.value = checkedValue;
-            this.emit("change");
-          }
+            if (this.value === null) {
+              let checkedValue = null;
+              radios.forEach((rb) => {
+                if (rb.checked) {
+                  checkedValue = rb.value;
+                }
+              });
+              this.value = checkedValue;
+            } else {
+              radios.forEach((rb) => {
+                rb.checked = rb.value === this.value;
+              });
+            }
+          },
         },
         attached() {
           this.updateValueFromChildren();
@@ -32,7 +48,7 @@
             this.updateValueFromChildren();
           });
 
-          this.on("change", (e) => {
+          this.shadow.on("change", (e) => {
             const radio = $(e.target);
             if (!radio.is("p-radio")) {
               return;
@@ -42,13 +58,12 @@
 
             if (radio.checked) {
               const radios = this.all("p-radio");
-              radios.forEach(rb => {
+              radios.forEach((rb) => {
                 if (rb !== radio && rb.checked) {
                   rb.checked = false;
                 }
               });
               this.value = radio.value;
-              this.emit("change");
             }
           });
         },
