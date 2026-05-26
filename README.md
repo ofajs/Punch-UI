@@ -25,6 +25,7 @@
 - [Dialog 对话框组件](./packages/dialog/README.md)
 - [List 列表组件](./packages/list/README.md)
 - [NavBar 导航栏组件](./packages/navigation/README.md)
+- [Tabs 标签组件](./packages/tabs/README.md)
 - [Util 工具函数](./packages/util/README.md)
   - Toast 提示
   - Alert 警告框
@@ -49,6 +50,9 @@
 
 <!-- 多行文本输入框组件 -->
 <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+
+<!-- 标签组件 -->
+<l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-bar.html"></l-m>
 
 ...
 ```

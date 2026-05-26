@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tabs Demo</title>
+    <script
+      src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js@latest/dist/ofa.min.mjs#debug"
+      type="module"
+    ></script>
+    <script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script>
+    <link rel="stylesheet" href="../../css/pui-global.css" />
+    <style>
+      body {
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          Segoe UI,
+          Microsoft Yahei,
+          Helvetica,
+          Arial,
+          sans-serif,
+          Apple Color Emoji,
+          Segoe UI Emoji;
+        margin: 0;
+        padding: 20px;
+        background-color: var(--md-sys-color-surface);
+        color: var(--md-sys-color-on-surface);
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>Tabs</h2>
+
+    <l-m src="../../../tool/theme-switch/theme-switch.html"></l-m>
+
+    <div style="position: fixed; top: 20px; right: 20px; z-index: 100">
+      <p-theme-switch></p-theme-switch>
+    </div>
+
+    <o-page src="./tab-bar-demo.html"></o-page>
+  </body>
+</html>

@@ -1,0 +1,131 @@
+<template component>
+  <l-m src="../ripple/ripple.html"></l-m>
+  <style>
+    :host {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1;
+      height: 40px;
+    }
+
+    .hover-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgb(from var(--md-sys-color-on-surface) r g b / 0.08);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+      border-radius: 8px;
+    }
+
+    :host(:hover) .hover-bg {
+      opacity: 1;
+    }
+
+    :host([active]) .hover-bg {
+      background-color: rgb(from var(--md-sys-color-primary) r g b / 0.08);
+    }
+
+    .container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      height: 100%;
+      padding: 0 16px;
+      z-index: 1;
+    }
+
+    .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--md-sys-color-on-surface-variant);
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+
+    :host([active]) .label {
+      color: var(--md-sys-color-primary);
+    }
+
+    :host(:hover) .label {
+      color: var(--md-sys-color-on-surface);
+    }
+
+    :host([active]:hover) .label {
+      color: var(--md-sys-color-primary);
+    }
+
+    :host([disabled]) {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    :host([disabled]) .label {
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    p-ripple {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+    }
+  </style>
+  <div class="hover-bg"></div>
+  <div class="container" on:click="handleClick">
+    <div class="icon">
+      <slot name="icon"></slot>
+    </div>
+    <div class="label">
+      <slot></slot>
+    </div>
+    <p-ripple attr:disabled="disabled"></p-ripple>
+  </div>
+  <script>
+    import "../common/init.js";
+
+    export default {
+      tag: "p-tab-item",
+      data: {},
+      attrs: {
+        disabled: null,
+        active: null,
+      },
+      watch: {
+        active() {
+          if (this.active === null) {
+            return;
+          }
+
+          this.emit("change-active");
+        },
+      },
+      proto: {
+        handleClick(e) {
+          if (this.disabled !== null) {
+            e.stopPropagation();
+            return;
+          }
+        },
+      },
+    };
+  </script>
+</template>

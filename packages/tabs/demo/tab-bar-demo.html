@@ -1,0 +1,99 @@
+<template page>
+  <l-m src="../tab-bar.html"></l-m>
+  <style>
+    :host {
+      display: block;
+    }
+
+    p-tab-bar {
+      background-color: var(--md-sys-color-surface);
+    }
+  </style>
+  <script>
+    export default {
+      data: {
+        active: "home",
+        active2: "home",
+        active3: "tab1"
+      }
+    };
+  </script>
+
+  <h3>Basic Tabs</h3>
+  <p-tab-bar style="width: 100%; max-width: 600px">
+    <p-tab-item attr:active="active === 'home'" on:click="active = 'home'">
+      <span>Home</span>
+    </p-tab-item>
+    <p-tab-item attr:active="active === 'about'" on:click="active = 'about'">
+      <span>About</span>
+    </p-tab-item>
+    <p-tab-item
+      attr:active="active === 'settings'"
+      on:click="active = 'settings'"
+    >
+      <span>Settings</span>
+    </p-tab-item>
+  </p-tab-bar>
+
+  <br /><br />
+
+  <h3>Tabs with Icons</h3>
+  <p-tab-bar style="width: 100%; max-width: 600px">
+    <p-tab-item attr:active="active2 === 'home'" on:click="active2 = 'home'">
+      <iconify-icon icon="mdi:home" slot="icon"></iconify-icon>
+      <span>Home</span>
+    </p-tab-item>
+    <p-tab-item
+      attr:active="active2 === 'bookmarks'"
+      on:click="active2 = 'bookmarks'"
+    >
+      <iconify-icon
+        icon="material-symbols:bookmark-star-outline"
+        slot="icon"
+      ></iconify-icon>
+      <span>Bookmarks</span>
+    </p-tab-item>
+    <p-tab-item attr:active="active2 === 'about'" on:click="active2 = 'about'">
+      <iconify-icon icon="mdi:account" slot="icon"></iconify-icon>
+      <span>About</span>
+    </p-tab-item>
+    <p-tab-item
+      attr:active="active2 === 'settings'"
+      on:click="active2 = 'settings'"
+      disabled
+    >
+      <iconify-icon icon="mdi:settings" slot="icon"></iconify-icon>
+      <span>Settings</span>
+    </p-tab-item>
+  </p-tab-bar>
+
+  <br /><br />
+
+  <h3>Scrollable Tabs</h3>
+  <p-tab-bar style="width: 100%; max-width: 600px; overflow-x: auto">
+    <p-tab-item attr:active="active3 === 'tab1'" on:click="active3 = 'tab1'">
+      <span>Tab One</span>
+    </p-tab-item>
+    <p-tab-item attr:active="active3 === 'tab2'" on:click="active3 = 'tab2'">
+      <span>Tab Two</span>
+    </p-tab-item>
+    <p-tab-item attr:active="active3 === 'tab3'" on:click="active3 = 'tab3'">
+      <span>Tab Three</span>
+    </p-tab-item>
+    <p-tab-item attr:active="active3 === 'tab4'" on:click="active3 = 'tab4'">
+      <span>Tab Four</span>
+    </p-tab-item>
+    <p-tab-item attr:active="active3 === 'tab5'" on:click="active3 = 'tab5'">
+      <span>Tab Five</span>
+    </p-tab-item>
+    <p-tab-item attr:active="active3 === 'tab6'" on:click="active3 = 'tab6'">
+      <span>Tab Six</span>
+    </p-tab-item>
+    <p-tab-item attr:active="active3 === 'tab7'" on:click="active3 = 'tab7'">
+      <span>Tab Seven</span>
+    </p-tab-item>
+    <p-tab-item attr:active="active3 === 'tab8'" on:click="active3 = 'tab8'">
+      <span>Tab Eight</span>
+    </p-tab-item>
+  </p-tab-bar>
+</template>

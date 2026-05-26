@@ -1,0 +1,103 @@
+<template component>
+  <l-m src="./tab-item.html"></l-m>
+  <style>
+    :host {
+      position: relative;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    }
+
+    .indicator {
+      position: absolute;
+      bottom: 0;
+      height: 2px;
+      background-color: var(--md-sys-color-primary);
+      opacity: 1;
+      transition:
+        all 0.3s ease,
+        left 0.3s cubic-bezier(0.4, 0, 0.27, 1.25),
+        width 0.3s cubic-bezier(0.4, 0, 0.27, 1.25);
+    }
+
+    .indicator:not(.has-active) {
+      opacity: 0;
+    }
+
+    .not-animate {
+      transition: none !important;
+    }
+  </style>
+  <slot></slot>
+  <div
+    class="indicator"
+    :style.left="indicatorLeft + 'px'"
+    :style.width="indicatorWidth + 'px'"
+    class:has-active="hasActive"
+    class:not-animate="noAnimate"
+  ></div>
+  <script>
+    import "../common/init.js";
+
+    export default async ({ load }) => {
+      await load("./tab-item.html");
+
+      return {
+        tag: "p-tab-bar",
+        data: {
+          hasActive: false,
+          noAnimate: true,
+          indicatorLeft: 0,
+          indicatorWidth: 0,
+        },
+        proto: {
+          updateIndicator() {
+            if (this._timer) {
+              return;
+            }
+            this._timer = setTimeout(() => {
+              const items = this.all("p-tab-item");
+              const activeItem = items.find((item) => item.active !== null);
+
+              if (!activeItem) {
+                this.hasActive = false;
+                return;
+              }
+
+              this.hasActive = true;
+
+              const itemRect = activeItem.ele.getBoundingClientRect();
+              const hostRect = this.ele.getBoundingClientRect();
+
+              this.indicatorLeft = itemRect.left - hostRect.left;
+              this.indicatorWidth = itemRect.width;
+              this._timer = null;
+            }, 30);
+          },
+        },
+        ready() {
+          this.on("change-active", () => this.updateIndicator());
+        },
+        attached() {
+          let timer = null;
+          this._resizeObserver = new ResizeObserver(() => {
+            this.noAnimate = true;
+            this.updateIndicator();
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+              this.noAnimate = false;
+            }, 50);
+          });
+          this._resizeObserver.observe(this.ele);
+          setTimeout(() => {
+            this.noAnimate = false;
+          }, 300);
+        },
+        detached() {
+          this._resizeObserver?.disconnect();
+          this._resizeObserver = null;
+        },
+      };
+    };
+  </script>
+</template>
