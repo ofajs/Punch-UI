@@ -320,8 +320,116 @@
         <p-input id="my-input">
           <span slot="label">编程控制</span>
         </p-input>
-        <p-button style="margin-top: 16px;" on:click="this.$('#my-input').focus()">聚焦输入框</p-button>
+        <p-button style="margin-top: 16px;" id="focus-btn">聚焦输入框</p-button>
       </div>
+      <script>
+        $('#focus-btn').on('click', () => {
+          $('#my-input').focus();
+        });
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+## 获取值
+
+### 通过 value 属性获取
+
+使用 `value` 属性获取输入框的值：
+
+<o-playground name="获取值" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input id="username-input">
+          <span slot="label">用户名</span>
+        </p-input>
+        <p-button id="get-value-btn" style="margin-top: 16px;">获取值</p-button>
+        <p style="margin-top: 16px;">当前值: <span id="value-display"></span></p>
+      </div>
+      <script>
+        export default async () => {
+          return {
+            ready() {
+              const input = this.$('#username-input');
+              const btn = this.$('#get-value-btn');
+              const display = this.$('#value-display');
+              btn.on('click', () => {
+                display.text = input.value;
+              });
+            }
+          };
+        };
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### 监听输入事件
+
+通过监听 `input` 事件实时获取输入值：
+
+<o-playground name="监听输入事件" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input id="realtime-input">
+          <span slot="label">实时输入</span>
+        </p-input>
+        <p style="margin-top: 16px;">实时值: <span id="realtime-display"></span></p>
+      </div>
+      <script>
+        export default async () => {
+          return {
+            ready() {
+              const input = this.$('#realtime-input');
+              const display = this.$('#realtime-display');
+              input.on('input', () => {
+                display.text = input.value;
+              });
+            }
+          };
+        };
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### 双向绑定
+
+使用 ofa.js 的数据绑定功能：
+
+<o-playground name="双向绑定" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input id="bind-input" :value="username">
+          <span slot="label">用户名</span>
+        </p-input>
+        <p style="margin-top: 16px;">绑定值: {{username}}</p>
+      </div>
+      <script>
+        export default async () => {
+          return {
+            data: {
+              username: ""
+            },
+            ready() {
+              const input = this.$('#bind-input');
+              input.on('input', () => {
+                this.username = input.value;
+              });
+            }
+          };
+        };
+      </script>
     </template>
   </code>
 </o-playground>
@@ -333,11 +441,17 @@
 | 属性 | 说明 | 类型 | 默认值 |
 |------|------|------|--------|
 | `type` | 输入类型 | `text` \| `password` \| `email` \| `number` | `text` |
+| `variant` | 输入框样式 | `outlined` \| `filled` | `outlined` |
 | `size` | 输入框尺寸 | `xs` \| `s` \| `l` \| `xl` | - |
 | `color` | 输入框颜色 | `primary` \| `error` \| `success` \| `neutral` | - |
 | `placeholder` | 占位文本 | `string` | - |
 | `disabled` | 是否禁用 | `boolean` | `false` |
 | `value` | 输入值 | `string` | - |
+| `default-value` | 默认值 | `string` | - |
+| `hang-label` | 是否悬浮标签 | `boolean` | `false` |
+| `maxlength` | 最大输入长度 | `number` | - |
+| `name` | 表单字段名 | `string` | - |
+| `autofocus` | 是否自动聚焦 | `boolean` | `false` |
 
 ### 插槽
 
@@ -347,3 +461,20 @@
 | `label` | 标签文本 |
 | `prefix` | 前缀内容 |
 | `suffix` | 后缀内容 |
+
+### 事件
+
+| 事件名 | 说明 |
+|--------|------|
+| `input` | 输入内容改变时触发 |
+| `change` | 输入框失去焦点且内容改变时触发 |
+| `focus` | 输入框获得焦点时触发 |
+| `blur` | 输入框失去焦点时触发 |
+
+### 方法
+
+| 方法名 | 说明 |
+|--------|------|
+| `focus()` | 使输入框获得焦点 |
+| `blur()` | 使输入框失去焦点 |
+| `select()` | 选中输入框中的文本 |

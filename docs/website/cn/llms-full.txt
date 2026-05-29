@@ -1,162 +1,3 @@
-<!-- select.html -->
-
-# Select 选择器
-
-下拉选择器组件，支持单选和多选。
-
-## 引入组件
-
-```html
-<l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
-```
-
-## 基本用法
-
-<o-playground name="Select 基本用法" style="--editor-height: 350px">
-  <code path="demo.html" preview active>
-    <template>
-      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
-      <l-m src="https://punch-ui-v2.pages.dev/packages/select/option.html"></l-m>
-      <div style="padding: 20px; max-width: 300px;">
-        <p-select placeholder="请选择">
-          <p-option value="1">选项 1</p-option>
-          <p-option value="2">选项 2</p-option>
-          <p-option value="3">选项 3</p-option>
-        </p-select>
-      </div>
-    </template>
-  </code>
-</o-playground>
-
-## API
-
-### 属性
-
-| 属性 | 说明 | 类型 | 默认值 |
-|------|------|------|--------|
-| `placeholder` | 占位文本 | `string` | - |
-| `disabled` | 是否禁用 | `boolean` | `false` |
-| `value` | 选中的值 | `string` | - |
-
-
----
-
-<!-- toast.html -->
-
-# Toast 提示
-
-Toast 用于显示简短的提示消息，自动消失。适用于操作反馈、状态提示等场景。
-
-## 引入
-
-```javascript
-import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
-```
-
-## 基本用法
-
-<o-playground name="Toast 基本用法" style="--editor-height: 400px">
-  <code path="demo.html" preview active>
-    <template>
-      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
-      <script type="module">
-        import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
-        export default async () => {
-          return {
-            proto: {
-              showToast() {
-                toast('操作成功！');
-              }
-            }
-          };
-        };
-      </script>
-      <div style="padding: 20px; text-align: center;">
-        <p-button color="primary" on:click="showToast">显示 Toast</p-button>
-      </div>
-    </template>
-  </code>
-</o-playground>
-
-## 带配置选项
-
-<o-playground name="Toast 配置选项" style="--editor-height: 500px">
-  <code path="demo.html" preview active>
-    <template>
-      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
-      <script type="module">
-        import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
-        export default async () => {
-          return {
-            proto: {
-              showSuccessToast() {
-                toast({
-                  message: '保存成功！',
-                  duration: 3000,
-                  color: 'success'
-                });
-              },
-              showErrorToast() {
-                toast({
-                  message: '操作失败！',
-                  duration: 3000,
-                  color: 'error'
-                });
-              }
-            }
-          };
-        };
-      </script>
-      <div style="padding: 20px; text-align: center;">
-        <p-button color="success" on:click="showSuccessToast">成功提示</p-button>
-        <p-button color="error" on:click="showErrorToast" style="margin-left: 10px;">错误提示</p-button>
-      </div>
-    </template>
-  </code>
-</o-playground>
-
-## API
-
-### 参数
-
-| 参数 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| message | `string` | - | 提示消息内容 |
-| duration | `number` | `3000` | 显示时长（毫秒），设为 0 则不自动关闭 |
-| color | `string` | `'primary'` | 提示颜色：`primary`, `success`, `error`, `neutral` |
-
-### 返回值
-
-返回一个对象，包含：
-- `close` - 关闭提示的方法
-- `el` - 提示元素引用
-
-### 示例
-
-```javascript
-// 基本用法
-toast('操作成功');
-
-// 带配置
-toast({
-  message: '文件上传成功',
-  duration: 5000,
-  color: 'success'
-});
-
-// 手动关闭
-const toastInstance = toast('正在处理...');
-setTimeout(() => {
-  toastInstance.close();
-}, 2000);
-```
-
-
----
-
 <!-- input.html -->
 
 # Input 输入框
@@ -315,6 +156,178 @@ setTimeout(() => {
   </code>
 </o-playground>
 
+## 变体样式
+
+通过 `variant` 属性设置输入框样式：
+
+<o-playground name="Input 变体" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input>
+          <span slot="label">Outlined (默认)</span>
+        </p-input>
+        <p-input variant="filled" style="margin-top: 16px;">
+          <span slot="label">Filled</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 自动聚焦
+
+使用 `autofocus` 属性使输入框在页面加载时自动获得焦点：
+
+<o-playground name="自动聚焦" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input autofocus>
+          <span slot="label">自动聚焦</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 悬浮标签
+
+使用 `hang-label` 属性使标签始终悬浮在输入框上方：
+
+<o-playground name="悬浮标签" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input hang-label>
+          <span slot="label">悬浮标签</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 默认值
+
+使用 `default-value` 属性设置输入框的初始值：
+
+<o-playground name="默认值" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input default-value="John Doe">
+          <span slot="label">默认值</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 最大长度
+
+使用 `maxlength` 属性限制输入的最大字符数：
+
+<o-playground name="最大长度" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input maxlength="10">
+          <span slot="label">最多 10 个字符</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 表单属性
+
+使用 `name` 属性为表单提交设置字段名：
+
+<o-playground name="表单属性" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input name="username">
+          <span slot="label">用户名</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 自定义样式
+
+### 使用内联样式
+
+<o-playground name="自定义样式" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input style="border-radius: 30px">
+          <span slot="label">自定义圆角</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+### 使用 CSS Part
+
+使用 `::part()` 选择器自定义输入框内部样式：
+
+<o-playground name="CSS Part 自定义" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <style>
+        .custom-input::part(input) {
+          color: red;
+        }
+      </style>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input class="custom-input" color="error">
+          <span slot="label" style="color: red">自定义样式</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 编程控制
+
+通过 JavaScript 控制输入框焦点：
+
+<o-playground name="编程控制" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input id="my-input">
+          <span slot="label">编程控制</span>
+        </p-input>
+        <p-button style="margin-top: 16px;" on:click="this.$('#my-input').focus()">聚焦输入框</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
 ## API
 
 ### 属性
@@ -340,128 +353,77 @@ setTimeout(() => {
 
 ---
 
-<!-- checkbox.html -->
+<!-- toast.html -->
 
-# Checkbox 复选框
+# Toast 提示
 
-复选框组件，支持单个和组合使用。
-
-## 引入组件
-
-```html
-<l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
-```
-
-## 基本用法
-
-<o-playground name="Checkbox 基本用法" style="--editor-height: 300px">
-  <code path="demo.html" preview active>
-    <template>
-      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
-      <div style="padding: 20px;">
-        <p-checkbox>复选框</p-checkbox>
-        <p-checkbox checked>已选中</p-checkbox>
-      </div>
-    </template>
-  </code>
-</o-playground>
-
-## API
-
-### 属性
-
-| 属性 | 说明 | 类型 | 默认值 |
-|------|------|------|--------|
-| `checked` | 是否选中 | `boolean` | `false` |
-| `disabled` | 是否禁用 | `boolean` | `false` |
-| `name` | 表单名称 | `string` | - |
-| `value` | 复选框的值 | `string` | - |
-
-
----
-
-<!-- navigation.html -->
-
-# Navigation 导航
-
-导航栏和导航布局组件，支持响应式设计。
-
-## 引入组件
-
-```html
-<l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-bar.html"></l-m>
-```
-
-## 基本用法
-
-<o-playground name="Navigation 基本用法" style="--editor-height: 400px">
-  <code path="demo.html" preview active>
-    <template>
-      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-bar.html"></l-m>
-      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-item.html"></l-m>
-      <div style="padding: 20px;">
-        <p-nav-bar>
-          <p-nav-item active>首页</p-nav-item>
-          <p-nav-item>产品</p-nav-item>
-          <p-nav-item>关于</p-nav-item>
-        </p-nav-bar>
-      </div>
-    </template>
-  </code>
-</o-playground>
-
-## API
-
-### 属性
-
-| 属性 | 说明 | 类型 | 默认值 |
-|------|------|------|--------|
-| `active` | 是否激活 | `boolean` | `false` |
-
-
----
-
-<!-- confirm.html -->
-
-# Confirm 确认框
-
-Confirm 用于显示一个确认对话框，包含确认和取消按钮。适用于需要用户确认的操作场景。
+Toast 用于显示简短的提示消息，自动消失。适用于操作反馈、状态提示等场景。
 
 ## 引入
 
 ```javascript
-import confirm from 'https://punch-ui-v2.pages.dev/packages/util/confirm.js';
+import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
 ```
 
 ## 基本用法
 
-<o-playground name="Confirm 基本用法" style="--editor-height: 400px">
+<o-playground name="Toast 基本用法" style="--editor-height: 400px">
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <script type="module">
-        import confirm from 'https://punch-ui-v2.pages.dev/packages/util/confirm.js';
         import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
         export default async () => {
           return {
             proto: {
-              async showConfirm() {
-                const result = await confirm('确定要删除吗？');
-                if (result) {
-                  toast('已删除');
-                } else {
-                  toast('已取消');
-                }
+              showToast() {
+                toast('操作成功！');
               }
             }
           };
         };
       </script>
       <div style="padding: 20px; text-align: center;">
-        <p-button color="error" on:click="showConfirm">删除</p-button>
+        <p-button color="primary" on:click="showToast">显示 Toast</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 带配置选项
+
+<o-playground name="Toast 配置选项" style="--editor-height: 500px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <script type="module">
+        import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
+        export default async () => {
+          return {
+            proto: {
+              showSuccessToast() {
+                toast({
+                  message: '保存成功！',
+                  duration: 3000,
+                  color: 'success'
+                });
+              },
+              showErrorToast() {
+                toast({
+                  message: '操作失败！',
+                  duration: 3000,
+                  color: 'error'
+                });
+              }
+            }
+          };
+        };
+      </script>
+      <div style="padding: 20px; text-align: center;">
+        <p-button color="success" on:click="showSuccessToast">成功提示</p-button>
+        <p-button color="error" on:click="showErrorToast" style="margin-left: 10px;">错误提示</p-button>
       </div>
     </template>
   </code>
@@ -473,34 +435,182 @@ import confirm from 'https://punch-ui-v2.pages.dev/packages/util/confirm.js';
 
 | 参数 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
-| title | `string` | `'提示'` | 对话框标题 |
 | message | `string` | - | 提示消息内容 |
-| ok | `string` | `'确定'` | 确认按钮文本 |
-| cancel | `string` | `'取消'` | 取消按钮文本 |
+| duration | `number` | `3000` | 显示时长（毫秒），设为 0 则不自动关闭 |
+| color | `string` | `'primary'` | 提示颜色：`primary`, `success`, `error`, `neutral` |
 
 ### 返回值
 
-返回一个 Promise，resolve 为 `true` 表示用户点击了确认，`false` 表示用户点击了取消。
+返回一个对象，包含：
+- `close` - 关闭提示的方法
+- `el` - 提示元素引用
 
 ### 示例
 
 ```javascript
 // 基本用法
-const result = await confirm('确定要删除吗？');
-if (result) {
-  console.log('用户确认删除');
-} else {
-  console.log('用户取消删除');
-}
+toast('操作成功');
 
 // 带配置
-const result = await confirm({
-  title: '确认操作',
-  message: '此操作不可撤销，确定要继续吗？',
-  ok: '确定',
-  cancel: '取消'
+toast({
+  message: '文件上传成功',
+  duration: 5000,
+  color: 'success'
 });
+
+// 手动关闭
+const toastInstance = toast('正在处理...');
+setTimeout(() => {
+  toastInstance.close();
+}, 2000);
 ```
+
+
+---
+
+<!-- radio.html -->
+
+# Radio 单选框
+
+单选框组件，通常与 radio-group 组合使用。
+
+## 引入组件
+
+```html
+<l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+<l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+```
+
+## 基本用法
+
+使用 `p-radio-group` 包裹多个 `p-radio` 组件：
+
+<o-playground name="Radio 基本用法" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-radio-group>
+          <p-radio value="male">男</p-radio>
+          <p-radio value="female">女</p-radio>
+        </p-radio-group>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 尺寸
+
+通过 `size` 属性设置单选框尺寸：
+
+<o-playground name="Radio 尺寸" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-radio-group>
+          <p-radio size="xs" value="xs">XS</p-radio>
+          <p-radio size="s" value="s">Small</p-radio>
+          <p-radio value="m">Medium</p-radio>
+          <p-radio size="l" value="l">Large</p-radio>
+          <p-radio size="xl" value="xl">XL</p-radio>
+        </p-radio-group>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 颜色
+
+通过 `color` 属性设置单选框颜色：
+
+<o-playground name="Radio 颜色" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-radio-group>
+          <p-radio color="primary" value="primary">Primary</p-radio>
+          <p-radio color="success" value="success">Success</p-radio>
+          <p-radio color="error" value="error">Error</p-radio>
+          <p-radio color="neutral" value="neutral">Neutral</p-radio>
+        </p-radio-group>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 状态
+
+<o-playground name="Radio 状态" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-radio-group>
+          <p-radio value="default">Default</p-radio>
+          <p-radio variant="tonal" value="tonal">Tonal</p-radio>
+          <p-radio checked value="checked">Checked</p-radio>
+          <p-radio disabled value="disabled">Disabled</p-radio>
+        </p-radio-group>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Radio Group
+
+使用单选框组管理多个单选框：
+
+<o-playground name="Radio Group" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-radio-group id="demo-radio-group" :value="demoRadioGroupValue">
+          <p-radio value="a">选项 A</p-radio>
+          <p-radio value="b" checked>选项 B</p-radio>
+          <p-radio value="c">选项 C</p-radio>
+        </p-radio-group>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## API
+
+### 属性 - p-radio
+
+| 属性 | 说明 | 类型 | 默认值 |
+|------|------|------|--------|
+| `checked` | 是否选中 | `boolean` | `false` |
+| `disabled` | 是否禁用 | `boolean` | `false` |
+| `value` | 单选框的值 | `string` | - |
+| `size` | 单选框尺寸 | `xs` \| `s` \| `l` \| `xl` | - |
+| `color` | 单选框颜色 | `primary` \| `error` \| `success` \| `neutral` | - |
+| `variant` | 单选框样式 | `tonal` | - |
+
+### 属性 - p-radio-group
+
+| 属性 | 说明 | 类型 | 默认值 |
+|------|------|------|--------|
+| `value` | 选中的值 | `string` | - |
+
+### 事件
+
+| 事件名 | 说明 |
+|--------|------|
+| `change` | 选中状态改变时触发 |
 
 
 ---
@@ -521,7 +631,8 @@ const result = await confirm({
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
-      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
       <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
       <style>
         .form-container {
@@ -557,11 +668,11 @@ const result = await confirm({
         </div>
         <div class="form-item">
           <label class="form-label">性别</label>
-          <p-select placeholder="请选择性别" style="width: 100%">
-            <p-option value="male">男</p-option>
-            <p-option value="female">女</p-option>
-            <p-option value="other">其他</p-option>
-          </p-select>
+          <p-radio-group>
+            <p-radio value="male">男</p-radio>
+            <p-radio value="female">女</p-radio>
+            <p-radio value="other">其他</p-radio>
+          </p-radio-group>
         </div>
         <div class="form-item">
           <p-checkbox>我已阅读并同意用户协议</p-checkbox>
@@ -585,7 +696,8 @@ const result = await confirm({
 
 <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
 <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
-<l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+<l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+<l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
 <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
 ```
 
@@ -595,7 +707,8 @@ const result = await confirm({
 
 - `<p-input>` - 输入框组件
 - `<p-button>` - 按钮组件
-- `<p-select>` - 选择器组件
+- `<p-radio>` - 单选框组件
+- `<p-radio-group>` - 单选框组组件
 - `<p-checkbox>` - 复选框组件
 
 ### 3. 组件属性
@@ -605,7 +718,10 @@ const result = await confirm({
 ```html
 <p-input placeholder="请输入用户名" type="email"></p-input>
 <p-button color="primary">注册</p-button>
-<p-select placeholder="请选择性别"></p-select>
+<p-radio-group>
+  <p-radio value="male">男</p-radio>
+  <p-radio value="female">女</p-radio>
+</p-radio-group>
 ```
 
 ### 4. 样式定制
@@ -654,431 +770,106 @@ const result = await confirm({
 
 ---
 
-<!-- prompt.html -->
+<!-- checkbox.html -->
 
-# Prompt 输入框
+# Checkbox 复选框
 
-Prompt 用于显示一个输入对话框，让用户输入文本。适用于需要用户输入信息的场景。
-
-## 引入
-
-```javascript
-import prompt from 'https://punch-ui-v2.pages.dev/packages/util/prompt.js';
-```
-
-## 基本用法
-
-<o-playground name="Prompt 基本用法" style="--editor-height: 400px">
-  <code path="demo.html" preview active>
-    <template>
-      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
-      <script type="module">
-        import prompt from 'https://punch-ui-v2.pages.dev/packages/util/prompt.js';
-        import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
-        export default async () => {
-          return {
-            proto: {
-              async showPrompt() {
-                const result = await prompt('请输入您的名字：');
-                if (result !== null) {
-                  toast(`你好，${result}！`);
-                }
-              }
-            }
-          };
-        };
-      </script>
-      <div style="padding: 20px; text-align: center;">
-        <p-button color="primary" on:click="showPrompt">输入名字</p-button>
-      </div>
-    </template>
-  </code>
-</o-playground>
-
-## API
-
-### 参数
-
-| 参数 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| title | `string` | `'提示'` | 对话框标题 |
-| message | `string` | - | 提示消息内容 |
-| defaultValue | `string` | `''` | 输入框默认值 |
-| ok | `string` | `'确定'` | 确认按钮文本 |
-| cancel | `string` | `'取消'` | 取消按钮文本 |
-
-### 返回值
-
-返回一个 Promise：
-- resolve 为用户输入的文本（字符串）
-- resolve 为 `null` 表示用户点击了取消
-
-### 示例
-
-```javascript
-// 基本用法
-const name = await prompt('请输入您的名字：');
-if (name !== null) {
-  console.log('用户输入：', name);
-}
-
-// 带配置
-const result = await prompt({
-  title: '修改用户名',
-  message: '请输入新的用户名：',
-  defaultValue: '当前用户名',
-  ok: '保存',
-  cancel: '取消'
-});
-```
-
-
----
-
-<!-- alert.html -->
-
-# Alert 警告框
-
-Alert 用于显示一个警告对话框，只有确认按钮。适用于重要信息提示、操作结果通知等场景。
-
-## 引入
-
-```javascript
-import alert from 'https://punch-ui-v2.pages.dev/packages/util/alert.js';
-```
-
-## 基本用法
-
-<o-playground name="Alert 基本用法" style="--editor-height: 400px">
-  <code path="demo.html" preview active>
-    <template>
-      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
-      <script type="module">
-        import alert from 'https://punch-ui-v2.pages.dev/packages/util/alert.js';
-        export default async () => {
-          return {
-            proto: {
-              async showAlert() {
-                await alert('这是一个警告消息');
-              }
-            }
-          };
-        };
-      </script>
-      <div style="padding: 20px; text-align: center;">
-        <p-button color="primary" on:click="showAlert">显示 Alert</p-button>
-      </div>
-    </template>
-  </code>
-</o-playground>
-
-## 带标题和自定义按钮
-
-<o-playground name="Alert 自定义" style="--editor-height: 500px">
-  <code path="demo.html" preview active>
-    <template>
-      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
-      <script type="module">
-        import alert from 'https://punch-ui-v2.pages.dev/packages/util/alert.js';
-        export default async () => {
-          return {
-            proto: {
-              async showCustomAlert() {
-                await alert({
-                  title: '提示',
-                  message: '操作已完成',
-                  ok: '知道了'
-                });
-              }
-            }
-          };
-        };
-      </script>
-      <div style="padding: 20px; text-align: center;">
-        <p-button color="primary" on:click="showCustomAlert">自定义 Alert</p-button>
-      </div>
-    </template>
-  </code>
-</o-playground>
-
-## API
-
-### 参数
-
-| 参数 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| title | `string` | `'提示'` | 对话框标题 |
-| message | `string` | - | 提示消息内容 |
-| ok | `string` | `'确定'` | 确认按钮文本 |
-
-### 返回值
-
-返回一个 Promise，在用户点击确认按钮后 resolve。
-
-### 示例
-
-```javascript
-// 基本用法
-await alert('这是一个警告消息');
-
-// 带配置
-await alert({
-  title: '提示',
-  message: '操作已完成',
-  ok: '知道了'
-});
-```
-
-
----
-
-<!-- color.html -->
-
-# 颜色系统
-
-Punch-UI 使用 Material Design 3 的颜色系统，提供了完整的调色板和主题支持。
-
-> 🎯 **核心原则**：**始终优先使用语义化颜色变量（`--md-sys-color-*`）**，避免直接使用调色板颜色（`--md-ref-palette-*`）。语义化颜色会自动适配主题切换，确保对比度和一致性。
-
-## 引入样式
-
-```html
-<link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-```
-
-## 主题切换
-
-Punch-UI 支持三种主题模式：
-
-### 1. 自动跟随系统（默认）
-
-默认情况下，主题会自动跟随系统设置：
-
-```html
-<html>
-  <!-- 自动跟随系统主题 -->
-</html>
-```
-
-### 2. 强制浅色主题
-
-```html
-<html class="theme-light-mode">
-  <!-- 强制使用浅色主题 -->
-</html>
-```
-
-### 3. 强制深色主题
-
-```html
-<html class="theme-dark-mode">
-  <!-- 强制使用深色主题 -->
-</html>
-```
-
-### 使用主题切换组件
-
-```html
-<l-m src="https://punch-ui-v2.pages.dev/tool/theme-switch/theme-switch.html"></l-m>
-<p-theme-switch></p-theme-switch>
-```
-
-## 语义化颜色变量
-
-Punch-UI 提供了一套语义化的颜色变量，可以在浅色和深色主题下自动适配：
-
-### 主要颜色
-
-| 变量名 | 说明 | 浅色主题示例 | 深色主题示例 |
-|--------|------|-------------|-------------|
-| `--md-sys-color-primary` | 主色 | #0060a9 | #a2c9ff |
-| `--md-sys-color-on-primary` | 主色上的文字 | #ffffff | #00315b |
-| `--md-sys-color-primary-container` | 主色容器 | #d3e4ff | #004881 |
-| `--md-sys-color-on-primary-container` | 主色容器上的文字 | #001c38 | #d3e4ff |
-
-### 成功颜色
-
-| 变量名 | 说明 | 浅色主题示例 | 深色主题示例 |
-|--------|------|-------------|-------------|
-| `--md-sys-color-success` | 成功色 | #3a6a24 | #9fd582 |
-| `--md-sys-color-on-success` | 成功色上的文字 | #ffffff | #103900 |
-| `--md-sys-color-success-container` | 成功色容器 | #baf29c | #22510d |
-| `--md-sys-color-on-success-container` | 成功色容器上的文字 | #062100 | #baf29c |
-
-### 错误颜色
-
-| 变量名 | 说明 | 浅色主题示例 | 深色主题示例 |
-|--------|------|-------------|-------------|
-| `--md-sys-color-error` | 错误色 | #bc1421 | #ffb3ad |
-| `--md-sys-color-on-error` | 错误色上的文字 | #ffffff | #68000a |
-| `--md-sys-color-error-container` | 错误色容器 | #ffdad7 | #930013 |
-| `--md-sys-color-on-error-container` | 错误色容器上的文字 | #410004 | #ffdad7 |
-
-### 中性颜色
-
-| 变量名 | 说明 | 浅色主题示例 | 深色主题示例 |
-|--------|------|-------------|-------------|
-| `--md-sys-color-neutral` | 中性色 | #5e5e5e | #c7c6c6 |
-| `--md-sys-color-on-neutral` | 中性色上的文字 | #ffffff | #303031 |
-| `--md-sys-color-neutral-container` | 中性色容器 | #e3e2e2 | #464747 |
-| `--md-sys-color-on-neutral-container` | 中性色容器上的文字 | #1b1c1c | #e3e2e2 |
-
-### 表面颜色
-
-| 变量名 | 说明 | 浅色主题示例 | 深色主题示例 |
-|--------|------|-------------|-------------|
-| `--md-sys-color-surface` | 背景色 | #faf9f9 | #121414 |
-| `--md-sys-color-on-surface` | 背景上的文字 | #1b1c1c | #e3e2e2 |
-| `--md-sys-color-surface-variant` | 变体背景色 | #e3e2e2 | #464747 |
-| `--md-sys-color-on-surface-variant` | 变体背景上的文字 | #464747 | #c7c6c6 |
-| `--md-sys-color-inverse-surface` | 反转背景色 | #303031 | #e3e2e2 |
-| `--md-sys-color-inverse-on-surface` | 反转背景上的文字 | #f2f0f0 | #303031 |
-
-## 使用示例
-
-### 使用语义化颜色
-
-```html
-<style>
-  .custom-button {
-    background-color: var(--md-sys-color-primary);
-    color: var(--md-sys-color-on-primary);
-    border-radius: 8px;
-    padding: 10px 20px;
-  }
-  
-  .custom-card {
-    background-color: var(--md-sys-color-surface-variant);
-    color: var(--md-sys-color-on-surface-variant);
-    border-radius: 12px;
-    padding: 16px;
-  }
-  
-  .success-message {
-    background-color: var(--md-sys-color-success-container);
-    color: var(--md-sys-color-on-success-container);
-    padding: 12px;
-  }
-</style>
-
-<button class="custom-button">自定义按钮</button>
-<div class="custom-card">自定义卡片</div>
-<div class="success-message">操作成功！</div>
-```
-
-### 实时示例
-
-<o-playground name="颜色系统示例" style="--editor-height: 500px">
-  <code path="demo.html" preview active>
-    <template>
-      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <style>
-        .color-demo {
-          padding: 20px;
-          max-width: 600px;
-          margin: 0 auto;
-        }
-        .color-box {
-          padding: 16px;
-          margin: 8px 0;
-          border-radius: 8px;
-        }
-        .primary-demo {
-          background-color: var(--md-sys-color-primary);
-          color: var(--md-sys-color-on-primary);
-        }
-        .success-demo {
-          background-color: var(--md-sys-color-success);
-          color: var(--md-sys-color-on-success);
-        }
-        .error-demo {
-          background-color: var(--md-sys-color-error);
-          color: var(--md-sys-color-on-error);
-        }
-        .surface-demo {
-          background-color: var(--md-sys-color-surface-variant);
-          color: var(--md-sys-color-on-surface-variant);
-        }
-      </style>
-      <div class="color-demo">
-        <h2>语义化颜色示例</h2>
-        <div class="color-box primary-demo">
-          <strong>Primary 主色</strong>
-          <p>用于主要操作和重要元素</p>
-        </div>
-        <div class="color-box success-demo">
-          <strong>Success 成功色</strong>
-          <p>用于成功状态和正面反馈</p>
-        </div>
-        <div class="color-box error-demo">
-          <strong>Error 错误色</strong>
-          <p>用于错误状态和警告信息</p>
-        </div>
-        <div class="color-box surface-demo">
-          <strong>Surface 表面色</strong>
-          <p>用于背景和容器</p>
-        </div>
-      </div>
-    </template>
-  </code>
-</o-playground>
-
-## 最佳实践
-
-### 1. 优先使用语义化颜色
-
-✅ **推荐**：
-```css
-background-color: var(--md-sys-color-primary);
-color: var(--md-sys-color-on-primary);
-```
-
-❌ **不推荐**：
-```css
-background-color: var(--md-ref-palette-primary40);
-color: #ffffff;
-```
-
-### 2. 确保对比度
-
-使用语义化颜色时，Punch-UI 已经确保了文字和背景之间的对比度符合无障碍标准。
-
-### 3. 主题适配
-
-语义化颜色会自动适配深色/浅色主题，无需手动处理。
-
-## 下一步
-
-- [主题定制](./theming.md) - 了解如何自定义主题和颜色
-
-
----
-
-<!-- radio.html -->
-
-# Radio 单选框
-
-单选框组件，支持单个和组合使用。
+复选框组件，支持单个和组合使用。
 
 ## 引入组件
 
 ```html
-<l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+<l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
 ```
 
 ## 基本用法
 
-<o-playground name="Radio 基本用法" style="--editor-height: 350px">
+<o-playground name="Checkbox 基本用法" style="--editor-height: 300px">
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
       <div style="padding: 20px;">
-        <p-radio name="gender" value="male">男</p-radio>
-        <p-radio name="gender" value="female">女</p-radio>
+        <p-checkbox>复选框</p-checkbox>
+        <p-checkbox checked>已选中</p-checkbox>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 尺寸
+
+通过 `size` 属性设置复选框尺寸：
+
+<o-playground name="Checkbox 尺寸" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox size="xs" checked>XS</p-checkbox>
+        <p-checkbox size="s" checked>Small</p-checkbox>
+        <p-checkbox checked>Medium</p-checkbox>
+        <p-checkbox size="l" checked>Large</p-checkbox>
+        <p-checkbox size="xl" checked>XL</p-checkbox>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 颜色
+
+通过 `color` 属性设置复选框颜色：
+
+<o-playground name="Checkbox 颜色" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox color="primary" checked>Primary</p-checkbox>
+        <p-checkbox color="success" checked>Success</p-checkbox>
+        <p-checkbox color="error" checked>Error</p-checkbox>
+        <p-checkbox color="neutral" checked>Neutral</p-checkbox>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 状态
+
+<o-playground name="Checkbox 状态" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox>Default</p-checkbox>
+        <p-checkbox variant="tonal">Tonal</p-checkbox>
+        <p-checkbox checked>Checked</p-checkbox>
+        <p-checkbox disabled>Disabled</p-checkbox>
+        <p-checkbox indeterminate>Indeterminate</p-checkbox>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Checkbox Group
+
+使用复选框组管理多个复选框：
+
+<o-playground name="Checkbox Group" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox-group id="demo-checkbox-group" :value="demoCheckboxGroupValue">
+          <p-checkbox value="1">选项 1</p-checkbox>
+          <p-checkbox value="2" checked>选项 2</p-checkbox>
+          <p-checkbox value="3">选项 3</p-checkbox>
+        </p-checkbox-group>
       </div>
     </template>
   </code>
@@ -1092,98 +883,316 @@ color: #ffffff;
 |------|------|------|--------|
 | `checked` | 是否选中 | `boolean` | `false` |
 | `disabled` | 是否禁用 | `boolean` | `false` |
-| `name` | 单选框组名 | `string` | - |
-| `value` | 单选框的值 | `string` | - |
+| `name` | 表单名称 | `string` | - |
+| `value` | 复选框的值 | `string` | - |
 
 
 ---
 
-<!-- dialog.html -->
+<!-- button.html -->
 
-# Dialog 对话框
+# Button 按钮
 
-对话框组件用于显示模态对话框，支持移动端适配和自定义样式。
+按钮组件是 Punch-UI 中最常用的组件之一，提供了多种样式、尺寸和颜色选择。
 
 ## 引入组件
 
 ```html
-<l-m src="https://punch-ui-v2.pages.dev/packages/dialog/dialog.html"></l-m>
+<l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
 ```
 
 ## 基本用法
 
-<o-playground name="Dialog 基本用法" style="--editor-height: 500px">
+<o-playground name="Button 基本用法" style="--editor-height: 300px">
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
-      <l-m src="https://punch-ui-v2.pages.dev/packages/dialog/dialog.html"></l-m>
       <div style="padding: 20px;">
-        <p-button id="show-dialog-btn" on:click="demoDialogOpen = true">
-          打开对话框
+        <p-button>默认按钮</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 按钮变体
+
+通过 `variant` 属性设置按钮样式：
+
+<o-playground name="Button 变体" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button variant="filled">Filled Button</p-button>
+        <p-button variant="outlined">Outlined Button</p-button>
+        <p-button variant="text">Text Button</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 尺寸
+
+通过 `size` 属性设置按钮尺寸：
+
+<o-playground name="Button 尺寸" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button size="xs">Extra Small</p-button>
+        <p-button size="s">Small</p-button>
+        <p-button>Default</p-button>
+        <p-button size="l">Large</p-button>
+        <p-button size="xl">Extra Large</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 颜色
+
+通过 `color` 属性设置按钮颜色：
+
+<o-playground name="Button 颜色" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button>Default</p-button>
+        <p-button color="primary">Primary</p-button>
+        <p-button color="error">Error</p-button>
+        <p-button color="success">Success</p-button>
+        <p-button color="neutral">Neutral</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 图标按钮
+
+添加 `icon` 属性使按钮成为圆形图标按钮：
+
+<o-playground name="图标按钮" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button icon>+</p-button>
+        <p-button icon size="s">-</p-button>
+        <p-button icon size="l">×</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 带前缀/后缀
+
+使用 `prefix` 和 `suffix` 插槽添加图标或文本：
+
+<o-playground name="带前缀/后缀的按钮" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button>
+          <span slot="prefix">🔍</span>
+          Search
         </p-button>
-        <p-dialog id="demo-dialog" auto-close sync:open="demoDialogOpen">
-          <span slot="title">对话框标题</span>
-          <div>
-            <p>这是一个对话框示例。</p>
-            <p>点击遮罩层可以关闭对话框。</p>
-          </div>
-          <div slot="bottom">
-            <p-button color="primary" on:click="demoDialogOpen = false">确定</p-button>
-            <p-button variant="text" on:click="demoDialogOpen = false">取消</p-button>
-          </div>
-        </p-dialog>
+        <p-button>
+          Settings
+          <span slot="suffix">⚙️</span>
+        </p-button>
       </div>
     </template>
   </code>
 </o-playground>
 
-## 对话框变体
+## 禁用状态
 
-<o-playground name="Dialog 变体" style="--editor-height: 500px">
+添加 `disabled` 属性禁用按钮：
+
+<o-playground name="禁用状态" style="--editor-height: 300px">
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
-      <l-m src="https://punch-ui-v2.pages.dev/packages/dialog/dialog.html"></l-m>
       <div style="padding: 20px;">
-        <p-button on:click="filledDialogOpen = true">打开 Filled 对话框</p-button>
-        <p-dialog variant="filled" sync:open="filledDialogOpen">
-          <span slot="title">Filled 对话框</span>
-          <div>
-            <p>这是一个 Filled 样式的对话框。</p>
-          </div>
-          <div slot="bottom">
-            <p-button color="primary" on:click="filledDialogOpen = false">确定</p-button>
-          </div>
-        </p-dialog>
+        <p-button disabled>Disabled Button</p-button>
+        <p-button variant="outlined" disabled>Disabled Outlined</p-button>
       </div>
     </template>
   </code>
 </o-playground>
 
-## 移动端适配
+## 自动聚焦
 
-对话框组件会自动适配移动端，在小屏幕上会从底部滑入：
+使用 `autofocus` 属性使按钮在页面加载时自动获得焦点：
 
-<o-playground name="移动端适配" style="--editor-height: 500px">
+<o-playground name="自动聚焦" style="--editor-height: 300px">
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
-      <l-m src="https://punch-ui-v2.pages.dev/packages/dialog/dialog.html"></l-m>
       <div style="padding: 20px;">
-        <p-button on:click="mobileDialogOpen = true">打开响应式对话框</p-button>
-        <p-dialog auto-to-mobile-width="540px" sync:open="mobileDialogOpen">
-          <span slot="title">响应式对话框</span>
-          <div>
-            <p>这个对话框在移动设备上会从底部滑入。</p>
-            <p>在桌面设备上会居中显示。</p>
-          </div>
-          <div slot="bottom">
-            <p-button color="primary" on:click="mobileDialogOpen = false">确定</p-button>
-          </div>
-        </p-dialog>
+        <p-button autofocus>自动聚焦按钮</p-button>
+        <p-button>普通按钮</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Button Group
+
+使用按钮组将多个按钮组合在一起：
+
+<o-playground name="Button Group" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/group.html"></l-m>
+      <div style="padding: 20px;">
+        <h4>基础按钮组</h4>
+        <p-button-group>
+          <p-button>按钮 1</p-button>
+          <p-button>按钮 2</p-button>
+          <p-button>按钮 3</p-button>
+        </p-button-group>
+        <h4 style="margin-top: 20px;">连接按钮组</h4>
+        <p-button-group connected>
+          <p-button variant="outlined">首页</p-button>
+          <p-button variant="outlined">产品</p-button>
+          <p-button variant="outlined">关于</p-button>
+        </p-button-group>
+        <h4 style="margin-top: 20px;">全宽按钮组</h4>
+        <p-button-group full-width>
+          <p-button>Left</p-button>
+          <p-button>Center</p-button>
+          <p-button>Right</p-button>
+        </p-button-group>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 高级用法
+
+### 分段控制（单选）
+
+使用按钮组实现分段控制，适用于切换视图模式等场景：
+
+<o-playground name="分段控制" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button-group>
+          <p-button
+            attr:variant="selected === 'day' ? 'filled' : 'outlined'"
+            on:click="selected = 'day'"
+          >
+            Day
+          </p-button>
+          <p-button
+            attr:variant="selected === 'week' ? 'filled' : 'outlined'"
+            on:click="selected = 'week'"
+          >
+            Week
+          </p-button>
+          <p-button
+            attr:variant="selected === 'month' ? 'filled' : 'outlined'"
+            on:click="selected = 'month'"
+          >
+            Month
+          </p-button>
+        </p-button-group>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+### 过滤器芯片（多选）
+
+使用按钮组实现多选过滤器：
+
+<o-playground name="过滤器芯片" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button-group>
+          <p-button
+            attr:color="filters.includes('all') ? 'primary' : 'neutral'"
+            :style.border-radius="filters.includes('all') ? '28px' : ''"
+            on:click="toggleFilter('all')"
+          >
+            All
+          </p-button>
+          <p-button
+            attr:color="filters.includes('active') ? 'primary' : 'neutral'"
+            :style.border-radius="filters.includes('active') ? '28px' : ''"
+            on:click="toggleFilter('active')"
+          >
+            Active
+          </p-button>
+          <p-button
+            attr:color="filters.includes('completed') ? 'primary' : 'neutral'"
+            :style.border-radius="filters.includes('completed') ? '28px' : ''"
+            on:click="toggleFilter('completed')"
+          >
+            Completed
+          </p-button>
+        </p-button-group>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+### 排序选项
+
+使用按钮组实现排序选项切换：
+
+<o-playground name="排序选项" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button-group>
+          <p-button
+            attr:color="order === 'newest' ? 'primary' : 'neutral'"
+            :style.border-radius="order === 'newest' ? '28px' : ''"
+            on:click="order = 'newest'"
+          >
+            Newest
+          </p-button>
+          <p-button
+            attr:color="order === 'oldest' ? 'primary' : 'neutral'"
+            :style.border-radius="order === 'oldest' ? '28px' : ''"
+            on:click="order = 'oldest'"
+          >
+            Oldest
+          </p-button>
+          <p-button
+            attr:color="order === 'price' ? 'primary' : 'neutral'"
+            :style.border-radius="order === 'price' ? '28px' : ''"
+            on:click="order = 'price'"
+          >
+            Price
+          </p-button>
+        </p-button-group>
       </div>
     </template>
   </code>
@@ -1195,55 +1204,185 @@ color: #ffffff;
 
 | 属性 | 说明 | 类型 | 默认值 |
 |------|------|------|--------|
-| `variant` | 对话框样式 | `filled` \| `outlined` | `outlined` |
-| `color` | 对话框颜色 | `primary` \| `error` \| `success` \| `neutral` | - |
-| `open` | 是否打开 | `boolean` | `false` |
-| `auto-close` | 点击遮罩是否自动关闭 | `boolean` | `false` |
-| `auto-to-mobile-width` | 触发移动端样式的宽度阈值 | `string` | `540px` |
+| `variant` | 按钮样式 | `filled` \| `outlined` \| `text` | `filled` |
+| `size` | 按钮尺寸 | `xs` \| `s` \| `l` \| `xl` | - |
+| `color` | 按钮颜色 | `primary` \| `error` \| `success` \| `neutral` | - |
+| `icon` | 是否为图标按钮 | `boolean` | `false` |
+| `disabled` | 是否禁用 | `boolean` | `false` |
+| `autofocus` | 是否自动聚焦 | `boolean` | `false` |
 
 ### 插槽
 
 | 插槽名 | 说明 |
 |--------|------|
-| `title` | 对话框标题 |
-| `default` | 对话框内容 |
-| `bottom` | 底部按钮区域 |
-
-### 事件
-
-| 事件名 | 说明 |
-|--------|------|
-| `click-mask` | 点击遮罩层时触发 |
+| `default` | 按钮内容 |
+| `prefix` | 前缀内容 |
+| `suffix` | 后缀内容 |
 
 
 ---
 
-<!-- list.html -->
+<!-- navigation.html -->
 
-# List 列表
+# Navigation 导航
 
-列表项组件，支持前缀、后缀和可折叠功能。
+导航组件包提供了导航栏、导航项和导航布局组件，用于构建响应式的应用导航系统。
 
 ## 引入组件
 
 ```html
-<l-m src="https://punch-ui-v2.pages.dev/packages/list/list.html"></l-m>
+<l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-bar.html"></l-m>
 ```
 
-## 基本用法
+## 基本用法 - 导航栏
 
-<o-playground name="List 基本用法" style="--editor-height: 350px">
+<o-playground name="Navigation 基本用法" style="--editor-height: 400px">
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list.html"></l-m>
-      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list-item.html"></l-m>
-      <div style="padding: 20px; max-width: 400px;">
-        <p-list>
-          <p-list-item>列表项 1</p-list-item>
-          <p-list-item>列表项 2</p-list-item>
-          <p-list-item>列表项 3</p-list-item>
-        </p-list>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-nav-bar>
+          <p-nav-item active>
+            <span slot="icon">🏠</span>
+            <span>首页</span>
+          </p-nav-item>
+          <p-nav-item>
+            <span slot="icon">📑</span>
+            <span>书签</span>
+          </p-nav-item>
+          <p-nav-item>
+            <span slot="icon">👤</span>
+            <span>关于</span>
+          </p-nav-item>
+        </p-nav-bar>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 垂直导航栏
+
+<o-playground name="垂直导航栏" style="--editor-height: 500px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-nav-bar style="height: 400px; display: inline-flex; flex-direction: column">
+          <p-nav-item active>
+            <span slot="icon">🏠</span>
+            <span>首页</span>
+          </p-nav-item>
+          <p-nav-item>
+            <span slot="icon">⚙️</span>
+            <span>设置</span>
+          </p-nav-item>
+          <p-nav-item>
+            <span slot="icon">👤</span>
+            <span>关于</span>
+          </p-nav-item>
+        </p-nav-bar>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 标签平行模式
+
+<o-playground name="标签平行模式" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-nav-bar style="--label-parallel: true; padding: 8px 12px;">
+          <p-nav-item active>
+            <span slot="icon">🏠</span>
+            <span>首页</span>
+          </p-nav-item>
+          <p-nav-item>
+            <span slot="icon">👤</span>
+            <span>关于</span>
+          </p-nav-item>
+        </p-nav-bar>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 禁用状态
+
+<o-playground name="禁用状态" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-nav-bar>
+          <p-nav-item active>
+            <span slot="icon">🏠</span>
+            <span>首页</span>
+          </p-nav-item>
+          <p-nav-item disabled>
+            <span slot="icon">⚙️</span>
+            <span>设置</span>
+          </p-nav-item>
+          <p-nav-item>
+            <span slot="icon">👤</span>
+            <span>关于</span>
+          </p-nav-item>
+        </p-nav-bar>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 导航布局 (Nav Layout)
+
+`p-nav-layout` 是一个响应式导航布局组件，会根据容器宽度自动调整导航栏的样式和位置。
+
+### 引入组件
+
+```html
+<l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-layout.html"></l-m>
+```
+
+### 基本用法
+
+<o-playground name="导航布局" style="--editor-height: 600px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-layout.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-item.html"></l-m>
+      <div style="padding: 20px; height: 500px;">
+        <p-nav-layout>
+          <div style="padding: 20px;">
+            <h1>主内容区域</h1>
+            <p>这里是主要内容...</p>
+          </div>
+          
+          <p-nav-bar slot="nav">
+            <p-nav-item active>
+              <span slot="icon">🏠</span>
+              <span>首页</span>
+            </p-nav-item>
+            <p-nav-item>
+              <span slot="icon">📑</span>
+              <span>书签</span>
+            </p-nav-item>
+            <p-nav-item>
+              <span slot="icon">👤</span>
+              <span>关于</span>
+            </p-nav-item>
+          </p-nav-bar>
+        </p-nav-layout>
       </div>
     </template>
   </code>
@@ -1251,12 +1390,25 @@ color: #ffffff;
 
 ## API
 
-### 属性
+### 属性 - p-nav-item
 
 | 属性 | 说明 | 类型 | 默认值 |
 |------|------|------|--------|
-| `collapsible` | 是否可折叠 | `boolean` | `false` |
-| `expanded` | 是否展开 | `boolean` | `false` |
+| `active` | 是否激活 | `boolean` | `false` |
+| `disabled` | 是否禁用 | `boolean` | `false` |
+
+### 插槽 - p-nav-bar
+
+| 插槽名 | 说明 |
+|--------|------|
+| `default` | 包含的 p-nav-item 元素 |
+
+### 插槽 - p-nav-item
+
+| 插槽名 | 说明 |
+|--------|------|
+| `default` | 导航项文本 |
+| `icon` | 导航项图标 |
 
 
 ---
@@ -1514,289 +1666,69 @@ Punch-UI 提供了一个主题切换组件，方便用户手动切换主题：
 
 ---
 
-<!-- installation.html -->
+<!-- alert.html -->
 
-# 安装
+# Alert 警告框
 
-Punch-UI 基于 ofa.js 构建，使用前需要先引入 ofa.js 和全局样式。
+Alert 用于显示一个警告对话框，只有确认按钮。适用于重要信息提示、操作结果通知等场景。
 
-## 引入 ofa.js
+## 引入
 
-在 HTML 文件中添加以下脚本标签：
-
-```html
-```
-
-## 引入全局样式
-
-Punch-UI 提供了全局样式文件，包含了主题系统和基础样式：
-
-```html
-<link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-```
-
-## 引入组件
-
-使用 `l-m` 标签引入需要的组件。例如，引入按钮组件：
-
-```html
-<l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
-```
-
-## 完整示例
-
-下面是一个完整的 HTML 示例，展示了如何引入 ofa.js、全局样式和按钮组件：
-
-```html
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Punch-UI 示例</title>
-  <!-- 引入全局样式 -->
-  <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-</head>
-<body>
-  <!-- 引入 ofa.js -->
-  
-  <!-- 引入按钮组件 -->
-  <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
-  
-  <!-- 使用组件 -->
-  <p-button color="primary">点击我</p-button>
-</body>
-</html>
-```
-
-## 组件 CDN 地址
-
-所有组件都可以通过以下 CDN 地址引入：
-
-```
-https://punch-ui-v2.pages.dev/packages/[组件名]/[组件文件].html
-```
-
-例如：
-- 按钮：`https://punch-ui-v2.pages.dev/packages/button/button.html`
-- 输入框：`https://punch-ui-v2.pages.dev/packages/input/input.html`
-- 选择器：`https://punch-ui-v2.pages.dev/packages/select/select.html`
-
-## 主题切换
-
-Punch-UI 支持深色/浅色主题切换。默认情况下，组件会自动跟随系统主题。
-
-### 自动跟随系统（默认）
-
-```html
-<html>
-  <!-- 自动跟随系统主题 -->
-</html>
-```
-
-### 强制浅色主题
-
-```html
-<html class="theme-light-mode">
-  <!-- 强制使用浅色主题 -->
-</html>
-```
-
-### 强制深色主题
-
-```html
-<html class="theme-dark-mode">
-  <!-- 强制使用深色主题 -->
-</html>
-```
-
-### 使用主题切换组件
-
-Punch-UI 提供了主题切换组件，方便用户手动切换主题：
-
-```html
-<l-m src="https://punch-ui-v2.pages.dev/tool/theme-switch/theme-switch.html"></l-m>
-<p-theme-switch></p-theme-switch>
-```
-
-## 下一步
-
-- [第一个示例](./first-example.md) - 创建你的第一个 Punch-UI 应用
-
-
----
-
-<!-- button.html -->
-
-# Button 按钮
-
-按钮组件是 Punch-UI 中最常用的组件之一，提供了多种样式、尺寸和颜色选择。
-
-## 引入组件
-
-```html
-<l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+```javascript
+import alert from 'https://punch-ui-v2.pages.dev/packages/util/alert.js';
 ```
 
 ## 基本用法
 
-<o-playground name="Button 基本用法" style="--editor-height: 300px">
+<o-playground name="Alert 基本用法" style="--editor-height: 400px">
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
-      <div style="padding: 20px;">
-        <p-button>默认按钮</p-button>
+      <script type="module">
+        import alert from 'https://punch-ui-v2.pages.dev/packages/util/alert.js';
+        export default async () => {
+          return {
+            proto: {
+              async showAlert() {
+                await alert('这是一个警告消息');
+              }
+            }
+          };
+        };
+      </script>
+      <div style="padding: 20px; text-align: center;">
+        <p-button color="primary" on:click="showAlert">显示 Alert</p-button>
       </div>
     </template>
   </code>
 </o-playground>
 
-## 按钮变体
+## 带标题和自定义按钮
 
-通过 `variant` 属性设置按钮样式：
-
-<o-playground name="Button 变体" style="--editor-height: 350px">
+<o-playground name="Alert 自定义" style="--editor-height: 500px">
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
-      <div style="padding: 20px;">
-        <p-button variant="filled">Filled Button</p-button>
-        <p-button variant="outlined">Outlined Button</p-button>
-        <p-button variant="text">Text Button</p-button>
-      </div>
-    </template>
-  </code>
-</o-playground>
-
-## 尺寸
-
-通过 `size` 属性设置按钮尺寸：
-
-<o-playground name="Button 尺寸" style="--editor-height: 350px">
-  <code path="demo.html" preview active>
-    <template>
-      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
-      <div style="padding: 20px;">
-        <p-button size="xs">Extra Small</p-button>
-        <p-button size="s">Small</p-button>
-        <p-button>Default</p-button>
-        <p-button size="l">Large</p-button>
-        <p-button size="xl">Extra Large</p-button>
-      </div>
-    </template>
-  </code>
-</o-playground>
-
-## 颜色
-
-通过 `color` 属性设置按钮颜色：
-
-<o-playground name="Button 颜色" style="--editor-height: 350px">
-  <code path="demo.html" preview active>
-    <template>
-      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
-      <div style="padding: 20px;">
-        <p-button>Default</p-button>
-        <p-button color="primary">Primary</p-button>
-        <p-button color="error">Error</p-button>
-        <p-button color="success">Success</p-button>
-        <p-button color="neutral">Neutral</p-button>
-      </div>
-    </template>
-  </code>
-</o-playground>
-
-## 图标按钮
-
-添加 `icon` 属性使按钮成为圆形图标按钮：
-
-<o-playground name="图标按钮" style="--editor-height: 300px">
-  <code path="demo.html" preview active>
-    <template>
-      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
-      <div style="padding: 20px;">
-        <p-button icon>+</p-button>
-        <p-button icon size="s">-</p-button>
-        <p-button icon size="l">×</p-button>
-      </div>
-    </template>
-  </code>
-</o-playground>
-
-## 带前缀/后缀
-
-使用 `prefix` 和 `suffix` 插槽添加图标或文本：
-
-<o-playground name="带前缀/后缀的按钮" style="--editor-height: 300px">
-  <code path="demo.html" preview active>
-    <template>
-      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
-      <div style="padding: 20px;">
-        <p-button>
-          <span slot="prefix">🔍</span>
-          Search
-        </p-button>
-        <p-button>
-          Settings
-          <span slot="suffix">⚙️</span>
-        </p-button>
-      </div>
-    </template>
-  </code>
-</o-playground>
-
-## 禁用状态
-
-添加 `disabled` 属性禁用按钮：
-
-<o-playground name="禁用状态" style="--editor-height: 300px">
-  <code path="demo.html" preview active>
-    <template>
-      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
-      <div style="padding: 20px;">
-        <p-button disabled>Disabled Button</p-button>
-        <p-button variant="outlined" disabled>Disabled Outlined</p-button>
-      </div>
-    </template>
-  </code>
-</o-playground>
-
-## Button Group
-
-使用按钮组将多个按钮组合在一起：
-
-<o-playground name="Button Group" style="--editor-height: 400px">
-  <code path="demo.html" preview active>
-    <template>
-      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
-      <l-m src="https://punch-ui-v2.pages.dev/packages/button/group.html"></l-m>
-      <div style="padding: 20px;">
-        <h4>基础按钮组</h4>
-        <p-button-group>
-          <p-button>按钮 1</p-button>
-          <p-button>按钮 2</p-button>
-          <p-button>按钮 3</p-button>
-        </p-button-group>
-        <h4 style="margin-top: 20px;">连接按钮组</h4>
-        <p-button-group connected>
-          <p-button variant="outlined">首页</p-button>
-          <p-button variant="outlined">产品</p-button>
-          <p-button variant="outlined">关于</p-button>
-        </p-button-group>
-        <h4 style="margin-top: 20px;">全宽按钮组</h4>
-        <p-button-group full-width>
-          <p-button>Left</p-button>
-          <p-button>Center</p-button>
-          <p-button>Right</p-button>
-        </p-button-group>
+      <script type="module">
+        import alert from 'https://punch-ui-v2.pages.dev/packages/util/alert.js';
+        export default async () => {
+          return {
+            proto: {
+              async showCustomAlert() {
+                await alert({
+                  title: '提示',
+                  message: '操作已完成',
+                  ok: '知道了'
+                });
+              }
+            }
+          };
+        };
+      </script>
+      <div style="padding: 20px; text-align: center;">
+        <p-button color="primary" on:click="showCustomAlert">自定义 Alert</p-button>
       </div>
     </template>
   </code>
@@ -1804,23 +1736,31 @@ Punch-UI 提供了主题切换组件，方便用户手动切换主题：
 
 ## API
 
-### 属性
+### 参数
 
-| 属性 | 说明 | 类型 | 默认值 |
-|------|------|------|--------|
-| `variant` | 按钮样式 | `filled` \| `outlined` \| `text` | `filled` |
-| `size` | 按钮尺寸 | `xs` \| `s` \| `l` \| `xl` | - |
-| `color` | 按钮颜色 | `primary` \| `error` \| `success` \| `neutral` | - |
-| `icon` | 是否为图标按钮 | `boolean` | `false` |
-| `disabled` | 是否禁用 | `boolean` | `false` |
+| 参数 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| title | `string` | `'提示'` | 对话框标题 |
+| message | `string` | - | 提示消息内容 |
+| ok | `string` | `'确定'` | 确认按钮文本 |
 
-### 插槽
+### 返回值
 
-| 插槽名 | 说明 |
-|--------|------|
-| `default` | 按钮内容 |
-| `prefix` | 前缀内容 |
-| `suffix` | 后缀内容 |
+返回一个 Promise，在用户点击确认按钮后 resolve。
+
+### 示例
+
+```javascript
+// 基本用法
+await alert('这是一个警告消息');
+
+// 带配置
+await alert({
+  title: '提示',
+  message: '操作已完成',
+  ok: '知道了'
+});
+```
 
 
 ---
@@ -1836,7 +1776,6 @@ Punch-UI 是一个基于 [ofa.js](https://github.com/ofajs/ofa.js) 构建的现�
 - 🎨 **Material Design 3** - 采用最新的 Material Design 3 设计规范，提供现代化的视觉体验
 - 🌗 **主题切换** - 内置深色/浅色主题支持，可自动跟随系统或手动切换
 - 📦 **按需加载** - 基于 ofa.js 的模块化设计，只加载需要的组件
-- 🎯 **TypeScript 支持** - 完整的类型定义，提供更好的开发体验
 - 🔧 **高度可定制** - 支持自定义主题、颜色和样式
 - 📱 **响应式设计** - 所有组件都支持响应式布局，适配移动端和桌面端
 
@@ -2013,6 +1952,159 @@ Punch-UI 支持所有现代浏览器：
   </code>
 </o-playground>
 
+### 默认值
+
+使用 `default-value` 属性设置初始值：
+
+<o-playground name="默认值" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch 
+          name="theme" 
+          checked-value="dark" 
+          unchecked-value="light"
+          default-value="dark"
+        >
+          深色模式
+        </p-switch>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 交互功能
+
+### 自动聚焦
+
+使用 `autofocus` 属性使开关在页面加载时自动获得焦点：
+
+<o-playground name="自动聚焦" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch autofocus>自动聚焦</p-switch>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+### 键盘操作
+
+开关支持键盘操作：
+- **空格键** - 切换开关状态
+- **回车键** - 切换开关状态
+
+<o-playground name="键盘操作" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch>使用键盘操作</p-switch>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+### 编程控制
+
+通过 JavaScript 控制开关状态：
+
+<o-playground name="编程控制" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch id="my-switch">编程控制</p-switch>
+        <p-button style="margin-top: 16px;" on:click="this.$('#my-switch').checked = !this.$('#my-switch').checked">切换状态</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 变体样式
+
+使用 `variant` 属性设置不同的样式：
+
+<o-playground name="变体样式" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch variant="filled" checked>Filled</p-switch>
+        <p-switch variant="outlined" checked>Outlined</p-switch>
+        <p-switch variant="text" checked>Text</p-switch>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 方法
+
+开关组件提供以下方法：
+
+- `focus()` - 使开关获得焦点
+
+<o-playground name="方法" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch id="focus-switch">聚焦开关</p-switch>
+        <p-button style="margin-top: 16px;" on:click="this.$('#focus-switch').focus()">聚焦</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 动画效果
+
+开关组件包含以下动画效果：
+- **滑块移动** - 平滑的滑动动画
+- **勾选标记** - 选中时显示勾选动画
+- **边框填充** - 选中时边框填充动画
+
+<o-playground name="动画效果" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch checked>动画效果</p-switch>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 无障碍支持
+
+开关组件提供以下无障碍支持：
+- 支持键盘导航和操作
+- 提供焦点状态指示
+- 支持屏幕阅读器
+
+<o-playground name="无障碍支持" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch>无障碍开关</p-switch>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
 ## API
 
 ### 属性
@@ -2036,32 +2128,45 @@ Punch-UI 支持所有现代浏览器：
 
 ---
 
-<!-- tabs.html -->
+<!-- confirm.html -->
 
-# Tabs 标签页
+# Confirm 确认框
 
-标签页组件，用于在不同内容之间切换。
+Confirm 用于显示一个确认对话框，包含确认和取消按钮。适用于需要用户确认的操作场景。
 
-## 引入组件
+## 引入
 
-```html
-<l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-bar.html"></l-m>
+```javascript
+import confirm from 'https://punch-ui-v2.pages.dev/packages/util/confirm.js';
 ```
 
 ## 基本用法
 
-<o-playground name="Tabs 基本用法" style="--editor-height: 400px">
+<o-playground name="Confirm 基本用法" style="--editor-height: 400px">
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-bar.html"></l-m>
-      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-item.html"></l-m>
-      <div style="padding: 20px;">
-        <p-tab-bar>
-          <p-tab-item active>标签 1</p-tab-item>
-          <p-tab-item>标签 2</p-tab-item>
-          <p-tab-item>标签 3</p-tab-item>
-        </p-tab-bar>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <script type="module">
+        import confirm from 'https://punch-ui-v2.pages.dev/packages/util/confirm.js';
+        import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
+        export default async () => {
+          return {
+            proto: {
+              async showConfirm() {
+                const result = await confirm('确定要删除吗？');
+                if (result) {
+                  toast('已删除');
+                } else {
+                  toast('已取消');
+                }
+              }
+            }
+          };
+        };
+      </script>
+      <div style="padding: 20px; text-align: center;">
+        <p-button color="error" on:click="showConfirm">删除</p-button>
       </div>
     </template>
   </code>
@@ -2069,11 +2174,38 @@ Punch-UI 支持所有现代浏览器：
 
 ## API
 
-### 属性
+### 参数
 
-| 属性 | 说明 | 类型 | 默认值 |
-|------|------|------|--------|
-| `active` | 是否激活 | `boolean` | `false` |
+| 参数 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| title | `string` | `'提示'` | 对话框标题 |
+| message | `string` | - | 提示消息内容 |
+| ok | `string` | `'确定'` | 确认按钮文本 |
+| cancel | `string` | `'取消'` | 取消按钮文本 |
+
+### 返回值
+
+返回一个 Promise，resolve 为 `true` 表示用户点击了确认，`false` 表示用户点击了取消。
+
+### 示例
+
+```javascript
+// 基本用法
+const result = await confirm('确定要删除吗？');
+if (result) {
+  console.log('用户确认删除');
+} else {
+  console.log('用户取消删除');
+}
+
+// 带配置
+const result = await confirm({
+  title: '确认操作',
+  message: '此操作不可撤销，确定要继续吗？',
+  ok: '确定',
+  cancel: '取消'
+});
+```
 
 
 ---
@@ -2120,6 +2252,139 @@ Punch-UI 支持所有现代浏览器：
   </code>
 </o-playground>
 
+## 变体样式
+
+通过 `variant` 属性设置输入框样式：
+
+<o-playground name="Textarea 变体" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea>
+          <span slot="label">Outlined (默认)</span>
+        </p-textarea>
+        <p-textarea variant="filled" style="margin-top: 16px;">
+          <span slot="label">Filled</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 尺寸
+
+通过 `size` 属性设置输入框尺寸：
+
+<o-playground name="Textarea 尺寸" style="--editor-height: 500px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea size="xs">
+          <span slot="label">Extra Small</span>
+        </p-textarea>
+        <p-textarea size="s" style="margin-top: 16px;">
+          <span slot="label">Small</span>
+        </p-textarea>
+        <p-textarea size="m" style="margin-top: 16px;">
+          <span slot="label">Medium (Default)</span>
+        </p-textarea>
+        <p-textarea size="l" style="margin-top: 16px;">
+          <span slot="label">Large</span>
+        </p-textarea>
+        <p-textarea size="xl" style="margin-top: 16px;">
+          <span slot="label">Extra Large</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 颜色
+
+通过 `color` 属性设置输入框颜色：
+
+<o-playground name="Textarea 颜色" style="--editor-height: 500px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea color="primary">
+          <span slot="label">Primary Color</span>
+        </p-textarea>
+        <p-textarea color="success" style="margin-top: 16px;">
+          <span slot="label">Success Color</span>
+        </p-textarea>
+        <p-textarea color="neutral" style="margin-top: 16px;">
+          <span slot="label">Neutral Color</span>
+        </p-textarea>
+        <p-textarea color="error" style="margin-top: 16px;">
+          <span slot="label">Error Color</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 前缀和后缀
+
+使用 `prefix` 和 `suffix` 插槽添加前缀/后缀内容：
+
+<o-playground name="带前缀/后缀的 Textarea" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea>
+          <span slot="label">Message</span>
+          <span slot="prefix">📝</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 占位符
+
+使用 `placeholder` 属性设置占位文本：
+
+<o-playground name="占位符" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea placeholder="Enter your message...">
+          <span slot="label">Message</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 自动聚焦
+
+使用 `autofocus` 属性使输入框在页面加载时自动获得焦点：
+
+<o-playground name="自动聚焦" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea autofocus>
+          <span slot="label">自动聚焦</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
 ## API
 
 ### 属性
@@ -2137,3 +2402,1062 @@ Punch-UI 支持所有现代浏览器：
 |--------|------|
 | `default` | 文本框内容 |
 | `label` | 标签文本 |
+
+
+---
+
+<!-- installation.html -->
+
+# 安装
+
+Punch-UI 基于 ofa.js 构建，使用前需要先引入 ofa.js 和全局样式。
+
+## 引入 ofa.js
+
+在 HTML 文件中添加以下脚本标签：
+
+```html
+<script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
+```
+
+## 引入全局样式
+
+Punch-UI 提供了全局样式文件，包含了主题系统和基础样式：
+
+```html
+<link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+```
+
+> **注意**：此步骤为可选步骤。如果不手动引入全局样式，Punch-UI 会自动添加。但是，在深色模式下，自动添加可能会导致页面加载时出现短暂的"白屏闪烁"（从白色突然变为黑色）。为了避免这种视觉闪烁，建议在 `<head>` 中手动引入全局样式。
+
+## 引入组件
+
+使用 `l-m` 标签引入需要的组件。例如，引入按钮组件：
+
+```html
+<l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+```
+
+## 完整示例
+
+下面是一个完整的 HTML 示例，展示了如何引入 ofa.js、全局样式和按钮组件：
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Punch-UI 示例</title>
+  <!-- 引入 ofa.js -->
+  <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
+  <!-- 引入全局样式 -->
+  <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+</head>
+<body>
+  
+  <!-- 引入按钮组件 -->
+  <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+  
+  <!-- 使用组件 -->
+  <p-button color="primary">点击我</p-button>
+</body>
+</html>
+```
+
+## 组件 CDN 地址
+
+大多数组件都可以通过以下 CDN 地址格式引入：
+
+```
+https://punch-ui-v2.pages.dev/packages/[组件名]/[组件文件].html
+```
+
+> **注意**：这是一个通用的文件结构模式，但并非所有组件都完全遵循此规则。具体组件的引入路径请参考各组件的文档说明。
+
+例如：
+- 按钮：`https://punch-ui-v2.pages.dev/packages/button/button.html`
+- 按钮组：`https://punch-ui-v2.pages.dev/packages/button/group.html`
+- 输入框：`https://punch-ui-v2.pages.dev/packages/input/input.html`
+- 选择器：`https://punch-ui-v2.pages.dev/packages/select/select.html`
+
+## 主题切换
+
+Punch-UI 支持深色/浅色主题切换。默认情况下，组件会自动跟随系统主题。
+
+### 自动跟随系统（默认）
+
+```html
+<html>
+  <!-- 自动跟随系统主题 -->
+</html>
+```
+
+### 强制浅色主题
+
+```html
+<html class="theme-light-mode">
+  <!-- 强制使用浅色主题 -->
+</html>
+```
+
+### 强制深色主题
+
+```html
+<html class="theme-dark-mode">
+  <!-- 强制使用深色主题 -->
+</html>
+```
+
+### 使用主题切换组件
+
+Punch-UI 提供了主题切换组件，方便用户手动切换主题：
+
+```html
+<l-m src="https://punch-ui-v2.pages.dev/tool/theme-switch/theme-switch.html"></l-m>
+<p-theme-switch></p-theme-switch>
+```
+
+## 下一步
+
+- [第一个示例](./first-example.md) - 创建你的第一个 Punch-UI 应用
+
+
+---
+
+<!-- dialog.html -->
+
+# Dialog 对话框
+
+对话框组件用于显示模态对话框，支持移动端适配和自定义样式。
+
+## 引入组件
+
+```html
+<l-m src="https://punch-ui-v2.pages.dev/packages/dialog/dialog.html"></l-m>
+```
+
+## 基本用法
+
+<o-playground name="Dialog 基本用法" style="--editor-height: 500px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/dialog/dialog.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button id="show-dialog-btn" on:click="demoDialogOpen = true">
+          打开对话框
+        </p-button>
+        <p-dialog id="demo-dialog" auto-close sync:open="demoDialogOpen">
+          <span slot="title">对话框标题</span>
+          <div>
+            <p>这是一个对话框示例。</p>
+            <p>点击遮罩层可以关闭对话框。</p>
+          </div>
+          <div slot="bottom">
+            <p-button color="primary" on:click="demoDialogOpen = false">确定</p-button>
+            <p-button variant="text" on:click="demoDialogOpen = false">取消</p-button>
+          </div>
+        </p-dialog>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 对话框变体
+
+<o-playground name="Dialog 变体" style="--editor-height: 500px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/dialog/dialog.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button on:click="filledDialogOpen = true">打开 Filled 对话框</p-button>
+        <p-dialog variant="filled" sync:open="filledDialogOpen">
+          <span slot="title">Filled 对话框</span>
+          <div>
+            <p>这是一个 Filled 样式的对话框。</p>
+          </div>
+          <div slot="bottom">
+            <p-button color="primary" on:click="filledDialogOpen = false">确定</p-button>
+          </div>
+        </p-dialog>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 移动端适配
+
+对话框组件会自动适配移动端，在小屏幕上会从底部滑入：
+
+<o-playground name="移动端适配" style="--editor-height: 500px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/dialog/dialog.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button on:click="mobileDialogOpen = true">打开响应式对话框</p-button>
+        <p-dialog auto-to-mobile-width="540px" sync:open="mobileDialogOpen">
+          <span slot="title">响应式对话框</span>
+          <div>
+            <p>这个对话框在移动设备上会从底部滑入。</p>
+            <p>在桌面设备上会居中显示。</p>
+          </div>
+          <div slot="bottom">
+            <p-button color="primary" on:click="mobileDialogOpen = false">确定</p-button>
+          </div>
+        </p-dialog>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## API
+
+### 属性
+
+| 属性 | 说明 | 类型 | 默认值 |
+|------|------|------|--------|
+| `variant` | 对话框样式 | `filled` \| `outlined` | `outlined` |
+| `color` | 对话框颜色 | `primary` \| `error` \| `success` \| `neutral` | - |
+| `open` | 是否打开 | `boolean` | `false` |
+| `auto-close` | 点击遮罩是否自动关闭 | `boolean` | `false` |
+| `auto-to-mobile-width` | 触发移动端样式的宽度阈值 | `string` | `540px` |
+
+### 插槽
+
+| 插槽名 | 说明 |
+|--------|------|
+| `title` | 对话框标题 |
+| `default` | 对话框内容 |
+| `bottom` | 底部按钮区域 |
+
+### 事件
+
+| 事件名 | 说明 |
+|--------|------|
+| `click-mask` | 点击遮罩层时触发 |
+
+
+---
+
+<!-- tabs.html -->
+
+# Tabs 标签页
+
+标签页组件，用于在不同内容之间切换。
+
+## 引入组件
+
+```html
+<l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-bar.html"></l-m>
+```
+
+## 基本用法
+
+<o-playground name="Tabs 基本用法" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-tab-bar>
+          <p-tab-item active>标签 1</p-tab-item>
+          <p-tab-item>标签 2</p-tab-item>
+          <p-tab-item>标签 3</p-tab-item>
+        </p-tab-bar>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 带图标的标签
+
+使用 `icon` 插槽添加图标：
+
+<o-playground name="带图标的标签" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-tab-bar>
+          <p-tab-item active>
+            <span slot="icon">🏠</span>
+            <span>首页</span>
+          </p-tab-item>
+          <p-tab-item>
+            <span slot="icon">📑</span>
+            <span>书签</span>
+          </p-tab-item>
+          <p-tab-item>
+            <span slot="icon">👤</span>
+            <span>关于</span>
+          </p-tab-item>
+        </p-tab-bar>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 禁用状态
+
+添加 `disabled` 属性禁用标签项：
+
+<o-playground name="禁用状态" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-tab-bar>
+          <p-tab-item active>
+            <span slot="icon">🏠</span>
+            <span>首页</span>
+          </p-tab-item>
+          <p-tab-item disabled>
+            <span slot="icon">⚙️</span>
+            <span>设置</span>
+          </p-tab-item>
+          <p-tab-item>
+            <span slot="icon">👤</span>
+            <span>关于</span>
+          </p-tab-item>
+        </p-tab-bar>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 可滚动的标签栏
+
+当标签项过多时，可以设置滚动：
+
+<o-playground name="可滚动的标签栏" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-tab-bar style="overflow-x: auto">
+          <p-tab-item active>标签 One</p-tab-item>
+          <p-tab-item>标签 Two</p-tab-item>
+          <p-tab-item>标签 Three</p-tab-item>
+          <p-tab-item>标签 Four</p-tab-item>
+          <p-tab-item>标签 Five</p-tab-item>
+          <p-tab-item>标签 Six</p-tab-item>
+          <p-tab-item>标签 Seven</p-tab-item>
+        </p-tab-bar>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## API
+
+### 属性
+
+| 属性 | 说明 | 类型 | 默认值 |
+|------|------|------|--------|
+| `active` | 是否激活 | `boolean` | `false` |
+
+
+---
+
+<!-- list.html -->
+
+# List 列表
+
+列表项组件，支持前缀、后缀和可折叠功能。
+
+## 引入组件
+
+```html
+<l-m src="https://punch-ui-v2.pages.dev/packages/list/list.html"></l-m>
+```
+
+## 基本用法
+
+<o-playground name="List 基本用法" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list-item.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-list>
+          <p-list-item>列表项 1</p-list-item>
+          <p-list-item>列表项 2</p-list-item>
+          <p-list-item>列表项 3</p-list-item>
+        </p-list>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 带前缀图标
+
+使用 `prefix` 插槽添加前缀图标：
+
+<o-playground name="带前缀图标的列表" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list-item.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-list>
+          <p-list-item>
+            <span slot="prefix" style="width: 40px; height: 40px; border-radius: 50%; background-color: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); display: flex; align-items: center; justify-content: center;">A</span>
+            用户名
+            <div secondary>user@example.com</div>
+          </p-list-item>
+          <p-list-item>
+            <span slot="prefix" style="width: 40px; height: 40px; border-radius: 50%; background-color: var(--md-sys-color-tertiary-container); color: var(--md-sys-color-on-tertiary-container); display: flex; align-items: center; justify-content: center;">B</span>
+            另一个用户
+            <div secondary>another@example.com</div>
+          </p-list-item>
+        </p-list>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 带后缀
+
+使用 `suffix` 插槽添加后缀内容：
+
+<o-playground name="带后缀的列表" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list-item.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-list>
+          <p-list-item>
+            <span slot="prefix" style="width: 40px; height: 40px; border-radius: 50%; background-color: var(--md-sys-color-tertiary-container); color: var(--md-sys-color-on-tertiary-container); display: flex; align-items: center; justify-content: center;">C</span>
+            列表项
+            <span slot="suffix" style="color: var(--md-sys-color-on-surface-variant)">›</span>
+          </p-list-item>
+          <p-list-item>
+            <span slot="prefix">📁</span>
+            文件夹
+            <span slot="suffix">12 个文件</span>
+          </p-list-item>
+        </p-list>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 可折叠列表
+
+使用 `collapsible` 属性使列表项可折叠，`expanded` 属性控制展开状态：
+
+<o-playground name="可折叠列表" style="--editor-height: 500px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list-item.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-list>
+          <p-list-item collapsible expanded>
+            <span slot="prefix">📁</span>
+            可展开的文件夹
+            <div secondary>点击展开/折叠</div>
+            <p-list slot="sublist">
+              <p-list-item>
+                <span slot="prefix">📄</span>
+                子项目 1
+              </p-list-item>
+              <p-list-item>
+                <span slot="prefix">📄</span>
+                子项目 2
+              </p-list-item>
+            </p-list>
+          </p-list-item>
+          <p-list-item>
+            <span slot="prefix">📄</span>
+            普通列表项
+          </p-list-item>
+        </p-list>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 可点击的折叠项
+
+添加 `button` 属性使折叠项可点击并显示涟漪效果：
+
+<o-playground name="可点击的折叠项" style="--editor-height: 500px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list-item.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-list>
+          <p-list-item collapsible expanded button>
+            <span slot="prefix">📁</span>
+            可点击的折叠项
+            <div secondary>点击展开/折叠</div>
+            <p-list slot="sublist">
+              <p-list-item>
+                <span slot="prefix">📄</span>
+                子项目 1
+              </p-list-item>
+              <p-list-item>
+                <span slot="prefix">📄</span>
+                子项目 2
+              </p-list-item>
+            </p-list>
+          </p-list-item>
+        </p-list>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 自定义展开图标
+
+使用 `expand-icon` 插槽自定义展开/折叠图标：
+
+<o-playground name="自定义展开图标" style="--editor-height: 500px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list-item.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-list>
+          <p-list-item collapsible expanded>
+            <span slot="prefix">📁</span>
+            自定义图标
+            <span slot="expand-icon">▼</span>
+            <p-list slot="sublist">
+              <p-list-item>
+                <span slot="prefix">📄</span>
+                子项目 1
+              </p-list-item>
+              <p-list-item>
+                <span slot="prefix">📄</span>
+                子项目 2
+              </p-list-item>
+            </p-list>
+          </p-list-item>
+        </p-list>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## API
+
+### 属性
+
+| 属性 | 说明 | 类型 | 默认值 |
+|------|------|------|--------|
+| `collapsible` | 是否可折叠 | `boolean` | `false` |
+| `expanded` | 是否展开 | `boolean` | `false` |
+
+
+---
+
+<!-- select.html -->
+
+# Select 选择器
+
+下拉选择器组件，支持单选和多选。
+
+## 引入组件
+
+```html
+<l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+```
+
+## 基本用法
+
+<o-playground name="Select 基本用法" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/option.html"></l-m>
+      <div style="padding: 20px; max-width: 300px;">
+        <p-select placeholder="请选择">
+          <p-option value="1">选项 1</p-option>
+          <p-option value="2">选项 2</p-option>
+          <p-option value="3">选项 3</p-option>
+        </p-select>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 变体样式
+
+通过 `variant` 属性设置选择器样式：
+
+<o-playground name="Select 变体" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/option.html"></l-m>
+      <div style="padding: 20px; max-width: 300px;">
+        <p-select>
+          <span slot="label">Outlined (默认)</span>
+          <p-option value="1">选项 1</p-option>
+          <p-option value="2">选项 2</p-option>
+        </p-select>
+        <p-select variant="filled" style="margin-top: 16px;">
+          <span slot="label">Filled</span>
+          <p-option value="1">选项 1</p-option>
+          <p-option value="2">选项 2</p-option>
+        </p-select>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 尺寸
+
+通过 `size` 属性设置选择器尺寸：
+
+<o-playground name="Select 尺寸" style="--editor-height: 500px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/option.html"></l-m>
+      <div style="padding: 20px; max-width: 300px;">
+        <p-select size="xs">
+          <span slot="label">Extra Small (xs)</span>
+          <p-option value="1">选项 1</p-option>
+        </p-select>
+        <p-select size="s" style="margin-top: 16px;">
+          <span slot="label">Small (s)</span>
+          <p-option value="1">选项 1</p-option>
+        </p-select>
+        <p-select style="margin-top: 16px;">
+          <span slot="label">Default</span>
+          <p-option value="1">选项 1</p-option>
+        </p-select>
+        <p-select size="l" style="margin-top: 16px;">
+          <span slot="label">Large (l)</span>
+          <p-option value="1">选项 1</p-option>
+        </p-select>
+        <p-select size="xl" style="margin-top: 16px;">
+          <span slot="label">Extra Large (xl)</span>
+          <p-option value="1">选项 1</p-option>
+        </p-select>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 颜色
+
+通过 `color` 属性设置选择器颜色：
+
+<o-playground name="Select 颜色" style="--editor-height: 500px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/option.html"></l-m>
+      <div style="padding: 20px; max-width: 300px;">
+        <p-select color="primary">
+          <span slot="label">Primary Color</span>
+          <p-option value="1">选项 1</p-option>
+        </p-select>
+        <p-select color="success" style="margin-top: 16px;">
+          <span slot="label">Success Color</span>
+          <p-option value="1">选项 1</p-option>
+        </p-select>
+        <p-select color="neutral" style="margin-top: 16px;">
+          <span slot="label">Neutral Color</span>
+          <p-option value="1">选项 1</p-option>
+        </p-select>
+        <p-select color="error" style="margin-top: 16px;">
+          <span slot="label">Error Color</span>
+          <p-option value="1">选项 1</p-option>
+        </p-select>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 前缀和后缀
+
+使用 `prefix` 和 `suffix` 插槽添加前缀或后缀：
+
+<o-playground name="带前缀/后缀的选择器" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/option.html"></l-m>
+      <div style="padding: 20px; max-width: 300px;">
+        <p-select>
+          <span slot="prefix">🌐</span>
+          <span slot="label">Language</span>
+          <p-option value="en">English</p-option>
+          <p-option value="zh">中文</p-option>
+        </p-select>
+        <p-select style="margin-top: 16px;">
+          <span slot="label">Currency</span>
+          <span slot="suffix">💰</span>
+          <p-option value="usd">USD</p-option>
+          <p-option value="eur">EUR</p-option>
+        </p-select>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 禁用状态
+
+添加 `disabled` 属性禁用选择器：
+
+<o-playground name="禁用状态" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/option.html"></l-m>
+      <div style="padding: 20px; max-width: 300px;">
+        <p-select disabled>
+          <span slot="label">禁用选择器</span>
+          <p-option value="1">选项 1</p-option>
+          <p-option value="2">选项 2</p-option>
+        </p-select>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## API
+
+### 属性
+
+| 属性 | 说明 | 类型 | 默认值 |
+|------|------|------|--------|
+| `placeholder` | 占位文本 | `string` | - |
+| `disabled` | 是否禁用 | `boolean` | `false` |
+| `value` | 选中的值 | `string` | - |
+
+
+---
+
+<!-- color.html -->
+
+# 颜色系统
+
+Punch-UI 使用 Material Design 3 的颜色系统，提供了完整的调色板和主题支持。
+
+> 🎯 **核心原则**：**始终优先使用语义化颜色变量（`--md-sys-color-*`）**，避免直接使用调色板颜色（`--md-ref-palette-*`）。语义化颜色会自动适配主题切换，确保对比度和一致性。
+
+## 引入样式
+
+```html
+<link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+```
+
+## 主题切换
+
+Punch-UI 支持三种主题模式：
+
+### 1. 自动跟随系统（默认）
+
+默认情况下，主题会自动跟随系统设置：
+
+```html
+<html>
+  <!-- 自动跟随系统主题 -->
+</html>
+```
+
+### 2. 强制浅色主题
+
+```html
+<html class="theme-light-mode">
+  <!-- 强制使用浅色主题 -->
+</html>
+```
+
+### 3. 强制深色主题
+
+```html
+<html class="theme-dark-mode">
+  <!-- 强制使用深色主题 -->
+</html>
+```
+
+### 使用主题切换组件
+
+```html
+<l-m src="https://punch-ui-v2.pages.dev/tool/theme-switch/theme-switch.html"></l-m>
+<p-theme-switch></p-theme-switch>
+```
+
+## 语义化颜色变量
+
+Punch-UI 提供了一套语义化的颜色变量，可以在浅色和深色主题下自动适配：
+
+### 主要颜色
+
+| 变量名 | 说明 | 浅色主题示例 | 深色主题示例 |
+|--------|------|-------------|-------------|
+| `--md-sys-color-primary` | 主色 | #0060a9 | #a2c9ff |
+| `--md-sys-color-on-primary` | 主色上的文字 | #ffffff | #00315b |
+| `--md-sys-color-primary-container` | 主色容器 | #d3e4ff | #004881 |
+| `--md-sys-color-on-primary-container` | 主色容器上的文字 | #001c38 | #d3e4ff |
+
+### 成功颜色
+
+| 变量名 | 说明 | 浅色主题示例 | 深色主题示例 |
+|--------|------|-------------|-------------|
+| `--md-sys-color-success` | 成功色 | #3a6a24 | #9fd582 |
+| `--md-sys-color-on-success` | 成功色上的文字 | #ffffff | #103900 |
+| `--md-sys-color-success-container` | 成功色容器 | #baf29c | #22510d |
+| `--md-sys-color-on-success-container` | 成功色容器上的文字 | #062100 | #baf29c |
+
+### 错误颜色
+
+| 变量名 | 说明 | 浅色主题示例 | 深色主题示例 |
+|--------|------|-------------|-------------|
+| `--md-sys-color-error` | 错误色 | #bc1421 | #ffb3ad |
+| `--md-sys-color-on-error` | 错误色上的文字 | #ffffff | #68000a |
+| `--md-sys-color-error-container` | 错误色容器 | #ffdad7 | #930013 |
+| `--md-sys-color-on-error-container` | 错误色容器上的文字 | #410004 | #ffdad7 |
+
+### 中性颜色
+
+| 变量名 | 说明 | 浅色主题示例 | 深色主题示例 |
+|--------|------|-------------|-------------|
+| `--md-sys-color-neutral` | 中性色 | #5e5e5e | #c7c6c6 |
+| `--md-sys-color-on-neutral` | 中性色上的文字 | #ffffff | #303031 |
+| `--md-sys-color-neutral-container` | 中性色容器 | #e3e2e2 | #464747 |
+| `--md-sys-color-on-neutral-container` | 中性色容器上的文字 | #1b1c1c | #e3e2e2 |
+
+### 表面颜色
+
+| 变量名 | 说明 | 浅色主题示例 | 深色主题示例 |
+|--------|------|-------------|-------------|
+| `--md-sys-color-surface` | 背景色 | #faf9f9 | #121414 |
+| `--md-sys-color-on-surface` | 背景上的文字 | #1b1c1c | #e3e2e2 |
+| `--md-sys-color-surface-variant` | 变体背景色 | #e3e2e2 | #464747 |
+| `--md-sys-color-on-surface-variant` | 变体背景上的文字 | #464747 | #c7c6c6 |
+| `--md-sys-color-inverse-surface` | 反转背景色 | #303031 | #e3e2e2 |
+| `--md-sys-color-inverse-on-surface` | 反转背景上的文字 | #f2f0f0 | #303031 |
+
+## 使用示例
+
+### 使用语义化颜色
+
+```html
+<style>
+  .custom-button {
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    border-radius: 8px;
+    padding: 10px 20px;
+  }
+  
+  .custom-card {
+    background-color: var(--md-sys-color-surface-variant);
+    color: var(--md-sys-color-on-surface-variant);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  
+  .success-message {
+    background-color: var(--md-sys-color-success-container);
+    color: var(--md-sys-color-on-success-container);
+    padding: 12px;
+  }
+</style>
+
+<button class="custom-button">自定义按钮</button>
+<div class="custom-card">自定义卡片</div>
+<div class="success-message">操作成功！</div>
+```
+
+### 实时示例
+
+<o-playground name="颜色系统示例" style="--editor-height: 500px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <style>
+        .color-demo {
+          padding: 20px;
+          max-width: 600px;
+          margin: 0 auto;
+        }
+        .color-box {
+          padding: 16px;
+          margin: 8px 0;
+          border-radius: 8px;
+        }
+        .primary-demo {
+          background-color: var(--md-sys-color-primary);
+          color: var(--md-sys-color-on-primary);
+        }
+        .success-demo {
+          background-color: var(--md-sys-color-success);
+          color: var(--md-sys-color-on-success);
+        }
+        .error-demo {
+          background-color: var(--md-sys-color-error);
+          color: var(--md-sys-color-on-error);
+        }
+        .surface-demo {
+          background-color: var(--md-sys-color-surface-variant);
+          color: var(--md-sys-color-on-surface-variant);
+        }
+      </style>
+      <div class="color-demo">
+        <h2>语义化颜色示例</h2>
+        <div class="color-box primary-demo">
+          <strong>Primary 主色</strong>
+          <p>用于主要操作和重要元素</p>
+        </div>
+        <div class="color-box success-demo">
+          <strong>Success 成功色</strong>
+          <p>用于成功状态和正面反馈</p>
+        </div>
+        <div class="color-box error-demo">
+          <strong>Error 错误色</strong>
+          <p>用于错误状态和警告信息</p>
+        </div>
+        <div class="color-box surface-demo">
+          <strong>Surface 表面色</strong>
+          <p>用于背景和容器</p>
+        </div>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 最佳实践
+
+### 1. 优先使用语义化颜色
+
+✅ **推荐**：
+```css
+background-color: var(--md-sys-color-primary);
+color: var(--md-sys-color-on-primary);
+```
+
+❌ **不推荐**：
+```css
+background-color: var(--md-ref-palette-primary40);
+color: #ffffff;
+```
+
+### 2. 确保对比度
+
+使用语义化颜色时，Punch-UI 已经确保了文字和背景之间的对比度符合无障碍标准。
+
+### 3. 主题适配
+
+语义化颜色会自动适配深色/浅色主题，无需手动处理。
+
+## 下一步
+
+- [主题定制](./theming.md) - 了解如何自定义主题和颜色
+
+
+---
+
+<!-- prompt.html -->
+
+# Prompt 输入框
+
+Prompt 用于显示一个输入对话框，让用户输入文本。适用于需要用户输入信息的场景。
+
+## 引入
+
+```javascript
+import prompt from 'https://punch-ui-v2.pages.dev/packages/util/prompt.js';
+```
+
+## 基本用法
+
+<o-playground name="Prompt 基本用法" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <script type="module">
+        import prompt from 'https://punch-ui-v2.pages.dev/packages/util/prompt.js';
+        import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
+        export default async () => {
+          return {
+            proto: {
+              async showPrompt() {
+                const result = await prompt('请输入您的名字：');
+                if (result !== null) {
+                  toast(`你好，${result}！`);
+                }
+              }
+            }
+          };
+        };
+      </script>
+      <div style="padding: 20px; text-align: center;">
+        <p-button color="primary" on:click="showPrompt">输入名字</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## API
+
+### 参数
+
+| 参数 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| title | `string` | `'提示'` | 对话框标题 |
+| message | `string` | - | 提示消息内容 |
+| defaultValue | `string` | `''` | 输入框默认值 |
+| ok | `string` | `'确定'` | 确认按钮文本 |
+| cancel | `string` | `'取消'` | 取消按钮文本 |
+
+### 返回值
+
+返回一个 Promise：
+- resolve 为用户输入的文本（字符串）
+- resolve 为 `null` 表示用户点击了取消
+
+### 示例
+
+```javascript
+// 基本用法
+const name = await prompt('请输入您的名字：');
+if (name !== null) {
+  console.log('用户输入：', name);
+}
+
+// 带配置
+const result = await prompt({
+  title: '修改用户名',
+  message: '请输入新的用户名：',
+  defaultValue: '当前用户名',
+  ok: '保存',
+  cancel: '取消'
+});
+```
