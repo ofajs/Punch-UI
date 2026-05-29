@@ -196,8 +196,8 @@
 使用按钮组实现分段控制，适用于切换视图模式等场景：
 
 <o-playground name="分段控制" style="--editor-height: 400px">
-  <code path="demo.html" preview active>
-    <template>
+  <code path="demo.html" active>
+    <template page>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/group.html"></l-m>
@@ -223,6 +223,13 @@
           </p-button>
         </p-button-group>
       </div>
+      <script>
+        export default {
+          data: {
+            selected: 'day'
+          }
+        };
+      </script>
     </template>
   </code>
 </o-playground>
@@ -232,11 +239,16 @@
 使用按钮组实现多选过滤器：
 
 <o-playground name="过滤器芯片" style="--editor-height: 400px">
-  <code path="demo.html" preview active>
-    <template>
+  <code path="demo.html" active>
+    <template page>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/group.html"></l-m>
+      <style>
+        p-button {
+          transition: all 0.2s ease;
+        }
+      </style>
       <div style="padding: 20px;">
         <p-button-group>
           <p-button
@@ -262,6 +274,23 @@
           </p-button>
         </p-button-group>
       </div>
+      <script>
+        export default {
+          data: {
+            filters: ['all']
+          },
+          proto: {
+            toggleFilter(filter) {
+              const index = this.filters.indexOf(filter);
+              if (index > -1) {
+                this.filters.splice(index, 1);
+              } else {
+                this.filters.push(filter);
+              }
+            }
+          }
+        };
+      </script>
     </template>
   </code>
 </o-playground>
@@ -271,11 +300,16 @@
 使用按钮组实现排序选项切换：
 
 <o-playground name="排序选项" style="--editor-height: 400px">
-  <code path="demo.html" preview active>
-    <template>
+  <code path="demo.html" active>
+    <template page>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/group.html"></l-m>
+      <style>
+        p-button {
+          transition: all 0.2s ease;
+        }
+      </style>
       <div style="padding: 20px;">
         <p-button-group>
           <p-button
@@ -301,6 +335,13 @@
           </p-button>
         </p-button-group>
       </div>
+      <script>
+        export default {
+          data: {
+            order: 'newest'
+          }
+        };
+      </script>
     </template>
   </code>
 </o-playground>
