@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dialog 对话框</title>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/dist/ofa.mjs" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/libs/scsr/dist/scsr.min.mjs" type="module"></script>
+  <link rel="icon" href="../../img/logo.svg" />
+  <link rel="stylesheet" href="../../css/palette.css" pui-colors />
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/github-markdown.css" />
+  <link rel="stylesheet" href="../../css/hljs.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+    }
+
+    o-app {
+      height: 100%;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    o-app {
+      animation: fadein 0.1s ease-in-out;
+    }
+  </style>
+  <script type="module" src="../../js/util.js"></script>
+  <!--google analytics-->
+</head>
+
+<body>
+  <o-app src="../../js/app-config.js">
+    <template page>
+      <link rel="stylesheet" href="../../css/github-markdown.css" />
+      <link rel="stylesheet" href="../../css/hljs.css" />
+      <l-m src="../../comps/center-block.html"></l-m>
+      <l-m src="../../comps/article-code.html"></l-m>
+      <l-m src="https://playground.ofajs.com/comps/o-playground/o-playground.html"></l-m>
+      <style>
+        :host {
+          display: block;
+          height: 100%;
+          box-sizing: border-box;
+          overflow: auto;
+        }
+      </style>
+      <link rel="stylesheet" href="../../css/page.css" />
+      <article class="markdown-body">
+        <h1>Dialog 对话框</h1>
+        <p>对话框组件用于显示模态对话框，支持移动端适配和自定义样式。</p>
+        <h2>引入组件</h2>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://punch-ui-v2.pages.dev/packages/dialog/dialog.html&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span></code></pre>
+        <h2>基本用法</h2>
+        <o-playground name="Dialog 基本用法" style="--editor-height: 500px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/dialog/dialog.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button id="show-dialog-btn" on:click="demoDialogOpen = true">
+          打开对话框
+        </p-button>
+        <p-dialog id="demo-dialog" auto-close sync:open="demoDialogOpen">
+          <span slot="title">对话框标题</span>
+          <div>
+            <p>这是一个对话框示例。</p>
+            <p>点击遮罩层可以关闭对话框。</p>
+          </div>
+          <div slot="bottom">
+            <p-button color="primary" on:click="demoDialogOpen = false">确定</p-button>
+            <p-button variant="text" on:click="demoDialogOpen = false">取消</p-button>
+          </div>
+        </p-dialog>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>对话框变体</h2>
+        <o-playground name="Dialog 变体" style="--editor-height: 500px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/dialog/dialog.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button on:click="filledDialogOpen = true">打开 Filled 对话框</p-button>
+        <p-dialog variant="filled" sync:open="filledDialogOpen">
+          <span slot="title">Filled 对话框</span>
+          <div>
+            <p>这是一个 Filled 样式的对话框。</p>
+          </div>
+          <div slot="bottom">
+            <p-button color="primary" on:click="filledDialogOpen = false">确定</p-button>
+          </div>
+        </p-dialog>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>移动端适配</h2>
+        <p>对话框组件会自动适配移动端，在小屏幕上会从底部滑入：</p>
+        <o-playground name="移动端适配" style="--editor-height: 500px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/dialog/dialog.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button on:click="mobileDialogOpen = true">打开响应式对话框</p-button>
+        <p-dialog auto-to-mobile-width="540px" sync:open="mobileDialogOpen">
+          <span slot="title">响应式对话框</span>
+          <div>
+            <p>这个对话框在移动设备上会从底部滑入。</p>
+            <p>在桌面设备上会居中显示。</p>
+          </div>
+          <div slot="bottom">
+            <p-button color="primary" on:click="mobileDialogOpen = false">确定</p-button>
+          </div>
+        </p-dialog>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>API</h2>
+        <h3>属性</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>属性</th>
+              <th>说明</th>
+              <th>类型</th>
+              <th>默认值</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>variant</code></td>
+              <td>对话框样式</td>
+              <td><code>filled</code> | <code>outlined</code></td>
+              <td><code>outlined</code></td>
+            </tr>
+            <tr>
+              <td><code>color</code></td>
+              <td>对话框颜色</td>
+              <td><code>primary</code> | <code>error</code> | <code>success</code> | <code>neutral</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>open</code></td>
+              <td>是否打开</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>auto-close</code></td>
+              <td>点击遮罩是否自动关闭</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>auto-to-mobile-width</code></td>
+              <td>触发移动端样式的宽度阈值</td>
+              <td><code>string</code></td>
+              <td><code>540px</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>插槽</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>插槽名</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>title</code></td>
+              <td>对话框标题</td>
+            </tr>
+            <tr>
+              <td><code>default</code></td>
+              <td>对话框内容</td>
+            </tr>
+            <tr>
+              <td><code>bottom</code></td>
+              <td>底部按钮区域</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>事件</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>事件名</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>click-mask</code></td>
+              <td>点击遮罩层时触发</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+      <div class="footer"></div>
+      <script>
+        export const parent = "../../layout.html";
+        export default async ({
+          load,
+          query
+        }) => {
+          const {
+            init,
+            revoke
+          } = await load("../../js/init.js");
+          return {
+            data: {},
+            attached() {
+              init(this, query);
+              setTimeout(() => {
+                this.style.transform = "";
+              }, 300);
+            },
+            detached() {
+              revoke(this);
+            },
+          };
+        };
+      </script>
+    </template>
+  </o-app>
+  <o-root-provider name="pui" theme="dark"></o-root-provider>
+</body>
+
+</html>

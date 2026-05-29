@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Input 输入框</title>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/dist/ofa.mjs" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/libs/scsr/dist/scsr.min.mjs" type="module"></script>
+  <link rel="icon" href="../../img/logo.svg" />
+  <link rel="stylesheet" href="../../css/palette.css" pui-colors />
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/github-markdown.css" />
+  <link rel="stylesheet" href="../../css/hljs.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+    }
+
+    o-app {
+      height: 100%;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    o-app {
+      animation: fadein 0.1s ease-in-out;
+    }
+  </style>
+  <script type="module" src="../../js/util.js"></script>
+  <!--google analytics-->
+</head>
+
+<body>
+  <o-app src="../../js/app-config.js">
+    <template page>
+      <link rel="stylesheet" href="../../css/github-markdown.css" />
+      <link rel="stylesheet" href="../../css/hljs.css" />
+      <l-m src="../../comps/center-block.html"></l-m>
+      <l-m src="../../comps/article-code.html"></l-m>
+      <l-m src="https://playground.ofajs.com/comps/o-playground/o-playground.html"></l-m>
+      <style>
+        :host {
+          display: block;
+          height: 100%;
+          box-sizing: border-box;
+          overflow: auto;
+        }
+      </style>
+      <link rel="stylesheet" href="../../css/page.css" />
+      <article class="markdown-body">
+        <h1>Input 输入框</h1>
+        <p>输入框组件用于接收用户输入的文本信息，支持多种样式和尺寸。</p>
+        <h2>引入组件</h2>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://punch-ui-v2.pages.dev/packages/input/input.html&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span></code></pre>
+        <h2>基本用法</h2>
+        <o-playground name="Input 基本用法" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input placeholder="请输入内容"></p-input>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>带标签</h2>
+        <p>使用 <code>label</code> 插槽添加标签：</p>
+        <o-playground name="带标签的输入框" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input>
+          <span slot="label">用户名</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>尺寸</h2>
+        <p>通过 <code>size</code> 属性设置输入框尺寸：</p>
+        <o-playground name="Input 尺寸" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input size="xs">
+          <span slot="label">Extra Small</span>
+        </p-input>
+        <p-input size="s">
+          <span slot="label">Small</span>
+        </p-input>
+        <p-input>
+          <span slot="label">Default</span>
+        </p-input>
+        <p-input size="l">
+          <span slot="label">Large</span>
+        </p-input>
+        <p-input size="xl">
+          <span slot="label">Extra Large</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>颜色</h2>
+        <p>通过 <code>color</code> 属性设置输入框颜色：</p>
+        <o-playground name="Input 颜色" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input>
+          <span slot="label">Default</span>
+        </p-input>
+        <p-input color="primary">
+          <span slot="label">Primary</span>
+        </p-input>
+        <p-input color="success">
+          <span slot="label">Success</span>
+        </p-input>
+        <p-input color="error">
+          <span slot="label">Error</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>输入类型</h2>
+        <h3>密码输入</h3>
+        <o-playground name="密码输入框" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input type="password">
+          <span slot="label">密码</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h3>邮箱输入</h3>
+        <o-playground name="邮箱输入框" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input type="email">
+          <span slot="label">邮箱</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>前缀和后缀</h2>
+        <p>使用 <code>prefix</code> 和 <code>suffix</code> 插槽添加前缀或后缀：</p>
+        <o-playground name="带前缀/后缀的输入框" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input>
+          <span slot="prefix">+86</span>
+          <span slot="label">手机号</span>
+        </p-input>
+        <p-input style="margin-top: 16px;">
+          <span slot="suffix">.com</span>
+          <span slot="label">网站</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>API</h2>
+        <h3>属性</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>属性</th>
+              <th>说明</th>
+              <th>类型</th>
+              <th>默认值</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>type</code></td>
+              <td>输入类型</td>
+              <td><code>text</code> | <code>password</code> | <code>email</code> | <code>number</code></td>
+              <td><code>text</code></td>
+            </tr>
+            <tr>
+              <td><code>size</code></td>
+              <td>输入框尺寸</td>
+              <td><code>xs</code> | <code>s</code> | <code>l</code> | <code>xl</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>color</code></td>
+              <td>输入框颜色</td>
+              <td><code>primary</code> | <code>error</code> | <code>success</code> | <code>neutral</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>placeholder</code></td>
+              <td>占位文本</td>
+              <td><code>string</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>disabled</code></td>
+              <td>是否禁用</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>value</code></td>
+              <td>输入值</td>
+              <td><code>string</code></td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>插槽</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>插槽名</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>default</code></td>
+              <td>输入框内容</td>
+            </tr>
+            <tr>
+              <td><code>label</code></td>
+              <td>标签文本</td>
+            </tr>
+            <tr>
+              <td><code>prefix</code></td>
+              <td>前缀内容</td>
+            </tr>
+            <tr>
+              <td><code>suffix</code></td>
+              <td>后缀内容</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+      <div class="footer"></div>
+      <script>
+        export const parent = "../../layout.html";
+        export default async ({
+          load,
+          query
+        }) => {
+          const {
+            init,
+            revoke
+          } = await load("../../js/init.js");
+          return {
+            data: {},
+            attached() {
+              init(this, query);
+              setTimeout(() => {
+                this.style.transform = "";
+              }, 300);
+            },
+            detached() {
+              revoke(this);
+            },
+          };
+        };
+      </script>
+    </template>
+  </o-app>
+  <o-root-provider name="pui" theme="dark"></o-root-provider>
+</body>
+
+</html>

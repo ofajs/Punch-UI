@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>安装</title>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/dist/ofa.mjs" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/libs/scsr/dist/scsr.min.mjs" type="module"></script>
+  <link rel="icon" href="../../img/logo.svg" />
+  <link rel="stylesheet" href="../../css/palette.css" pui-colors />
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/github-markdown.css" />
+  <link rel="stylesheet" href="../../css/hljs.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+    }
+
+    o-app {
+      height: 100%;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    o-app {
+      animation: fadein 0.1s ease-in-out;
+    }
+  </style>
+  <script type="module" src="../../js/util.js"></script>
+  <!--google analytics-->
+</head>
+
+<body>
+  <o-app src="../../js/app-config.js">
+    <template page>
+      <link rel="stylesheet" href="../../css/github-markdown.css" />
+      <link rel="stylesheet" href="../../css/hljs.css" />
+      <l-m src="../../comps/center-block.html"></l-m>
+      <l-m src="../../comps/article-code.html"></l-m>
+      <l-m src="https://playground.ofajs.com/comps/o-playground/o-playground.html"></l-m>
+      <style>
+        :host {
+          display: block;
+          height: 100%;
+          box-sizing: border-box;
+          overflow: auto;
+        }
+      </style>
+      <link rel="stylesheet" href="../../css/page.css" />
+      <article class="markdown-body">
+        <h1>安装</h1>
+        <p>Punch-UI 基于 ofa.js 构建，使用前需要先引入 ofa.js 和全局样式。</p>
+        <h2>引入 ofa.js</h2>
+        <p>在 HTML 文件中添加以下脚本标签：</p>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"module"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+        <h2>引入全局样式</h2>
+        <p>Punch-UI 提供了全局样式文件，包含了主题系统和基础样式：</p>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/css/pui-global.css"</span> /&gt;</span></code></pre>
+        <h2>引入组件</h2>
+        <p>使用 <code>l-m</code> 标签引入需要的组件。例如，引入按钮组件：</p>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/button/button.html"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span></code></pre>
+        <h2>完整示例</h2>
+        <p>下面是一个完整的 HTML 示例，展示了如何引入 ofa.js、全局样式和按钮组件：</p>
+        <pre><code class="hljs language-html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"zh-CN"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"viewport"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"width=device-width, initial-scale=1.0"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Punch-UI 示例<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- 引入全局样式 --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/css/pui-global.css"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- 引入 ofa.js --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"module"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  
+  <span class="hljs-comment">&lt;!-- 引入按钮组件 --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/button/button.html"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span>
+  
+  <span class="hljs-comment">&lt;!-- 使用组件 --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p-button</span> <span class="hljs-attr">color</span>=<span class="hljs-string">"primary"</span>&gt;</span>点击我<span class="hljs-tag">&lt;/<span class="hljs-name">p-button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
+        <h2>组件 CDN 地址</h2>
+        <p>所有组件都可以通过以下 CDN 地址引入：</p>
+        <pre><code class="hljs"><span class="hljs-link">https://punch-ui-v2.pages.dev/packages/</span>[<span class="hljs-string">组件名</span>]/[组件文件].html</code></pre>
+        <p>例如：</p>
+        <ul>
+          <li>按钮：<code>https://punch-ui-v2.pages.dev/packages/button/button.html</code></li>
+          <li>输入框：<code>https://punch-ui-v2.pages.dev/packages/input/input.html</code></li>
+          <li>选择器：<code>https://punch-ui-v2.pages.dev/packages/select/select.html</code></li>
+        </ul>
+        <h2>主题切换</h2>
+        <p>Punch-UI 支持深色/浅色主题切换。默认情况下，组件会自动跟随系统主题。</p>
+        <h3>自动跟随系统（默认）</h3>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- 自动跟随系统主题 --&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
+        <h3>强制浅色主题</h3>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"theme-light-mode"</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- 强制使用浅色主题 --&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
+        <h3>强制深色主题</h3>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"theme-dark-mode"</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- 强制使用深色主题 --&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
+        <h3>使用主题切换组件</h3>
+        <p>Punch-UI 提供了主题切换组件，方便用户手动切换主题：</p>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/tool/theme-switch/theme-switch.html"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p-theme-switch</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p-theme-switch</span>&gt;</span></code></pre>
+        <h2>下一步</h2>
+        <ul>
+          <li><a href="./first-example.html" olink="">第一个示例</a> - 创建你的第一个 Punch-UI 应用</li>
+        </ul>
+      </article>
+      <div class="footer"></div>
+      <script>
+        export const parent = "../../layout.html";
+        export default async ({
+          load,
+          query
+        }) => {
+          const {
+            init,
+            revoke
+          } = await load("../../js/init.js");
+          return {
+            data: {},
+            attached() {
+              init(this, query);
+              setTimeout(() => {
+                this.style.transform = "";
+              }, 300);
+            },
+            detached() {
+              revoke(this);
+            },
+          };
+        };
+      </script>
+    </template>
+  </o-app>
+  <o-root-provider name="pui" theme="dark"></o-root-provider>
+</body>
+
+</html>

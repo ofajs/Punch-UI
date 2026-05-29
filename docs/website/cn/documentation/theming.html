@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>主题定制</title>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/dist/ofa.mjs" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/libs/scsr/dist/scsr.min.mjs" type="module"></script>
+  <link rel="icon" href="../../img/logo.svg" />
+  <link rel="stylesheet" href="../../css/palette.css" pui-colors />
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/github-markdown.css" />
+  <link rel="stylesheet" href="../../css/hljs.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+    }
+
+    o-app {
+      height: 100%;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    o-app {
+      animation: fadein 0.1s ease-in-out;
+    }
+  </style>
+  <script type="module" src="../../js/util.js"></script>
+  <!--google analytics-->
+</head>
+
+<body>
+  <o-app src="../../js/app-config.js">
+    <template page>
+      <link rel="stylesheet" href="../../css/github-markdown.css" />
+      <link rel="stylesheet" href="../../css/hljs.css" />
+      <l-m src="../../comps/center-block.html"></l-m>
+      <l-m src="../../comps/article-code.html"></l-m>
+      <l-m src="https://playground.ofajs.com/comps/o-playground/o-playground.html"></l-m>
+      <style>
+        :host {
+          display: block;
+          height: 100%;
+          box-sizing: border-box;
+          overflow: auto;
+        }
+      </style>
+      <link rel="stylesheet" href="../../css/page.css" />
+      <article class="markdown-body">
+        <h1>主题定制</h1>
+        <p>Punch-UI 提供了灵活的主题定制能力，你可以通过 CSS 变量自定义主题颜色。</p>
+        <h2>主题切换</h2>
+        <h3>自动主题切换</h3>
+        <p>默认情况下，Punch-UI 会自动跟随系统主题：</p>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- 自动跟随系统主题 --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/css/pui-global.css"</span> /&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
+        <h3>手动主题切换</h3>
+        <p>你可以通过在 <code>html</code> 元素上添加 class 来强制使用特定主题：</p>
+        <pre><code class="hljs language-html"><span class="hljs-comment">&lt;!-- 强制浅色主题 --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"theme-light-mode"</span>&gt;</span>
+  ...
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- 强制深色主题 --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"theme-dark-mode"</span>&gt;</span>
+  ...
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
+        <h3>主题切换组件</h3>
+        <p>Punch-UI 提供了一个主题切换组件，方便用户手动切换主题：</p>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/tool/theme-switch/theme-switch.html"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p-theme-switch</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p-theme-switch</span>&gt;</span></code></pre><o-playground name="主题切换示例" style="--editor-height: 400px">
+          <code path="demo.html" preview="" active="">
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
+      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
+      <l-m src="https://punch-ui-v2.pages.dev/tool/theme-switch/theme-switch.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px; text-align: center;">
+        <h3>主题切换</h3>
+        <p-theme-switch></p-theme-switch>
+        <div style="margin-top: 20px;">
+          <p-button color="primary">主要按钮</p-button>
+          <p-button color="success">成功按钮</p-button>
+          <p-button color="error">错误按钮</p-button>
+        </div>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>自定义主题颜色</h2>
+        <h3>覆盖 CSS 变量</h3>
+        <p>你可以通过覆盖 CSS 变量来自定义主题颜色：</p>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css">
+  <span class="hljs-selector-pseudo">:root</span> {
+    <span class="hljs-comment">/* 自定义主色 */</span>
+    <span class="hljs-attr">--md-sys-color-primary</span>: <span class="hljs-number">#6750a4</span>;
+    <span class="hljs-attr">--md-sys-color-on-primary</span>: <span class="hljs-number">#ffffff</span>;
+    <span class="hljs-attr">--md-sys-color-primary-container</span>: <span class="hljs-number">#eaddff</span>;
+    <span class="hljs-attr">--md-sys-color-on-primary-container</span>: <span class="hljs-number">#21005d</span>;
+  }
+  
+  <span class="hljs-comment">/* 深色主题下的自定义颜色 */</span>
+  <span class="hljs-selector-pseudo">:root</span><span class="hljs-selector-class">.theme-dark-mode</span> {
+    <span class="hljs-attr">--md-sys-color-primary</span>: <span class="hljs-number">#d0bcff</span>;
+    <span class="hljs-attr">--md-sys-color-on-primary</span>: <span class="hljs-number">#381e72</span>;
+    <span class="hljs-attr">--md-sys-color-primary-container</span>: <span class="hljs-number">#4f378b</span>;
+    <span class="hljs-attr">--md-sys-color-on-primary-container</span>: <span class="hljs-number">#eaddff</span>;
+  }
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
+        <h3>完整示例</h3>
+        <o-playground name="自定义主题颜色" style="--editor-height: 600px">
+          <code path="demo.html" preview="" active="">
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
+      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <style>
+        :root {
+          /* 自定义主色为紫色 */
+          --md-sys-color-primary: #6750a4;
+          --md-sys-color-on-primary: #ffffff;
+          --md-sys-color-primary-container: #eaddff;
+          --md-sys-color-on-primary-container: #21005d;
+        }
+        :root.theme-dark-mode {
+          --md-sys-color-primary: #d0bcff;
+          --md-sys-color-on-primary: #381e72;
+          --md-sys-color-primary-container: #4f378b;
+          --md-sys-color-on-primary-container: #eaddff;
+        }
+        .demo-container {
+          padding: 20px;
+          max-width: 400px;
+          margin: 0 auto;
+        }
+      </style>
+      <div class="demo-container">
+        <h3>自定义紫色主题</h3>
+        <p-button color="primary">自定义主色按钮</p-button>
+        <p-button variant="outlined" color="primary">轮廓按钮</p-button>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>创建自定义主题</h2>
+        <h3>步骤 1：定义颜色变量</h3>
+        <p>创建一个 CSS 文件，定义你的主题颜色：</p>
+        <pre><code class="hljs language-css"><span class="hljs-comment">/* custom-theme.css */</span>
+
+<span class="hljs-comment">/* 浅色主题 */</span>
+<span class="hljs-selector-pseudo">:root</span> {
+  <span class="hljs-comment">/* 主色 */</span>
+  <span class="hljs-attr">--md-sys-color-primary</span>: <span class="hljs-number">#0060a9</span>;
+  <span class="hljs-attr">--md-sys-color-on-primary</span>: <span class="hljs-number">#ffffff</span>;
+  <span class="hljs-attr">--md-sys-color-primary-container</span>: <span class="hljs-number">#d3e4ff</span>;
+  <span class="hljs-attr">--md-sys-color-on-primary-container</span>: <span class="hljs-number">#001c38</span>;
+  
+  <span class="hljs-comment">/* 成功色 */</span>
+  <span class="hljs-attr">--md-sys-color-success</span>: <span class="hljs-number">#3a6a24</span>;
+  <span class="hljs-attr">--md-sys-color-on-success</span>: <span class="hljs-number">#ffffff</span>;
+  <span class="hljs-attr">--md-sys-color-success-container</span>: <span class="hljs-number">#baf29c</span>;
+  <span class="hljs-attr">--md-sys-color-on-success-container</span>: <span class="hljs-number">#062100</span>;
+  
+  <span class="hljs-comment">/* 错误色 */</span>
+  <span class="hljs-attr">--md-sys-color-error</span>: <span class="hljs-number">#bc1421</span>;
+  <span class="hljs-attr">--md-sys-color-on-error</span>: <span class="hljs-number">#ffffff</span>;
+  <span class="hljs-attr">--md-sys-color-error-container</span>: <span class="hljs-number">#ffdad7</span>;
+  <span class="hljs-attr">--md-sys-color-on-error-container</span>: <span class="hljs-number">#410004</span>;
+  
+  <span class="hljs-comment">/* 中性色 */</span>
+  <span class="hljs-attr">--md-sys-color-neutral</span>: <span class="hljs-number">#5e5e5e</span>;
+  <span class="hljs-attr">--md-sys-color-on-neutral</span>: <span class="hljs-number">#ffffff</span>;
+  <span class="hljs-attr">--md-sys-color-neutral-container</span>: <span class="hljs-number">#e3e2e2</span>;
+  <span class="hljs-attr">--md-sys-color-on-neutral-container</span>: <span class="hljs-number">#1b1c1c</span>;
+}
+
+<span class="hljs-comment">/* 深色主题 */</span>
+<span class="hljs-selector-pseudo">:root</span><span class="hljs-selector-class">.theme-dark-mode</span> {
+  <span class="hljs-comment">/* 主色 */</span>
+  <span class="hljs-attr">--md-sys-color-primary</span>: <span class="hljs-number">#a2c9ff</span>;
+  <span class="hljs-attr">--md-sys-color-on-primary</span>: <span class="hljs-number">#00315b</span>;
+  <span class="hljs-attr">--md-sys-color-primary-container</span>: <span class="hljs-number">#004881</span>;
+  <span class="hljs-attr">--md-sys-color-on-primary-container</span>: <span class="hljs-number">#d3e4ff</span>;
+  
+  <span class="hljs-comment">/* 成功色 */</span>
+  <span class="hljs-attr">--md-sys-color-success</span>: <span class="hljs-number">#9fd582</span>;
+  <span class="hljs-attr">--md-sys-color-on-success</span>: <span class="hljs-number">#103900</span>;
+  <span class="hljs-attr">--md-sys-color-success-container</span>: <span class="hljs-number">#22510d</span>;
+  <span class="hljs-attr">--md-sys-color-on-success-container</span>: <span class="hljs-number">#baf29c</span>;
+  
+  <span class="hljs-comment">/* 错误色 */</span>
+  <span class="hljs-attr">--md-sys-color-error</span>: <span class="hljs-number">#ffb3ad</span>;
+  <span class="hljs-attr">--md-sys-color-on-error</span>: <span class="hljs-number">#68000a</span>;
+  <span class="hljs-attr">--md-sys-color-error-container</span>: <span class="hljs-number">#930013</span>;
+  <span class="hljs-attr">--md-sys-color-on-error-container</span>: <span class="hljs-number">#ffdad7</span>;
+  
+  <span class="hljs-comment">/* 中性色 */</span>
+  <span class="hljs-attr">--md-sys-color-neutral</span>: <span class="hljs-number">#c7c6c6</span>;
+  <span class="hljs-attr">--md-sys-color-on-neutral</span>: <span class="hljs-number">#303031</span>;
+  <span class="hljs-attr">--md-sys-color-neutral-container</span>: <span class="hljs-number">#464747</span>;
+  <span class="hljs-attr">--md-sys-color-on-neutral-container</span>: <span class="hljs-number">#e3e2e2</span>;
+}</code></pre>
+        <h3>步骤 2：引入自定义主题</h3>
+        <p>在你的 HTML 文件中引入自定义主题样式：</p>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/css/pui-global.css"</span> /&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"./custom-theme.css"</span> /&gt;</span></code></pre>
+        <h2>组件样式定制</h2>
+        <h3>使用 CSS Part</h3>
+        <p>某些组件支持通过 CSS Part 选择器自定义内部样式：</p>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css">
+  <span class="hljs-selector-tag">p</span>-<span class="hljs-selector-tag">input</span><span class="hljs-selector-pseudo">::part</span>(<span class="hljs-selector-tag">input</span>) {
+    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">12px</span>;
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">16px</span>;
+  }
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">p-input</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"自定义输入框"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p-input</span>&gt;</span></code></pre>
+        <h3>使用自定义类</h3>
+        <p>你也可以为组件添加自定义类来覆盖样式：</p>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css">
+  <span class="hljs-selector-class">.custom-button</span> {
+    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">20px</span>;
+    <span class="hljs-attribute">font-weight</span>: bold;
+  }
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">p-button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"custom-button"</span> <span class="hljs-attr">color</span>=<span class="hljs-string">"primary"</span>&gt;</span>自定义按钮<span class="hljs-tag">&lt;/<span class="hljs-name">p-button</span>&gt;</span></code></pre>
+        <h2>最佳实践</h2>
+        <h3>1. 保持对比度</h3>
+        <p>自定义颜色时，确保文字和背景之间有足够的对比度，符合无障碍标准。</p>
+        <h3>2. 测试深色主题</h3>
+        <p>自定义颜色后，务必在深色和浅色主题下都进行测试，确保视觉效果良好。</p>
+        <h3>3. 使用颜色生成工具</h3>
+        <p>推荐使用 <a href="https://m3.material.io/theme-builder" target="_blank">Material Design Color Tool</a> 来生成符合规范的颜色方案。</p>
+        <h2>下一步</h2>
+        <ul>
+          <li><a href="../components/button.html" olink="">组件文档</a> - 查看各个组件的详细用法</li>
+        </ul>
+      </article>
+      <div class="footer"></div>
+      <script>
+        export const parent = "../../layout.html";
+        export default async ({
+          load,
+          query
+        }) => {
+          const {
+            init,
+            revoke
+          } = await load("../../js/init.js");
+          return {
+            data: {},
+            attached() {
+              init(this, query);
+              setTimeout(() => {
+                this.style.transform = "";
+              }, 300);
+            },
+            detached() {
+              revoke(this);
+            },
+          };
+        };
+      </script>
+    </template>
+  </o-app>
+  <o-root-provider name="pui" theme="dark"></o-root-provider>
+</body>
+
+</html>

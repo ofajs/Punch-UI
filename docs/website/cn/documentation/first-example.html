@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>第一个示例</title>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/dist/ofa.mjs" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/libs/scsr/dist/scsr.min.mjs" type="module"></script>
+  <link rel="icon" href="../../img/logo.svg" />
+  <link rel="stylesheet" href="../../css/palette.css" pui-colors />
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/github-markdown.css" />
+  <link rel="stylesheet" href="../../css/hljs.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+    }
+
+    o-app {
+      height: 100%;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    o-app {
+      animation: fadein 0.1s ease-in-out;
+    }
+  </style>
+  <script type="module" src="../../js/util.js"></script>
+  <!--google analytics-->
+</head>
+
+<body>
+  <o-app src="../../js/app-config.js">
+    <template page>
+      <link rel="stylesheet" href="../../css/github-markdown.css" />
+      <link rel="stylesheet" href="../../css/hljs.css" />
+      <l-m src="../../comps/center-block.html"></l-m>
+      <l-m src="../../comps/article-code.html"></l-m>
+      <l-m src="https://playground.ofajs.com/comps/o-playground/o-playground.html"></l-m>
+      <style>
+        :host {
+          display: block;
+          height: 100%;
+          box-sizing: border-box;
+          overflow: auto;
+        }
+      </style>
+      <link rel="stylesheet" href="../../css/page.css" />
+      <article class="markdown-body">
+        <h1>第一个示例</h1>
+        <p>让我们创建一个简单的表单示例，展示 Punch-UI 的基本用法。</p>
+        <h2>示例：用户注册表单</h2>
+        <p>这个示例将展示如何使用 Punch-UI 的表单组件创建一个用户注册表单。</p>
+        <o-playground name="用户注册表单" style="--editor-height: 600px">
+          <code path="demo.html" preview="" active="">
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
+      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <style>
+        .form-container {
+          max-width: 400px;
+          margin: 40px auto;
+          padding: 20px;
+        }
+        .form-item {
+          margin-bottom: 16px;
+        }
+        .form-label {
+          display: block;
+          margin-bottom: 8px;
+          font-weight: 500;
+        }
+        .form-actions {
+          margin-top: 24px;
+        }
+      </style>
+      <div class="form-container">
+        <h2>用户注册</h2>
+        <div class="form-item">
+          <label class="form-label">用户名</label>
+          <p-input placeholder="请输入用户名" style="width: 100%"></p-input>
+        </div>
+        <div class="form-item">
+          <label class="form-label">邮箱</label>
+          <p-input placeholder="请输入邮箱" type="email" style="width: 100%"></p-input>
+        </div>
+        <div class="form-item">
+          <label class="form-label">密码</label>
+          <p-input placeholder="请输入密码" type="password" style="width: 100%"></p-input>
+        </div>
+        <div class="form-item">
+          <label class="form-label">性别</label>
+          <p-select placeholder="请选择性别" style="width: 100%">
+            <p-option value="male">男</p-option>
+            <p-option value="female">女</p-option>
+            <p-option value="other">其他</p-option>
+          </p-select>
+        </div>
+        <div class="form-item">
+          <p-checkbox>我已阅读并同意用户协议</p-checkbox>
+        </div>
+        <div class="form-actions">
+          <p-button color="primary" style="width: 100%">注册</p-button>
+        </div>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>代码解析</h2>
+        <h3>1. 引入必要的文件</h3>
+        <p>首先，我们需要引入 ofa.js、全局样式和所需的组件：</p>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/css/pui-global.css"</span> /&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"module"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/input/input.html"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/button/button.html"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/select/select.html"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span></code></pre>
+        <h3>2. 使用组件</h3>
+        <p>每个 Punch-UI 组件都以 <code>p-</code> 为前缀：</p>
+        <ul>
+          <li><code>&lt;p-input&gt;</code> - 输入框组件</li>
+          <li><code>&lt;p-button&gt;</code> - 按钮组件</li>
+          <li><code>&lt;p-select&gt;</code> - 选择器组件</li>
+          <li><code>&lt;p-checkbox&gt;</code> - 复选框组件</li>
+        </ul>
+        <h3>3. 组件属性</h3>
+        <p>组件支持多种属性来自定义行为和外观：</p>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">p-input</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"请输入用户名"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"email"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p-input</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p-button</span> <span class="hljs-attr">color</span>=<span class="hljs-string">"primary"</span>&gt;</span>注册<span class="hljs-tag">&lt;/<span class="hljs-name">p-button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p-select</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"请选择性别"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p-select</span>&gt;</span></code></pre>
+        <h3>4. 样式定制</h3>
+        <p>你可以通过 <code>style</code> 属性或 CSS 类来自定义组件样式：</p>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">p-input</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"width: 100%"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p-input</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p-button</span> <span class="hljs-attr">color</span>=<span class="hljs-string">"primary"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"width: 100%"</span>&gt;</span>注册<span class="hljs-tag">&lt;/<span class="hljs-name">p-button</span>&gt;</span></code></pre>
+        <h2>更多示例</h2>
+        <h3>按钮组示例</h3>
+        <o-playground name="按钮组示例" style="--editor-height: 400px">
+          <code path="demo.html" preview="" active="">
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
+      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/group.html"></l-m>
+      <div style="padding: 20px;">
+        <h3>基础按钮</h3>
+        <p-button>默认按钮</p-button>
+        <p-button color="primary">主要按钮</p-button>
+        <p-button color="success">成功按钮</p-button>
+        <p-button color="error">错误按钮</p-button>
+        <h3 style="margin-top: 20px;">按钮组</h3>
+        <p-button-group>
+          <p-button>按钮 1</p-button>
+          <p-button>按钮 2</p-button>
+          <p-button>按钮 3</p-button>
+        </p-button-group>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>下一步</h2>
+        <p>现在你已经了解了 Punch-UI 的基本用法，可以继续探索：</p>
+        <ul>
+          <li><a href="../basics/color.html" olink="">颜色系统</a> - 了解 Punch-UI 的主题和颜色系统</li>
+          <li><a href="../components/button.html" olink="">组件文档</a> - 查看各个组件的详细文档</li>
+        </ul>
+      </article>
+      <div class="footer"></div>
+      <script>
+        export const parent = "../../layout.html";
+        export default async ({
+          load,
+          query
+        }) => {
+          const {
+            init,
+            revoke
+          } = await load("../../js/init.js");
+          return {
+            data: {},
+            attached() {
+              init(this, query);
+              setTimeout(() => {
+                this.style.transform = "";
+              }, 300);
+            },
+            detached() {
+              revoke(this);
+            },
+          };
+        };
+      </script>
+    </template>
+  </o-app>
+  <o-root-provider name="pui" theme="dark"></o-root-provider>
+</body>
+
+</html>
