@@ -75,33 +75,34 @@
         <h1>Checkbox 复选框</h1>
         <p>复选框组件，支持单个和组合使用。</p>
         <h2>引入组件</h2>
-        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span></code></pre>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span></code></pre>
         <h2>基本用法</h2>
         <o-playground name="Checkbox 基本用法" style="--editor-height: 300px">
-          <code path="demo.html" preview active>
+          <code path="demo.html" preview="" active="">
     <template>
-      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
       <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
       <div style="padding: 20px;">
         <p-checkbox>复选框</p-checkbox>
-        <p-checkbox checked>已选中</p-checkbox>
+        <p-checkbox checked="">已选中</p-checkbox>
       </div>
     </template>
   </code>
         </o-playground>
+        <p>::: warning 提示 如果只需要单个开关选择，建议使用 <a href="./switch.html" olink="">Switch 开关</a> 组件，它提供了更好的开关交互体验。 :::</p>
         <h2>尺寸</h2>
         <p>通过 <code>size</code> 属性设置复选框尺寸：</p>
         <o-playground name="Checkbox 尺寸" style="--editor-height: 350px">
-          <code path="demo.html" preview active>
+          <code path="demo.html" preview="" active="">
     <template>
-      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
       <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
       <div style="padding: 20px;">
-        <p-checkbox size="xs" checked>XS</p-checkbox>
-        <p-checkbox size="s" checked>Small</p-checkbox>
-        <p-checkbox checked>Medium</p-checkbox>
-        <p-checkbox size="l" checked>Large</p-checkbox>
-        <p-checkbox size="xl" checked>XL</p-checkbox>
+        <p-checkbox size="xs" checked="">XS</p-checkbox>
+        <p-checkbox size="s" checked="">Small</p-checkbox>
+        <p-checkbox checked="">Medium</p-checkbox>
+        <p-checkbox size="l" checked="">Large</p-checkbox>
+        <p-checkbox size="xl" checked="">XL</p-checkbox>
       </div>
     </template>
   </code>
@@ -109,55 +110,158 @@
         <h2>颜色</h2>
         <p>通过 <code>color</code> 属性设置复选框颜色：</p>
         <o-playground name="Checkbox 颜色" style="--editor-height: 350px">
-          <code path="demo.html" preview active>
+          <code path="demo.html" preview="" active="">
     <template>
-      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
       <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
       <div style="padding: 20px;">
-        <p-checkbox color="primary" checked>Primary</p-checkbox>
-        <p-checkbox color="success" checked>Success</p-checkbox>
-        <p-checkbox color="error" checked>Error</p-checkbox>
-        <p-checkbox color="neutral" checked>Neutral</p-checkbox>
+        <p-checkbox color="primary" checked="">Primary</p-checkbox>
+        <p-checkbox color="success" checked="">Success</p-checkbox>
+        <p-checkbox color="error" checked="">Error</p-checkbox>
+        <p-checkbox color="neutral" checked="">Neutral</p-checkbox>
       </div>
     </template>
   </code>
         </o-playground>
         <h2>状态</h2>
         <o-playground name="Checkbox 状态" style="--editor-height: 400px">
-          <code path="demo.html" preview active>
+          <code path="demo.html" preview="" active="">
     <template>
-      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
       <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
       <div style="padding: 20px;">
         <p-checkbox>Default</p-checkbox>
         <p-checkbox variant="tonal">Tonal</p-checkbox>
-        <p-checkbox checked>Checked</p-checkbox>
-        <p-checkbox disabled>Disabled</p-checkbox>
-        <p-checkbox indeterminate>Indeterminate</p-checkbox>
+        <p-checkbox checked="">Checked</p-checkbox>
+        <p-checkbox disabled="">Disabled</p-checkbox>
+        <p-checkbox indeterminate="">Indeterminate</p-checkbox>
       </div>
     </template>
   </code>
         </o-playground>
         <h2>Checkbox Group</h2>
-        <p>使用复选框组管理多个复选框：</p>
+        <p>使用复选框组管理多个复选框，通过 <code>checked</code> 属性设置默认选中项：</p>
         <o-playground name="Checkbox Group" style="--editor-height: 400px">
-          <code path="demo.html" preview active>
+          <code path="demo.html" preview="" active="">
     <template>
-      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
       <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
       <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/group.html"></l-m>
       <div style="padding: 20px;">
-        <p-checkbox-group id="demo-checkbox-group" :value="demoCheckboxGroupValue">
+        <p-checkbox-group>
           <p-checkbox value="1">选项 1</p-checkbox>
-          <p-checkbox value="2" checked>选项 2</p-checkbox>
-          <p-checkbox value="3">选项 3</p-checkbox>
+          <p-checkbox value="2" checked="">选项 2</p-checkbox>
+          <p-checkbox value="3" checked="">选项 3</p-checkbox>
         </p-checkbox-group>
       </div>
     </template>
   </code>
         </o-playground>
+        <h2>获取值</h2>
+        <h3>单个 Checkbox</h3>
+        <p>通过 <code>checked</code> 属性获取或设置单个复选框的选中状态：</p>
+        <o-playground name="单个 Checkbox 获取值" style="--editor-height: 400px">
+          <code path="demo.html" preview="" active="">
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox id="agree-checkbox">同意条款</p-checkbox>
+        <p-button style="margin-top: 16px;" id="check-btn">检查状态</p-button>
+        <p style="margin-top: 16px;">选中状态: <span id="status-display"></span></p>
+      </div>
+      <script>
+        $('#check-btn').on('click', () => {
+          const isChecked = $('#agree-checkbox').checked;
+          $('#status-display').text = isChecked ? '已选中' : '未选中';
+        });
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h3>Checkbox Group 获取值</h3>
+        <p>通过 <code>value</code> 属性获取复选框组的选中值数组：</p>
+        <o-playground name="Checkbox Group 获取值" style="--editor-height: 400px">
+          <code path="demo.html" preview="" active="">
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox-group id="fruits-group">
+          <p-checkbox value="apple">苹果</p-checkbox>
+          <p-checkbox value="banana" checked="">香蕉</p-checkbox>
+          <p-checkbox value="orange">橙子</p-checkbox>
+        </p-checkbox-group>
+        <p-button style="margin-top: 16px;" id="get-value-btn">获取值</p-button>
+        <p style="margin-top: 16px;">当前值: <span id="value-display"></span></p>
+      </div>
+      <script>
+        $('#get-value-btn').on('click', () => {
+          const values = $('#fruits-group').value;
+          $('#value-display').text = JSON.stringify(values);
+        });
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h3>监听变化事件</h3>
+        <p>通过监听 <code>change</code> 事件实时获取选中状态：</p>
+        <o-playground name="监听变化事件" style="--editor-height: 400px">
+          <code path="demo.html" preview="" active="">
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox-group id="realtime-group">
+          <p-checkbox value="a">选项 A</p-checkbox>
+          <p-checkbox value="b">选项 B</p-checkbox>
+          <p-checkbox value="c">选项 C</p-checkbox>
+        </p-checkbox-group>
+        <p style="margin-top: 16px;">当前值: <span id="realtime-display"></span></p>
+      </div>
+      <script>
+        $('#realtime-group').on('change', () => {
+          const values = $('#realtime-group').value;
+          $('#realtime-display').text = JSON.stringify(values);
+        });
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h3>组件或页面模块中双向绑定</h3>
+        <p>使用 ofa.js 的数据绑定功能：</p>
+        <o-playground name="获取值" style="--editor-height: 400px">
+          <code path="demo.html" active="">
+    <template page="">
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox-group :value="selectedFruits">
+          <p-checkbox value="apple">苹果</p-checkbox>
+          <p-checkbox value="banana">香蕉</p-checkbox>
+          <p-checkbox value="orange">橙子</p-checkbox>
+        </p-checkbox-group>
+        <p style="margin-top: 16px;">当前值: {{ selectedFruits }}</p>
+      </div>
+      <script>
+        export default {
+          data: {
+            selectedFruits: ['apple', 'banana']
+          }
+        };
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <p>由于 <code>p-checkbox-group</code> 的 <code>value</code> 是一个数组对象，基于 JavaScript 的对象引用特征，直接使用 <code>:value</code> 单向绑定即可实现双向数据同步，<strong>不需要使用 <code>sync:value</code> 语法</strong>。</p>
+        <p>当用户勾选或取消勾选复选框时，组件内部会直接修改数组对象的内容（添加或删除元素），由于是引用同一个数组对象，页面数据会自动更新。</p>
         <h2>API</h2>
-        <h3>属性</h3>
+        <h3>属性 - p-checkbox</h3>
         <table>
           <thead>
             <tr>
@@ -191,6 +295,94 @@
               <td>复选框的值</td>
               <td><code>string</code></td>
               <td>-</td>
+            </tr>
+            <tr>
+              <td><code>size</code></td>
+              <td>复选框尺寸</td>
+              <td><code>xs</code> | <code>s</code> | <code>l</code> | <code>xl</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>color</code></td>
+              <td>复选框颜色</td>
+              <td><code>primary</code> | <code>error</code> | <code>success</code> | <code>neutral</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>variant</code></td>
+              <td>复选框样式</td>
+              <td><code>tonal</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>indeterminate</code></td>
+              <td>是否为半选状态</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>属性 - p-checkbox-group</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>属性</th>
+              <th>说明</th>
+              <th>类型</th>
+              <th>默认值</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>value</code></td>
+              <td>选中的值数组</td>
+              <td><code>Array</code></td>
+              <td><code>[]</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>事件 - p-checkbox</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>事件名</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>change</code></td>
+              <td>选中状态改变时触发</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>事件 - p-checkbox-group</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>事件名</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>change</code></td>
+              <td>选中值改变时触发</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>方法 - p-checkbox</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>方法名</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>focus()</code></td>
+              <td>使复选框获得焦点</td>
             </tr>
           </tbody>
         </table>

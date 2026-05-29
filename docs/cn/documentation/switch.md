@@ -236,6 +236,125 @@
   </code>
 </o-playground>
 
+## 获取值
+
+### 通过 checked 属性获取
+
+使用 `checked` 属性获取开关的选中状态：
+
+<o-playground name="获取值" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch id="theme-switch">深色模式</p-switch>
+        <p-button style="margin-top: 16px;" id="get-value-btn">获取状态</p-button>
+        <p style="margin-top: 16px;">当前状态: <span id="status-display"></span></p>
+      </div>
+      <script>
+        $('#get-value-btn').on('click', () => {
+          const isChecked = $('#theme-switch').checked;
+          $('#status-display').text = isChecked ? '已开启' : '已关闭';
+        });
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### 获取自定义值
+
+当设置了 `checked-value` 和 `unchecked-value` 时，通过 `value` 属性获取当前值：
+
+<o-playground name="获取自定义值" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch 
+          id="status-switch"
+          checked-value="enabled" 
+          unchecked-value="disabled"
+          checked
+        >
+          状态开关
+        </p-switch>
+        <p-button style="margin-top: 16px;" id="get-custom-btn">获取值</p-button>
+        <p style="margin-top: 16px;">当前值: <span id="custom-value-display"></span></p>
+      </div>
+      <script>
+        $('#get-custom-btn').on('click', () => {
+          const value = $('#status-switch').value;
+          $('#custom-value-display').text = value;
+        });
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### 监听变化事件
+
+通过监听 `change` 事件实时获取开关状态：
+
+<o-playground name="监听变化事件" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch id="realtime-switch">实时监听</p-switch>
+        <p style="margin-top: 16px;">当前状态: <span id="realtime-display"></span></p>
+      </div>
+      <script>
+        $('#realtime-switch').on('change', () => {
+          const isChecked = $('#realtime-switch').checked;
+          $('#realtime-display').text = isChecked ? '已开启' : '已关闭';
+        });
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### 组件或页面模块中双向绑定
+
+使用 ofa.js 的数据绑定功能：
+
+<o-playground name="获取值" style="--editor-height: 400px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch 
+          sync:value="status"
+          checked-value="on"
+          unchecked-value="off"
+        >
+          深色模式
+        </p-switch>
+        <p style="margin-top: 16px;">当前状态: {{ status }}</p>
+      </div>
+      <script>
+        export default {
+          data: {
+            status: 'on'
+          }
+        };
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+在组件或页面模块中使用双向绑定时，**请绑定 `value` 属性而不是 `checked` 属性**。
+
+- ✅ 正确：`sync:value="status"` - 绑定 value 属性，配合 `checked-value` 和 `unchecked-value` 使用
+- ❌ 错误：`sync:checked="darkMode"` - 不要绑定 checked 属性
+
+这样可以更好地与表单数据集成，并且语义更加清晰。
+
 ## 无障碍支持
 
 开关组件提供以下无障碍支持：
@@ -266,11 +385,19 @@
 | `color` | 开关颜色 | `primary` \| `error` \| `success` | `primary` |
 | `disabled` | 是否禁用 | `boolean` | `false` |
 | `name` | 表单名称 | `string` | - |
+| `value` | 当前值（根据 checked 状态返回 checked-value 或 unchecked-value） | `string` | - |
 | `checked-value` | 选中时的值 | `string` | `true` |
 | `unchecked-value` | 未选中时的值 | `string` | `false` |
+| `default-value` | 默认值 | `string` | - |
 
 ### 事件
 
 | 事件名 | 说明 |
 |--------|------|
 | `change` | 开关状态改变时触发 |
+
+### 方法
+
+| 方法名 | 说明 |
+|--------|------|
+| `focus()` | 使开关获得焦点 |

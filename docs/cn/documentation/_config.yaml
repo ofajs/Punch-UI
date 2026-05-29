@@ -18,10 +18,10 @@
       url: ./radio.md
     - name: Checkbox 复选框
       url: ./checkbox.md
-    - name: Select 选择器
-      url: ./select.md
     - name: Switch 开关
       url: ./switch.md
+    - name: Select 选择器
+      url: ./select.md
     - name: List 列表
       url: ./list.md
     - name: Tabs 标签页
