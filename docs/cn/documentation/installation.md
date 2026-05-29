@@ -7,6 +7,7 @@ Punch-UI 基于 ofa.js 构建，使用前需要先引入 ofa.js 和全局样式�
 在 HTML 文件中添加以下脚本标签：
 
 ```html
+<script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
 ```
 
 ## 引入全局样式
@@ -16,6 +17,8 @@ Punch-UI 提供了全局样式文件，包含了主题系统和基础样式：
 ```html
 <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
 ```
+
+> **注意**：此步骤为可选步骤。如果不手动引入全局样式，Punch-UI 会自动添加。但是，在深色模式下，自动添加可能会导致页面加载时出现短暂的"白屏闪烁"（从白色突然变为黑色）。为了避免这种视觉闪烁，建议在 `<head>` 中手动引入全局样式。
 
 ## 引入组件
 
@@ -36,11 +39,12 @@ Punch-UI 提供了全局样式文件，包含了主题系统和基础样式：
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Punch-UI 示例</title>
+  <!-- 引入 ofa.js -->
+  <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
   <!-- 引入全局样式 -->
   <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
 </head>
 <body>
-  <!-- 引入 ofa.js -->
   
   <!-- 引入按钮组件 -->
   <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
@@ -53,14 +57,17 @@ Punch-UI 提供了全局样式文件，包含了主题系统和基础样式：
 
 ## 组件 CDN 地址
 
-所有组件都可以通过以下 CDN 地址引入：
+大多数组件都可以通过以下 CDN 地址格式引入：
 
 ```
 https://punch-ui-v2.pages.dev/packages/[组件名]/[组件文件].html
 ```
 
+> **注意**：这是一个通用的文件结构模式，但并非所有组件都完全遵循此规则。具体组件的引入路径请参考各组件的文档说明。
+
 例如：
 - 按钮：`https://punch-ui-v2.pages.dev/packages/button/button.html`
+- 按钮组：`https://punch-ui-v2.pages.dev/packages/button/group.html`
 - 输入框：`https://punch-ui-v2.pages.dev/packages/input/input.html`
 - 选择器：`https://punch-ui-v2.pages.dev/packages/select/select.html`
 

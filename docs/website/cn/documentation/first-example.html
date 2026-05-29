@@ -82,7 +82,8 @@
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
       <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
-      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
       <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
       <style>
         .form-container {
@@ -118,11 +119,11 @@
         </div>
         <div class="form-item">
           <label class="form-label">性别</label>
-          <p-select placeholder="请选择性别" style="width: 100%">
-            <p-option value="male">男</p-option>
-            <p-option value="female">女</p-option>
-            <p-option value="other">其他</p-option>
-          </p-select>
+          <p-radio-group>
+            <p-radio value="male">男</p-radio>
+            <p-radio value="female">女</p-radio>
+            <p-radio value="other">其他</p-radio>
+          </p-radio-group>
         </div>
         <div class="form-item">
           <p-checkbox>我已阅读并同意用户协议</p-checkbox>
@@ -141,21 +142,26 @@
 
 <span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/input/input.html"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/button/button.html"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/select/select.html"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/radio/radio.html"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/radio/group.html"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span></code></pre>
         <h3>2. 使用组件</h3>
         <p>每个 Punch-UI 组件都以 <code>p-</code> 为前缀：</p>
         <ul>
           <li><code>&lt;p-input&gt;</code> - 输入框组件</li>
           <li><code>&lt;p-button&gt;</code> - 按钮组件</li>
-          <li><code>&lt;p-select&gt;</code> - 选择器组件</li>
+          <li><code>&lt;p-radio&gt;</code> - 单选框组件</li>
+          <li><code>&lt;p-radio-group&gt;</code> - 单选框组组件</li>
           <li><code>&lt;p-checkbox&gt;</code> - 复选框组件</li>
         </ul>
         <h3>3. 组件属性</h3>
         <p>组件支持多种属性来自定义行为和外观：</p>
         <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">p-input</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"请输入用户名"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"email"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p-input</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">p-button</span> <span class="hljs-attr">color</span>=<span class="hljs-string">"primary"</span>&gt;</span>注册<span class="hljs-tag">&lt;/<span class="hljs-name">p-button</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">p-select</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"请选择性别"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p-select</span>&gt;</span></code></pre>
+<span class="hljs-tag">&lt;<span class="hljs-name">p-radio-group</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p-radio</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"male"</span>&gt;</span>男<span class="hljs-tag">&lt;/<span class="hljs-name">p-radio</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p-radio</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"female"</span>&gt;</span>女<span class="hljs-tag">&lt;/<span class="hljs-name">p-radio</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">p-radio-group</span>&gt;</span></code></pre>
         <h3>4. 样式定制</h3>
         <p>你可以通过 <code>style</code> 属性或 CSS 类来自定义组件样式：</p>
         <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">p-input</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"width: 100%"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p-input</span>&gt;</span>

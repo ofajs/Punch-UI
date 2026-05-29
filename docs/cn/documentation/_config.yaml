@@ -6,12 +6,6 @@
       url: ./installation.md
     - name: 第一个示例
       url: ./first-example.md
-- name: 基础
-  content:
-    - name: 颜色系统
-      url: ./color.md
-    - name: 主题定制
-      url: ./theming.md
 - name: 组件
   content:
     - name: Button 按钮
@@ -36,6 +30,12 @@
       url: ./dialog.md
     - name: Navigation 导航
       url: ./navigation.md
+- name: 基础
+  content:
+    - name: 颜色系统
+      url: ./color.md
+    - name: 主题定制
+      url: ./theming.md
 - name: 工具函数
   content:
     - name: Toast 提示

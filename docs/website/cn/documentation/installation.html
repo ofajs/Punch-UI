@@ -76,10 +76,13 @@
         <p>Punch-UI 基于 ofa.js 构建，使用前需要先引入 ofa.js 和全局样式。</p>
         <h2>引入 ofa.js</h2>
         <p>在 HTML 文件中添加以下脚本标签：</p>
-        <pre><code class="hljs language-html"></code></pre>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"module"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
         <h2>引入全局样式</h2>
         <p>Punch-UI 提供了全局样式文件，包含了主题系统和基础样式：</p>
         <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/css/pui-global.css"</span> /&gt;</span></code></pre>
+        <blockquote>
+          <p><strong>注意</strong>：此步骤为可选步骤。如果不手动引入全局样式，Punch-UI 会自动添加。但是，在深色模式下，自动添加可能会导致页面加载时出现短暂的"白屏闪烁"（从白色突然变为黑色）。为了避免这种视觉闪烁，建议在 <code>&lt;head&gt;</code> 中手动引入全局样式。</p>
+        </blockquote>
         <h2>引入组件</h2>
         <p>使用 <code>l-m</code> 标签引入需要的组件。例如，引入按钮组件：</p>
         <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/button/button.html"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span></code></pre>
@@ -91,11 +94,12 @@
   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"viewport"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"width=device-width, initial-scale=1.0"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Punch-UI 示例<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- 引入 ofa.js --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"module"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
   <span class="hljs-comment">&lt;!-- 引入全局样式 --&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/css/pui-global.css"</span> /&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-  <span class="hljs-comment">&lt;!-- 引入 ofa.js --&gt;</span>
   
   <span class="hljs-comment">&lt;!-- 引入按钮组件 --&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/button/button.html"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span>
@@ -105,11 +109,15 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
         <h2>组件 CDN 地址</h2>
-        <p>所有组件都可以通过以下 CDN 地址引入：</p>
+        <p>大多数组件都可以通过以下 CDN 地址格式引入：</p>
         <pre><code class="hljs"><span class="hljs-link">https://punch-ui-v2.pages.dev/packages/</span>[<span class="hljs-string">组件名</span>]/[组件文件].html</code></pre>
+        <blockquote>
+          <p><strong>注意</strong>：这是一个通用的文件结构模式，但并非所有组件都完全遵循此规则。具体组件的引入路径请参考各组件的文档说明。</p>
+        </blockquote>
         <p>例如：</p>
         <ul>
           <li>按钮：<code>https://punch-ui-v2.pages.dev/packages/button/button.html</code></li>
+          <li>按钮组：<code>https://punch-ui-v2.pages.dev/packages/button/group.html</code></li>
           <li>输入框：<code>https://punch-ui-v2.pages.dev/packages/input/input.html</code></li>
           <li>选择器：<code>https://punch-ui-v2.pages.dev/packages/select/select.html</code></li>
         </ul>

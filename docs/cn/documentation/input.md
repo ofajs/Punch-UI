@@ -154,6 +154,178 @@
   </code>
 </o-playground>
 
+## 变体样式
+
+通过 `variant` 属性设置输入框样式：
+
+<o-playground name="Input 变体" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input>
+          <span slot="label">Outlined (默认)</span>
+        </p-input>
+        <p-input variant="filled" style="margin-top: 16px;">
+          <span slot="label">Filled</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 自动聚焦
+
+使用 `autofocus` 属性使输入框在页面加载时自动获得焦点：
+
+<o-playground name="自动聚焦" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input autofocus>
+          <span slot="label">自动聚焦</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 悬浮标签
+
+使用 `hang-label` 属性使标签始终悬浮在输入框上方：
+
+<o-playground name="悬浮标签" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input hang-label>
+          <span slot="label">悬浮标签</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 默认值
+
+使用 `default-value` 属性设置输入框的初始值：
+
+<o-playground name="默认值" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input default-value="John Doe">
+          <span slot="label">默认值</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 最大长度
+
+使用 `maxlength` 属性限制输入的最大字符数：
+
+<o-playground name="最大长度" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input maxlength="10">
+          <span slot="label">最多 10 个字符</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 表单属性
+
+使用 `name` 属性为表单提交设置字段名：
+
+<o-playground name="表单属性" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input name="username">
+          <span slot="label">用户名</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 自定义样式
+
+### 使用内联样式
+
+<o-playground name="自定义样式" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input style="border-radius: 30px">
+          <span slot="label">自定义圆角</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+### 使用 CSS Part
+
+使用 `::part()` 选择器自定义输入框内部样式：
+
+<o-playground name="CSS Part 自定义" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <style>
+        .custom-input::part(input) {
+          color: red;
+        }
+      </style>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input class="custom-input" color="error">
+          <span slot="label" style="color: red">自定义样式</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## 编程控制
+
+通过 JavaScript 控制输入框焦点：
+
+<o-playground name="编程控制" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input id="my-input">
+          <span slot="label">编程控制</span>
+        </p-input>
+        <p-button style="margin-top: 16px;" on:click="this.$('#my-input').focus()">聚焦输入框</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
 ## API
 
 ### 属性

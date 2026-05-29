@@ -12,7 +12,8 @@
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
-      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
       <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
       <style>
         .form-container {
@@ -48,11 +49,11 @@
         </div>
         <div class="form-item">
           <label class="form-label">性别</label>
-          <p-select placeholder="请选择性别" style="width: 100%">
-            <p-option value="male">男</p-option>
-            <p-option value="female">女</p-option>
-            <p-option value="other">其他</p-option>
-          </p-select>
+          <p-radio-group>
+            <p-radio value="male">男</p-radio>
+            <p-radio value="female">女</p-radio>
+            <p-radio value="other">其他</p-radio>
+          </p-radio-group>
         </div>
         <div class="form-item">
           <p-checkbox>我已阅读并同意用户协议</p-checkbox>
@@ -76,7 +77,8 @@
 
 <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
 <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
-<l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+<l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+<l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
 <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
 ```
 
@@ -86,7 +88,8 @@
 
 - `<p-input>` - 输入框组件
 - `<p-button>` - 按钮组件
-- `<p-select>` - 选择器组件
+- `<p-radio>` - 单选框组件
+- `<p-radio-group>` - 单选框组组件
 - `<p-checkbox>` - 复选框组件
 
 ### 3. 组件属性
@@ -96,7 +99,10 @@
 ```html
 <p-input placeholder="请输入用户名" type="email"></p-input>
 <p-button color="primary">注册</p-button>
-<p-select placeholder="请选择性别"></p-select>
+<p-radio-group>
+  <p-radio value="male">男</p-radio>
+  <p-radio value="female">女</p-radio>
+</p-radio-group>
 ```
 
 ### 4. 样式定制

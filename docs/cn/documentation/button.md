@@ -138,6 +138,23 @@
   </code>
 </o-playground>
 
+## 自动聚焦
+
+使用 `autofocus` 属性使按钮在页面加载时自动获得焦点：
+
+<o-playground name="自动聚焦" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button autofocus>自动聚焦按钮</p-button>
+        <p-button>普通按钮</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
 ## Button Group
 
 使用按钮组将多个按钮组合在一起：
@@ -172,6 +189,122 @@
   </code>
 </o-playground>
 
+## 高级用法
+
+### 分段控制（单选）
+
+使用按钮组实现分段控制，适用于切换视图模式等场景：
+
+<o-playground name="分段控制" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button-group>
+          <p-button
+            attr:variant="selected === 'day' ? 'filled' : 'outlined'"
+            on:click="selected = 'day'"
+          >
+            Day
+          </p-button>
+          <p-button
+            attr:variant="selected === 'week' ? 'filled' : 'outlined'"
+            on:click="selected = 'week'"
+          >
+            Week
+          </p-button>
+          <p-button
+            attr:variant="selected === 'month' ? 'filled' : 'outlined'"
+            on:click="selected = 'month'"
+          >
+            Month
+          </p-button>
+        </p-button-group>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+### 过滤器芯片（多选）
+
+使用按钮组实现多选过滤器：
+
+<o-playground name="过滤器芯片" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button-group>
+          <p-button
+            attr:color="filters.includes('all') ? 'primary' : 'neutral'"
+            :style.border-radius="filters.includes('all') ? '28px' : ''"
+            on:click="toggleFilter('all')"
+          >
+            All
+          </p-button>
+          <p-button
+            attr:color="filters.includes('active') ? 'primary' : 'neutral'"
+            :style.border-radius="filters.includes('active') ? '28px' : ''"
+            on:click="toggleFilter('active')"
+          >
+            Active
+          </p-button>
+          <p-button
+            attr:color="filters.includes('completed') ? 'primary' : 'neutral'"
+            :style.border-radius="filters.includes('completed') ? '28px' : ''"
+            on:click="toggleFilter('completed')"
+          >
+            Completed
+          </p-button>
+        </p-button-group>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+### 排序选项
+
+使用按钮组实现排序选项切换：
+
+<o-playground name="排序选项" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button-group>
+          <p-button
+            attr:color="order === 'newest' ? 'primary' : 'neutral'"
+            :style.border-radius="order === 'newest' ? '28px' : ''"
+            on:click="order = 'newest'"
+          >
+            Newest
+          </p-button>
+          <p-button
+            attr:color="order === 'oldest' ? 'primary' : 'neutral'"
+            :style.border-radius="order === 'oldest' ? '28px' : ''"
+            on:click="order = 'oldest'"
+          >
+            Oldest
+          </p-button>
+          <p-button
+            attr:color="order === 'price' ? 'primary' : 'neutral'"
+            :style.border-radius="order === 'price' ? '28px' : ''"
+            on:click="order = 'price'"
+          >
+            Price
+          </p-button>
+        </p-button-group>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
 ## API
 
 ### 属性
@@ -183,6 +316,7 @@
 | `color` | 按钮颜色 | `primary` \| `error` \| `success` \| `neutral` | - |
 | `icon` | 是否为图标按钮 | `boolean` | `false` |
 | `disabled` | 是否禁用 | `boolean` | `false` |
+| `autofocus` | 是否自动聚焦 | `boolean` | `false` |
 
 ### 插槽
 

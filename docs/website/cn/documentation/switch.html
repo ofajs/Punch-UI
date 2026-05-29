@@ -156,6 +156,141 @@
     </template>
   </code>
         </o-playground>
+        <h3>默认值</h3>
+        <p>使用 <code>default-value</code> 属性设置初始值：</p>
+        <o-playground name="默认值" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch 
+          name="theme" 
+          checked-value="dark" 
+          unchecked-value="light"
+          default-value="dark"
+        >
+          深色模式
+        </p-switch>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>交互功能</h2>
+        <h3>自动聚焦</h3>
+        <p>使用 <code>autofocus</code> 属性使开关在页面加载时自动获得焦点：</p>
+        <o-playground name="自动聚焦" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch autofocus>自动聚焦</p-switch>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h3>键盘操作</h3>
+        <p>开关支持键盘操作：</p>
+        <ul>
+          <li><strong>空格键</strong> - 切换开关状态</li>
+          <li><strong>回车键</strong> - 切换开关状态</li>
+        </ul>
+        <o-playground name="键盘操作" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch>使用键盘操作</p-switch>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h3>编程控制</h3>
+        <p>通过 JavaScript 控制开关状态：</p>
+        <o-playground name="编程控制" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch id="my-switch">编程控制</p-switch>
+        <p-button style="margin-top: 16px;" on:click="this.$('#my-switch').checked = !this.$('#my-switch').checked">切换状态</p-button>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>变体样式</h2>
+        <p>使用 <code>variant</code> 属性设置不同的样式：</p>
+        <o-playground name="变体样式" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch variant="filled" checked>Filled</p-switch>
+        <p-switch variant="outlined" checked>Outlined</p-switch>
+        <p-switch variant="text" checked>Text</p-switch>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>方法</h2>
+        <p>开关组件提供以下方法：</p>
+        <ul>
+          <li><code>focus()</code> - 使开关获得焦点</li>
+        </ul>
+        <o-playground name="方法" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch id="focus-switch">聚焦开关</p-switch>
+        <p-button style="margin-top: 16px;" on:click="this.$('#focus-switch').focus()">聚焦</p-button>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>动画效果</h2>
+        <p>开关组件包含以下动画效果：</p>
+        <ul>
+          <li><strong>滑块移动</strong> - 平滑的滑动动画</li>
+          <li><strong>勾选标记</strong> - 选中时显示勾选动画</li>
+          <li><strong>边框填充</strong> - 选中时边框填充动画</li>
+        </ul>
+        <o-playground name="动画效果" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch checked>动画效果</p-switch>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>无障碍支持</h2>
+        <p>开关组件提供以下无障碍支持：</p>
+        <ul>
+          <li>支持键盘导航和操作</li>
+          <li>提供焦点状态指示</li>
+          <li>支持屏幕阅读器</li>
+        </ul>
+        <o-playground name="无障碍支持" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch>无障碍开关</p-switch>
+      </div>
+    </template>
+  </code>
+        </o-playground>
         <h2>API</h2>
         <h3>属性</h3>
         <table>

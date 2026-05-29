@@ -93,6 +93,82 @@
     </template>
   </code>
         </o-playground>
+        <h2>带图标的标签</h2>
+        <p>使用 <code>icon</code> 插槽添加图标：</p>
+        <o-playground name="带图标的标签" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-tab-bar>
+          <p-tab-item active>
+            <span slot="icon">🏠</span>
+            <span>首页</span>
+          </p-tab-item>
+          <p-tab-item>
+            <span slot="icon">📑</span>
+            <span>书签</span>
+          </p-tab-item>
+          <p-tab-item>
+            <span slot="icon">👤</span>
+            <span>关于</span>
+          </p-tab-item>
+        </p-tab-bar>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>禁用状态</h2>
+        <p>添加 <code>disabled</code> 属性禁用标签项：</p>
+        <o-playground name="禁用状态" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-tab-bar>
+          <p-tab-item active>
+            <span slot="icon">🏠</span>
+            <span>首页</span>
+          </p-tab-item>
+          <p-tab-item disabled>
+            <span slot="icon">⚙️</span>
+            <span>设置</span>
+          </p-tab-item>
+          <p-tab-item>
+            <span slot="icon">👤</span>
+            <span>关于</span>
+          </p-tab-item>
+        </p-tab-bar>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>可滚动的标签栏</h2>
+        <p>当标签项过多时，可以设置滚动：</p>
+        <o-playground name="可滚动的标签栏" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-tab-bar style="overflow-x: auto">
+          <p-tab-item active>标签 One</p-tab-item>
+          <p-tab-item>标签 Two</p-tab-item>
+          <p-tab-item>标签 Three</p-tab-item>
+          <p-tab-item>标签 Four</p-tab-item>
+          <p-tab-item>标签 Five</p-tab-item>
+          <p-tab-item>标签 Six</p-tab-item>
+          <p-tab-item>标签 Seven</p-tab-item>
+        </p-tab-bar>
+      </div>
+    </template>
+  </code>
+        </o-playground>
         <h2>API</h2>
         <h3>属性</h3>
         <table>

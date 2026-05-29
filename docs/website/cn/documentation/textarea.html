@@ -102,6 +102,121 @@
     </template>
   </code>
         </o-playground>
+        <h2>变体样式</h2>
+        <p>通过 <code>variant</code> 属性设置输入框样式：</p>
+        <o-playground name="Textarea 变体" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea>
+          <span slot="label">Outlined (默认)</span>
+        </p-textarea>
+        <p-textarea variant="filled" style="margin-top: 16px;">
+          <span slot="label">Filled</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>尺寸</h2>
+        <p>通过 <code>size</code> 属性设置输入框尺寸：</p>
+        <o-playground name="Textarea 尺寸" style="--editor-height: 500px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea size="xs">
+          <span slot="label">Extra Small</span>
+        </p-textarea>
+        <p-textarea size="s" style="margin-top: 16px;">
+          <span slot="label">Small</span>
+        </p-textarea>
+        <p-textarea size="m" style="margin-top: 16px;">
+          <span slot="label">Medium (Default)</span>
+        </p-textarea>
+        <p-textarea size="l" style="margin-top: 16px;">
+          <span slot="label">Large</span>
+        </p-textarea>
+        <p-textarea size="xl" style="margin-top: 16px;">
+          <span slot="label">Extra Large</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>颜色</h2>
+        <p>通过 <code>color</code> 属性设置输入框颜色：</p>
+        <o-playground name="Textarea 颜色" style="--editor-height: 500px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea color="primary">
+          <span slot="label">Primary Color</span>
+        </p-textarea>
+        <p-textarea color="success" style="margin-top: 16px;">
+          <span slot="label">Success Color</span>
+        </p-textarea>
+        <p-textarea color="neutral" style="margin-top: 16px;">
+          <span slot="label">Neutral Color</span>
+        </p-textarea>
+        <p-textarea color="error" style="margin-top: 16px;">
+          <span slot="label">Error Color</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>前缀和后缀</h2>
+        <p>使用 <code>prefix</code> 和 <code>suffix</code> 插槽添加前缀/后缀内容：</p>
+        <o-playground name="带前缀/后缀的 Textarea" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea>
+          <span slot="label">Message</span>
+          <span slot="prefix">📝</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>占位符</h2>
+        <p>使用 <code>placeholder</code> 属性设置占位文本：</p>
+        <o-playground name="占位符" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea placeholder="Enter your message...">
+          <span slot="label">Message</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>自动聚焦</h2>
+        <p>使用 <code>autofocus</code> 属性使输入框在页面加载时自动获得焦点：</p>
+        <o-playground name="自动聚焦" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea autofocus>
+          <span slot="label">自动聚焦</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+        </o-playground>
         <h2>API</h2>
         <h3>属性</h3>
         <table>
