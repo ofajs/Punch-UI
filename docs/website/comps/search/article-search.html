@@ -1,0 +1,347 @@
+<template component>
+  <l-m src="/nos/locale-text/locale-text.html"></l-m>
+  <l-m src="/gh/ofajs/Punch-UI@1/packages/dialog/dialog.html"></l-m>
+  <l-m src="/gh/ofajs/Punch-UI@1/packages/input/input.html"></l-m>
+  <l-m src="/gh/ofajs/Punch-UI@1/packages/list/list.html"></l-m>
+  <style>
+    :host {
+      display: block;
+    }
+
+    .search-container {
+      display: flex;
+      align-items: center;
+      width: 200px;
+      height: 32px;
+      border-radius: 21px;
+      user-select: none;
+      /* border: 1px solid var(--md-sys-color-primary); */
+      color: var(--md-sys-color-normal);
+      background-color: var(--md-sys-color-on-normal);
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.1s ease-in-out;
+    }
+
+    .search-container:hover {
+      box-shadow: 0 0 5px rgba(from var(--md-sys-color-primary) r g b / 0.5);
+    }
+
+    .search-btn {
+      display: none;
+    }
+
+    @media screen and (max-width: 768px) {
+      .search-container {
+        display: none;
+      }
+      .search-btn {
+        display: block;
+      }
+    }
+  </style>
+  <div class="search-container" on:click="showDialog = true">
+    <n-icon
+      icon="material-symbols:search-rounded"
+      style="margin-left: 10px; font-size: 20px; display: block"
+    ></n-icon>
+    <locale-text style="display: block; margin-left: 8px">
+      <span lang="cn"> 搜索 </span>
+      <span lang="en"> Search </span>
+    </locale-text>
+  </div>
+  <p-button
+    class="search-btn"
+    icon
+    variant="text"
+    on:click="showDialog = true"
+    style="margin-left: 8px"
+  >
+    <n-icon
+      icon="material-symbols:search-rounded"
+      style="font-size: 22px"
+    ></n-icon>
+  </p-button>
+
+  <style>
+    .dialog-container {
+      width: 80vw;
+      max-width: 600px;
+      height: 80vh;
+    }
+
+    @media screen and (max-width: 540px) {
+      .dialog-container {
+        width: 100%;
+      }
+    }
+    h5 {
+      display: flex;
+      align-items: center;
+      n-icon {
+        margin-right: 8px;
+      }
+    }
+    p-list-item[button] {
+      border-radius: 20px;
+
+      n-icon {
+        margin-right: 8px;
+      }
+    }
+
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border-top: 2px solid var(--md-sys-color-primary, #3498db);
+      border-radius: 50%;
+      animation: spin 0.5s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .hide {
+      display: none !important;
+    }
+  </style>
+
+  <p-dialog :open="showDialog" on:click-mask="showDialog = false">
+    <div class="dialog-container">
+      <p-input
+        placeholder="Search docs"
+        sync:value="searchValue"
+        on:input="changeSearch"
+        autofocus
+      >
+        <n-icon
+          icon="material-symbols:search-rounded"
+          style="font-size: 22px"
+          slot="prefix"
+          class:hide="loading"
+        ></n-icon>
+        <div
+          slot="prefix"
+          class:hide="!loading"
+          style="
+            display: flex;
+            width: 22px;
+            align-items: center;
+            justify-content: center;
+          "
+        >
+          <div class="spinner"></div>
+        </div>
+      </p-input>
+      <div>
+        <o-if :value="!list.length && loading">
+          <div
+            style="
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 200px;
+            "
+          >
+            <div class="spinner"></div>
+          </div>
+        </o-if>
+        <o-else-if
+          :value="(!list.length && !loading && searchValue) || (!historyList.length && !list.length && !searchValue)"
+        >
+          <div
+            style="
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 200px;
+            "
+          >
+            <locale-text>
+              <span lang="cn"> 暂无搜索结果 </span>
+              <span lang="en"> No search results </span>
+            </locale-text>
+          </div>
+        </o-else-if>
+        <o-else-if :value="historyList.length && !searchValue">
+          <div>
+            <h5 style="font-size: 14px; padding: 16px 0 8px; margin: 0">
+              <n-icon icon="material-symbols:history"></n-icon>
+              <locale-text>
+                <span lang="cn">搜索历史</span>
+                <span lang="en"> Search history </span>
+              </locale-text>
+            </h5>
+            <p-list>
+              <o-fill :value="historyList">
+                <p-list-item button on:click="$host.clickItem($data)">
+                  <n-icon
+                    icon="material-symbols:search-rounded"
+                    slot="prefix"
+                  ></n-icon>
+                  {{ $data.search }}
+                  <div secondary>{{$data.aroundText}}</div>
+                  <p-button
+                    variant="text"
+                    color="error"
+                    size="small"
+                    icon
+                    slot="suffix"
+                    style="z-index: 3"
+                    on:click="$host.removeSearchHistoryItem($index,$event)"
+                  >
+                    <n-icon
+                      icon="material-symbols:delete"
+                      style="margin-right: 0"
+                    ></n-icon>
+                  </p-button>
+                </p-list-item>
+              </o-fill>
+            </p-list>
+          </div>
+        </o-else-if>
+        <o-fill :value="list">
+          <div>
+            <h5 style="font-size: 14px; padding: 16px 0 8px; margin: 0">
+              <n-icon icon="material-symbols:article-outline"></n-icon>
+              {{ $data.title }}
+            </h5>
+            <p-list>
+              <o-fill :value="$data.result">
+                <p-list-item button on:click="$host.clickItem($data)">
+                  <o-if :value="$data.tag === 'blockquote'" slot="prefix">
+                    <div
+                      style="
+                        margin-right: 8px;
+                        font-weight: bold;
+                        text-align: center;
+                      "
+                    >
+                      <n-icon icon="tabler:blockquote"></n-icon>
+                    </div>
+                  </o-if>
+                  <o-else slot="prefix">
+                    <div
+                      style="
+                        margin-right: 8px;
+                        font-weight: bold;
+                        text-align: center;
+                      "
+                    >
+                      {{ $data.tag }}
+                    </div>
+                  </o-else>
+                  <div>{{ $data.aroundText }}</div>
+                </p-list-item>
+              </o-fill>
+            </p-list>
+          </div>
+        </o-fill>
+      </div>
+    </div>
+  </p-dialog>
+  <script>
+    export default async ({ load, url: searchUrl }) => {
+      const { getCurrentLang } = await load("../../js/util.js");
+      const lang = getCurrentLang();
+
+      return {
+        tag: "article-search",
+        data: {
+          showDialog: false,
+          list: [],
+          historyList: JSON.parse(localStorage.getItem("search_history")) || [],
+          searchValue: "",
+          loading: false,
+        },
+        proto: {
+          removeSearchHistoryItem(index, event) {
+            event.stopPropagation();
+            this.historyList.splice(index, 1);
+            // 记录搜索历史
+            localStorage.setItem(
+              "search_history",
+              JSON.stringify(this.historyList),
+            );
+          },
+          clickItem(item) {
+            const prefixUrl = this.app.current.src.split(`/${lang}/`)[0];
+            const url = `${prefixUrl}/${lang}${item.url}?L=${item.lineIndex}&search=${item.search || this.searchValue}`;
+            this.app.goto(url);
+            this.showDialog = false;
+
+            const finalItem = {
+              search: this.searchValue,
+              ...item,
+            };
+
+            // 判断是否已经有旧的存在，有的话删除旧的
+            const oldIndex = this.historyList.findIndex(
+              (item) => JSON.stringify(item) === JSON.stringify(finalItem),
+            );
+            if (oldIndex !== -1) {
+              this.historyList.splice(oldIndex, 1);
+            }
+
+            this.historyList.unshift(finalItem);
+
+            // 记录搜索历史
+            localStorage.setItem(
+              "search_history",
+              JSON.stringify(this.historyList),
+            );
+          },
+          changeSearch() {
+            this.loading = true;
+            clearTimeout(this._search_timer);
+            this._search_timer = setTimeout(() => {
+              const val = this.searchValue.trim();
+
+              if (!val) {
+                this.list = [];
+                this.loading = false;
+                return;
+              }
+
+              const currentPageSrc = this.app.current.src;
+              const prefixUrl = currentPageSrc.split(`/${lang}/`)[0];
+              const dbUrl = `${prefixUrl}/${lang}/db.json`;
+
+              this._worker.postMessage({
+                type: "search",
+                dbUrl,
+                searchValue: val,
+                lang,
+              });
+            }, 300);
+          },
+          init() {
+            const workerUrl = new URL("./search-worker.js", searchUrl);
+            this._worker = new Worker(workerUrl, {
+              type: "module",
+            });
+          },
+        },
+        attached() {
+          this.init();
+          this._worker.onmessage = (e) => {
+            if (e.data.type === "searchResult") {
+              this.loading = false;
+              this.list = e.data.data;
+            }
+          };
+        },
+        detached() {
+          this._worker.terminate();
+        },
+      };
+    };
+  </script>
+</template>

@@ -1,0 +1,185 @@
+<template page>
+  <l-m src="./comps/header-menu.html"></l-m>
+  <l-m src="./comps/search/article-search.html"></l-m>
+  <l-m src="/gh/ofajs/Punch-UI@1/packages/select/select.html"></l-m>
+  <style>
+    :host {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      user-select: none;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo-link,
+    .logo {
+      display: flex;
+      align-items: center;
+      height: 30px;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .logo-text {
+      font-weight: bold;
+      font-size: 18px;
+      margin-left: 4px;
+    }
+
+    .header-btn-group {
+      display: flex;
+      align-items: center;
+      margin-left: 4px;
+    }
+
+    .header-btn-group p-button {
+      margin-left: 4px;
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header-menu {
+        display: none;
+      }
+    }
+  </style>
+
+  <slot name="menu"></slot>
+
+  <a class="logo-link" attr:href="indexUrl" olink>
+    <img class="logo" src="./img/logo.svg" />
+    <div class="logo-text">Punch UI</div>
+  </a>
+
+  <article-search style="margin-left: auto"></article-search>
+
+  <header-menu style="margin-right: 4px"></header-menu>
+
+  <div class="header-btn-group">
+    <p-button variant="text" icon on:click="clickMode">
+      <o-if :value="theme === 'dark'">
+        <n-icon
+          icon="material-symbols:dark-mode"
+          style="font-size: 24px"
+        ></n-icon>
+      </o-if>
+      <o-else-if :value="theme === 'light'">
+        <n-icon
+          icon="material-symbols:light-mode"
+          style="font-size: 24px"
+        ></n-icon>
+      </o-else-if>
+      <o-else>
+        <n-icon icon="line-md:light-dark" style="font-size: 24px"></n-icon>
+      </o-else>
+    </p-button>
+    <p-select
+      sync:value="lang"
+      on:change="switchLang"
+      size="small"
+      style="margin: 0 8px"
+    >
+      <n-icon icon="mdi:language" slot="prefix"> </n-icon>
+      <o-fill :value="languages">
+        <p-option attr:value="$data.value"> {{$data.name}} </p-option>
+      </o-fill>
+    </p-select>
+    
+  </div>
+
+  <o-consumer name="pui" watch:theme="theme"></o-consumer>
+
+  <script>
+    export default async ({ load, url: headerUrl }) => {
+      const { getCurrentLang } = await load("./js/util.js");
+      const lang = getCurrentLang();
+
+      return {
+        data: {
+          theme: "",
+          lang: lang,
+          languages: [],
+          // header: [],
+          indexUrl: `${headerUrl.replace(/\/header\.html$/, "")}/${lang}/index.html`,
+        },
+        proto: {
+          clickGithub(e) {
+            e.stopPropagation();
+            e.target.querySelector("#github-link").click();
+          },
+          switchLang(e) {
+            const targetLang = $(e.target).value;
+            const currentUrl = window.location.href;
+            const newUrl = currentUrl.replace(`/${lang}/`, `/${targetLang}/`);
+            window.location.href = newUrl;
+          },
+          clickMode() {
+            $("html").css.transition = "all 0.3s ease-in-out";
+            clearTimeout(this._timer);
+            this._timer = setTimeout(() => {
+              $("html").css.transition = "";
+            }, 300);
+            const puiProvider = this.getProvider("pui");
+            if (puiProvider.theme === "auto") {
+              puiProvider.theme = "dark";
+            } else if (puiProvider.theme === "dark") {
+              puiProvider.theme = "light";
+            } else {
+              puiProvider.theme = "auto";
+            }
+          },
+          async loadHeader() {
+            const data = await load(`./${lang}/article-config.json`);
+            this.languages = data.languages.map((e) => ({
+              name: getLangName(e),
+              value: e,
+            }));
+          },
+        },
+        async attached() {
+          this.loadHeader();
+        },
+      };
+    };
+
+    const getLangName = (lang) => {
+      switch (lang) {
+        case "cn":
+          return "中文";
+        case "t-cn":
+          return "繁體中文";
+        case "en":
+          return "English";
+        case "ja":
+          return "日語";
+        case "ko":
+          return "한국어";
+        case "es":
+          return "Español";
+        case "id":
+          return "Bahasa Indonesia";
+        case "vi":
+          return "Tiếng Việt";
+        case "pt":
+          return "Português";
+        case "fr":
+          return "Français";
+        case "de":
+          return "Deutsch";
+        case "it":
+          return "Italiano";
+        case "ru":
+          return "Русский";
+        case "pl":
+          return "Polski";
+        case "uk":
+          return "Українська";
+        default:
+          return lang;
+      }
+    };
+  </script>
+</template>

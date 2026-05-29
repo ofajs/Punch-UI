@@ -1,0 +1,62 @@
+<template component>
+  <style>
+    :host {
+      display: contents;
+    }
+    ::slotted(*) {
+      display: none;
+    }
+  </style>
+  <style id="lang-style"></style>
+  <slot></slot>
+  <script>
+    export default async ({ load }) => {
+      const { getLang } = await load("./get-locale-text.js");
+
+      return {
+        tag: "locale-text",
+        data: {
+          // lang: defaultLang,
+          lang: null,
+        },
+        watch: {
+          lang(lang) {
+            this.refreshStyle();
+          },
+        },
+        proto: {
+          refreshStyle() {
+            let finalLang = this.lang || getLang();
+
+            let allLang = new Set();
+
+            // 判断是否存在对应的语言元素
+            this.forEach((el) => {
+              let lang = el.attr("lang");
+              if (lang) {
+                allLang.add(lang);
+              }
+            });
+
+            // 判断是否有当前的lang
+            if (!allLang.has(finalLang)) {
+              // 第二替代为英语
+              if (allLang.has("en")) {
+                finalLang = "en";
+              } else {
+                // 默认第一个
+                finalLang = allLang.values().next().value;
+              }
+            }
+
+            this.shadow.$("#lang-style").html = `
+              ::slotted([lang="${finalLang}"]) {
+                display: revert;
+              }
+            `;
+          },
+        },
+      };
+    };
+  </script>
+</template>

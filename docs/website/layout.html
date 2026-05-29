@@ -1,0 +1,215 @@
+<template page>
+  <l-m src="/gh/ofajs/Punch-UI@1/packages/button/button.html"></l-m>
+  <l-m src="/nos/n-icon/n-icon.html"></l-m>
+  <l-m src="./comps/article-menu.html"></l-m>
+  <style>
+    :host {
+      display: block;
+      height: 100%;
+      --max-container-width: 900px;
+    }
+
+    @media screen and (min-width: 2000px) {
+      :host {
+        --max-container-width: 1200px;
+      }
+    }
+
+    @media screen and (min-width: 1700px) {
+      :host {
+        --max-container-width: 1000px;
+      }
+    }
+
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      height: 52px;
+      border-bottom: var(--md-sys-color-normal-container) solid 1px;
+    }
+
+    .main {
+      position: relative;
+      display: flex;
+      flex: 1;
+    }
+
+    .left-side {
+      position: absolute;
+      left: 0;
+      height: 100%;
+      overflow: auto;
+      width: 240px;
+      padding-right: 8px;
+      overflow: hidden;
+      opacity: 1;
+      transition: all 0.3s ease-in-out;
+    }
+
+    @media screen and (max-width: 1440px) {
+      .left-side {
+        position: static;
+        left: 0;
+        height: auto;
+        padding-right: 0;
+        overflow: auto;
+      }
+    }
+
+    .left-side-inner {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 240px;
+      height: 100%;
+      overflow: auto;
+    }
+
+    .hide-left {
+      width: 0;
+      opacity: 0;
+    }
+
+    .article {
+      position: relative;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .article-inner {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+    }
+
+    .mobile-menu-button {
+      display: none;
+    }
+
+    @media screen and (max-width: 768px) {
+      .left-side {
+        width: 0;
+        opacity: 0;
+        display: none;
+      }
+
+      .mobile-menu-button {
+        display: block;
+      }
+    }
+
+    .mask {
+      position: fixed;
+      z-index: 10;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(128, 128, 128, 0.2);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .mask-content {
+      position: absolute;
+      left: 0;
+      top: 52px;
+      width: 100%;
+      height: calc(100% - 52px);
+      background-color: var(--md-sys-color-surface);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .show-mask {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .show-mask .mask-content {
+      transition: all 0.1s ease-in-out;
+    }
+    @media screen and (min-width: 768px) {
+      .mask {
+        display: none;
+      }
+    }
+  </style>
+  <div class="container" on:clicked-item="clickArticleItem($event)">
+    <div class="header">
+      <o-page src="./header.html" id="header">
+        <p-button
+          class="mobile-menu-button"
+          variant="outlined"
+          icon
+          slot="menu"
+          on:click="showMobileMenu = !showMobileMenu"
+          style="margin-right: 4px; position: relative; z-index: 11"
+        >
+          <o-if :value="showMobileMenu">
+            <n-icon icon="material-symbols:close"></n-icon>
+          </o-if>
+          <o-else>
+            <n-icon icon="material-symbols:menu"></n-icon>
+          </o-else>
+        </p-button>
+      </o-page>
+    </div>
+    <div
+      class="mask"
+      class:show-mask="showMobileMenu"
+      on:click="showMobileMenu = false"
+    >
+      <div class="mask-content" on:click="$event.stopPropagation()">
+        <div style="padding: 8px 8px 0 0; height: 100%; overflow: auto">
+          <header-menu></header-menu>
+          <hr />
+          <article-menu></article-menu>
+        </div>
+      </div>
+    </div>
+    <div class="main">
+      <div class="left-side" class:hide-left="hideLeft">
+        <div class="left-side-inner">
+          <div style="height: 16px"></div>
+          <article-menu on:hide-left="hideLeft = $event.data"></article-menu>
+          <div style="height: 16px"></div>
+        </div>
+      </div>
+      <div class="article">
+        <div class="article-inner">
+          <slot></slot>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    export default async ({ load, url: layoutUrl }) => {
+      const { getCurrentLang } = await load("./js/util.js");
+      const lang = getCurrentLang();
+
+      return {
+        data: {
+          hideLeft: sessionStorage.getItem("_old_hide_left") === "1",
+          showMobileMenu: false,
+        },
+        proto: {
+          clickArticleItem(e) {
+            this.showMobileMenu = false;
+          },
+        },
+        attached() {},
+      };
+    };
+  </script>
+</template>

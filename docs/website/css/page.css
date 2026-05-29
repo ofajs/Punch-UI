@@ -1,0 +1,66 @@
+article,
+article.markdown-body {
+  position: relative;
+  max-width: var(--max-container-width, 1200px);
+  margin: 0 auto;
+}
+
+article {
+  padding: 0 16px;
+}
+
+article.markdown-body > o-playground {
+  width: calc(126%);
+}
+
+@media screen and (max-width: 1440px) {
+  article.markdown-body > o-playground {
+    width: 100%;
+  }
+}
+
+a {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: bottom;
+}
+
+.footer {
+  display: flex;
+  max-width: var(--max-container-width, 1200px);
+  margin: 0 auto;
+  height: 80px;
+}
+
+.next-item {
+  margin-left: auto;
+}
+.prev-item,
+.next-item {
+  display: flex;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+}
+
+.search-highlight-mark {
+  background-color: var(--md-sys-color-primary-container) !important;
+  color: inherit;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+.focus-index {
+  background-color: var(--md-sys-color-normal-container);
+}
+
+o-playground {
+  display: block !important;
+  min-height: var(--editor-height, 200px);
+}
+
+.octicon-link-mark {
+  position: absolute;
+  left: -36px;
+  cursor: pointer;
+}
