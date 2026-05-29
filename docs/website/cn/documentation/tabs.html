@@ -169,8 +169,45 @@
     </template>
   </code>
         </o-playground>
+        <h2>在页面模块中使用</h2>
+        <p>在页面模块中，可以通过数据绑定实现标签的点击切换：</p>
+        <o-playground name="页面模块中的标签切换" style="--editor-height: 500px">
+          <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-tab-bar>
+          <p-tab-item attr:active="active === 'home'" on:click="active = 'home'">
+            <span slot="icon">🏠</span>
+            <span>首页</span>
+          </p-tab-item>
+          <p-tab-item attr:active="active === 'bookmarks'" on:click="active = 'bookmarks'">
+            <span slot="icon">📑</span>
+            <span>书签</span>
+          </p-tab-item>
+          <p-tab-item attr:active="active === 'about'" on:click="active = 'about'">
+            <span slot="icon">👤</span>
+            <span>关于</span>
+          </p-tab-item>
+        </p-tab-bar>
+        <div style="margin-top: 20px; padding: 16px; background-color: var(--md-sys-color-surface-container);">
+          当前选中: {{ active }}
+        </div>
+      </div>
+      <script>
+        export default {
+          data: {
+            active: 'home'
+          }
+        };
+      </script>
+    </template>
+  </code>
+        </o-playground>
         <h2>API</h2>
-        <h3>属性</h3>
+        <h3>属性 - p-tab-item</h3>
         <table>
           <thead>
             <tr>
@@ -186,6 +223,50 @@
               <td>是否激活</td>
               <td><code>boolean</code></td>
               <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>disabled</code></td>
+              <td>是否禁用</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>插槽 - p-tab-item</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>插槽名</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>default</code></td>
+              <td>标签文本内容</td>
+            </tr>
+            <tr>
+              <td><code>icon</code></td>
+              <td>图标内容</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>事件 - p-tab-item</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>事件名</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>change-active</code></td>
+              <td>当 active 状态改变时触发</td>
+            </tr>
+            <tr>
+              <td><code>click</code></td>
+              <td>点击标签项时触发（禁用状态下不会触发）</td>
             </tr>
           </tbody>
         </table>

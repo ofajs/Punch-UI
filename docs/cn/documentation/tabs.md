@@ -112,10 +112,65 @@
   </code>
 </o-playground>
 
+## 在页面模块中使用
+
+在页面模块中，可以通过数据绑定实现标签的点击切换：
+
+<o-playground name="页面模块中的标签切换" style="--editor-height: 500px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-tab-bar>
+          <p-tab-item attr:active="active === 'home'" on:click="active = 'home'">
+            <span slot="icon">🏠</span>
+            <span>首页</span>
+          </p-tab-item>
+          <p-tab-item attr:active="active === 'bookmarks'" on:click="active = 'bookmarks'">
+            <span slot="icon">📑</span>
+            <span>书签</span>
+          </p-tab-item>
+          <p-tab-item attr:active="active === 'about'" on:click="active = 'about'">
+            <span slot="icon">👤</span>
+            <span>关于</span>
+          </p-tab-item>
+        </p-tab-bar>
+        <div style="margin-top: 20px; padding: 16px; background-color: var(--md-sys-color-surface-container);">
+          当前选中: {{ active }}
+        </div>
+      </div>
+      <script>
+        export default {
+          data: {
+            active: 'home'
+          }
+        };
+      </script>
+    </template>
+  </code>
+</o-playground>
+
 ## API
 
-### 属性
+### 属性 - p-tab-item
 
 | 属性 | 说明 | 类型 | 默认值 |
 |------|------|------|--------|
 | `active` | 是否激活 | `boolean` | `false` |
+| `disabled` | 是否禁用 | `boolean` | `false` |
+
+### 插槽 - p-tab-item
+
+| 插槽名 | 说明 |
+|--------|------|
+| `default` | 标签文本内容 |
+| `icon` | 图标内容 |
+
+### 事件 - p-tab-item
+
+| 事件名 | 说明 |
+|--------|------|
+| `change-active` | 当 active 状态改变时触发 |
+| `click` | 点击标签项时触发（禁用状态下不会触发） |
