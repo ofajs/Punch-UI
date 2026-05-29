@@ -7,7 +7,6 @@ Punch-UI 基于 ofa.js 构建，使用前需要先引入 ofa.js 和全局样式�
 在 HTML 文件中添加以下脚本标签：
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
 ```
 
 ## 引入全局样式
@@ -42,7 +41,6 @@ Punch-UI 提供了全局样式文件，包含了主题系统和基础样式：
 </head>
 <body>
   <!-- 引入 ofa.js -->
-  <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
   
   <!-- 引入按钮组件 -->
   <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>

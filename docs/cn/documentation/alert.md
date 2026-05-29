@@ -14,7 +14,6 @@ import alert from 'https://punch-ui-v2.pages.dev/packages/util/alert.js';
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <script type="module">
         import alert from 'https://punch-ui-v2.pages.dev/packages/util/alert.js';
@@ -41,7 +40,6 @@ import alert from 'https://punch-ui-v2.pages.dev/packages/util/alert.js';
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <script type="module">
         import alert from 'https://punch-ui-v2.pages.dev/packages/util/alert.js';

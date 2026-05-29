@@ -46,7 +46,6 @@ Punch-UI 提供了一个主题切换组件，方便用户手动切换主题：
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
       <l-m src="https://punch-ui-v2.pages.dev/tool/theme-switch/theme-switch.html"></l-m>
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <div style="padding: 20px; text-align: center;">
@@ -94,7 +93,6 @@ Punch-UI 提供了一个主题切换组件，方便用户手动切换主题：
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <style>
         :root {

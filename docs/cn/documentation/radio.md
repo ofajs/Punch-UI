@@ -14,7 +14,6 @@
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
       <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
       <div style="padding: 20px;">
         <p-radio name="gender" value="male">男</p-radio>

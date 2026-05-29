@@ -14,7 +14,6 @@
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
       <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
       <div style="padding: 20px; max-width: 400px;">
         <p-input placeholder="请输入内容"></p-input>
@@ -31,7 +30,6 @@
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
       <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
       <div style="padding: 20px; max-width: 400px;">
         <p-input>
@@ -50,7 +48,6 @@
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
       <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
       <div style="padding: 20px; max-width: 400px;">
         <p-input size="xs">
@@ -81,7 +78,6 @@
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
       <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
       <div style="padding: 20px; max-width: 400px;">
         <p-input>
@@ -109,7 +105,6 @@
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
       <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
       <div style="padding: 20px; max-width: 400px;">
         <p-input type="password">
@@ -126,7 +121,6 @@
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
       <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
       <div style="padding: 20px; max-width: 400px;">
         <p-input type="email">
@@ -145,7 +139,6 @@
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
       <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
       <div style="padding: 20px; max-width: 400px;">
         <p-input>

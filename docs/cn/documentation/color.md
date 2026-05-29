@@ -136,7 +136,6 @@ Punch-UI 提供了一套语义化的颜色变量，可以在浅色和深色主�
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
       <style>
         .color-demo {
           padding: 20px;

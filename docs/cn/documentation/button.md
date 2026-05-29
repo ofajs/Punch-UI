@@ -14,7 +14,6 @@
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <div style="padding: 20px;">
         <p-button>默认按钮</p-button>
@@ -31,7 +30,6 @@
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <div style="padding: 20px;">
         <p-button variant="filled">Filled Button</p-button>
@@ -50,7 +48,6 @@
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <div style="padding: 20px;">
         <p-button size="xs">Extra Small</p-button>
@@ -71,7 +68,6 @@
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <div style="padding: 20px;">
         <p-button>Default</p-button>
@@ -92,7 +88,6 @@
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <div style="padding: 20px;">
         <p-button icon>+</p-button>
@@ -111,7 +106,6 @@
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <div style="padding: 20px;">
         <p-button>
@@ -135,7 +129,6 @@
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <div style="padding: 20px;">
         <p-button disabled>Disabled Button</p-button>
@@ -153,7 +146,6 @@
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/group.html"></l-m>
       <div style="padding: 20px;">

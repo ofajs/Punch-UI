@@ -14,7 +14,6 @@ import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <script type="module">
         import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
@@ -41,7 +40,6 @@ import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <script type="module">
         import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
