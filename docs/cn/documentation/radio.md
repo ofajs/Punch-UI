@@ -94,9 +94,9 @@
   </code>
 </o-playground>
 
-## Radio Group
+## 初始化默认选中项
 
-使用单选框组管理多个单选框：
+使用单选框组管理多个单选框，通过 `checked` 属性设置默认选中项：
 
 <o-playground name="Radio Group" style="--editor-height: 400px">
   <code path="demo.html" preview active>
@@ -105,12 +105,98 @@
       <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
       <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
       <div style="padding: 20px;">
-        <p-radio-group id="demo-radio-group" :value="demoRadioGroupValue">
+        <p-radio-group>
           <p-radio value="a">选项 A</p-radio>
           <p-radio value="b" checked>选项 B</p-radio>
           <p-radio value="c">选项 C</p-radio>
         </p-radio-group>
       </div>
+    </template>
+  </code>
+</o-playground>
+
+## 获取值
+
+### 在 html 中通过 value 属性获取
+
+使用 `value` 属性获取单选框组的值：
+
+<o-playground name="获取值" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-radio-group id="gender-group">
+          <p-radio value="male">男</p-radio>
+          <p-radio value="female">女</p-radio>
+        </p-radio-group>
+        <p-button style="margin-top: 16px;" id="get-value-btn">获取值</p-button>
+        <p style="margin-top: 16px;">当前值: <span id="value-display"></span></p>
+      </div>
+      <script>
+        $('#get-value-btn').on('click', () => {
+          $('#value-display').text = $('#gender-group').value;
+        });
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### 监听变化事件
+
+通过监听 `change` 事件实时获取选中值：
+
+<o-playground name="监听变化事件" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-radio-group id="realtime-group">
+          <p-radio value="a">选项 A</p-radio>
+          <p-radio value="b">选项 B</p-radio>
+          <p-radio value="c">选项 C</p-radio>
+        </p-radio-group>
+        <p style="margin-top: 16px;">当前值: <span id="realtime-display"></span></p>
+      </div>
+      <script>
+        $('#realtime-group').on('change', () => {
+          $('#realtime-display').text = $('#realtime-group').value;
+        });
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### 组件或页面模块中双向绑定
+
+使用 ofa.js 的数据绑定功能：
+
+<o-playground name="获取值" style="--editor-height: 400px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-radio-group sync:value="selectedOption">
+          <p-radio value="a">选项 A</p-radio>
+          <p-radio value="b">选项 B</p-radio>
+          <p-radio value="c">选项 C</p-radio>
+        </p-radio-group>
+        <p style="margin-top: 16px;">当前值: {{ selectedOption }}</p>
+      </div>
+      <script>
+        export default {
+          data: {
+            selectedOption: 'b'
+          }
+        };
+      </script>
     </template>
   </code>
 </o-playground>

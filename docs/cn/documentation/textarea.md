@@ -171,6 +171,85 @@
   </code>
 </o-playground>
 
+## 获取值
+
+### 在 html 中通过 value 属性获取
+
+使用 `value` 属性获取输入框的值：
+
+<o-playground name="获取值" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea id="message-textarea">
+          <span slot="label">留言内容</span>
+        </p-textarea>
+        <p-button style="margin-top: 16px;" id="get-value-btn">获取值</p-button>
+        <p style="margin-top: 16px;">当前值: <span id="value-display"></span></p>
+      </div>
+      <script>
+        $('#get-value-btn').on('click', () => {
+          $('#value-display').text = $('#message-textarea').value;
+        });
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### 监听输入事件
+
+通过监听 `input` 事件实时获取输入值：
+
+<o-playground name="监听输入事件" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea id="realtime-textarea">
+          <span slot="label">实时输入</span>
+        </p-textarea>
+        <p style="margin-top: 16px;">实时值: <span id="realtime-display"></span></p>
+      </div>
+      <script>
+        $('#realtime-textarea').on('input', () => {
+          $('#realtime-display').text = $('#realtime-textarea').value;
+        });
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### 组件或页面模块中双向绑定
+
+使用 ofa.js 的数据绑定功能：
+
+<o-playground name="获取值" style="--editor-height: 400px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea sync:value="message">
+          <span slot="label">留言内容</span>
+        </p-textarea>
+        <p style="margin-top: 16px;">当前值: {{ message }}</p>
+      </div>
+      <script>
+        export default {
+          data: {
+            message: '默认留言内容'
+          }
+        };
+      </script>
+    </template>
+  </code>
+</o-playground>
+
 ## API
 
 ### 属性
@@ -180,6 +259,7 @@
 | `placeholder` | 占位文本 | `string` | - |
 | `disabled` | 是否禁用 | `boolean` | `false` |
 | `value` | 输入值 | `string` | - |
+| `default-value` | 默认值 | `string` | - |
 | `rows` | 行数 | `number` | - |
 
 ### 插槽
@@ -188,3 +268,20 @@
 |--------|------|
 | `default` | 文本框内容 |
 | `label` | 标签文本 |
+
+### 事件
+
+| 事件名 | 说明 |
+|--------|------|
+| `input` | 输入内容改变时触发 |
+| `change` | 输入框失去焦点且内容改变时触发 |
+| `focus` | 输入框获得焦点时触发 |
+| `blur` | 输入框失去焦点时触发 |
+
+### 方法
+
+| 方法名 | 说明 |
+|--------|------|
+| `focus()` | 使输入框获得焦点 |
+| `blur()` | 使输入框失去焦点 |
+| `select()` | 选中输入框中的文本 |

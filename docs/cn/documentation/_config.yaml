@@ -14,10 +14,10 @@
       url: ./input.md
     - name: Textarea 多行文本
       url: ./textarea.md
-    - name: Checkbox 复选框
-      url: ./checkbox.md
     - name: Radio 单选框
       url: ./radio.md
+    - name: Checkbox 复选框
+      url: ./checkbox.md
     - name: Select 选择器
       url: ./select.md
     - name: Switch 开关
