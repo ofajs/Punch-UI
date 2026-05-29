@@ -354,11 +354,11 @@
   </code>
         </o-playground>
         <h2>获取值</h2>
-        <h3>通过 value 属性获取</h3>
+        <h3>在 html 中通过 value 属性获取</h3>
         <p>使用 <code>value</code> 属性获取输入框的值：</p>
         <o-playground name="获取值" style="--editor-height: 400px">
           <code path="demo.html" preview active>
-    <template page>
+    <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
@@ -366,22 +366,13 @@
         <p-input id="username-input">
           <span slot="label">用户名</span>
         </p-input>
-        <p-button id="get-value-btn" style="margin-top: 16px;">获取值</p-button>
+        <p-button style="margin-top: 16px;" id="get-value-btn">获取值</p-button>
         <p style="margin-top: 16px;">当前值: <span id="value-display"></span></p>
       </div>
       <script>
-        export default async () => {
-          return {
-            ready() {
-              const input = this.$('#username-input');
-              const btn = this.$('#get-value-btn');
-              const display = this.$('#value-display');
-              btn.on('click', () => {
-                display.text = input.value;
-              });
-            }
-          };
-        };
+        $('#get-value-btn').on('click', () => {
+          $('#value-display').text = $('#username-input').value;
+        });
       </script>
     </template>
   </code>
@@ -390,7 +381,7 @@
         <p>通过监听 <code>input</code> 事件实时获取输入值：</p>
         <o-playground name="监听输入事件" style="--editor-height: 400px">
           <code path="demo.html" preview active>
-    <template page>
+    <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
       <div style="padding: 20px; max-width: 400px;">
@@ -400,47 +391,32 @@
         <p style="margin-top: 16px;">实时值: <span id="realtime-display"></span></p>
       </div>
       <script>
-        export default async () => {
-          return {
-            ready() {
-              const input = this.$('#realtime-input');
-              const display = this.$('#realtime-display');
-              input.on('input', () => {
-                display.text = input.value;
-              });
-            }
-          };
-        };
+        $('#realtime-input').on('input', () => {
+          $('#realtime-display').text = $('#realtime-input').value;
+        });
       </script>
     </template>
   </code>
         </o-playground>
-        <h3>双向绑定</h3>
+        <h3>组件或页面模块中双向绑定</h3>
         <p>使用 ofa.js 的数据绑定功能：</p>
-        <o-playground name="双向绑定" style="--editor-height: 400px">
-          <code path="demo.html" preview active>
+        <o-playground name="获取值" style="--editor-height: 400px">
+          <code path="demo.html" active>
     <template page>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
       <div style="padding: 20px; max-width: 400px;">
-        <p-input id="bind-input" :value="username">
+        <p-input sync:value="val">
           <span slot="label">用户名</span>
         </p-input>
-        <p style="margin-top: 16px;">绑定值: {{username}}</p>
+        <p style="margin-top: 16px;">当前值: {{ val }}</p>
       </div>
       <script>
-        export default async () => {
-          return {
-            data: {
-              username: ""
-            },
-            ready() {
-              const input = this.$('#bind-input');
-              input.on('input', () => {
-                this.username = input.value;
-              });
-            }
-          };
+        export default {
+          data: {
+            val: 'Default Value'
+          }
         };
       </script>
     </template>
