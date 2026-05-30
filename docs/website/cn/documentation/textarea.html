@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Textarea 多行文本</title>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/dist/ofa.mjs" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/libs/scsr/dist/scsr.min.mjs" type="module"></script>
+  <link rel="icon" href="../../img/logo.svg" />
+  <link rel="stylesheet" href="../../css/palette.css" pui-colors />
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/github-markdown.css" />
+  <link rel="stylesheet" href="../../css/hljs.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+    }
+
+    o-app {
+      height: 100%;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    o-app {
+      animation: fadein 0.1s ease-in-out;
+    }
+  </style>
+  <script type="module" src="../../js/util.js"></script>
+  <!--google analytics-->
+</head>
+
+<body>
+  <o-app src="../../js/app-config.js">
+    <template page>
+      <link rel="stylesheet" href="../../css/github-markdown.css" />
+      <link rel="stylesheet" href="../../css/hljs.css" />
+      <l-m src="../../comps/center-block.html"></l-m>
+      <l-m src="../../comps/article-code.html"></l-m>
+      <l-m src="https://playground.ofajs.com/comps/o-playground/o-playground.html"></l-m>
+      <style>
+        :host {
+          display: block;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          overflow: auto;
+        }
+      </style>
+      <link rel="stylesheet" href="../../css/page.css" />
+      <article class="markdown-body">
+        <h1>Textarea 多行文本</h1>
+        <p>多行文本输入框组件，支持响应式高度和表单集成。</p>
+        <h2>引入组件</h2>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://punch-ui-v2.pages.dev/packages/textarea/textarea.html&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span></code></pre>
+        <h2>基本用法</h2>
+        <o-playground name="Textarea 基本用法" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea placeholder="请输入内容"></p-textarea>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>带标签</h2>
+        <o-playground name="带标签的 Textarea" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea>
+          <span slot="label">留言</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>变体样式</h2>
+        <p>通过 <code>variant</code> 属性设置输入框样式：</p>
+        <o-playground name="Textarea 变体" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea>
+          <span slot="label">Outlined (默认)</span>
+        </p-textarea>
+        <p-textarea variant="filled" style="margin-top: 16px;">
+          <span slot="label">Filled</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>尺寸</h2>
+        <p>通过 <code>size</code> 属性设置输入框尺寸：</p>
+        <o-playground name="Textarea 尺寸" style="--editor-height: 500px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea size="xs">
+          <span slot="label">Extra Small</span>
+        </p-textarea>
+        <p-textarea size="s" style="margin-top: 16px;">
+          <span slot="label">Small</span>
+        </p-textarea>
+        <p-textarea size="m" style="margin-top: 16px;">
+          <span slot="label">Medium (Default)</span>
+        </p-textarea>
+        <p-textarea size="l" style="margin-top: 16px;">
+          <span slot="label">Large</span>
+        </p-textarea>
+        <p-textarea size="xl" style="margin-top: 16px;">
+          <span slot="label">Extra Large</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>颜色</h2>
+        <p>通过 <code>color</code> 属性设置输入框颜色：</p>
+        <o-playground name="Textarea 颜色" style="--editor-height: 500px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea color="primary">
+          <span slot="label">Primary Color</span>
+        </p-textarea>
+        <p-textarea color="success" style="margin-top: 16px;">
+          <span slot="label">Success Color</span>
+        </p-textarea>
+        <p-textarea color="neutral" style="margin-top: 16px;">
+          <span slot="label">Neutral Color</span>
+        </p-textarea>
+        <p-textarea color="error" style="margin-top: 16px;">
+          <span slot="label">Error Color</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>前缀和后缀</h2>
+        <p>使用 <code>prefix</code> 和 <code>suffix</code> 插槽添加前缀/后缀内容：</p>
+        <o-playground name="带前缀/后缀的 Textarea" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea>
+          <span slot="label">Message</span>
+          <span slot="prefix">📝</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>占位符</h2>
+        <p>使用 <code>placeholder</code> 属性设置占位文本：</p>
+        <o-playground name="占位符" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea placeholder="Enter your message...">
+          <span slot="label">Message</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>自动聚焦</h2>
+        <p>使用 <code>autofocus</code> 属性使输入框在页面加载时自动获得焦点：</p>
+        <o-playground name="自动聚焦" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea autofocus>
+          <span slot="label">自动聚焦</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>获取值</h2>
+        <h3>在 html 中通过 value 属性获取</h3>
+        <p>使用 <code>value</code> 属性获取输入框的值：</p>
+        <o-playground name="获取值" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea id="message-textarea">
+          <span slot="label">留言内容</span>
+        </p-textarea>
+        <p-button style="margin-top: 16px;" id="get-value-btn">获取值</p-button>
+        <p style="margin-top: 16px;">当前值: <span id="value-display"></span></p>
+      </div>
+      <script>
+        $('#get-value-btn').on('click', () => {
+          $('#value-display').text = $('#message-textarea').value;
+        });
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h3>监听输入事件</h3>
+        <p>通过监听 <code>input</code> 事件实时获取输入值：</p>
+        <o-playground name="监听输入事件" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea id="realtime-textarea">
+          <span slot="label">实时输入</span>
+        </p-textarea>
+        <p style="margin-top: 16px;">实时值: <span id="realtime-display"></span></p>
+      </div>
+      <script>
+        $('#realtime-textarea').on('input', () => {
+          $('#realtime-display').text = $('#realtime-textarea').value;
+        });
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h3>组件或页面模块中双向绑定</h3>
+        <p>使用 ofa.js 的数据绑定功能：</p>
+        <o-playground name="获取值" style="--editor-height: 400px">
+          <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea sync:value="message">
+          <span slot="label">留言内容</span>
+        </p-textarea>
+        <p style="margin-top: 16px;">当前值: {{ message }}</p>
+      </div>
+      <script>
+        export default {
+          data: {
+            message: '默认留言内容'
+          }
+        };
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h2>API</h2>
+        <h3>属性</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>属性</th>
+              <th>说明</th>
+              <th>类型</th>
+              <th>默认值</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>placeholder</code></td>
+              <td>占位文本</td>
+              <td><code>string</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>disabled</code></td>
+              <td>是否禁用</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>value</code></td>
+              <td>输入值</td>
+              <td><code>string</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>default-value</code></td>
+              <td>默认值</td>
+              <td><code>string</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>rows</code></td>
+              <td>行数</td>
+              <td><code>number</code></td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>插槽</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>插槽名</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>default</code></td>
+              <td>文本框内容</td>
+            </tr>
+            <tr>
+              <td><code>label</code></td>
+              <td>标签文本</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>事件</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>事件名</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>input</code></td>
+              <td>输入内容改变时触发</td>
+            </tr>
+            <tr>
+              <td><code>change</code></td>
+              <td>输入框失去焦点且内容改变时触发</td>
+            </tr>
+            <tr>
+              <td><code>focus</code></td>
+              <td>输入框获得焦点时触发</td>
+            </tr>
+            <tr>
+              <td><code>blur</code></td>
+              <td>输入框失去焦点时触发</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>方法</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>方法名</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>focus()</code></td>
+              <td>使输入框获得焦点</td>
+            </tr>
+            <tr>
+              <td><code>blur()</code></td>
+              <td>使输入框失去焦点</td>
+            </tr>
+            <tr>
+              <td><code>select()</code></td>
+              <td>选中输入框中的文本</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+      <div class="footer"></div>
+      <script>
+        export const parent = "../../layout.html";
+        export default async ({
+          load,
+          query
+        }) => {
+          const {
+            init,
+            revoke
+          } = await load("../../js/init.js");
+          return {
+            data: {},
+            attached() {
+              init(this, query);
+              setTimeout(() => {
+                this.style.transform = "";
+              }, 300);
+            },
+            detached() {
+              revoke(this);
+            },
+          };
+        };
+      </script>
+    </template>
+  </o-app>
+  <o-root-provider name="pui" theme="dark"></o-root-provider>
+</body>
+
+</html>

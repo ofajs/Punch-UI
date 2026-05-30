@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Button 按钮</title>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/dist/ofa.mjs" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/libs/scsr/dist/scsr.min.mjs" type="module"></script>
+  <link rel="icon" href="../../img/logo.svg" />
+  <link rel="stylesheet" href="../../css/palette.css" pui-colors />
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/github-markdown.css" />
+  <link rel="stylesheet" href="../../css/hljs.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+    }
+
+    o-app {
+      height: 100%;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    o-app {
+      animation: fadein 0.1s ease-in-out;
+    }
+  </style>
+  <script type="module" src="../../js/util.js"></script>
+  <!--google analytics-->
+</head>
+
+<body>
+  <o-app src="../../js/app-config.js">
+    <template page>
+      <link rel="stylesheet" href="../../css/github-markdown.css" />
+      <link rel="stylesheet" href="../../css/hljs.css" />
+      <l-m src="../../comps/center-block.html"></l-m>
+      <l-m src="../../comps/article-code.html"></l-m>
+      <l-m src="https://playground.ofajs.com/comps/o-playground/o-playground.html"></l-m>
+      <style>
+        :host {
+          display: block;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          overflow: auto;
+        }
+      </style>
+      <link rel="stylesheet" href="../../css/page.css" />
+      <article class="markdown-body">
+        <h1>Button 按钮</h1>
+        <p>按钮组件是 Punch-UI 中最常用的组件之一，提供了多种样式、尺寸和颜色选择。</p>
+        <h2>引入组件</h2>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://punch-ui-v2.pages.dev/packages/button/button.html&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span></code></pre>
+        <h2>基本用法</h2>
+        <o-playground name="Button 基本用法" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button>默认按钮</p-button>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>按钮变体</h2>
+        <p>通过 <code>variant</code> 属性设置按钮样式：</p>
+        <o-playground name="Button 变体" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button variant="filled">Filled Button</p-button>
+        <p-button variant="outlined">Outlined Button</p-button>
+        <p-button variant="text">Text Button</p-button>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>尺寸</h2>
+        <p>通过 <code>size</code> 属性设置按钮尺寸：</p>
+        <o-playground name="Button 尺寸" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button size="xs">Extra Small</p-button>
+        <p-button size="s">Small</p-button>
+        <p-button>Default</p-button>
+        <p-button size="l">Large</p-button>
+        <p-button size="xl">Extra Large</p-button>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>颜色</h2>
+        <p>通过 <code>color</code> 属性设置按钮颜色：</p>
+        <o-playground name="Button 颜色" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button>Default</p-button>
+        <p-button color="primary">Primary</p-button>
+        <p-button color="error">Error</p-button>
+        <p-button color="success">Success</p-button>
+        <p-button color="neutral">Neutral</p-button>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>图标按钮</h2>
+        <p>添加 <code>icon</code> 属性使按钮成为圆形图标按钮：</p>
+        <o-playground name="图标按钮" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button icon>+</p-button>
+        <p-button icon size="s">-</p-button>
+        <p-button icon size="l">×</p-button>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>带前缀/后缀</h2>
+        <p>使用 <code>prefix</code> 和 <code>suffix</code> 插槽添加图标或文本：</p>
+        <o-playground name="带前缀/后缀的按钮" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button>
+          <span slot="prefix">🔍</span>
+          Search
+        </p-button>
+        <p-button>
+          Settings
+          <span slot="suffix">⚙️</span>
+        </p-button>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>禁用状态</h2>
+        <p>添加 <code>disabled</code> 属性禁用按钮：</p>
+        <o-playground name="禁用状态" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button disabled>Disabled Button</p-button>
+        <p-button variant="outlined" disabled>Disabled Outlined</p-button>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>自动聚焦</h2>
+        <p>使用 <code>autofocus</code> 属性使按钮在页面加载时自动获得焦点：</p>
+        <o-playground name="自动聚焦" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button autofocus>自动聚焦按钮</p-button>
+        <p-button>普通按钮</p-button>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Button Group</h2>
+        <p>使用按钮组将多个按钮组合在一起：</p>
+        <o-playground name="Button Group" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/group.html"></l-m>
+      <div style="padding: 20px;">
+        <h4>基础按钮组</h4>
+        <p-button-group>
+          <p-button>按钮 1</p-button>
+          <p-button>按钮 2</p-button>
+          <p-button>按钮 3</p-button>
+        </p-button-group>
+        <h4 style="margin-top: 20px;">连接按钮组</h4>
+        <p-button-group connected>
+          <p-button variant="outlined">首页</p-button>
+          <p-button variant="outlined">产品</p-button>
+          <p-button variant="outlined">关于</p-button>
+        </p-button-group>
+        <h4 style="margin-top: 20px;">全宽按钮组</h4>
+        <p-button-group full-width>
+          <p-button>Left</p-button>
+          <p-button>Center</p-button>
+          <p-button>Right</p-button>
+        </p-button-group>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>高级用法</h2>
+        <h3>分段控制（单选）</h3>
+        <p>使用按钮组实现分段控制，适用于切换视图模式等场景：</p>
+        <o-playground name="分段控制" style="--editor-height: 400px">
+          <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button-group>
+          <p-button
+            attr:variant="selected === 'day' ? 'filled' : 'outlined'"
+            on:click="selected = 'day'"
+          >
+            Day
+          </p-button>
+          <p-button
+            attr:variant="selected === 'week' ? 'filled' : 'outlined'"
+            on:click="selected = 'week'"
+          >
+            Week
+          </p-button>
+          <p-button
+            attr:variant="selected === 'month' ? 'filled' : 'outlined'"
+            on:click="selected = 'month'"
+          >
+            Month
+          </p-button>
+        </p-button-group>
+      </div>
+      <script>
+        export default {
+          data: {
+            selected: 'day'
+          }
+        };
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h3>过滤器芯片（多选）</h3>
+        <p>使用按钮组实现多选过滤器：</p>
+        <o-playground name="过滤器芯片" style="--editor-height: 400px">
+          <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/group.html"></l-m>
+      <style>
+        p-button {
+          transition: all 0.2s ease;
+        }
+      </style>
+      <div style="padding: 20px;">
+        <p-button-group>
+          <p-button
+            attr:color="filters.includes('all') ? 'primary' : 'neutral'"
+            :style.border-radius="filters.includes('all') ? '28px' : ''"
+            on:click="toggleFilter('all')"
+          >
+            All
+          </p-button>
+          <p-button
+            attr:color="filters.includes('active') ? 'primary' : 'neutral'"
+            :style.border-radius="filters.includes('active') ? '28px' : ''"
+            on:click="toggleFilter('active')"
+          >
+            Active
+          </p-button>
+          <p-button
+            attr:color="filters.includes('completed') ? 'primary' : 'neutral'"
+            :style.border-radius="filters.includes('completed') ? '28px' : ''"
+            on:click="toggleFilter('completed')"
+          >
+            Completed
+          </p-button>
+        </p-button-group>
+      </div>
+      <script>
+        export default {
+          data: {
+            filters: ['all']
+          },
+          proto: {
+            toggleFilter(filter) {
+              const index = this.filters.indexOf(filter);
+              if (index > -1) {
+                this.filters.splice(index, 1);
+              } else {
+                this.filters.push(filter);
+              }
+            }
+          }
+        };
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h3>排序选项</h3>
+        <p>使用按钮组实现排序选项切换：</p>
+        <o-playground name="排序选项" style="--editor-height: 400px">
+          <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/group.html"></l-m>
+      <style>
+        p-button {
+          transition: all 0.2s ease;
+        }
+      </style>
+      <div style="padding: 20px;">
+        <p-button-group>
+          <p-button
+            attr:color="order === 'newest' ? 'primary' : 'neutral'"
+            :style.border-radius="order === 'newest' ? '28px' : ''"
+            on:click="order = 'newest'"
+          >
+            Newest
+          </p-button>
+          <p-button
+            attr:color="order === 'oldest' ? 'primary' : 'neutral'"
+            :style.border-radius="order === 'oldest' ? '28px' : ''"
+            on:click="order = 'oldest'"
+          >
+            Oldest
+          </p-button>
+          <p-button
+            attr:color="order === 'price' ? 'primary' : 'neutral'"
+            :style.border-radius="order === 'price' ? '28px' : ''"
+            on:click="order = 'price'"
+          >
+            Price
+          </p-button>
+        </p-button-group>
+      </div>
+      <script>
+        export default {
+          data: {
+            order: 'newest'
+          }
+        };
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h2>API</h2>
+        <h3>属性</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>属性</th>
+              <th>说明</th>
+              <th>类型</th>
+              <th>默认值</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>variant</code></td>
+              <td>按钮样式</td>
+              <td><code>filled</code> | <code>outlined</code> | <code>text</code></td>
+              <td><code>filled</code></td>
+            </tr>
+            <tr>
+              <td><code>size</code></td>
+              <td>按钮尺寸</td>
+              <td><code>xs</code> | <code>s</code> | <code>l</code> | <code>xl</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>color</code></td>
+              <td>按钮颜色</td>
+              <td><code>primary</code> | <code>error</code> | <code>success</code> | <code>neutral</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>icon</code></td>
+              <td>是否为图标按钮</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>disabled</code></td>
+              <td>是否禁用</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>autofocus</code></td>
+              <td>是否自动聚焦</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>插槽</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>插槽名</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>default</code></td>
+              <td>按钮内容</td>
+            </tr>
+            <tr>
+              <td><code>prefix</code></td>
+              <td>前缀内容</td>
+            </tr>
+            <tr>
+              <td><code>suffix</code></td>
+              <td>后缀内容</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+      <div class="footer"></div>
+      <script>
+        export const parent = "../../layout.html";
+        export default async ({
+          load,
+          query
+        }) => {
+          const {
+            init,
+            revoke
+          } = await load("../../js/init.js");
+          return {
+            data: {},
+            attached() {
+              init(this, query);
+              setTimeout(() => {
+                this.style.transform = "";
+              }, 300);
+            },
+            detached() {
+              revoke(this);
+            },
+          };
+        };
+      </script>
+    </template>
+  </o-app>
+  <o-root-provider name="pui" theme="dark"></o-root-provider>
+</body>
+
+</html>

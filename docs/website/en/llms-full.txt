@@ -1,0 +1,4828 @@
+<!-- introduction.html -->
+
+# Punch-UI Introduction
+
+Punch-UI is a modern UI component library built on [ofa.js](https://github.com/ofajs/ofa.js), providing a rich set of components and comprehensive theme customization capabilities.
+
+## Features
+
+- 🎨 **Material Design 3** - Adopts the latest Material Design 3 specification, providing a modern visual experience
+- 🌗 **Theme Switching** - Built-in dark/light theme support, can automatically follow the system or be manually toggled
+- 📦 **On-Demand Loading** - Based on the modular design of ofa.js, only loads the required components
+- 🔧 **Highly Customizable** - Supports custom themes, colors and styles
+- 📱 **Responsive Design** - All components support responsive layout, adaptable to both mobile and desktop
+
+## Component List
+
+Punch-UI provides a rich component library, covering the following categories：
+
+### Basic Components
+
+- **Button** - Button, supports multiple styles, sizes and colors
+- **Input** - Input box, supports multiple styles and sizes
+- **Textarea** - Multi-line text input box
+
+### Form Components
+
+- **Checkbox** - Checkbox, supports single and combined use
+- **Radio** - Radio button, supports single and combined use
+- **Select** - Dropdown selector
+- **Switch** - Toggle switch
+
+### Data Display
+
+- **List** - List item component, supporting prefix and suffix
+- **Tabs** - Tab component
+
+### Feedback Component
+
+- **Dialog** - modal dialog
+- **Snackbar** - snackbar
+
+### Navigation Component
+
+- **Navigation** - Navigation bar and navigation layout
+
+### Utility Functions
+
+- **Toast** - Lightweight notification
+- **Alert** - Alert box
+- **Confirm** - Confirm box
+- **Prompt** - Prompt box
+
+## Why Choose Punch-UI?
+
+### 1. No Build Tools Needed
+
+Punch-UI is based on ofa.js and can be used directly in the browser without build tools like Webpack or Vite. This makes development simpler and faster.
+
+### 2. Modular Design
+
+Each component is an independent module that can be loaded on demand, without introducing unnecessary code.
+
+### 3. Comprehensive Theme System
+
+Based on the Material Design 3 color system, it provides semantic color variables and automatically adapts to dark/light themes.
+
+### 4. Easy to Customize
+
+Support customizing themes via CSS variables, and also customizing component styles via CSS Part selectors.
+
+## Browser Support
+
+Punch-UI supports all modern browsers:
+
+- Chrome (latest version)
+- Firefox (latest version)
+- Safari (latest version)
+- Edge (latest version)
+
+## Next Step
+
+- [Installation](./installation.md) - Learn how to install and configure Punch-UI
+- [First Example](./first-example.md) - Create your first Punch-UI application
+
+---
+
+<!-- confirm.html -->
+
+# Confirm Dialog
+
+Confirm is used to display a confirmation dialog， which contains confirm and cancel buttons。 It is suitable for operation scenarios that require user confirmation。
+
+## Introduction
+
+```javascript
+import confirm from 'https://punch-ui-v2.pages.dev/packages/util/confirm.js';
+```
+
+## Basic Usage
+
+<o-playground name="Confirm Basic Usage" style="--editor-height: 400px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <script type="module">
+        import confirm from 'https://punch-ui-v2.pages.dev/packages/util/confirm.js';
+        import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
+        export default async () => {
+          return {
+            proto: {
+              async showConfirm() {
+                const result = await confirm('Are you sure you want to delete?');
+                if (result) {
+                  toast('Deleted');
+                } else {
+                  toast('Cancelled');
+                }
+              }
+            }
+          };
+        };
+      </script>
+      <div style="padding: 20px; text-align: center;">
+        <p-button color="error" on:click="showConfirm">Delete</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Complete Parameter Example
+
+<o-playground name="Confirm Full Parameters" style="--editor-height: 500px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <script type="module">
+        import confirm from 'https://punch-ui-v2.pages.dev/packages/util/confirm.js';
+        import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
+        export default async () => {
+          return {
+            proto: {
+              async showFullConfirm() {
+                const result = await confirm({
+                  title: 'Delete Confirmation',
+                  message: 'This action will permanently delete the file and cannot be undone. Are you sure you want to continue?',
+                  yes: 'Confirm Delete',
+                  cancel: 'Think Again'
+                });
+                if (result) {
+                  toast('File deleted');
+                } else {
+                  toast('Operation cancelled');
+                }
+              }
+            }
+          };
+        };
+      </script>
+      <div style="padding: 20px; text-align: center;">
+        <p-button color="error" on:click="showFullConfirm">Delete File</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## API
+
+### Parameters
+
+| Parameter | Type | Default | Description |
+|------|------|--------|------|
+| title | `string` | `''` | Dialog title |
+| message | `string` | - | Prompt message content |
+| yes | `string` | `'Yes'` | Confirm button text |
+| cancel | `string` | `'Cancel'` | Cancel button text |### Return Value
+
+Returns a Promise, which resolves to `true` if the user clicks confirm, and `false` if the user clicks cancel.
+
+### Example
+
+```javascript
+// Basic Usage
+const result = await confirm('Are you sure you want to delete?');
+if (result) {
+  console.log('User confirmed deletion');
+} else {
+  console.log('User cancelled deletion');
+}
+
+// Full Parameters
+const result = await confirm({
+  title: 'Delete Confirmation',
+  message: 'This action will permanently delete the file and cannot be recovered. Are you sure you want to continue?',
+  yes: 'Confirm Delete',
+  cancel: 'Think Again'
+});
+```
+
+---
+
+<!-- theming.html -->
+
+# Theme Customization
+
+Punch-UI provides flexible theme customization capabilities, allowing you to customize theme colors through CSS variables.
+
+## Theme Switching
+
+### Automatic Theme Switching
+
+By default, Punch-UI automatically follows the system theme:
+
+```html
+<html>
+  <!-- Automatically follows system theme -->
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css"
+    />
+  </head>
+</html>
+```
+
+### Manual Theme Switching
+
+You can force a specific theme by adding a class to the `html` element:
+
+```html
+<!-- Force light theme -->
+<html class="theme-light-mode">
+  ...
+</html>
+
+<!-- Force dark theme -->
+<html class="theme-dark-mode">
+  ...
+</html>
+```
+
+### Custom Theme Toggle Component
+
+<o-playground name="Theme Switch Example" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="./theme-switch.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px; text-align: center;">
+        <h3>Theme Switch</h3>
+        <theme-switch></theme-switch>
+        <div style="margin-top: 20px;">
+          <p-button color="primary">Primary Button</p-button>
+          <p-button color="success">Success Button</p-button>
+          <p-button color="error">Error Button</p-button>
+        </div>
+      </div>
+    </template>
+  </code>
+  <code path="theme-switch.html">
+    <template component>
+      <link
+        rel="stylesheet"
+        href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css"
+      />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <p-switch sync:value="isDark" on:change="toggleTheme"> Dark Mode </p-switch>
+      <script>
+        export default async () => {
+          return {
+            tag: "theme-switch",
+            data: {
+              isDark: window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "on"
+                : "off",
+            },
+            proto: {
+              toggleTheme() {
+                if (this.isDark === "on") {
+                  $("html").classList.remove("theme-light-mode");
+                  $("html").classList.add("theme-dark-mode");
+                } else {
+                  $("html").classList.remove("theme-dark-mode");
+                  $("html").classList.add("theme-light-mode");
+                }
+              },
+            },
+          };
+        };
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+## Custom Theme Color
+
+### Overriding CSS Variables
+
+You can customize theme colors by overriding CSS variables:
+
+```html
+<style>
+  :root {
+    /* Custom primary color */
+    --md-sys-color-primary: #6750a4;
+    --md-sys-color-on-primary: #ffffff;
+    --md-sys-color-primary-container: #eaddff;
+    --md-sys-color-on-primary-container: #21005d;
+  }
+
+  /* Custom colors under dark theme */
+  :root.theme-dark-mode {
+    --md-sys-color-primary: #d0bcff;
+    --md-sys-color-on-primary: #381e72;
+    --md-sys-color-primary-container: #4f378b;
+    --md-sys-color-on-primary-container: #eaddff;
+  }
+</style>
+```
+
+### Complete Example
+
+<o-playground name="Custom Theme Color" style="--editor-height: 600px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <style>
+        :root {
+          /* Custom primary color set to purple */
+          --md-sys-color-primary: #6750a4;
+          --md-sys-color-on-primary: #ffffff;
+          --md-sys-color-primary-container: #eaddff;
+          --md-sys-color-on-primary-container: #21005d;
+        }
+        :root.theme-dark-mode {
+          --md-sys-color-primary: #d0bcff;
+          --md-sys-color-on-primary: #381e72;
+          --md-sys-color-primary-container: #4f378b;
+          --md-sys-color-on-primary-container: #eaddff;
+        }
+        .demo-container {
+          padding: 20px;
+          max-width: 400px;
+          margin: 0 auto;
+        }
+      </style>
+      <div class="demo-container">
+        <h3>Custom Purple Theme</h3>
+        <p-button color="primary">Custom Primary Button</p-button>
+        <p-button variant="outlined" color="primary">Outlined Button</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Create Custom Theme
+
+### Step 1: Define Color Variables
+
+Create a CSS file to define your theme colors:
+
+```css
+/* custom-theme.css */
+
+/* Light theme */
+:root {
+  /* Primary */
+  --md-sys-color-primary: #0060a9;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #d3e4ff;
+  --md-sys-color-on-primary-container: #001c38;
+
+  /* Success */
+  --md-sys-color-success: #3a6a24;
+  --md-sys-color-on-success: #ffffff;
+  --md-sys-color-success-container: #baf29c;
+  --md-sys-color-on-success-container: #062100;
+
+  /* Error */
+  --md-sys-color-error: #bc1421;
+  --md-sys-color-on-error: #ffffff;
+  --md-sys-color-error-container: #ffdad7;
+  --md-sys-color-on-error-container: #410004;
+
+  /* Neutral */
+  --md-sys-color-neutral: #5e5e5e;
+  --md-sys-color-on-neutral: #ffffff;
+  --md-sys-color-neutral-container: #e3e2e2;
+  --md-sys-color-on-neutral-container: #1b1c1c;
+}
+
+/* Dark theme */
+:root.theme-dark-mode {
+  /* Primary */
+  --md-sys-color-primary: #a2c9ff;
+  --md-sys-color-on-primary: #00315b;
+  --md-sys-color-primary-container: #004881;
+  --md-sys-color-on-primary-container: #d3e4ff;
+
+  /* Success */
+  --md-sys-color-success: #9fd582;
+  --md-sys-color-on-success: #103900;
+  --md-sys-color-success-container: #22510d;
+  --md-sys-color-on-success-container: #baf29c;
+
+  /* Error */
+  --md-sys-color-error: #ffb3ad;
+  --md-sys-color-on-error: #68000a;
+  --md-sys-color-error-container: #930013;
+  --md-sys-color-on-error-container: #ffdad7;
+
+  /* Neutral */
+  --md-sys-color-neutral: #c7c6c6;
+  --md-sys-color-on-neutral: #303031;
+  --md-sys-color-neutral-container: #464747;
+  --md-sys-color-on-neutral-container: #e3e2e2;
+}
+```
+
+### Step 2: Introduce Custom Theme
+
+Import custom theme styles in your HTML file:
+
+```html
+<link
+  rel="stylesheet"
+  href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css"
+/>
+<link rel="stylesheet" href="./custom-theme.css" />
+```
+
+## Component Style Customization
+
+### Using CSS Part
+
+Some components support customizing internal styles through the CSS Part selector:
+
+```html
+<style>
+  p-input::part(input) {
+    border-radius: 12px;
+    font-size: 16px;
+  }
+</style>
+
+<p-input placeholder="Custom Input"></p-input>
+```
+
+### Using Custom Classes
+
+You can also add custom classes to the component to override the styles:
+
+```html
+<style>
+  .custom-button {
+    border-radius: 20px;
+    font-weight: bold;
+  }
+</style>
+
+<p-button class="custom-button" color="primary">Custom Button</p-button>
+```
+
+## Best Practices
+
+### 1. Maintain Contrast
+
+When customizing colors, ensure sufficient contrast between text and background to meet accessibility standards.
+
+### 2. Test dark theme
+
+After customizing colors, be sure to test under both dark and light themes to ensure good visual effects.
+
+### 3. Using Color Generation Tools
+
+It is recommended to use the [Material Design Color Tool](https://m3.material.io/theme-builder) to generate a color scheme that meets the specifications.
+
+## Next Step
+
+- [Component Documentation](../components/button.md) - View detailed usage of each component
+
+---
+
+<!-- alert.html -->
+
+# Alert Warning Box
+
+Alert is used to display a warning dialog with only a confirm button. It is suitable for scenarios such as important information prompts and operation result notifications.
+
+## Introduction
+
+```javascript
+import alert from 'https://punch-ui-v2.pages.dev/packages/util/alert.js';
+```
+
+## Basic Usage
+
+<o-playground name="Alert Basic Usage" style="--editor-height: 400px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <script type="module">
+        import alert from 'https://punch-ui-v2.pages.dev/packages/util/alert.js';
+        export default async () => {
+          return {
+            proto: {
+              async showAlert() {
+                await alert('This is a warning message');
+              }
+            }
+          };
+        };
+      </script>
+      <div style="padding: 20px; text-align: center;">
+        <p-button color="primary" on:click="showAlert">Show Alert</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## With Title and Custom Button
+
+<o-playground name="Alert Custom" style="--editor-height: 500px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <script type="module">
+        import alert from 'https://punch-ui-v2.pages.dev/packages/util/alert.js';
+        export default async () => {
+          return {
+            proto: {
+              async showCustomAlert() {
+                await alert({
+                  title: 'Tip',
+                  message: 'Operation completed',
+                  ok: 'Got it'
+                });
+              }
+            }
+          };
+        };
+      </script>
+      <div style="padding: 20px; text-align: center;">
+        <p-button color="primary" on:click="showCustomAlert">Custom Alert</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## API
+
+### Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| title | `string` | `'Prompt'` | Dialog title |
+| message | `string` | - | Prompt message content |
+| ok | `string` | `'OK'` | Confirm button text |### Return Value
+
+Returns a Promise that resolves after the user clicks the confirm button.
+
+### Example
+
+```javascript
+// Basic usage
+await alert('This is an alert message');
+
+// With configuration
+await alert({
+  title: 'Notice',
+  message: 'Operation completed',
+  ok: 'Got it'
+});
+```
+
+---
+
+<!-- select.html -->
+
+# Select Selector
+
+Dropdown selector component, supports single and multiple selection.
+
+## Importing Components
+
+```html
+<l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+```
+
+## Basic Usage
+
+<o-playground name="Select Basic Usage" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/option.html"></l-m>
+      <div style="padding: 20px;">
+        <p-select placeholder="Please select" style="width: 200px;">
+          <p-option value="1">Option 1</p-option>
+          <p-option value="2">Option 2</p-option>
+          <p-option value="3">Option 3</p-option>
+        </p-select>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Variant Styles
+
+Set the selector style via the `variant` attribute:
+
+<o-playground name="Select variants" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/option.html"></l-m>
+      <div style="padding: 20px;">
+        <p-select style="width: 150px;">
+          <span slot="label">Outlined (default)</span>
+          <p-option value="1">Option 1</p-option>
+          <p-option value="2">Option 2</p-option>
+        </p-select>
+        <p-select variant="filled" style="margin-top: 16px; width: 150px;">
+          <span slot="label">Filled</span>
+          <p-option value="1">Option 1</p-option>
+          <p-option value="2">Option 2</p-option>
+        </p-select>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Dimensions
+
+Set the selector size via the `size` attribute:
+
+<o-playground name="Select Size" style="--editor-height: 500px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/option.html"></l-m>
+      <div style="padding: 20px;">
+        <p-select size="xs" style="width: 150px;">
+          <span slot="label">Extra Small (xs)</span>
+          <p-option value="1">Option 1</p-option>
+        </p-select>
+        <p-select size="s" style="margin-top: 16px; width: 150px;">
+          <span slot="label">Small (s)</span>
+          <p-option value="1">Option 1</p-option>
+        </p-select>
+        <p-select style="margin-top: 16px; width: 150px;">
+          <span slot="label">Default</span>
+          <p-option value="1">Option 1</p-option>
+        </p-select>
+        <p-select size="l" style="margin-top: 16px; width: 150px;">
+          <span slot="label">Large (l)</span>
+          <p-option value="1">Option 1</p-option>
+        </p-select>
+        <p-select size="xl" style="margin-top: 16px; width: 150px;">
+          <span slot="label">Extra Large (xl)</span>
+          <p-option value="1">Option 1</p-option>
+        </p-select>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Colors
+
+Set the selector color through the `color` property:
+
+<o-playground name="Select Color" style="--editor-height: 500px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/option.html"></l-m>
+      <div style="padding: 20px;">
+        <p-select color="primary" style="width: 200px;">
+          <span slot="label">Primary Color</span>
+          <p-option value="1">Option 1</p-option>
+        </p-select>
+        <p-select color="success" style="margin-top: 16px; width: 200px;">
+          <span slot="label">Success Color</span>
+          <p-option value="1">Option 1</p-option>
+        </p-select>
+        <p-select color="neutral" style="margin-top: 16px; width: 200px;">
+          <span slot="label">Neutral Color</span>
+          <p-option value="1">Option 1</p-option>
+        </p-select>
+        <p-select color="error" style="margin-top: 16px; width: 200px;">
+          <span slot="label">Error Color</span>
+          <p-option value="1">Option 1</p-option>
+        </p-select>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Prefix and Suffix
+
+Use the `prefix` and `suffix` slots to add a prefix or suffix:
+
+<o-playground name="Select with Prefix/Suffix" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/option.html"></l-m>
+      <div style="padding: 20px;">
+        <p-select style="width: 200px;">
+          <span slot="prefix">🌐</span>
+          <span slot="label">Language</span>
+          <p-option value="en">English</p-option>
+          <p-option value="zh">Chinese</p-option>
+        </p-select>
+        <p-select style="margin-top: 16px; width: 200px;">
+          <span slot="label">Currency</span>
+          <span slot="suffix">💰</span>
+          <p-option value="usd">USD</p-option>
+          <p-option value="eur">EUR</p-option>
+        </p-select>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Disabled State
+
+Add the `disabled` attribute to disable the selector:
+
+<o-playground name="Disabled State" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/option.html"></l-m>
+      <div style="padding: 20px;">
+        <p-select disabled style="width: 200px;">
+          <span slot="label">Disabled Selector</span>
+          <p-option value="1">Option 1</p-option>
+          <p-option value="2">Option 2</p-option>
+        </p-select>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Get Value
+
+### Get via value attribute in HTML
+
+Use the `value` property to get the value of the selector:
+
+<o-playground name="Get Value" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/option.html"></l-m>
+      <div style="padding: 20px;">
+        <p-select id="city-select" style="width: 200px;">
+          <span slot="label">Select City</span>
+          <p-option value="beijing">Beijing</p-option>
+          <p-option value="shanghai">Shanghai</p-option>
+          <p-option value="guangzhou">Guangzhou</p-option>
+        </p-select>
+        <p-button style="margin-top: 16px;" id="get-value-btn">Get Value</p-button>
+        <p style="margin-top: 16px;">Current value: <span id="value-display"></span></p>
+      </div>
+      <script>
+        $('#get-value-btn').on('click', () => {
+          $('#value-display').text = $('#city-select').value;
+        });
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### Monitor change events
+
+Listen to the `change` event to get the selected value in real time:
+
+<o-playground name="Listening to change events" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/option.html"></l-m>
+      <div style="padding: 20px;">
+        <p-select id="realtime-select" style="width: 200px;">
+          <span slot="label">Real-time Selection</span>
+          <p-option value="apple">Apple</p-option>
+          <p-option value="banana">Banana</p-option>
+          <p-option value="orange">Orange</p-option>
+        </p-select>
+        <p style="margin-top: 16px;">Current value: <span id="realtime-display"></span></p>
+      </div>
+      <script>
+        $('#realtime-select').on('change', () => {
+          $('#realtime-display').text = $('#realtime-select').value;
+        });
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### Two-way binding in components or page modules
+
+Use ofa.js's data binding feature：
+
+<o-playground name="Get Value" style="--editor-height: 400px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/option.html"></l-m>
+      <div style="padding: 20px;">
+        <p-select sync:value="selectedCity" style="width: 200px;">
+          <span slot="label">Select City</span>
+          <p-option value="beijing">Beijing</p-option>
+          <p-option value="shanghai">Shanghai</p-option>
+          <p-option value="guangzhou">Guangzhou</p-option>
+        </p-select>
+        <p style="margin-top: 16px;">Current value: {{ selectedCity }}</p>
+      </div>
+      <script>
+        export default {
+          data: {
+            selectedCity: 'shanghai'
+          }
+        };
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+## API
+
+### Properties - p-select
+
+| Property | Description | Type | Default |
+|------|------|------|--------|
+| `placeholder` | Placeholder text | `string` | - |
+| `disabled` | Whether disabled | `boolean` | `false` |
+| `value` | Selected value | `string` | - |
+| `variant` | Selector style | `outlined` \| `filled` | `outlined` |
+| `size` | Selector size | `xs` \| `s` \| `l` \| `xl` | - |
+| `color` | Selector color | `primary` \| `error` \| `success` \| `neutral` | - |### Properties - p-option
+
+| Property | Description | Type | Default |
+|------|------|------|--------|
+| `value` | Value of the option | `string` | - |
+| `disabled` | Whether disabled | `boolean` | `false` |### Slot - p-select
+
+| Slot Name | Description |
+|--------|------|
+| `default` | Option content (p-option component) |
+| `label` | Label text |
+| `prefix` | Prefix content |
+| `suffix` | Suffix content |### Events
+
+| Event Name | Description |
+|------------|-------------|
+| `change`   | Triggered when the selected value changes |
+| `focus`    | Triggered when the selector gains focus |
+| `blur`     | Triggered when the selector loses focus |### Method
+
+| Method Name | Description |
+|--------|------|
+| `focus()` | Makes the selector gain focus |
+| `blur()` | Makes the selector lose focus |
+
+---
+
+<!-- radio.html -->
+
+# Radio
+
+Radio button component, usually used in combination with radio-group.
+
+## Importing Components
+
+```html
+<l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+<l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+```
+
+## Basic Usage
+
+Use `p-radio-group` to wrap multiple `p-radio` components:
+
+<o-playground name="Radio Basic Usage" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-radio-group>
+          <p-radio value="male">Male</p-radio>
+          <p-radio value="female">Female</p-radio>
+        </p-radio-group>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Dimensions
+
+Set the radio button size using the `size` attribute:
+
+<o-playground name="Radio Size" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-radio-group>
+          <p-radio size="xs" value="xs">XS</p-radio>
+          <p-radio size="s" value="s">Small</p-radio>
+          <p-radio value="m">Medium</p-radio>
+          <p-radio size="l" value="l">Large</p-radio>
+          <p-radio size="xl" value="xl">XL</p-radio>
+        </p-radio-group>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Colors
+
+Set the radio button color using the `color` property:
+
+<o-playground name="Radio Color" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-radio-group>
+          <p-radio color="primary" value="primary">Primary</p-radio>
+          <p-radio color="success" value="success">Success</p-radio>
+          <p-radio color="error" value="error">Error</p-radio>
+          <p-radio color="neutral" value="neutral">Neutral</p-radio>
+        </p-radio-group>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Status
+
+<o-playground name="Radio States" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-radio-group>
+          <p-radio value="default">Default</p-radio>
+          <p-radio variant="tonal" value="tonal">Tonal</p-radio>
+          <p-radio checked value="checked">Checked</p-radio>
+          <p-radio disabled value="disabled">Disabled</p-radio>
+        </p-radio-group>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Initialize default selected item
+
+Use a radio group to manage multiple radio buttons, and set the default selected item via the `checked` attribute:
+
+<o-playground name="Radio Group" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-radio-group>
+          <p-radio value="a">Option A</p-radio>
+          <p-radio value="b" checked>Option B</p-radio>
+          <p-radio value="c">Option C</p-radio>
+        </p-radio-group>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Get Value
+
+### Get via value attribute in HTML
+
+Use the `value` attribute to get the value of a radio button group:
+
+<o-playground name="Get Value" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-radio-group id="gender-group">
+          <p-radio value="male">Male</p-radio>
+          <p-radio value="female">Female</p-radio>
+        </p-radio-group>
+        <p-button style="margin-top: 16px;" id="get-value-btn">Get Value</p-button>
+        <p style="margin-top: 16px;">Current Value: <span id="value-display"></span></p>
+      </div>
+      <script>
+        $('#get-value-btn').on('click', () => {
+          $('#value-display').text = $('#gender-group').value;
+        });
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### Monitor change events
+
+Listen to the `change` event to get the selected value in real time:
+
+<o-playground name="Listen to change events" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-radio-group id="realtime-group">
+          <p-radio value="a">Option A</p-radio>
+          <p-radio value="b">Option B</p-radio>
+          <p-radio value="c">Option C</p-radio>
+        </p-radio-group>
+        <p style="margin-top: 16px;">Current value: <span id="realtime-display"></span></p>
+      </div>
+      <script>
+        $('#realtime-group').on('change', () => {
+          $('#realtime-display').text = $('#realtime-group').value;
+        });
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### Two-way binding in components or page modules
+
+Use ofa.js's data binding feature：
+
+<o-playground name="Get Value" style="--editor-height: 400px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-radio-group sync:value="selectedOption">
+          <p-radio value="a">Option A</p-radio>
+          <p-radio value="b">Option B</p-radio>
+          <p-radio value="c">Option C</p-radio>
+        </p-radio-group>
+        <p style="margin-top: 16px;">Current Value: {{ selectedOption }}</p>
+      </div>
+      <script>
+        export default {
+          data: {
+            selectedOption: 'b'
+          }
+        };
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+## API
+
+### Properties - p-radio
+
+| Property | Description | Type | Default |
+|------|------|------|--------|
+| `checked` | Whether checked | `boolean` | `false` |
+| `disabled` | Whether disabled | `boolean` | `false` |
+| `value` | The value of the radio | `string` | - |
+| `size` | The size of the radio | `xs` \| `s` \| `l` \| `xl` | - |
+| `color` | The color of the radio | `primary` \| `error` \| `success` \| `neutral` | - |
+| `variant` | The variant of the radio | `tonal` | - |### Properties - p-radio-group
+
+| Property | Description | Type | Default |
+|------|------|------|--------|
+| `value` | selected value | `string` | - |### Events
+
+| Event Name | Description |
+|--------|------|
+| `change` | Triggered when the selection state changes |
+
+---
+
+<!-- toast.html -->
+
+# Toast
+
+Toast is used to display brief notification messages that disappear automatically. Suitable for scenarios such as operation feedback, status prompts, etc.
+
+## Introduction
+
+```javascript
+import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
+```
+
+## Basic Usage
+
+<o-playground name="Toast Basic Usage" style="--editor-height: 400px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px; text-align: center;">
+        <p-button color="primary" on:click="showToast">Show Toast</p-button>
+      </div>
+      <script type="module">
+        import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
+        export default async () => {
+          return {
+            proto: {
+              showToast() {
+                toast('Operation successful!');
+              }
+            }
+          };
+        };
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+## With Configuration Options
+
+<o-playground name="Toast Configuration Options" style="--editor-height: 500px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <script type="module">
+        import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
+        export default async () => {
+          return {
+            proto: {
+              showSuccessToast() {
+                toast({
+                  message: 'Save successful!',
+                  duration: 3000,
+                  color: 'success'
+                });
+              },
+              showErrorToast() {
+                toast({
+                  message: 'Operation failed!',
+                  duration: 3000,
+                  color: 'error'
+                });
+              }
+            }
+          };
+        };
+      </script>
+      <div style="padding: 20px; text-align: center;">
+        <p-button color="success" on:click="showSuccessToast">Success Toast</p-button>
+        <p-button color="error" on:click="showErrorToast" style="margin-left: 10px;">Error Toast</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## API
+
+### Parameters
+
+| Parameter | Type | Default | Description |
+|------|------|--------|------|
+| message | `string` | - | Prompt message content |
+| duration | `number` | `3000` | Display duration (milliseconds), set to 0 to disable auto-close |
+| color | `string` | `'primary'` | Prompt color: `primary`, `success`, `error`, `neutral` |### Return Value
+
+Return an object containing:- `close` - method to close the prompt
+- `el` - reference to the prompt element
+
+### Example
+
+```javascript
+// Basic usage
+toast('Operation successful');
+
+// With configuration
+toast({
+  message: 'File uploaded successfully',
+  duration: 5000,
+  color: 'success'
+});
+
+// Manual close
+const toastInstance = toast('Processing...');
+setTimeout(() => {
+  toastInstance.close();
+}, 2000);
+```
+
+---
+
+<!-- textarea.html -->
+
+# Textarea Multi-line Text
+
+Multi-line text input box component, supports responsive height and form integration.
+
+## Importing Components
+
+```html
+<l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+```
+
+## Basic Usage
+
+<o-playground name="Textarea Basic Usage" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea placeholder="Please enter content"></p-textarea>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## With Labels
+
+<o-playground name="Textarea with Label" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea>
+          <span slot="label">Message</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Variant Styles
+
+Set the input box style via the `variant` attribute:
+
+<o-playground name="Textarea Variants" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea>
+          <span slot="label">Outlined (default)</span>
+        </p-textarea>
+        <p-textarea variant="filled" style="margin-top: 16px;">
+          <span slot="label">Filled</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Dimensions
+
+Set the input box size through the `size` attribute:
+
+<o-playground name="Textarea Sizes" style="--editor-height: 500px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea size="xs">
+          <span slot="label">Extra Small</span>
+        </p-textarea>
+        <p-textarea size="s" style="margin-top: 16px;">
+          <span slot="label">Small</span>
+        </p-textarea>
+        <p-textarea size="m" style="margin-top: 16px;">
+          <span slot="label">Medium (Default)</span>
+        </p-textarea>
+        <p-textarea size="l" style="margin-top: 16px;">
+          <span slot="label">Large</span>
+        </p-textarea>
+        <p-textarea size="xl" style="margin-top: 16px;">
+          <span slot="label">Extra Large</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Colors
+
+Set the input box color through the `color` property:
+
+<o-playground name="Textarea Color" style="--editor-height: 500px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea color="primary">
+          <span slot="label">Primary Color</span>
+        </p-textarea>
+        <p-textarea color="success" style="margin-top: 16px;">
+          <span slot="label">Success Color</span>
+        </p-textarea>
+        <p-textarea color="neutral" style="margin-top: 16px;">
+          <span slot="label">Neutral Color</span>
+        </p-textarea>
+        <p-textarea color="error" style="margin-top: 16px;">
+          <span slot="label">Error Color</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Prefix and Suffix
+
+Use the `prefix` and `suffix` slots to add prefix/suffix content:
+
+<o-playground name="Textarea with Prefix/Suffix" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea>
+          <span slot="label">Message</span>
+          <span slot="prefix">📝</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Placeholder
+
+Use the `placeholder` attribute to set placeholder text:
+
+<o-playground name="Placeholder" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea placeholder="Enter your message...">
+          <span slot="label">Message</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Autofocus
+
+Use the `autofocus` attribute to make an input field automatically get focus when the page loads:
+
+<o-playground name="Autofocus" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea autofocus>
+          <span slot="label">Autofocus</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Get Value
+
+### Get via value attribute in HTML
+
+Use the `value` attribute to get the value of the input box:
+
+<o-playground name="Get Value" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea id="message-textarea">
+          <span slot="label">Message Content</span>
+        </p-textarea>
+        <p-button style="margin-top: 16px;" id="get-value-btn">Get Value</p-button>
+        <p style="margin-top: 16px;">Current Value: <span id="value-display"></span></p>
+      </div>
+      <script>
+        $('#get-value-btn').on('click', () => {
+          $('#value-display').text = $('#message-textarea').value;
+        });
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### Listening for Input Events
+
+By listening to the `input` event, get the input value in real time:
+
+<o-playground name="Listening to input events" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea id="realtime-textarea">
+          <span slot="label">Real-time input</span>
+        </p-textarea>
+        <p style="margin-top: 16px;">Real-time value: <span id="realtime-display"></span></p>
+      </div>
+      <script>
+        $('#realtime-textarea').on('input', () => {
+          $('#realtime-display').text = $('#realtime-textarea').value;
+        });
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### Two-way binding in components or page modules
+
+Use ofa.js's data binding feature：
+
+<o-playground name="Get Value" style="--editor-height: 400px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea sync:value="message">
+          <span slot="label">Message Content</span>
+        </p-textarea>
+        <p style="margin-top: 16px;">Current value: {{ message }}</p>
+      </div>
+      <script>
+        export default {
+          data: {
+            message: 'Default message content'
+          }
+        };
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+## API
+
+### Attributes
+
+| Attribute | Description | Type | Default |
+|------|------|------|--------|
+| `placeholder` | Placeholder text | `string` | - |
+| `disabled` | Whether disabled | `boolean` | `false` |
+| `value` | Input value | `string` | - |
+| `default-value` | Default value | `string` | - |
+| `rows` | Number of rows | `number` | - |### Slot
+
+| Slot Name | Description |
+|----------|-------------|
+| `default` | Text field content |
+| `label` | Label text |### Events
+
+| Event | Description |
+|--------|------|
+| `input` | Triggered when the input content changes |
+| `change` | Triggered when the input loses focus and the content has changed |
+| `focus` | Triggered when the input gains focus |
+| `blur` | Triggered when the input loses focus |### Method
+
+| Method Name | Description |
+|--------|------|
+| `focus()` | Make the input box gain focus |
+| `blur()` | Make the input box lose focus |
+| `select()` | Select the text in the input box |
+
+---
+
+<!-- dialog.html -->
+
+# Dialog
+
+Dialog components provide an elegant modal interaction experience, built-in mobile adaptive mechanisms, and support rich custom style options.
+
+The component has built-in responsive design and can intelligently recognize the device screen size. In a small screen environment on mobile devices, the dialog automatically switches to a drawer-style interaction that slides in from the bottom, providing an operation experience more in line with mobile user habits.
+
+## Importing Components
+
+```html
+<l-m src="https://punch-ui-v2.pages.dev/packages/dialog/dialog.html"></l-m>
+```
+
+## Basic Usage
+
+<o-playground name="Dialog Basic Usage" style="--editor-height: 500px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/dialog/dialog.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button on:click="demoDialogOpen = true">
+          Open Dialog
+        </p-button>
+        <p-dialog auto-close sync:open="demoDialogOpen">
+          <span slot="title">Dialog Title</span>
+          <div>
+            <p>This is a dialog example.</p>
+            <p>Click the mask layer to close the dialog.</p>
+          </div>
+          <div slot="bottom">
+            <p-button color="primary" on:click="demoDialogOpen = false">OK</p-button>
+            <p-button variant="text" on:click="demoDialogOpen = false">Cancel</p-button>
+          </div>
+        </p-dialog>
+      </div>
+      <script>
+        export default {
+          data: {
+            demoDialogOpen: false
+          }
+        };
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+## Dialog with Form
+
+Form components can be placed in the dialog box:
+
+<o-playground name="Dialog with Form" style="--editor-height: 500px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/dialog/dialog.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button on:click="formOpen = true">Open Form Dialog</p-button>
+        <p-dialog sync:open="formOpen">
+          <span slot="title">User Information</span>
+          <div>
+            <p-input style="display: block; margin: 8px 0;">
+              <span slot="label">Username</span>
+            </p-input>
+            <p-input style="display: block; margin: 8px 0;">
+              <span slot="label">Email</span>
+            </p-input>
+          </div>
+          <div slot="bottom">
+            <p-button color="primary" on:click="formOpen = false">Submit</p-button>
+            <p-button variant="text" on:click="formOpen = false">Close</p-button>
+          </div>
+        </p-dialog>
+      </div>
+      <script>
+        export default {
+          data: {
+            formOpen: false
+          }
+        };
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+## Autofocus
+
+When the dialog box opens, it can automatically focus on the input box：
+
+<o-playground name="Auto Focus" style="--editor-height: 500px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/dialog/dialog.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button on:click="autofocusOpen = true">Open Auto-Focus Dialog</p-button>
+        <p-dialog sync:open="autofocusOpen" auto-close>
+          <span slot="title">Quick Input</span>
+          <div>
+            <p-input autofocus style="display: block; margin: 8px 0;">
+              <span slot="label">Input Content</span>
+            </p-input>
+          </div>
+          <div slot="bottom">
+            <p-button color="primary" on:click="autofocusOpen = false">Done</p-button>
+          </div>
+        </p-dialog>
+      </div>
+      <script>
+        export default {
+          data: {
+            autofocusOpen: false
+          }
+        };
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+## Click Mask Event
+
+Listening to overlay click events:
+
+<o-playground name="Click Mask Event" style="--editor-height: 500px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/dialog/dialog.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button on:click="maskDialogOpen = true">Open Dialog</p-button>
+        <p style="margin-top: 8px; color: #666;">Last mask click: {{maskClickMsg}}</p>
+        <p-dialog sync:open="maskDialogOpen" on:click-mask="handleMaskClick">
+          <span slot="title">Click Mask Demo</span>
+          <div>
+            <p>Clicking the mask layer (outside the dialog) triggers the click-mask event.</p>
+          </div>
+          <div slot="bottom">
+            <p-button color="primary" on:click="maskDialogOpen = false">Close</p-button>
+          </div>
+        </p-dialog>
+      </div>
+      <script>
+        export default {
+          data: {
+            maskDialogOpen: false,
+            maskClickMsg: "None"
+          },
+          proto: {
+            handleMaskClick() {
+              this.maskClickMsg = new Date().toLocaleTimeString();
+              this.maskDialogOpen = false;
+            }
+          }
+        };
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+## Color Variants
+
+Use the `color` attribute to set the dialog color:
+
+<o-playground name="Color Variants" style="--editor-height: 500px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/dialog/dialog.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button on:click="primaryOpen = true">Primary</p-button>
+        <p-button on:click="successOpen = true">Success</p-button>
+        <p-button on:click="errorOpen = true">Error</p-button>
+        <p-dialog sync:open="primaryOpen" color="primary" auto-close>
+          <span slot="title">Primary Color</span>
+          <div>
+            <p>This is a dialog with Primary color.</p>
+          </div>
+          <div slot="bottom">
+            <p-button color="primary" on:click="primaryOpen = false">Close</p-button>
+          </div>
+        </p-dialog>
+        <p-dialog sync:open="successOpen" color="success" auto-close>
+          <span slot="title">Success Color</span>
+          <div>
+            <p>This is a dialog with Success color.</p>
+          </div>
+          <div slot="bottom">
+            <p-button color="success" on:click="successOpen = false">Close</p-button>
+          </div>
+        </p-dialog>
+        <p-dialog sync:open="errorOpen" color="error" auto-close>
+          <span slot="title">Error Color</span>
+          <div>
+            <p>This is a dialog with Error color.</p>
+          </div>
+          <div slot="bottom">
+            <p-button color="error" on:click="errorOpen = false">Close</p-button>
+          </div>
+        </p-dialog>
+      </div>
+      <script>
+        export default {
+          data: {
+            primaryOpen: false,
+            successOpen: false,
+            errorOpen: false
+          }
+        };
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+## API
+
+### Attributes
+
+| Attribute | Description | Type | Default |
+|------|------|------|--------|
+| `variant` | Dialog style | `filled` \| `outlined` \| `tonal` | `tonal` |
+| `color` | Dialog color | `primary` \| `error` \| `success` \| `neutral` | `neutral` |
+| `open` | Whether to open | `boolean` | `false` |
+| `auto-close` | Whether to auto-close when clicking the overlay | `boolean` | `false` |
+| `auto-to-mobile-width` | Width threshold to trigger mobile style | `string` | `540px` |### Slot
+
+| Slot Name | Description |
+|--------|------|
+| `title` | Dialog title |
+| `header` | Header content (used with title) |
+| `default` | Dialog content |
+| `bottom` | Bottom button area |
+| `footer` | Footer content (used with bottom) |### Events
+
+| Event Name | Description |
+|--------|------|
+| `click-mask` | Triggered when the mask layer is clicked |
+
+---
+
+<!-- button.html -->
+
+# Button
+
+The button component is one of the most commonly used components in Punch-UI, offering a variety of styles, sizes, and color choices.
+
+## Importing Components
+
+```html
+<l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+```
+
+## Basic Usage
+
+<o-playground name="Button Basic Usage" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button>Default Button</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Button Variants
+
+Set button style via the `variant` property:
+
+<o-playground name="Button Variants" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button variant="filled">Filled Button</p-button>
+        <p-button variant="outlined">Outlined Button</p-button>
+        <p-button variant="text">Text Button</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Dimensions
+
+Set button size via the `size` attribute:
+
+<o-playground name="Button Size" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button size="xs">Extra Small</p-button>
+        <p-button size="s">Small</p-button>
+        <p-button>Default</p-button>
+        <p-button size="l">Large</p-button>
+        <p-button size="xl">Extra Large</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Colors
+
+Set the button color through the `color` attribute:
+
+<o-playground name="Button Color" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button>Default</p-button>
+        <p-button color="primary">Primary</p-button>
+        <p-button color="error">Error</p-button>
+        <p-button color="success">Success</p-button>
+        <p-button color="neutral">Neutral</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Icon Button
+
+Add the `icon` attribute to make the button a circular icon button:
+
+<o-playground name="Icon Button" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button icon>+</p-button>
+        <p-button icon size="s">-</p-button>
+        <p-button icon size="l">×</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## With Prefix/Suffix
+
+Use the `prefix` and `suffix` slots to add icons or text:
+
+<o-playground name="Buttons with Prefix/Suffix" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button>
+          <span slot="prefix">🔍</span>
+          Search
+        </p-button>
+        <p-button>
+          Settings
+          <span slot="suffix">⚙️</span>
+        </p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Disabled State
+
+Add the `disabled` attribute to disable the button:
+
+<o-playground name="Disabled State" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button disabled>Disabled Button</p-button>
+        <p-button variant="outlined" disabled>Disabled Outlined</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Autofocus
+
+Use the `autofocus` attribute to make the button automatically receive focus when the page loads:
+
+<o-playground name="Auto Focus" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button autofocus>Auto Focus Button</p-button>
+        <p-button>Normal Button</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Button Group
+
+Use button groups to combine multiple buttons together:
+
+<o-playground name="Button Group" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/group.html"></l-m>
+      <div style="padding: 20px;">
+        <h4>Basic Button Group</h4>
+        <p-button-group>
+          <p-button>Button 1</p-button>
+          <p-button>Button 2</p-button>
+          <p-button>Button 3</p-button>
+        </p-button-group>
+        <h4 style="margin-top: 20px;">Connected Button Group</h4>
+        <p-button-group connected>
+          <p-button variant="outlined">Home</p-button>
+          <p-button variant="outlined">Products</p-button>
+          <p-button variant="outlined">About</p-button>
+        </p-button-group>
+        <h4 style="margin-top: 20px;">Full-width Button Group</h4>
+        <p-button-group full-width>
+          <p-button>Left</p-button>
+          <p-button>Center</p-button>
+          <p-button>Right</p-button>
+        </p-button-group>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Advanced Usage
+
+### Segment Control (Single Select)
+
+Use button groups to implement segmented control, suitable for scenarios such as switching view modes:
+
+<o-playground name="Segmented Control" style="--editor-height: 400px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button-group>
+          <p-button
+            attr:variant="selected === 'day' ? 'filled' : 'outlined'"
+            on:click="selected = 'day'"
+          >
+            Day
+          </p-button>
+          <p-button
+            attr:variant="selected === 'week' ? 'filled' : 'outlined'"
+            on:click="selected = 'week'"
+          >
+            Week
+          </p-button>
+          <p-button
+            attr:variant="selected === 'month' ? 'filled' : 'outlined'"
+            on:click="selected = 'month'"
+          >
+            Month
+          </p-button>
+        </p-button-group>
+      </div>
+      <script>
+        export default {
+          data: {
+            selected: 'day'
+          }
+        };
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### Filter chips (multi-select)
+
+Use button groups to implement a multi-select filter:
+
+<o-playground name="Filter Chips" style="--editor-height: 400px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/group.html"></l-m>
+      <style>
+        p-button {
+          transition: all 0.2s ease;
+        }
+      </style>
+      <div style="padding: 20px;">
+        <p-button-group>
+          <p-button
+            attr:color="filters.includes('all') ? 'primary' : 'neutral'"
+            :style.border-radius="filters.includes('all') ? '28px' : ''"
+            on:click="toggleFilter('all')"
+          >
+            All
+          </p-button>
+          <p-button
+            attr:color="filters.includes('active') ? 'primary' : 'neutral'"
+            :style.border-radius="filters.includes('active') ? '28px' : ''"
+            on:click="toggleFilter('active')"
+          >
+            Active
+          </p-button>
+          <p-button
+            attr:color="filters.includes('completed') ? 'primary' : 'neutral'"
+            :style.border-radius="filters.includes('completed') ? '28px' : ''"
+            on:click="toggleFilter('completed')"
+          >
+            Completed
+          </p-button>
+        </p-button-group>
+      </div>
+      <script>
+        export default {
+          data: {
+            filters: ['all']
+          },
+          proto: {
+            toggleFilter(filter) {
+              const index = this.filters.indexOf(filter);
+              if (index > -1) {
+                this.filters.splice(index, 1);
+              } else {
+                this.filters.push(filter);
+              }
+            }
+          }
+        };
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### Sort Options
+
+Implement sorting option switching using a button group:
+
+<o-playground name="Sorting Options" style="--editor-height: 400px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/group.html"></l-m>
+      <style>
+        p-button {
+          transition: all 0.2s ease;
+        }
+      </style>
+      <div style="padding: 20px;">
+        <p-button-group>
+          <p-button
+            attr:color="order === 'newest' ? 'primary' : 'neutral'"
+            :style.border-radius="order === 'newest' ? '28px' : ''"
+            on:click="order = 'newest'"
+          >
+            Newest
+          </p-button>
+          <p-button
+            attr:color="order === 'oldest' ? 'primary' : 'neutral'"
+            :style.border-radius="order === 'oldest' ? '28px' : ''"
+            on:click="order = 'oldest'"
+          >
+            Oldest
+          </p-button>
+          <p-button
+            attr:color="order === 'price' ? 'primary' : 'neutral'"
+            :style.border-radius="order === 'price' ? '28px' : ''"
+            on:click="order = 'price'"
+          >
+            Price
+          </p-button>
+        </p-button-group>
+      </div>
+      <script>
+        export default {
+          data: {
+            order: 'newest'
+          }
+        };
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+## API
+
+### Attributes
+
+| Property | Description | Type | Default |
+|------|------|------|--------|
+| `variant` | Button style | `filled` \| `outlined` \| `text` | `filled` |
+| `size` | Button size | `xs` \| `s` \| `l` \| `xl` | - |
+| `color` | Button color | `primary` \| `error` \| `success` \| `neutral` | - |
+| `icon` | Whether it is an icon button | `boolean` | `false` |
+| `disabled` | Whether it is disabled | `boolean` | `false` |
+| `autofocus` | Whether to autofocus | `boolean` | `false` |### Slot
+
+| Slot Name | Description |
+|--------|------|
+| `default` | Button content |
+| `prefix` | Prefix content |
+| `suffix` | Suffix content |
+
+---
+
+<!-- input.html -->
+
+# Input
+
+The input box component is used to receive text information entered by the user, supporting various styles and sizes.
+
+## Importing Components
+
+```html
+<l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+```
+
+## Basic Usage
+
+<o-playground name="Input Basic Usage" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input placeholder="Please enter content"></p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## With Labels
+
+Use the `label` slot to add a label:
+
+<o-playground name="Input with Label" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input>
+          <span slot="label">Username</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Dimensions
+
+Set the input box size through the `size` attribute:
+
+<o-playground name="Input Size" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input size="xs">
+          <span slot="label">Extra Small</span>
+        </p-input>
+        <p-input size="s">
+          <span slot="label">Small</span>
+        </p-input>
+        <p-input>
+          <span slot="label">Default</span>
+        </p-input>
+        <p-input size="l">
+          <span slot="label">Large</span>
+        </p-input>
+        <p-input size="xl">
+          <span slot="label">Extra Large</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Colors
+
+Set the input box color through the `color` property:
+
+<o-playground name="Input Color" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input>
+          <span slot="label">Default</span>
+        </p-input>
+        <p-input color="primary">
+          <span slot="label">Primary</span>
+        </p-input>
+        <p-input color="success">
+          <span slot="label">Success</span>
+        </p-input>
+        <p-input color="error">
+          <span slot="label">Error</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Input Type
+
+### Password input
+
+<o-playground name="Password Input" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input type="password">
+          <span slot="label">Password</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+### Email Input
+
+<o-playground name="Email Input" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input type="email">
+          <span slot="label">Email</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Prefix and Suffix
+
+Use the `prefix` and `suffix` slots to add a prefix or suffix:
+
+<o-playground name="Input with prefix/suffix" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input>
+          <span slot="prefix">+86</span>
+          <span slot="label">Phone Number</span>
+        </p-input>
+        <p-input style="margin-top: 16px;">
+          <span slot="suffix">.com</span>
+          <span slot="label">Website</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Variant Styles
+
+Set the input box style via the `variant` attribute:
+
+<o-playground name="Input Variants" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input>
+          <span slot="label">Outlined (Default)</span>
+        </p-input>
+        <p-input variant="filled" style="margin-top: 16px;">
+          <span slot="label">Filled</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Autofocus
+
+Use the `autofocus` attribute to make an input field automatically get focus when the page loads:
+
+<o-playground name="Auto Focus" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input autofocus>
+          <span slot="label">Autofocus</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Floating Label
+
+Use the `hang-label` attribute to keep the label always floating above the input box:
+
+<o-playground name="Floating Label" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input hang-label>
+          <span slot="label">Floating Label</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Default Values
+
+Use the `default-value` attribute to set the initial value of the input box:
+
+<o-playground name="Default Value" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input default-value="John Doe">
+          <span slot="label">Default Value</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Maximum Length
+
+Use the `maxlength` attribute to limit the maximum number of characters entered:
+
+<o-playground name="Max Length" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input maxlength="10">
+          <span slot="label">At most 10 characters</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Form Properties
+
+Use the `name` attribute to set the field name for form submission:
+
+<o-playground name="Form Properties" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input name="username">
+          <span slot="label">Username</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Custom Styles
+
+### Using Inline Styles
+
+<o-playground name="Custom Style" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input style="border-radius: 30px">
+          <span slot="label">Custom Border Radius</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+### Using CSS Part
+
+Use the `::part()` selector to customize the internal style of the input box:
+
+<o-playground name="CSS Part Custom" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <style>
+        .custom-input::part(input) {
+          color: red;
+        }
+      </style>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input class="custom-input" color="error">
+          <span slot="label" style="color: red">Custom Style</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Programmatic Control
+
+Controlling input focus via JavaScript:
+
+<o-playground name="Programmatic Control" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input id="my-input">
+          <span slot="label">Programmatic Control</span>
+        </p-input>
+        <p-button style="margin-top: 16px;" id="focus-btn">Focus Input</p-button>
+      </div>
+      <script>
+        $('#focus-btn').on('click', () => {
+          $('#my-input').focus();
+        });
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+## Get Value
+
+### Get via value attribute in HTML
+
+Use the `value` attribute to get the value of the input box:
+
+<o-playground name="Get Value" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input id="username-input">
+          <span slot="label">Username</span>
+        </p-input>
+        <p-button style="margin-top: 16px;" id="get-value-btn">Get Value</p-button>
+        <p style="margin-top: 16px;">Current Value: <span id="value-display"></span></p>
+      </div>
+      <script>
+        $('#get-value-btn').on('click', () => {
+          $('#value-display').text = $('#username-input').value;
+        });
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### Listening for Input Events
+
+By listening to the `input` event, get the input value in real time:
+
+<o-playground name="Monitor Input Events" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input id="realtime-input">
+          <span slot="label">Real-time Input</span>
+        </p-input>
+        <p style="margin-top: 16px;">Real-time Value: <span id="realtime-display"></span></p>
+      </div>
+      <script>
+        $('#realtime-input').on('input', () => {
+          $('#realtime-display').text = $('#realtime-input').value;
+        });
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### Two-way binding in components or page modules
+
+Use ofa.js's data binding feature：
+
+<o-playground name="Get Value" style="--editor-height: 400px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input sync:value="val">
+          <span slot="label">Username</span>
+        </p-input>
+        <p style="margin-top: 16px;">Current value: {{ val }}</p>
+      </div>
+      <script>
+        export default {
+          data: {
+            val: 'Default Value'
+          }
+        };
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+## API
+
+### Attributes
+
+| Attribute | Description | Type | Default |
+|------|------|------|--------|
+| `type` | Input type | `text` \| `password` \| `email` \| `number` | `text` |
+| `variant` | Input style | `outlined` \| `filled` | `outlined` |
+| `size` | Input size | `xs` \| `s` \| `l` \| `xl` | - |
+| `color` | Input color | `primary` \| `error` \| `success` \| `neutral` | - |
+| `placeholder` | Placeholder text | `string` | - |
+| `disabled` | Disabled | `boolean` | `false` |
+| `value` | Input value | `string` | - |
+| `default-value` | Default value | `string` | - |
+| `hang-label` | Floating label | `boolean` | `false` |
+| `maxlength` | Maximum input length | `number` | - |
+| `name` | Form field name | `string` | - |
+| `autofocus` | Auto focus | `boolean` | `false` |### Slot
+
+| Slot Name | Description |
+|--------|------|
+| `default` | Input box content |
+| `label` | Label text |
+| `prefix` | Prefix content |
+| `suffix` | Suffix content |### Events
+
+| Event | Description |
+|--------|------|
+| `input` | Triggered when the input content changes |
+| `change` | Triggered when the input loses focus and the content has changed |
+| `focus` | Triggered when the input gains focus |
+| `blur` | Triggered when the input loses focus |### Method
+
+| Method Name | Description |
+|--------|------|
+| `focus()` | Make the input box gain focus |
+| `blur()` | Make the input box lose focus |
+| `select()` | Select the text in the input box |
+
+---
+
+<!-- prompt.html -->
+
+# Prompt Input Box
+
+Prompt is used to display an input dialog box that lets the user enter text. It is suitable for scenarios where user input is required.
+
+## Introduction
+
+```javascript
+import prompt from 'https://punch-ui-v2.pages.dev/packages/util/prompt.js';
+```
+
+## Basic Usage
+
+<o-playground name="Prompt Basic Usage" style="--editor-height: 400px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <script type="module">
+        import prompt from 'https://punch-ui-v2.pages.dev/packages/util/prompt.js';
+        import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
+        export default async () => {
+          return {
+            proto: {
+              async showPrompt() {
+                const result = await prompt('Please enter your name:');
+                if (result !== null) {
+                  toast(`Hello, ${result}!`);
+                }
+              }
+            }
+          };
+        };
+      </script>
+      <div style="padding: 20px; text-align: center;">
+        <p-button color="primary" on:click="showPrompt">Enter Name</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Complete Parameter Example
+
+<o-playground name="Prompt Full Parameters" style="--editor-height: 500px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <script type="module">
+        import prompt from 'https://punch-ui-v2.pages.dev/packages/util/prompt.js';
+        import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
+        export default async () => {
+          return {
+            proto: {
+              async showFullPrompt() {
+                const result = await prompt({
+                  title: 'Edit username',
+                  message: 'Please enter new username:',
+                  label: 'Username',
+                  placeholder: 'Enter username',
+                  value: 'Current User',
+                  yes: 'Save',
+                  cancel: 'Cancel'
+                });
+                if (result !== null) {
+                  toast(`Username changed to:${result}`);
+                }
+              }
+            }
+          };
+        };
+      </script>
+      <div style="padding: 20px; text-align: center;">
+        <p-button color="primary" on:click="showFullPrompt">Edit username</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## API
+
+### Parameters
+
+| Parameter | Type | Default | Description |
+|------|------|--------|------|
+| title | `string` | `''` | Dialog title |
+| message | `string` | - | Prompt message content |
+| label | `string` | `''` | Input label |
+| placeholder | `string` | `''` | Input placeholder |
+| value | `string` | `''` | Default value of the input |
+| yes | `string` | `'Yes'` | Confirm button text |
+| cancel | `string` | `'Cancel'` | Cancel button text |### Return Value
+
+Return a Promise:- resolve is the text entered by the user (string)
+- resolve being `null` indicates the user clicked cancel
+
+### Example
+
+```javascript
+// Basic usage
+const name = await prompt('Please enter your name:');
+if (name !== null) {
+  console.log('User input:', name);
+}
+
+// Full parameters
+const result = await prompt({
+  title: 'Modify Username',
+  message: 'Please enter a new username:',
+  label: 'Username',
+  placeholder: 'Enter username',
+  value: 'Current User',
+  yes: 'Save',
+  cancel: 'Cancel'
+});
+```
+
+---
+
+<!-- first-example.html -->
+
+# First Example
+
+Let's create a simple form example to demonstrate the basic usage of Punch-UI.
+
+## Example: User Registration Form
+
+This example will show how to create a user registration form using Punch-UI's form components.
+
+<o-playground name="User Registration Form" style="--editor-height: 600px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <style>
+        .form-container {
+          max-width: 400px;
+          margin: 40px auto;
+          padding: 20px;
+        }
+        .form-item {
+          margin-bottom: 16px;
+        }
+        .form-label {
+          display: block;
+          margin-bottom: 8px;
+          font-weight: 500;
+        }
+        .form-actions {
+          margin-top: 24px;
+        }
+      </style>
+      <div class="form-container">
+        <h2>User Registration</h2>
+        <div class="form-item">
+          <label class="form-label">Username</label>
+          <p-input placeholder="Please enter username" style="width: 100%"></p-input>
+        </div>
+        <div class="form-item">
+          <label class="form-label">Email</label>
+          <p-input placeholder="Please enter email" type="email" style="width: 100%"></p-input>
+        </div>
+        <div class="form-item">
+          <label class="form-label">Password</label>
+          <p-input placeholder="Please enter password" type="password" style="width: 100%"></p-input>
+        </div>
+        <div class="form-item">
+          <label class="form-label">Gender</label>
+          <p-radio-group>
+            <p-radio value="male">Male</p-radio>
+            <p-radio value="female">Female</p-radio>
+            <p-radio value="other">Other</p-radio>
+          </p-radio-group>
+        </div>
+        <div class="form-item">
+          <p-checkbox>I have read and agree to the user agreement</p-checkbox>
+        </div>
+        <div class="form-actions">
+          <p-button color="primary" style="width: 100%">Register</p-button>
+        </div>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Code Analysis
+
+### 1. Import necessary files
+
+First, we need to import ofa.js, global styles, and the required components:
+
+```html
+<link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+
+<l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+<l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+<l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+<l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+<l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+```
+
+### 2. Using Components
+
+Each Punch-UI component is prefixed with `p-`:
+
+- `<p-input>` - Input component
+- `<p-button>` - Button component
+- `<p-radio>` - Radio button component
+- `<p-radio-group>` - Radio group component
+- `<p-checkbox>` - Checkbox component
+
+### 3. Component Properties
+
+Components support multiple properties to customize behavior and appearance:
+
+```html
+<p-input placeholder="Please enter username" type="email"></p-input>
+<p-button color="primary">Register</p-button>
+<p-radio-group>
+  <p-radio value="male">Male</p-radio>
+  <p-radio value="female">Female</p-radio>
+</p-radio-group>
+```
+
+### 4. Style Customization
+
+You can customize the component style through the `style` attribute or CSS class:
+
+```html
+<p-input style="width: 100%"></p-input>
+<p-button color="primary" style="width: 100%">Register</p-button>
+```
+
+## More Examples
+
+### Button Group Example
+
+<o-playground name="Button Group Example" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/group.html"></l-m>
+      <div style="padding: 20px;">
+        <h3>Basic Button</h3>
+        <p-button>Default Button</p-button>
+        <p-button color="primary">Primary Button</p-button>
+        <p-button color="success">Success Button</p-button>
+        <p-button color="error">Error Button</p-button>
+        <h3 style="margin-top: 20px;">Button Group</h3>
+        <p-button-group>
+          <p-button>Button 1</p-button>
+          <p-button>Button 2</p-button>
+          <p-button>Button 3</p-button>
+        </p-button-group>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Next Step
+
+Now that you have understood the basic usage of Punch-UI, you can continue to explore:
+
+- [Color System](../basics/color.md) - Learn about Punch-UI's themes and color system
+- [Component Documentation](../components/button.md) - View detailed documentation for each component
+
+---
+
+<!-- list.html -->
+
+# List
+
+List item component, supporting prefix, suffix and collapsible functionality.
+
+## Importing Components
+
+```html
+<l-m src="https://punch-ui-v2.pages.dev/packages/list/list.html"></l-m>
+```
+
+## Basic Usage
+
+<o-playground name="List Basic Usage" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list-item.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-list>
+          <p-list-item>List item 1</p-list-item>
+          <p-list-item>List item 2</p-list-item>
+          <p-list-item>List item 3</p-list-item>
+        </p-list>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## With Prefix Icon
+
+Use the `prefix` slot to add a prefix icon:
+
+<o-playground name="List with prefix icons" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list-item.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-list>
+          <p-list-item>
+            <span slot="prefix" style="width: 40px; height: 40px; border-radius: 50%; background-color: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); display: flex; align-items: center; justify-content: center;">A</span>
+            Username
+            <div secondary>user@example.com</div>
+          </p-list-item>
+          <p-list-item>
+            <span slot="prefix" style="width: 40px; height: 40px; border-radius: 50%; background-color: var(--md-sys-color-tertiary-container); color: var(--md-sys-color-on-tertiary-container); display: flex; align-items: center; justify-content: center;">B</span>
+            Another user
+            <div secondary>another@example.com</div>
+          </p-list-item>
+        </p-list>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## with suffix
+
+Use the `suffix` slot to add suffix content:
+
+<o-playground name="List with Suffix" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list-item.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-list>
+          <p-list-item>
+            <span slot="prefix" style="width: 40px; height: 40px; border-radius: 50%; background-color: var(--md-sys-color-tertiary-container); color: var(--md-sys-color-on-tertiary-container); display: flex; align-items: center; justify-content: center;">C</span>
+            List Item
+            <span slot="suffix" style="color: var(--md-sys-color-on-surface-variant)">›</span>
+          </p-list-item>
+          <p-list-item>
+            <span slot="prefix">📁</span>
+            Folder
+            <span slot="suffix">12 files</span>
+          </p-list-item>
+        </p-list>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Collapsible List
+
+Use the `collapsible` attribute to make list items collapsible, and the `expanded` attribute to control the expanded state:
+
+<o-playground name="Collapsible List" style="--editor-height: 500px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list-item.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-list>
+          <p-list-item collapsible expanded>
+            <span slot="prefix">📁</span>
+            Expandable Folder
+            <div secondary>Click to Expand/Collapse</div>
+            <p-list slot="sublist">
+              <p-list-item>
+                <span slot="prefix">📄</span>
+                Subitem 1
+              </p-list-item>
+              <p-list-item>
+                <span slot="prefix">📄</span>
+                Subitem 2
+              </p-list-item>
+            </p-list>
+          </p-list-item>
+          <p-list-item>
+            <span slot="prefix">📄</span>
+            Normal List Item
+          </p-list-item>
+        </p-list>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Clickable Collapsible Item
+
+Add the `button` attribute to make the collapsible item clickable and show a ripple effect:
+
+<o-playground name="Clickable Collapsible Item" style="--editor-height: 500px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list-item.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-list>
+          <p-list-item collapsible expanded button>
+            <span slot="prefix">📁</span>
+            Clickable Collapsible Item
+            <div secondary>Click to expand/collapse</div>
+            <p-list slot="sublist">
+              <p-list-item>
+                <span slot="prefix">📄</span>
+                Sub-item 1
+              </p-list-item>
+              <p-list-item>
+                <span slot="prefix">📄</span>
+                Sub-item 2
+              </p-list-item>
+            </p-list>
+          </p-list-item>
+        </p-list>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Custom Expand Icon
+
+Use the `expand-icon` slot to customize the expand/collapse icon:
+
+<o-playground name="Custom Expand Icon" style="--editor-height: 500px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list-item.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-list>
+          <p-list-item collapsible expanded>
+            <span slot="prefix">📁</span>
+            Custom Icon
+            <span slot="expand-icon">▼</span>
+            <p-list slot="sublist">
+              <p-list-item>
+                <span slot="prefix">📄</span>
+                Sub-item 1
+              </p-list-item>
+              <p-list-item>
+                <span slot="prefix">📄</span>
+                Sub-item 2
+              </p-list-item>
+            </p-list>
+          </p-list-item>
+        </p-list>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Activation Status
+
+Use the `active` property to set the activation state of the list item:
+
+<o-playground name="Active state" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list-item.html"></l-m>
+      <style>
+        .avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background-color: var(--md-sys-color-primary-container);
+          color: var(--md-sys-color-on-primary-container);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      </style>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-list>
+          <p-list-item>
+            <span slot="prefix" class="avatar">A</span>
+            Normal list item
+          </p-list-item>
+          <p-list-item active>
+            <span slot="prefix" class="avatar">B</span>
+            Active state
+            <div secondary>Currently selected item</div>
+          </p-list-item>
+          <p-list-item>
+            <span slot="prefix" class="avatar">C</span>
+            Normal list item
+          </p-list-item>
+        </p-list>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Disabled State
+
+Add the `disabled` attribute to disable list items:
+
+<o-playground name="Disabled state" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list-item.html"></l-m>
+      <style>
+        .avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background-color: var(--md-sys-color-primary-container);
+          color: var(--md-sys-color-on-primary-container);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      </style>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-list>
+          <p-list-item button>
+            <span slot="prefix" class="avatar">A</span>
+            Normal list item
+          </p-list-item>
+          <p-list-item button disabled>
+            <span slot="prefix" class="avatar">B</span>
+            Disabled list item
+            <div secondary>Unable to click</div>
+          </p-list-item>
+          <p-list-item button disabled>
+            <span slot="prefix" class="avatar">C</span>
+            Disabled list item
+          </p-list-item>
+        </p-list>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Top Alignment
+
+Use the `align-top` attribute to align the content to the top:
+
+<o-playground name="Top alignment" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list-item.html"></l-m>
+      <style>
+        .avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background-color: var(--md-sys-color-primary-container);
+          color: var(--md-sys-color-on-primary-container);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      </style>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-list>
+          <p-list-item align-top>
+            <span slot="prefix" class="avatar">A</span>
+            Two-line list item, content automatically wraps when long, top alignment ensures prefix icon aligns with the first line of text
+            <div secondary>Secondary text</div>
+          </p-list-item>
+          <p-list-item align-top>
+            <span slot="prefix" class="avatar">B</span>
+            Short text
+            <div secondary>Secondary text</div>
+          </p-list-item>
+        </p-list>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Colored Buttons
+
+Use the `color` property to set list item color:
+
+<o-playground name="Colored Buttons" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list-item.html"></l-m>
+      <style>
+        .avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background-color: var(--md-sys-color-primary-container);
+          color: var(--md-sys-color-on-primary-container);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .avatar-error {
+          background-color: var(--md-sys-color-error-container);
+          color: var(--md-sys-color-on-error-container);
+        }
+      </style>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-list>
+          <p-list-item button color="primary">
+            <span slot="prefix" class="avatar">A</span>
+            Primary color
+            <div secondary>with tonal background</div>
+          </p-list-item>
+          <p-list-item button color="error">
+            <span slot="prefix" class="avatar avatar-error">B</span>
+            Error color
+            <div secondary>with tonal background</div>
+          </p-list-item>
+        </p-list>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## With Checkbox
+
+Implement a multi-select list using the `p-checkbox` component:
+
+<o-playground name="With Checkbox" style="--editor-height: 500px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list-item.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/group.html"></l-m>
+      <style>
+        .avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background-color: var(--md-sys-color-primary-container);
+          color: var(--md-sys-color-on-primary-container);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      </style>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-checkbox-group>
+          <p-list>
+            <p-list-item button="p-checkbox">
+              <span slot="prefix" class="avatar">A</span>
+              Clickable item with checkbox
+              <div secondary>Click to toggle selection</div>
+              <p-checkbox slot="suffix" value="a"></p-checkbox>
+            </p-list-item>
+            <p-list-item button="p-checkbox">
+              <span slot="prefix" class="avatar">B</span>
+              Clickable item with checkbox
+              <div secondary>Click to toggle selection</div>
+              <p-checkbox slot="suffix" value="b" checked></p-checkbox>
+            </p-list-item>
+          </p-list>
+        </p-checkbox-group>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## With Radio Buttons
+
+Implement a radio list using the `p-radio` component:
+
+<o-playground name="With Radio Buttons" style="--editor-height: 500px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list-item.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-radio-group>
+          <p-list>
+            <p-list-item button="p-radio">
+              <p-radio slot="prefix" value="a"></p-radio>
+              Option A
+            </p-list-item>
+            <p-list-item button="p-radio">
+              <p-radio slot="prefix" value="b" checked></p-radio>
+              Option B
+            </p-list-item>
+            <p-list-item button="p-radio">
+              <p-radio slot="prefix" value="c"></p-radio>
+              Option C
+            </p-list-item>
+          </p-list>
+        </p-radio-group>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Advanced Usage
+
+### Radio List
+
+Implement the single selection functionality of the settings list:
+
+<o-playground name="Single-Select List" style="--editor-height: 500px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list-item.html"></l-m>
+      <style>
+        p-list-item {
+          background-color: rgba(from var(--md-sys-color-neutral) r g b / 0.1);
+          transition: all ease 0.3s;
+        }
+        p-list-item.active {
+          background-color: var(--md-sys-color-primary);
+          border-radius: 12px;
+        }
+        p-list-item.active div {
+          color: var(--md-sys-color-on-primary);
+        }
+      </style>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-list>
+          <p-list-item class:active="selected === 'account'" on:click="selected = 'account'" button>
+            <span slot="prefix">👤</span>
+            <div>Account Settings</div>
+          </p-list-item>
+          <p-list-item class:active="selected === 'notifications'" on:click="selected = 'notifications'" button>
+            <span slot="prefix">🔔</span>
+            <div>Notification Settings</div>
+          </p-list-item>
+          <p-list-item class:active="selected === 'privacy'" on:click="selected = 'privacy'" button>
+            <span slot="prefix">🔒</span>
+            <div>Privacy Settings</div>
+          </p-list-item>
+          <p-list-item class:active="selected === 'help'" on:click="selected = 'help'" button>
+            <span slot="prefix">❓</span>
+            <div>Help Center</div>
+          </p-list-item>
+        </p-list>
+      </div>
+      <script>
+        export default {
+          data: {
+            selected: 'account'
+          }
+        };
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### Multi-select List
+
+Implement multi-select functionality for category filtering:
+
+<o-playground name="Multi-select List" style="--editor-height: 500px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/list/list-item.html"></l-m>
+      <style>
+        p-list-item {
+          background-color: rgba(from var(--md-sys-color-neutral) r g b / 0.1);
+          transition: all ease 0.3s;
+        }
+        p-list-item.active {
+          background-color: var(--md-sys-color-primary);
+          border-radius: 12px;
+        }
+        p-list-item.active div {
+          color: var(--md-sys-color-on-primary);
+        }
+      </style>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-list>
+          <p-list-item class:active="filters.includes('all')" on:click="toggleFilter('all')" button>
+            <span slot="prefix">📁</span>
+            <div>All</div>
+          </p-list-item>
+          <p-list-item class:active="filters.includes('electronics')" on:click="toggleFilter('electronics')" button>
+            <span slot="prefix">📱</span>
+            <div>Electronics</div>
+          </p-list-item>
+          <p-list-item class:active="filters.includes('clothing')" on:click="toggleFilter('clothing')" button>
+            <span slot="prefix">👕</span>
+            <div>Clothing</div>
+          </p-list-item>
+          <p-list-item class:active="filters.includes('books')" on:click="toggleFilter('books')" button>
+            <span slot="prefix">📚</span>
+            <div>Books</div>
+          </p-list-item>
+        </p-list>
+        <p style="margin-top: 16px;">Selected: {{ filters }}</p>
+      </div>
+      <script>
+        export default {
+          data: {
+            filters: ['all']
+          },
+          proto: {
+            toggleFilter(filter) {
+              if (this.filters.includes(filter)) {
+                if (this.filters.length > 1) {
+                  this.filters = this.filters.filter(f => f !== filter);
+                }
+              } else {
+                this.filters = [...this.filters, filter];
+              }
+            }
+          }
+        };
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+## API
+
+### Properties - p-list-item
+
+| Property | Description | Type | Default |
+|------|------|------|--------|
+| `collapsible` | Whether it is collapsible | `boolean` | `false` |
+| `expanded` | Whether it is expanded | `boolean` | `false` |
+| `button` | Whether it is a clickable button (shows ripple effect) | `boolean` \| `string` | `false` |
+| `active` | Whether it is active | `boolean` | `false` |
+| `disabled` | Whether it is disabled | `boolean` | `false` |
+| `align-top` | Whether the content is top-aligned | `boolean` | `false` |
+| `color` | List item color | `primary` \| `error` \| `success` \| `neutral` | - |
+| `variant` | List item style | `outlined` \| `filled` | - |### Slots - p-list-item
+
+| Slot Name | Description |
+|--------|------|
+| `default` | Main content, supporting elements with the `secondary` attribute as secondary text |
+| `prefix` | Prefix content (such as icons, avatars, etc.) |
+| `suffix` | Suffix content (such as badges, action buttons, etc.) |
+| `sublist` | Sublist content (for collapsible items) |
+| `expand-icon` | Custom expand/collapse icon |### Events - p-list-item
+
+| Event name | Description |
+|------------|-------------|
+| `click` | Triggered when a list item is clicked |
+| `expand` | Triggered when the collapse state changes |### CSS Variables
+
+| Variable Name | Description | Default Value |
+|--------|------|--------|
+| `--sublist-indent` | Sublist indentation distance | `16px` |
+
+---
+
+<!-- color.html -->
+
+# Color System
+
+Punch-UI uses the color system of Material Design 3, providing a complete palette and theme support.
+
+> 🎯 **Core Principle**: **Always prioritize using semantic color variables (`--md-sys-color-*`)**, avoid directly using palette colors (`--md-ref-palette-*`). Semantic colors automatically adapt to theme switching, ensuring contrast and consistency.
+
+## Importing Styles
+
+```html
+<link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+```
+
+## Theme Switching
+
+Punch-UI supports three theme modes:
+
+### 1. Auto-Follow System (Default)
+
+By default, the theme automatically follows the system settings:
+
+```html
+<html>
+  <!-- Automatically follow system theme -->
+</html>
+```
+
+### 2. Force Light Theme
+
+```html
+<html class="theme-light-mode">
+  <!-- Force light theme -->
+</html>
+```
+
+### 3. Force Dark Theme
+
+```html
+<html class="theme-dark-mode">
+  <!-- Force dark theme -->
+</html>
+```
+
+### Using Theme Switch Component
+
+```html
+<l-m src="https://punch-ui-v2.pages.dev/tool/theme-switch/theme-switch.html"></l-m>
+<p-theme-switch></p-theme-switch>
+```
+
+## Semantic Color Variables
+
+Punch-UI provides a set of semantic color variables that automatically adapt to light and dark themes:
+
+### Main Colors
+
+| Variable Name | Description | Light Theme Example | Dark Theme Example |
+|--------|------|-------------|-------------|
+| `--md-sys-color-primary` | Primary color | #0060a9 | #a2c9ff |
+| `--md-sys-color-on-primary` | Text on primary | #ffffff | #00315b |
+| `--md-sys-color-primary-container` | Primary container | #d3e4ff | #004881 |
+| `--md-sys-color-on-primary-container` | Text on primary container | #001c38 | #d3e4ff |### Success Color
+
+| Variable Name | Description | Light Theme Example | Dark Theme Example |
+|--------|------|-------------|-------------|
+| `--md-sys-color-success` | Success color | #3a6a24 | #9fd582 |
+| `--md-sys-color-on-success` | Text on success color | #ffffff | #103900 |
+| `--md-sys-color-success-container` | Success color container | #baf29c | #22510d |
+| `--md-sys-color-on-success-container` | Text on success color container | #062100 | #baf29c |### Error Color
+
+| Variable Name | Description | Light Theme Example | Dark Theme Example |
+|--------|------|-------------|-------------|
+| `--md-sys-color-error` | Error | #bc1421 | #ffb3ad |
+| `--md-sys-color-on-error` | On error | #ffffff | #68000a |
+| `--md-sys-color-error-container` | Error container | #ffdad7 | #930013 |
+| `--md-sys-color-on-error-container` | On error container | #410004 | #ffdad7 |### Neutral Colors
+
+| Variable name | Description | Light theme example | Dark theme example |
+|--------|------|-------------|-------------|
+| `--md-sys-color-neutral` | Neutral | #5e5e5e | #c7c6c6 |
+| `--md-sys-color-on-neutral` | On neutral | #ffffff | #303031 |
+| `--md-sys-color-neutral-container` | Neutral container | #e3e2e2 | #464747 |
+| `--md-sys-color-on-neutral-container` | On neutral container | #1b1c1c | #e3e2e2 |### Surface Color
+
+| Variable Name | Description | Light Theme Example | Dark Theme Example |
+|--------|------|-------------|-------------|
+| `--md-sys-color-surface` | Background color | #faf9f9 | #121414 |
+| `--md-sys-color-on-surface` | Text on background | #1b1c1c | #e3e2e2 |
+| `--md-sys-color-surface-variant` | Variant background color | #e3e2e2 | #464747 |
+| `--md-sys-color-on-surface-variant` | Text on variant background | #464747 | #c7c6c6 |
+| `--md-sys-color-inverse-surface` | Inverse background color | #303031 | #e3e2e2 |
+| `--md-sys-color-inverse-on-surface` | Text on inverse background | #f2f0f0 | #303031 |## Usage Example
+
+### Use Semantic Colors
+
+```html
+<style>
+  .custom-button {
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    border-radius: 8px;
+    padding: 10px 20px;
+  }
+  
+  .custom-card {
+    background-color: var(--md-sys-color-surface-variant);
+    color: var(--md-sys-color-on-surface-variant);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  
+  .success-message {
+    background-color: var(--md-sys-color-success-container);
+    color: var(--md-sys-color-on-success-container);
+    padding: 12px;
+  }
+</style>
+
+<button class="custom-button">Custom Button</button>
+<div class="custom-card">Custom Card</div>
+<div class="success-message">Action successful!</div>
+```
+
+### Real-time Example
+
+<o-playground name="Color System Example" style="--editor-height: 500px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <style>
+        .color-demo {
+          padding: 20px;
+          max-width: 600px;
+          margin: 0 auto;
+        }
+        .color-box {
+          padding: 16px;
+          margin: 8px 0;
+          border-radius: 8px;
+        }
+        .primary-demo {
+          background-color: var(--md-sys-color-primary);
+          color: var(--md-sys-color-on-primary);
+        }
+        .success-demo {
+          background-color: var(--md-sys-color-success);
+          color: var(--md-sys-color-on-success);
+        }
+        .error-demo {
+          background-color: var(--md-sys-color-error);
+          color: var(--md-sys-color-on-error);
+        }
+        .surface-demo {
+          background-color: var(--md-sys-color-surface-variant);
+          color: var(--md-sys-color-on-surface-variant);
+        }
+      </style>
+      <div class="color-demo">
+        <h2>Semantic Color Examples</h2>
+        <div class="color-box primary-demo">
+          <strong>Primary Color</strong>
+          <p>Used for main actions and important elements</p>
+        </div>
+        <div class="color-box success-demo">
+          <strong>Success Color</strong>
+          <p>Used for success status and positive feedback</p>
+        </div>
+        <div class="color-box error-demo">
+          <strong>Error Color</strong>
+          <p>Used for error status and warning messages</p>
+        </div>
+        <div class="color-box surface-demo">
+          <strong>Surface Color</strong>
+          <p>Used for backgrounds and containers</p>
+        </div>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Best Practices
+
+### 1. Prioritize the use of semantic colors
+
+✅ **Recommended**:```css
+background-color: var(--md-sys-color-primary);
+color: var(--md-sys-color-on-primary);
+```
+
+❌ **Not recommended**:```css
+background-color: var(--md-ref-palette-primary40);
+color: #ffffff;
+```
+
+### 2. Ensure contrast
+
+When using semantic colors, Punch-UI ensures that the contrast between text and background meets accessibility standards.
+
+### 3. Theme Adaptation
+
+Semantic colors automatically adapt to dark/light themes, no manual processing required.
+
+## Next Step
+
+- [Theme Customization](./theming.md) - Learn how to customize themes and colors
+
+---
+
+<!-- tabs.html -->
+
+# Tabs
+
+Tab component, used to switch between different content.
+
+## Importing Components
+
+```html
+<l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-bar.html"></l-m>
+```
+
+## Basic Usage
+
+<o-playground name="Tabs basic usage" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-tab-bar>
+          <p-tab-item active>Tab 1</p-tab-item>
+          <p-tab-item>Tab 2</p-tab-item>
+          <p-tab-item>Tab 3</p-tab-item>
+        </p-tab-bar>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Label with Icon
+
+Use the `icon` slot to add an icon:
+
+<o-playground name="Tab Bar with Icons" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-tab-bar>
+          <p-tab-item active>
+            <span slot="icon">🏠</span>
+            <span>Home</span>
+          </p-tab-item>
+          <p-tab-item>
+            <span slot="icon">📑</span>
+            <span>Bookmarks</span>
+          </p-tab-item>
+          <p-tab-item>
+            <span slot="icon">👤</span>
+            <span>About</span>
+          </p-tab-item>
+        </p-tab-bar>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Disabled State
+
+Add the `disabled` attribute to disable the label item:
+
+<o-playground name="Disabled State" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-tab-bar>
+          <p-tab-item active>
+            <span slot="icon">🏠</span>
+            <span>Home</span>
+          </p-tab-item>
+          <p-tab-item disabled>
+            <span slot="icon">⚙️</span>
+            <span>Settings</span>
+          </p-tab-item>
+          <p-tab-item>
+            <span slot="icon">👤</span>
+            <span>About</span>
+          </p-tab-item>
+        </p-tab-bar>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Scrollable Tab Bar
+
+When there are too many tab items, you can set scrolling:
+
+<o-playground name="Scrollable Tab Bar" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-tab-bar style="overflow-x: auto">
+          <p-tab-item active>Tab One</p-tab-item>
+          <p-tab-item>Tab Two</p-tab-item>
+          <p-tab-item>Tab Three</p-tab-item>
+          <p-tab-item>Tab Four</p-tab-item>
+          <p-tab-item>Tab Five</p-tab-item>
+          <p-tab-item>Tab Six</p-tab-item>
+          <p-tab-item>Tab Seven</p-tab-item>
+        </p-tab-bar>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Using in Page Modules
+
+In the page module, click switching of tabs can be realized through data binding:
+
+<o-playground name="Tab Switching in Page Module" style="--editor-height: 500px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-tab-bar>
+          <p-tab-item attr:active="active === 'home'" on:click="active = 'home'">
+            <span slot="icon">🏠</span>
+            <span>Home</span>
+          </p-tab-item>
+          <p-tab-item attr:active="active === 'bookmarks'" on:click="active = 'bookmarks'">
+            <span slot="icon">📑</span>
+            <span>Bookmarks</span>
+          </p-tab-item>
+          <p-tab-item attr:active="active === 'about'" on:click="active = 'about'">
+            <span slot="icon">👤</span>
+            <span>About</span>
+          </p-tab-item>
+        </p-tab-bar>
+        <div style="margin-top: 20px; padding: 16px; background-color: var(--md-sys-color-surface-container);">
+          Currently selected: {{ active }}
+        </div>
+      </div>
+      <script>
+        export default {
+          data: {
+            active: 'home'
+          }
+        };
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+## API
+
+### Props - p-tab-item
+
+| Property | Description | Type | Default |
+|------|------|------|--------|
+| `active` | Whether it is active | `boolean` | `false` |
+| `disabled` | Whether it is disabled | `boolean` | `false` |### Slots - p-tab-item
+
+| Slot Name | Description |
+|--------|------|
+| `default` | Label text content |
+| `icon` | Icon content |### Event - p-tab-item
+
+| Event Name | Description |
+|--------|------|
+| `change-active` | Triggered when the active state changes |
+| `click` | Triggered when a tab item is clicked（not triggered when disabled）|
+
+---
+
+<!-- navigation.html -->
+
+# Navigation
+
+The navigation component package provides navigation bar, navigation item, and navigation layout components for building responsive application navigation systems.
+
+## Importing Components
+
+```html
+<l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-bar.html"></l-m>
+```
+
+## Basic Usage - Navigation Bar
+
+<o-playground name="Navigation Basic Usage" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-nav-bar>
+          <p-nav-item active>
+            <span slot="icon">🏠</span>
+            <span>Home</span>
+          </p-nav-item>
+          <p-nav-item>
+            <span slot="icon">📑</span>
+            <span>Bookmarks</span>
+          </p-nav-item>
+          <p-nav-item>
+            <span slot="icon">👤</span>
+            <span>About</span>
+          </p-nav-item>
+        </p-nav-bar>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Vertical Navigation Bar
+
+<o-playground name="Vertical Navigation Bar" style="--editor-height: 500px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-nav-bar style="height: 400px; display: inline-flex; flex-direction: column">
+          <p-nav-item active>
+            <span slot="icon">🏠</span>
+            <span>Home</span>
+          </p-nav-item>
+          <p-nav-item>
+            <span slot="icon">⚙️</span>
+            <span>Settings</span>
+          </p-nav-item>
+          <p-nav-item>
+            <span slot="icon">👤</span>
+            <span>About</span>
+          </p-nav-item>
+        </p-nav-bar>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Tag Parallel Mode
+
+<o-playground name="Label Parallel Mode" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-nav-bar style="--label-parallel: true; padding: 8px 12px;">
+          <p-nav-item active>
+            <span slot="icon">🏠</span>
+            <span>Home</span>
+          </p-nav-item>
+          <p-nav-item>
+            <span slot="icon">👤</span>
+            <span>About</span>
+          </p-nav-item>
+        </p-nav-bar>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Disabled State
+
+<o-playground name="Disabled State" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-nav-bar>
+          <p-nav-item active>
+            <span slot="icon">🏠</span>
+            <span>Home</span>
+          </p-nav-item>
+          <p-nav-item disabled>
+            <span slot="icon">⚙️</span>
+            <span>Settings</span>
+          </p-nav-item>
+          <p-nav-item>
+            <span slot="icon">👤</span>
+            <span>About</span>
+          </p-nav-item>
+        </p-nav-bar>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Nav Layout
+
+`p-nav-layout` is a responsive navigation layout component that automatically adjusts the style and position of the navigation bar based on the container width.
+
+### Auto-fit Window
+
+The component has a built-in container query mechanism, which intelligently adjusts the layout based on the container width:
+
+- **Mobile (< 768px)**: The navigation bar is located at the bottom, using a vertical layout with icons and text arranged vertically.
+- **Tablet (768px - 1024px)**: The navigation bar is at the bottom and automatically switches to a tab-inline mode, with icons and text arranged horizontally.
+- **Desktop (≥ 1024px)**: The navigation bar automatically moves to the left, using a vertical layout to provide more spacious content display area.
+
+This adaptive design ensures an optimal user experience across different devices without the need to manually write responsive code.
+
+### Import Components
+
+```html
+<l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-layout.html"></l-m>
+```
+
+### Basic Usage
+
+<o-playground name="Navigation Layout" style="--editor-height: 600px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-layout.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-item.html"></l-m>
+      <div style="height: 100%;">
+        <p-nav-layout>
+          <div style="padding: 20px;">
+            <o-if :value="active === 'home'">
+              <h1>Home</h1>
+              <p>This is the home content...</p>
+            </o-if>
+            <o-if :value="active === 'bookmarks'">
+              <h1>Bookmarks</h1>
+              <p>This is the bookmarks content...</p>
+            </o-if>
+            <o-if :value="active === 'about'">
+              <h1>About</h1>
+              <p>This is the about content...</p>
+            </o-if>
+          </div>
+          <p-nav-bar slot="nav">
+            <p-nav-item attr:active="active === 'home'" on:click="active = 'home'">
+              <span slot="icon">🏠</span>
+              <span>Home</span>
+            </p-nav-item>
+            <p-nav-item attr:active="active === 'bookmarks'" on:click="active = 'bookmarks'">
+              <span slot="icon">📑</span>
+              <span>Bookmarks</span>
+            </p-nav-item>
+            <p-nav-item attr:active="active === 'about'" on:click="active = 'about'">
+              <span slot="icon">👤</span>
+              <span>About</span>
+            </p-nav-item>
+          </p-nav-bar>
+        </p-nav-layout>
+      </div>
+      <script>
+        export default async () => {
+          return {
+            data: {
+              active: 'home'
+            }
+          };
+        };
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+## API
+
+### Properties - p-nav-item
+
+| Property | Description | Type | Default |
+|------|------|------|--------|
+| `active` | Whether it is active | `boolean` | `false` |
+| `disabled` | Whether it is disabled | `boolean` | `false` |### Slots - p-nav-bar
+
+| Slot Name | Description |
+|--------|------|
+| `default` | Contains p-nav-item elements |### Slot - p-nav-item
+
+| Slot Name | Description |
+|------------|-------------|
+| `default` | Navigation item text |
+| `icon` | Navigation item icon |
+
+---
+
+<!-- checkbox.html -->
+
+# Checkbox
+
+Checkbox component, supports single and combined use.
+
+## Importing Components
+
+```html
+<l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+```
+
+## Basic Usage
+
+<o-playground name="Checkbox Basic Usage" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox>Checkbox</p-checkbox>
+        <p-checkbox checked>Checked</p-checkbox>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+::: warning Note
+If you only need a single toggle selection, it is recommended to use the [Switch component](./switch.md), which provides a better toggle interaction experience.
+:::
+
+## Dimensions
+
+Set the checkbox size using the `size` attribute:
+
+<o-playground name="Checkbox Size" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox size="xs" checked>XS</p-checkbox>
+        <p-checkbox size="s" checked>Small</p-checkbox>
+        <p-checkbox checked>Medium</p-checkbox>
+        <p-checkbox size="l" checked>Large</p-checkbox>
+        <p-checkbox size="xl" checked>XL</p-checkbox>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Colors
+
+Set the checkbox color via the `color` property:
+
+<o-playground name="Checkbox Colors" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox color="primary" checked>Primary</p-checkbox>
+        <p-checkbox color="success" checked>Success</p-checkbox>
+        <p-checkbox color="error" checked>Error</p-checkbox>
+        <p-checkbox color="neutral" checked>Neutral</p-checkbox>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Status
+
+<o-playground name="Checkbox State" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox>Default</p-checkbox>
+        <p-checkbox variant="tonal">Tonal</p-checkbox>
+        <p-checkbox checked>Checked</p-checkbox>
+        <p-checkbox disabled>Disabled</p-checkbox>
+        <p-checkbox indeterminate>Indeterminate</p-checkbox>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Checkbox Group
+
+Manage multiple checkboxes using a checkbox group, setting default checked items through the `checked` attribute:
+
+<o-playground name="Checkbox Group" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox-group>
+          <p-checkbox value="1">Option 1</p-checkbox>
+          <p-checkbox value="2" checked>Option 2</p-checkbox>
+          <p-checkbox value="3" checked>Option 3</p-checkbox>
+        </p-checkbox-group>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Get Value
+
+### Single Checkbox
+
+Get or set the checked state of a single checkbox through the `checked` attribute:
+
+<o-playground name="Single Checkbox Get Value" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox id="agree-checkbox">Agree to Terms</p-checkbox>
+        <p-button style="margin-top: 16px;" id="check-btn">Check Status</p-button>
+        <p style="margin-top: 16px;">Selected Status: <span id="status-display"></span></p>
+      </div>
+      <script>
+        $('#check-btn').on('click', () => {
+          const isChecked = $('#agree-checkbox').checked;
+          $('#status-display').text = isChecked ? 'Checked' : 'Unchecked';
+        });
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### Checkbox Group Get Value
+
+Get the array of selected values of a checkbox group through the `value` property:
+
+<o-playground name="Checkbox Group Get Value" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox-group id="fruits-group">
+          <p-checkbox value="apple">Apple</p-checkbox>
+          <p-checkbox value="banana" checked>Banana</p-checkbox>
+          <p-checkbox value="orange">Orange</p-checkbox>
+        </p-checkbox-group>
+        <p-button style="margin-top: 16px;" id="get-value-btn">Get Value</p-button>
+        <p style="margin-top: 16px;">Current value: <span id="value-display"></span></p>
+      </div>
+      <script>
+        $('#get-value-btn').on('click', () => {
+          const values = $('#fruits-group').value;
+          $('#value-display').text = JSON.stringify(values);
+        });
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### Monitor change events
+
+Real-time retrieval of selected status by listening to the `change` event:
+
+<o-playground name="Listen to change events" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox-group id="realtime-group">
+          <p-checkbox value="a">Option A</p-checkbox>
+          <p-checkbox value="b">Option B</p-checkbox>
+          <p-checkbox value="c">Option C</p-checkbox>
+        </p-checkbox-group>
+        <p style="margin-top: 16px;">Current value: <span id="realtime-display"></span></p>
+      </div>
+      <script>
+        $('#realtime-group').on('change', () => {
+          const values = $('#realtime-group').value;
+          $('#realtime-display').text = JSON.stringify(values);
+        });
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### Two-way binding in components or page modules
+
+Use ofa.js's data binding feature：
+
+<o-playground name="Get Value" style="--editor-height: 400px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox-group :value="selectedFruits">
+          <p-checkbox value="apple">Apple</p-checkbox>
+          <p-checkbox value="banana">Banana</p-checkbox>
+          <p-checkbox value="orange">Orange</p-checkbox>
+        </p-checkbox-group>
+        <p style="margin-top: 16px;">Current Value: {{ selectedFruits }}</p>
+      </div>
+      <script>
+        export default {
+          data: {
+            selectedFruits: ['apple', 'banana']
+          }
+        };
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+Since `p-checkbox-group`'s `value` is an array object, based on JavaScript's object reference characteristics, directly using `:value` one-way binding can achieve two-way data synchronization, **no need to use `sync:value` syntax**.
+
+When the user selects or deselects a check box, the component internally modifies the content of the array object directly (adding or removing elements). Since the same array object is referenced, the page data will update automatically.
+
+## API
+
+### Properties - p-checkbox
+
+| Property | Description | Type | Default |
+|------|------|------|--------|
+| `checked` | Whether selected | `boolean` | `false` |
+| `disabled` | Whether disabled | `boolean` | `false` |
+| `name` | Form name | `string` | - |
+| `value` | Value of the checkbox | `string` | - |
+| `size` | Checkbox size | `xs` \| `s` \| `l` \| `xl` | - |
+| `color` | Checkbox color | `primary` \| `error` \| `success` \| `neutral` | - |
+| `variant` | Checkbox variant | `tonal` | - |
+| `indeterminate` | Whether in indeterminate state | `boolean` | `false` |### Properties - p-checkbox-group
+
+| Attribute | Description | Type | Default Value |
+|------|------|------|--------|
+| `value` | Array of selected values | `Array` | `[]` |### Events - p-checkbox
+
+| Event Name | Description |
+|--------|------|
+| `change` | Triggered when the selected state changes |### Events - p-checkbox-group
+
+| Event Name | Description |
+|------------|-------------|
+| `change` | Triggered when the selected value changes |### Method - p-checkbox
+
+| Method Name | Description |
+|--------|------|
+| `focus()` | Makes the checkbox gain focus |
+
+---
+
+<!-- switch.html -->
+
+# Switch
+
+The switch component is used to toggle between two states, supporting custom values and keyboard operations.
+
+## Importing Components
+
+```html
+<l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+```
+
+## Basic Usage
+
+<o-playground name="Switch Basic Usage" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch>Default Switch</p-switch>
+        <p-switch checked>Checked</p-switch>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Dimensions
+
+Set the switch size using the `size` property:
+
+<o-playground name="Switch Sizes" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch size="xs">XS</p-switch>
+        <p-switch size="s">Small</p-switch>
+        <p-switch>Medium</p-switch>
+        <p-switch size="l">Large</p-switch>
+        <p-switch size="xl">XL</p-switch>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Colors
+
+Set switch color via the `color` property:
+
+<o-playground name="Switch Colors" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch color="primary" checked>Primary</p-switch>
+        <p-switch color="error" checked>Error</p-switch>
+        <p-switch color="success" checked>Success</p-switch>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Status
+
+<o-playground name="Switch State" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch checked>Checked</p-switch>
+        <p-switch>Unchecked</p-switch>
+        <p-switch disabled>Disabled</p-switch>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Form Integration
+
+### Custom Value
+
+Use the `checked-value` and `unchecked-value` attributes to customize the checked/unchecked values:
+
+<o-playground name="Switch with Custom Values" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch 
+          name="status" 
+          checked-value="enabled" 
+          unchecked-value="disabled"
+          checked
+        >
+          Status Switch
+        </p-switch>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+### Default Values
+
+Set the initial value using the `default-value` attribute:
+
+<o-playground name="Default value" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch 
+          name="theme" 
+          checked-value="dark" 
+          unchecked-value="light"
+          default-value="dark"
+        >
+          Dark mode
+        </p-switch>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Interactive Features
+
+### Auto Focus
+
+Use the `autofocus` attribute to automatically focus the switch on page load:
+
+<o-playground name="autofocus" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch autofocus>autofocus</p-switch>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+### Keyboard Operation
+
+Switch supports keyboard operation:- **Space** - Toggle switch state
+- **Enter** - Toggle switch state
+
+<o-playground name="Keyboard Operation" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch>Operate with keyboard</p-switch>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+### Programmatic Control
+
+Control switch state via JavaScript:
+
+<o-playground name="Programmatic Control" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch id="my-switch">Programmatic Control</p-switch>
+        <p-button style="margin-top: 16px;" on:click="this.$('#my-switch').checked = !this.$('#my-switch').checked">Toggle State</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Variant Styles
+
+Use the `variant` attribute to set different styles:
+
+<o-playground name="Variant Styles" style="--editor-height: 350px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch variant="filled" checked>Filled</p-switch>
+        <p-switch variant="outlined" checked>Outlined</p-switch>
+        <p-switch variant="text" checked>Text</p-switch>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Method
+
+The switch component provides the following methods:
+
+- `focus()` - gives focus to the switch
+
+<o-playground name="Method" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch id="focus-switch">Focus Switch</p-switch>
+        <p-button style="margin-top: 16px;" on:click="this.$('#focus-switch').focus()">Focus</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Animation Effects
+
+The switch component includes the following animation effects:- **Slider Movement** - Smooth sliding animation
+- **Check Mark** - Shows check animation when selected
+- **Border Fill** - Border fill animation when selected
+
+<o-playground name="Animation Effect" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch checked>Animation Effect</p-switch>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## Get Value
+
+### Get via checked attribute
+
+Use the `checked` attribute to get the toggle's selected state:
+
+<o-playground name="Get Value" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch id="theme-switch">Dark Mode</p-switch>
+        <p-button style="margin-top: 16px;" id="get-value-btn">Get Status</p-button>
+        <p style="margin-top: 16px;">Current Status: <span id="status-display"></span></p>
+      </div>
+      <script>
+        $('#get-value-btn').on('click', () => {
+          const isChecked = $('#theme-switch').checked;
+          $('#status-display').text = isChecked ? 'Enabled' : 'Disabled';
+        });
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### Get Custom Value
+
+When `checked-value` and `unchecked-value` are set, get the current value through the `value` attribute:
+
+<o-playground name="Get Custom Value" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch 
+          id="status-switch"
+          checked-value="enabled" 
+          unchecked-value="disabled"
+          checked
+        >
+          Status Switch
+        </p-switch>
+        <p-button style="margin-top: 16px;" id="get-custom-btn">Get Value</p-button>
+        <p style="margin-top: 16px;">Current value: <span id="custom-value-display"></span></p>
+      </div>
+      <script>
+        $('#get-custom-btn').on('click', () => {
+          const value = $('#status-switch').value;
+          $('#custom-value-display').text = value;
+        });
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### Monitor change events
+
+Get the switch state in real time by listening to the `change` event:
+
+<o-playground name="Listen to Change Events" style="--editor-height: 400px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch id="realtime-switch">Realtime listening</p-switch>
+        <p style="margin-top: 16px;">Current status: <span id="realtime-display"></span></p>
+      </div>
+      <script>
+        $('#realtime-switch').on('change', () => {
+          const isChecked = $('#realtime-switch').checked;
+          $('#realtime-display').text = isChecked ? 'Enabled' : 'Disabled';
+        });
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+### Two-way binding in components or page modules
+
+Use ofa.js's data binding feature：
+
+<o-playground name="Get Value" style="--editor-height: 400px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch 
+          sync:value="status"
+          checked-value="on"
+          unchecked-value="off"
+        >
+          Dark Mode
+        </p-switch>
+        <p style="margin-top: 16px;">Current Status: {{ status }}</p>
+      </div>
+      <script>
+        export default {
+          data: {
+            status: 'on'
+          }
+        };
+      </script>
+    </template>
+  </code>
+</o-playground>
+
+When using two-way binding in a component or page module, **bind the `value` property instead of the `checked` property**.
+
+- ✅ Correct: `sync:value="status"` - Bind the value attribute, used with `checked-value` and `unchecked-value`
+- ❌ Incorrect: `sync:checked="darkMode"` - Do not bind the checked attribute
+
+This allows for better integration with form data and provides clearer semantics.
+
+## Accessibility Support
+
+The switch component provides the following accessibility support:- Supports keyboard navigation and operation
+- Provides focus state indication
+- Supports screen readers
+
+<o-playground name="Accessibility Support" style="--editor-height: 300px">
+  <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch>Accessible Switch</p-switch>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
+## API
+
+### Attributes
+
+| Attribute | Description | Type | Default |
+|------|------|------|--------|
+| `checked` | Whether selected | `boolean` | `false` |
+| `size` | Switch size | `xs` \| `s` \| `l` \| `xl` | - |
+| `color` | Switch color | `primary` \| `error` \| `success` | `primary` |
+| `disabled` | Whether disabled | `boolean` | `false` |
+| `name` | Form name | `string` | - |
+| `value` | Current value (returns checked-value or unchecked-value based on checked state) | `string` | - |
+| `checked-value` | Value when selected | `string` | `true` |
+| `unchecked-value` | Value when not selected | `string` | `false` |
+| `default-value` | Default value | `string` | - |### Events
+
+| Event Name | Description |
+|--------|------|
+| `change` | Triggered when the switch state changes |### Method
+
+| Method Name | Description |
+|--------|------|
+| `focus()` | Makes the switch gain focus |
+
+---
+
+<!-- installation.html -->
+
+# Installation
+
+Punch-UI is built on ofa.js, and you need to import ofa.js and the global styles before using it.
+
+## Import ofa.js
+
+Add the following script tag in the HTML file:
+
+```html
+<script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
+```
+
+## Import Global Styles
+
+Punch-UI provides global style files, including the theme system and base styles:
+
+```html
+<link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+```
+
+> **Note**: This step is optional. If you do not manually import the global styles, Punch-UI will add them automatically. However, in dark mode, automatic addition may cause a brief "white flash" (sudden transition from white to black) when the page loads. To avoid this visual flicker, it is recommended to manually import the global styles in the `<head>`.
+
+## Importing Components
+
+Use the `l-m` tag to import the required component. For example, to import a button component:
+
+```html
+<l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+```
+
+## Complete Example
+
+Here is a complete HTML example demonstrating how to import ofa.js, global styles, and the button component:
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Punch-UI Example</title>
+  <!-- Import ofa.js -->
+  <script src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs" type="module"></script>
+  <!-- Import global styles -->
+  <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+</head>
+<body>
+  
+  <!-- Import button component -->
+  <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+  
+  <!-- Use component -->
+  <p-button color="primary">Click me</p-button>
+</body>
+</html>
+```
+
+## Component CDN Address
+
+Most components can be imported using the following CDN address format:
+
+```
+https://punch-ui-v2.pages.dev/packages/[component-name]/[component-file].html
+```
+
+> **Note**: This is a general file structure pattern, but not all components strictly follow this rule. For the specific import paths of components, please refer to the documentation of each component.
+
+For example:- Button: `https://punch-ui-v2.pages.dev/packages/button/button.html`
+- Button Group: `https://punch-ui-v2.pages.dev/packages/button/group.html`
+- Input: `https://punch-ui-v2.pages.dev/packages/input/input.html`
+- Select: `https://punch-ui-v2.pages.dev/packages/select/select.html`
+
+## Theme Switching
+
+Punch-UI supports dark/light theme switching. By default, components automatically follow the system theme.
+
+### Auto-Follow System (Default)
+
+```html
+<html>
+  <!-- Automatically follow system theme -->
+</html>
+```
+
+### Forced Light Theme
+
+```html
+<html class="theme-light-mode">
+  <!-- Force light theme -->
+</html>
+```
+
+### Force Dark Theme
+
+```html
+<html class="theme-dark-mode">
+  <!-- Force dark theme -->
+</html>
+```
+
+### Using Theme Switch Component
+
+Punch-UI provides a theme switching component, allowing users to manually switch themes:
+
+```html
+<l-m src="https://punch-ui-v2.pages.dev/tool/theme-switch/theme-switch.html"></l-m>
+<p-theme-switch></p-theme-switch>
+```
+
+## Next Step
+
+- [First Example](./first-example.md) - Create your first Punch-UI application

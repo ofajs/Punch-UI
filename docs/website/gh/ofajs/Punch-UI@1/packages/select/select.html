@@ -1,0 +1,220 @@
+<template component>
+  <l-m src="../field-container/field-container.html"></l-m>
+  <l-m src="./option.html"></l-m>
+  <style>
+    :host {
+      display: block;
+      position: relative;
+      vertical-align: top;
+    }
+    ::slotted(option) {
+      display: none;
+    }
+
+    select {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      opacity: 0;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+
+    .fake-input {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .triangle {
+      width: 0;
+      height: 0;
+      border-top: 5px var(--md-sys-color-on-normal-container) solid;
+      border-left: 5px transparent solid;
+      border-right: 5px transparent solid;
+      margin-left: var(--pui-space-x);
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+
+    :host(:focus-within) .triangle {
+      transform: rotate(180deg);
+    }
+
+    p-field-container[variant="filled"][fix-position] .triangle {
+      transition: all ease 0.3s;
+      transform: translate(0, 4px);
+    }
+
+    :host([error]) ::slotted(label),
+    :host([error]) ::slotted([slot="helper"]) {
+      color: var(--md-sys-color-error);
+    }
+
+    :host([error]) p-field-container::part(border) {
+      border-color: var(--md-sys-color-error);
+    }
+
+    :host([error]) p-field-container::part(bottom-line) {
+      border-color: var(--md-sys-color-error);
+    }
+
+    :host([disabled]) select {
+      cursor: not-allowed;
+    }
+
+    :host([disabled]) .fake-input {
+      opacity: 0.7;
+    }
+
+    .placeholder {
+      color: var(--md-sys-color-on-normal-container);
+      opacity: 0.5;
+    }
+  </style>
+
+  <p-field-container
+    :color="error !== null ? 'error' : color"
+    :hang-label="isHangLable"
+    :variant="variant"
+    :active="infocus ? '' : null"
+    :size="size"
+    :fix-position="value ? '' : null"
+    :disabled="disabled || readonly"
+    :readonly="readonly"
+  >
+    <slot></slot>
+    <div class="fake-input">
+      <span class="placeholder" :style.display="value ? 'none' : 'inline'">
+        {{placeholder}}
+      </span>
+      <span :style.display="value ? 'inline' : 'none'">
+        {{targetOptionText}}
+      </span>
+    </div>
+    <slot name="suffix" slot="suffix"></slot>
+    <slot name="prefix" slot="prefix"></slot>
+    <o-if :value="readonly === null" slot="suffix">
+      <div class="triangle"></div>
+    </o-if>
+    <slot name="helper" slot="helper"></slot>
+  </p-field-container>
+  <select
+    sync:value="value"
+    on:focus="infocus = true"
+    on:blur="infocus = false"
+    attr:disabled="disabled || readonly"
+    on:change="emit('change')"
+    attr:name="name"
+  ></select>
+
+  <script>
+    import "../public/init.js";
+
+    export default {
+      tag: "p-select",
+      attrs: {
+        color: null,
+        name: null,
+        error: null,
+        variant: null,
+        disabled: null,
+        defaultValue: null,
+        size: null,
+        placeholder: null,
+        hanglabel: null,
+        readonly: null,
+      },
+      data: {
+        value: "",
+        infocus: false,
+        targetOptionText: "",
+      },
+      watch: {
+        defaultValue(val) {
+          if (val) {
+            this.value = val;
+          }
+        },
+        value() {
+          this.refreshTargetOptionText();
+        },
+      },
+      proto: {
+        get isHangLable() {
+          if (this.hanglabel !== null) {
+            return 1;
+          }
+
+          if (this.infocus || !!this.value) {
+            return 1;
+          }
+
+          if (this.placeholder) {
+            return 1;
+          }
+
+          return null;
+        },
+
+        refreshTargetOptionText() {
+          clearTimeout(this._refreshTextTimer);
+          this._refreshTextTimer = setTimeout(() => {
+            const target = this.all("p-option").find((e) => {
+              if (e.tag === "p-option" && e.value === this.value) {
+                return true;
+              }
+            });
+
+            if (target) {
+              this.targetOptionText = target[0]
+                ? target[0].text || target.value
+                : target.text || target.value;
+              return;
+            }
+
+            this.targetOptionText = "";
+          }, 10);
+        },
+
+        focus() {
+          this.shadow.$("select").ele.focus();
+        },
+
+        refreshOptions() {
+          clearTimeout(this._refreshOptionsTimer);
+          this._refreshOptionsTimer = setTimeout(() => {
+            const opts = this.all("p-option");
+            const selector = this.shadow.$("select");
+            const frag = $.frag();
+            opts.forEach((e) => {
+              const option = $("<option></option>");
+              option.value = e.value;
+              // option.text = e.text;
+              option.text = e[0] ? e[0].text || e.value : e.text || e.value;
+              option.disabled = e.disabled !== null ? true : false;
+              frag.push(option);
+            });
+            selector.html = "";
+            selector.push(frag);
+
+            this.refreshTargetOptionText();
+          });
+        },
+      },
+      ready() {
+        this.on("change-option", (e) => {
+          this.refreshOptions();
+          e.stopPropagation();
+        });
+      },
+    };
+  </script>
+</template>

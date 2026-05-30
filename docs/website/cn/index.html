@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Punch-UI - 现代化的 Web 组件库</title>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/dist/ofa.mjs" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/libs/scsr/dist/scsr.min.mjs" type="module"></script>
+  <link rel="icon" href="../img/logo.svg" />
+  <link rel="stylesheet" href="../css/palette.css" pui-colors />
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/github-markdown.css" />
+  <link rel="stylesheet" href="../css/hljs.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+    }
+
+    o-app {
+      height: 100%;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    o-app {
+      animation: fadein 0.1s ease-in-out;
+    }
+  </style>
+  <script type="module" src="../js/util.js"></script>
+  <!--google analytics-->
+</head>
+
+<body>
+  <o-app src="../js/app-config.js">
+    <template page>
+      <link rel="stylesheet" href="../css/github-markdown.css" />
+      <link rel="stylesheet" href="../css/hljs.css" />
+      <l-m src="../comps/center-block.html"></l-m>
+      <l-m src="../comps/article-code.html"></l-m>
+      <l-m src="https://playground.ofajs.com/comps/o-playground/o-playground.html"></l-m>
+      <style>
+        :host {
+          display: block;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          overflow: auto;
+        }
+      </style>
+      <link rel="stylesheet" href="../css/page.css" />
+      <center-block>
+        <div style="text-align: center; padding: 48px 0">
+          <h1 style="
+        font-size: 48px;
+        margin: 0 0 16px;
+        color: var(--md-sys-color-primary);
+      "> Punch-UI </h1>
+          <h2 style="font-size: 24px; margin: 0 0 24px; font-weight: normal"> 现代化的 Web 组件库 </h2>
+          <p style="
+        font-size: 18px;
+        color: var(--md-sys-color-on-surface-variant);
+        max-width: 600px;
+        margin: 0 auto 32px;
+      "> 基于 Material Design 3 设计规范，使用 ofa.js 开发的纯原生 Web Components 组件库。 无需构建工具，开箱即用。 </p>
+          <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap">
+            <p-button size="large" color="primary">
+              <a href="./documentation/introduction.html" olink="">开始使用</a>
+            </p-button>
+            <p-button size="large" variant="outlined">
+              <a href="./documentation/button.html" olink="">组件文档</a>
+            </p-button>
+          </div>
+        </div>
+      </center-block>
+      <div class="footer"></div>
+      <script>
+        export const parent = "../layout.html";
+        export default async ({
+          load,
+          query
+        }) => {
+          const {
+            init,
+            revoke
+          } = await load("../js/init.js");
+          return {
+            data: {},
+            attached() {
+              init(this, query);
+              setTimeout(() => {
+                this.style.transform = "";
+              }, 300);
+            },
+            detached() {
+              revoke(this);
+            },
+          };
+        };
+      </script>
+    </template>
+  </o-app>
+  <o-root-provider name="pui" theme="dark"></o-root-provider>
+</body>
+
+</html>

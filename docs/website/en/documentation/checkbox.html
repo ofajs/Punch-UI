@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkbox</title>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/dist/ofa.mjs" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/libs/scsr/dist/scsr.min.mjs" type="module"></script>
+  <link rel="icon" href="../../img/logo.svg" />
+  <link rel="stylesheet" href="../../css/palette.css" pui-colors />
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/github-markdown.css" />
+  <link rel="stylesheet" href="../../css/hljs.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+    }
+
+    o-app {
+      height: 100%;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    o-app {
+      animation: fadein 0.1s ease-in-out;
+    }
+  </style>
+  <script type="module" src="../../js/util.js"></script>
+  <!--google analytics-->
+</head>
+
+<body>
+  <o-app src="../../js/app-config.js">
+    <template page>
+      <link rel="stylesheet" href="../../css/github-markdown.css" />
+      <link rel="stylesheet" href="../../css/hljs.css" />
+      <l-m src="../../comps/center-block.html"></l-m>
+      <l-m src="../../comps/article-code.html"></l-m>
+      <l-m src="https://playground.ofajs.com/comps/o-playground/o-playground.html"></l-m>
+      <style>
+        :host {
+          display: block;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          overflow: auto;
+        }
+      </style>
+      <link rel="stylesheet" href="../../css/page.css" />
+      <article class="markdown-body">
+        <h1>Checkbox</h1>
+        <p>Checkbox component, supports single and combined use.</p>
+        <h2>Importing Components</h2>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span></code></pre>
+        <h2>Basic Usage</h2>
+        <o-playground name="Checkbox Basic Usage" style="--editor-height: 300px">
+          <code path="demo.html" preview="" active="">
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox>Checkbox</p-checkbox>
+        <p-checkbox checked="">Checked</p-checkbox>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <p>::: warning Note If you only need a single toggle selection, it is recommended to use the <a href="./switch.html" olink="">Switch component</a>, which provides a better toggle interaction experience. :::</p>
+        <h2>Dimensions</h2>
+        <p>Set the checkbox size using the <code>size</code> attribute:</p>
+        <o-playground name="Checkbox Size" style="--editor-height: 350px">
+          <code path="demo.html" preview="" active="">
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox size="xs" checked="">XS</p-checkbox>
+        <p-checkbox size="s" checked="">Small</p-checkbox>
+        <p-checkbox checked="">Medium</p-checkbox>
+        <p-checkbox size="l" checked="">Large</p-checkbox>
+        <p-checkbox size="xl" checked="">XL</p-checkbox>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Colors</h2>
+        <p>Set the checkbox color via the <code>color</code> property:</p>
+        <o-playground name="Checkbox Colors" style="--editor-height: 350px">
+          <code path="demo.html" preview="" active="">
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox color="primary" checked="">Primary</p-checkbox>
+        <p-checkbox color="success" checked="">Success</p-checkbox>
+        <p-checkbox color="error" checked="">Error</p-checkbox>
+        <p-checkbox color="neutral" checked="">Neutral</p-checkbox>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Status</h2>
+        <o-playground name="Checkbox State" style="--editor-height: 400px">
+          <code path="demo.html" preview="" active="">
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox>Default</p-checkbox>
+        <p-checkbox variant="tonal">Tonal</p-checkbox>
+        <p-checkbox checked="">Checked</p-checkbox>
+        <p-checkbox disabled="">Disabled</p-checkbox>
+        <p-checkbox indeterminate="">Indeterminate</p-checkbox>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Checkbox Group</h2>
+        <p>Manage multiple checkboxes using a checkbox group, setting default checked items through the <code>checked</code> attribute:</p>
+        <o-playground name="Checkbox Group" style="--editor-height: 400px">
+          <code path="demo.html" preview="" active="">
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox-group>
+          <p-checkbox value="1">Option 1</p-checkbox>
+          <p-checkbox value="2" checked="">Option 2</p-checkbox>
+          <p-checkbox value="3" checked="">Option 3</p-checkbox>
+        </p-checkbox-group>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Get Value</h2>
+        <h3>Single Checkbox</h3>
+        <p>Get or set the checked state of a single checkbox through the <code>checked</code> attribute:</p>
+        <o-playground name="Single Checkbox Get Value" style="--editor-height: 400px">
+          <code path="demo.html" preview="" active="">
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox id="agree-checkbox">Agree to Terms</p-checkbox>
+        <p-button style="margin-top: 16px;" id="check-btn">Check Status</p-button>
+        <p style="margin-top: 16px;">Selected Status: <span id="status-display"></span></p>
+      </div>
+      <script>
+        $('#check-btn').on('click', () => {
+          const isChecked = $('#agree-checkbox').checked;
+          $('#status-display').text = isChecked ? 'Checked' : 'Unchecked';
+        });
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h3>Checkbox Group Get Value</h3>
+        <p>Get the array of selected values of a checkbox group through the <code>value</code> property:</p>
+        <o-playground name="Checkbox Group Get Value" style="--editor-height: 400px">
+          <code path="demo.html" preview="" active="">
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox-group id="fruits-group">
+          <p-checkbox value="apple">Apple</p-checkbox>
+          <p-checkbox value="banana" checked="">Banana</p-checkbox>
+          <p-checkbox value="orange">Orange</p-checkbox>
+        </p-checkbox-group>
+        <p-button style="margin-top: 16px;" id="get-value-btn">Get Value</p-button>
+        <p style="margin-top: 16px;">Current value: <span id="value-display"></span></p>
+      </div>
+      <script>
+        $('#get-value-btn').on('click', () => {
+          const values = $('#fruits-group').value;
+          $('#value-display').text = JSON.stringify(values);
+        });
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h3>Monitor change events</h3>
+        <p>Real-time retrieval of selected status by listening to the <code>change</code> event:</p>
+        <o-playground name="Listen to change events" style="--editor-height: 400px">
+          <code path="demo.html" preview="" active="">
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox-group id="realtime-group">
+          <p-checkbox value="a">Option A</p-checkbox>
+          <p-checkbox value="b">Option B</p-checkbox>
+          <p-checkbox value="c">Option C</p-checkbox>
+        </p-checkbox-group>
+        <p style="margin-top: 16px;">Current value: <span id="realtime-display"></span></p>
+      </div>
+      <script>
+        $('#realtime-group').on('change', () => {
+          const values = $('#realtime-group').value;
+          $('#realtime-display').text = JSON.stringify(values);
+        });
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h3>Two-way binding in components or page modules</h3>
+        <p>Use ofa.js's data binding feature：</p>
+        <o-playground name="Get Value" style="--editor-height: 400px">
+          <code path="demo.html" active="">
+    <template page="">
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/checkbox.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/checkbox/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-checkbox-group :value="selectedFruits">
+          <p-checkbox value="apple">Apple</p-checkbox>
+          <p-checkbox value="banana">Banana</p-checkbox>
+          <p-checkbox value="orange">Orange</p-checkbox>
+        </p-checkbox-group>
+        <p style="margin-top: 16px;">Current Value: {{ selectedFruits }}</p>
+      </div>
+      <script>
+        export default {
+          data: {
+            selectedFruits: ['apple', 'banana']
+          }
+        };
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <p>Since <code>p-checkbox-group</code>'s <code>value</code> is an array object, based on JavaScript's object reference characteristics, directly using <code>:value</code> one-way binding can achieve two-way data synchronization, <strong>no need to use <code>sync:value</code> syntax</strong>.</p>
+        <p>When the user selects or deselects a check box, the component internally modifies the content of the array object directly (adding or removing elements). Since the same array object is referenced, the page data will update automatically.</p>
+        <h2>API</h2>
+        <h3>Properties - p-checkbox</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>checked</code></td>
+              <td>Whether selected</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>disabled</code></td>
+              <td>Whether disabled</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>name</code></td>
+              <td>Form name</td>
+              <td><code>string</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>value</code></td>
+              <td>Value of the checkbox</td>
+              <td><code>string</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>size</code></td>
+              <td>Checkbox size</td>
+              <td><code>xs</code> | <code>s</code> | <code>l</code> | <code>xl</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>color</code></td>
+              <td>Checkbox color</td>
+              <td><code>primary</code> | <code>error</code> | <code>success</code> | <code>neutral</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>variant</code></td>
+              <td>Checkbox variant</td>
+              <td><code>tonal</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>indeterminate</code></td>
+              <td>Whether in indeterminate state</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Attribute</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Default Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>value</code></td>
+              <td>Array of selected values</td>
+              <td><code>Array</code></td>
+              <td><code>[]</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Event Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>change</code></td>
+              <td>Triggered when the selected state changes</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Event Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>change</code></td>
+              <td>Triggered when the selected value changes</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Method Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>focus()</code></td>
+              <td>Makes the checkbox gain focus</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+      <div class="footer"></div>
+      <script>
+        export const parent = "../../layout.html";
+        export default async ({
+          load,
+          query
+        }) => {
+          const {
+            init,
+            revoke
+          } = await load("../../js/init.js");
+          return {
+            data: {},
+            attached() {
+              init(this, query);
+              setTimeout(() => {
+                this.style.transform = "";
+              }, 300);
+            },
+            detached() {
+              revoke(this);
+            },
+          };
+        };
+      </script>
+    </template>
+  </o-app>
+  <o-root-provider name="pui" theme="dark"></o-root-provider>
+</body>
+
+</html>

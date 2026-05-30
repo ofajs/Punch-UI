@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Radio</title>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/dist/ofa.mjs" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/libs/scsr/dist/scsr.min.mjs" type="module"></script>
+  <link rel="icon" href="../../img/logo.svg" />
+  <link rel="stylesheet" href="../../css/palette.css" pui-colors />
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/github-markdown.css" />
+  <link rel="stylesheet" href="../../css/hljs.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+    }
+
+    o-app {
+      height: 100%;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    o-app {
+      animation: fadein 0.1s ease-in-out;
+    }
+  </style>
+  <script type="module" src="../../js/util.js"></script>
+  <!--google analytics-->
+</head>
+
+<body>
+  <o-app src="../../js/app-config.js">
+    <template page>
+      <link rel="stylesheet" href="../../css/github-markdown.css" />
+      <link rel="stylesheet" href="../../css/hljs.css" />
+      <l-m src="../../comps/center-block.html"></l-m>
+      <l-m src="../../comps/article-code.html"></l-m>
+      <l-m src="https://playground.ofajs.com/comps/o-playground/o-playground.html"></l-m>
+      <style>
+        :host {
+          display: block;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          overflow: auto;
+        }
+      </style>
+      <link rel="stylesheet" href="../../css/page.css" />
+      <article class="markdown-body">
+        <h1>Radio</h1>
+        <p>Radio button component, usually used in combination with radio-group.</p>
+        <h2>Importing Components</h2>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://punch-ui-v2.pages.dev/packages/radio/radio.html&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://punch-ui-v2.pages.dev/packages/radio/group.html&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span></code></pre>
+        <h2>Basic Usage</h2>
+        <p>Use <code>p-radio-group</code> to wrap multiple <code>p-radio</code> components:</p>
+        <o-playground name="Radio Basic Usage" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-radio-group>
+          <p-radio value="male">Male</p-radio>
+          <p-radio value="female">Female</p-radio>
+        </p-radio-group>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Dimensions</h2>
+        <p>Set the radio button size using the <code>size</code> attribute:</p>
+        <o-playground name="Radio Size" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-radio-group>
+          <p-radio size="xs" value="xs">XS</p-radio>
+          <p-radio size="s" value="s">Small</p-radio>
+          <p-radio value="m">Medium</p-radio>
+          <p-radio size="l" value="l">Large</p-radio>
+          <p-radio size="xl" value="xl">XL</p-radio>
+        </p-radio-group>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Colors</h2>
+        <p>Set the radio button color using the <code>color</code> property:</p>
+        <o-playground name="Radio Color" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-radio-group>
+          <p-radio color="primary" value="primary">Primary</p-radio>
+          <p-radio color="success" value="success">Success</p-radio>
+          <p-radio color="error" value="error">Error</p-radio>
+          <p-radio color="neutral" value="neutral">Neutral</p-radio>
+        </p-radio-group>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Status</h2>
+        <o-playground name="Radio States" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-radio-group>
+          <p-radio value="default">Default</p-radio>
+          <p-radio variant="tonal" value="tonal">Tonal</p-radio>
+          <p-radio checked value="checked">Checked</p-radio>
+          <p-radio disabled value="disabled">Disabled</p-radio>
+        </p-radio-group>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Initialize default selected item</h2>
+        <p>Use a radio group to manage multiple radio buttons, and set the default selected item via the <code>checked</code> attribute:</p>
+        <o-playground name="Radio Group" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-radio-group>
+          <p-radio value="a">Option A</p-radio>
+          <p-radio value="b" checked>Option B</p-radio>
+          <p-radio value="c">Option C</p-radio>
+        </p-radio-group>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Get Value</h2>
+        <h3>Get via value attribute in HTML</h3>
+        <p>Use the <code>value</code> attribute to get the value of a radio button group:</p>
+        <o-playground name="Get Value" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-radio-group id="gender-group">
+          <p-radio value="male">Male</p-radio>
+          <p-radio value="female">Female</p-radio>
+        </p-radio-group>
+        <p-button style="margin-top: 16px;" id="get-value-btn">Get Value</p-button>
+        <p style="margin-top: 16px;">Current Value: <span id="value-display"></span></p>
+      </div>
+      <script>
+        $('#get-value-btn').on('click', () => {
+          $('#value-display').text = $('#gender-group').value;
+        });
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h3>Monitor change events</h3>
+        <p>Listen to the <code>change</code> event to get the selected value in real time:</p>
+        <o-playground name="Listen to change events" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-radio-group id="realtime-group">
+          <p-radio value="a">Option A</p-radio>
+          <p-radio value="b">Option B</p-radio>
+          <p-radio value="c">Option C</p-radio>
+        </p-radio-group>
+        <p style="margin-top: 16px;">Current value: <span id="realtime-display"></span></p>
+      </div>
+      <script>
+        $('#realtime-group').on('change', () => {
+          $('#realtime-display').text = $('#realtime-group').value;
+        });
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h3>Two-way binding in components or page modules</h3>
+        <p>Use ofa.js&#39;s data binding feature：</p>
+        <o-playground name="Get Value" style="--editor-height: 400px">
+          <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/radio.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/radio/group.html"></l-m>
+      <div style="padding: 20px;">
+        <p-radio-group sync:value="selectedOption">
+          <p-radio value="a">Option A</p-radio>
+          <p-radio value="b">Option B</p-radio>
+          <p-radio value="c">Option C</p-radio>
+        </p-radio-group>
+        <p style="margin-top: 16px;">Current Value: {{ selectedOption }}</p>
+      </div>
+      <script>
+        export default {
+          data: {
+            selectedOption: 'b'
+          }
+        };
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h2>API</h2>
+        <h3>Properties - p-radio</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>checked</code></td>
+              <td>Whether checked</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>disabled</code></td>
+              <td>Whether disabled</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>value</code></td>
+              <td>The value of the radio</td>
+              <td><code>string</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>size</code></td>
+              <td>The size of the radio</td>
+              <td><code>xs</code> | <code>s</code> | <code>l</code> | <code>xl</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>color</code></td>
+              <td>The color of the radio</td>
+              <td><code>primary</code> | <code>error</code> | <code>success</code> | <code>neutral</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>variant</code></td>
+              <td>The variant of the radio</td>
+              <td><code>tonal</code></td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>value</code></td>
+              <td>selected value</td>
+              <td><code>string</code></td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Event Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>change</code></td>
+              <td>Triggered when the selection state changes</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+      <div class="footer"></div>
+      <script>
+        export const parent = "../../layout.html";
+        export default async ({
+          load,
+          query
+        }) => {
+          const {
+            init,
+            revoke
+          } = await load("../../js/init.js");
+          return {
+            data: {},
+            attached() {
+              init(this, query);
+              setTimeout(() => {
+                this.style.transform = "";
+              }, 300);
+            },
+            detached() {
+              revoke(this);
+            },
+          };
+        };
+      </script>
+    </template>
+  </o-app>
+  <o-root-provider name="pui" theme="dark"></o-root-provider>
+</body>
+
+</html>

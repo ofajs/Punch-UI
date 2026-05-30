@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alert 警告框</title>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/dist/ofa.mjs" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/libs/scsr/dist/scsr.min.mjs" type="module"></script>
+  <link rel="icon" href="../../img/logo.svg" />
+  <link rel="stylesheet" href="../../css/palette.css" pui-colors />
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/github-markdown.css" />
+  <link rel="stylesheet" href="../../css/hljs.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+    }
+
+    o-app {
+      height: 100%;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    o-app {
+      animation: fadein 0.1s ease-in-out;
+    }
+  </style>
+  <script type="module" src="../../js/util.js"></script>
+  <!--google analytics-->
+</head>
+
+<body>
+  <o-app src="../../js/app-config.js">
+    <template page>
+      <link rel="stylesheet" href="../../css/github-markdown.css" />
+      <link rel="stylesheet" href="../../css/hljs.css" />
+      <l-m src="../../comps/center-block.html"></l-m>
+      <l-m src="../../comps/article-code.html"></l-m>
+      <l-m src="https://playground.ofajs.com/comps/o-playground/o-playground.html"></l-m>
+      <style>
+        :host {
+          display: block;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          overflow: auto;
+        }
+      </style>
+      <link rel="stylesheet" href="../../css/page.css" />
+      <article class="markdown-body">
+        <h1>Alert 警告框</h1>
+        <p>Alert 用于显示一个警告对话框，只有确认按钮。适用于重要信息提示、操作结果通知等场景。</p>
+        <h2>引入</h2>
+        <pre><code class="hljs language-javascript"><span class="hljs-keyword">import</span> alert <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;https://punch-ui-v2.pages.dev/packages/util/alert.js&#x27;</span>;</code></pre>
+        <h2>基本用法</h2>
+        <o-playground name="Alert 基本用法" style="--editor-height: 400px">
+          <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <script type="module">
+        import alert from 'https://punch-ui-v2.pages.dev/packages/util/alert.js';
+        export default async () => {
+          return {
+            proto: {
+              async showAlert() {
+                await alert('这是一个警告消息');
+              }
+            }
+          };
+        };
+      </script>
+      <div style="padding: 20px; text-align: center;">
+        <p-button color="primary" on:click="showAlert">显示 Alert</p-button>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>带标题和自定义按钮</h2>
+        <o-playground name="Alert 自定义" style="--editor-height: 500px">
+          <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <script type="module">
+        import alert from 'https://punch-ui-v2.pages.dev/packages/util/alert.js';
+        export default async () => {
+          return {
+            proto: {
+              async showCustomAlert() {
+                await alert({
+                  title: '提示',
+                  message: '操作已完成',
+                  ok: '知道了'
+                });
+              }
+            }
+          };
+        };
+      </script>
+      <div style="padding: 20px; text-align: center;">
+        <p-button color="primary" on:click="showCustomAlert">自定义 Alert</p-button>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>API</h2>
+        <h3>参数</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>参数</th>
+              <th>类型</th>
+              <th>默认值</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>title</td>
+              <td><code>string</code></td>
+              <td><code>&#39;提示&#39;</code></td>
+              <td>对话框标题</td>
+            </tr>
+            <tr>
+              <td>message</td>
+              <td><code>string</code></td>
+              <td>-</td>
+              <td>提示消息内容</td>
+            </tr>
+            <tr>
+              <td>ok</td>
+              <td><code>string</code></td>
+              <td><code>&#39;确定&#39;</code></td>
+              <td>确认按钮文本</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>返回值</h3>
+        <p>返回一个 Promise，在用户点击确认按钮后 resolve。</p>
+        <h3>示例</h3>
+        <pre><code class="hljs language-javascript"><span class="hljs-comment">// 基本用法</span>
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">alert</span>(<span class="hljs-string">&#x27;这是一个警告消息&#x27;</span>);
+
+<span class="hljs-comment">// 带配置</span>
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">alert</span>({
+  <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;提示&#x27;</span>,
+  <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;操作已完成&#x27;</span>,
+  <span class="hljs-attr">ok</span>: <span class="hljs-string">&#x27;知道了&#x27;</span>
+});</code></pre>
+      </article>
+      <div class="footer"></div>
+      <script>
+        export const parent = "../../layout.html";
+        export default async ({
+          load,
+          query
+        }) => {
+          const {
+            init,
+            revoke
+          } = await load("../../js/init.js");
+          return {
+            data: {},
+            attached() {
+              init(this, query);
+              setTimeout(() => {
+                this.style.transform = "";
+              }, 300);
+            },
+            detached() {
+              revoke(this);
+            },
+          };
+        };
+      </script>
+    </template>
+  </o-app>
+  <o-root-provider name="pui" theme="dark"></o-root-provider>
+</body>
+
+</html>

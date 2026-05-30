@@ -1,0 +1,235 @@
+<template component>
+  <style>
+    :host {
+      display: block;
+    }
+
+    .header-menu-list {
+      display: flex;
+      margin-left: auto;
+    }
+
+    .header-menu-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin-left: 12px;
+      padding: 6px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      border-radius: 20px;
+      color: inherit;
+      text-decoration: none;
+    }
+    .header-menu-item:hover {
+      color: var(--md-sys-color-primary);
+    }
+
+    .header-menu-item--active {
+      color: var(--md-sys-color-primary);
+      background-color: var(--md-sys-color-primary-container);
+    }
+
+    .header-menu-sublist {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 180px;
+      background: var(--md-sys-color-on-normal);
+      border-radius: 12px;
+      box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.12),
+        0 2px 8px rgba(0, 0, 0, 0.08);
+      padding: 6px;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition:
+        opacity 0.2s ease,
+        transform 0.2s ease,
+        visibility 0.2s;
+    }
+
+    .header-menu-item:hover > .header-menu-sublist {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .header-menu-subitem {
+      display: block;
+      padding: 10px 14px;
+      margin: 4px 0;
+      font-size: 14px;
+      cursor: pointer;
+      white-space: nowrap;
+      color: var(--md-sys-color-on-surface);
+      text-decoration: none;
+      border-radius: 8px;
+      transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+    }
+
+    .header-menu-subitem:hover {
+      background: var(--md-sys-color-primary-container);
+      color: var(--md-sys-color-primary);
+    }
+
+    .header-menu-subitem--active {
+      background: var(--md-sys-color-primary-container);
+      color: var(--md-sys-color-primary);
+    }
+
+    .header-menu-item--has-children {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-menu-item--has-children::after {
+      content: "";
+      margin-top: 5px;
+      width: 0;
+      height: 0;
+      margin-left: 4px;
+      border: 4px solid transparent;
+      border-top-color: currentColor;
+      transition: transform 0.2s ease;
+      align-self: center;
+      transform-origin: 4px 2px;
+    }
+
+    .header-menu-item--has-children:hover::after {
+      transform: rotate(180deg);
+    }
+  </style>
+
+  <div class="header-menu-list">
+    <o-fill :value="header">
+      <div style="display: contents">
+        <o-if :value="$data.url">
+          <a
+            class="header-menu-item"
+            class:header-menu-item--active="$data.active"
+            attr:href="$data.url"
+            on:click="$host.emit('clicked-item')"
+            olink
+          >
+            {{$data.name}}
+          </a>
+        </o-if>
+        <o-else-if :value="$data.children">
+          <div
+            class="header-menu-item header-menu-item--has-children"
+            class:header-menu-item--active="$data.active"
+          >
+            {{$data.name}}
+
+            <div class="header-menu-sublist">
+              <o-fill :value="$data.children">
+                <a
+                  class="header-menu-subitem"
+                  class:header-menu-subitem--active="$data.active"
+                  on:click="$host.emit('clicked-item')"
+                  attr:href="$data.url"
+                  olink
+                  >{{$data.name}}</a
+                >
+              </o-fill>
+            </div>
+          </div>
+        </o-else-if>
+      </div>
+    </o-fill>
+  </div>
+
+  <script>
+    export default async ({ load, url: headerMenuUrl }) => {
+      const { getCurrentLang } = await load("../js/util.js");
+      const lang = getCurrentLang();
+
+      return {
+        tag: "header-menu",
+        data: {
+          header: [],
+        },
+        proto: {
+          async loadHeaders() {
+            const { header } = await load(`../${lang}/article-config.json`);
+
+            const baseUrl = headerMenuUrl.replace(
+              /\/comps\/header-menu\.html$/,
+              "",
+            );
+
+            const processHeaderItem = (e) => {
+              const result = {
+                name: e.name,
+                // activePrefix: `${baseUrl}/${lang}/${e.prefix}`,
+                // url: `${baseUrl}/${lang}/${e.firstUrl}`,
+              };
+
+              if (e.prefix) {
+                result.activePrefix = `${baseUrl}/${lang}/${e.prefix}`;
+                result.url = `${baseUrl}/${lang}/${e.firstUrl}`;
+              }
+
+              if (e.content && e.content.length > 0) {
+                result.children = e.content.map(processHeaderItem);
+              }
+              return result;
+            };
+
+            this.header = header.map(processHeaderItem);
+          },
+          refreshActive() {
+            const current = this.app.current;
+
+            // 修复激活态
+            this.header.forEach((item) => {
+              if (item.children) {
+                // 子项激活时，父项也激活
+                let isActive = false;
+                item.children.forEach((child) => {
+                  if (current.src.startsWith(child.activePrefix)) {
+                    child.active = true;
+                    isActive = true;
+                  } else {
+                    child.active = false;
+                  }
+                });
+                if (isActive) {
+                  item.active = true;
+                  return;
+                }
+              }
+
+              if (current.src.startsWith(item.activePrefix)) {
+                item.active = true;
+              } else {
+                item.active = false;
+              }
+            });
+          },
+        },
+        async attached() {
+          await this.loadHeaders();
+          this.refreshActive();
+
+          this.app.on(
+            "router-change",
+            (this._rc_func = () => {
+              this.refreshActive();
+            }),
+          );
+        },
+        detached() {
+          this.app.off("router-change", this._rc_func);
+        },
+      };
+    };
+  </script>
+</template>

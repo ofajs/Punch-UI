@@ -1,0 +1,74 @@
+<template component>
+  <style>
+    :host {
+      display: block;
+    }
+    .container {
+      position: relative;
+      display: block;
+    }
+    .copy-btn {
+      display: none;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      padding: 6px 12px;
+      background-color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-on-primary);
+      border-radius: 6px;
+      cursor: pointer;
+      border: none;
+      opacity: 0.6;
+      font-size: 12px;
+      transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+      -webkit-appearance: none;
+    }
+
+    .copy-btn:hover {
+      opacity: 1;
+      transform: translateY(-1px);
+    }
+
+    .copy-btn:active {
+      transform: translateY(0);
+    }
+
+    .container:hover .copy-btn {
+      display: block;
+    }
+
+    .copy-btn.is-click {
+      background-color: var(--md-sys-color-success);
+      color: var(--md-sys-color-on-success);
+    }
+  </style>
+  <div class="container">
+    <slot></slot>
+    <button class="copy-btn" class:is-click="isClick" on:click="clickCopy">
+      <o-if :value="isClick"> Copied </o-if>
+      <o-else> Copy </o-else>
+    </button>
+  </div>
+  <script>
+    export default async ({ load }) => {
+      return {
+        tag: "article-code",
+        data: {
+          isClick: false,
+        },
+        proto: {
+          clickCopy() {
+            clearTimeout(this._c_timer);
+            this.isClick = true;
+            navigator.clipboard.writeText(this.text);
+            this._c_timer = setTimeout(() => {
+              this.isClick = false;
+            }, 2000);
+          },
+        },
+      };
+    };
+  </script>
+</template>

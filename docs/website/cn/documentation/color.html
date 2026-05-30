@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>颜色系统</title>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/dist/ofa.mjs" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/libs/scsr/dist/scsr.min.mjs" type="module"></script>
+  <link rel="icon" href="../../img/logo.svg" />
+  <link rel="stylesheet" href="../../css/palette.css" pui-colors />
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/github-markdown.css" />
+  <link rel="stylesheet" href="../../css/hljs.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+    }
+
+    o-app {
+      height: 100%;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    o-app {
+      animation: fadein 0.1s ease-in-out;
+    }
+  </style>
+  <script type="module" src="../../js/util.js"></script>
+  <!--google analytics-->
+</head>
+
+<body>
+  <o-app src="../../js/app-config.js">
+    <template page>
+      <link rel="stylesheet" href="../../css/github-markdown.css" />
+      <link rel="stylesheet" href="../../css/hljs.css" />
+      <l-m src="../../comps/center-block.html"></l-m>
+      <l-m src="../../comps/article-code.html"></l-m>
+      <l-m src="https://playground.ofajs.com/comps/o-playground/o-playground.html"></l-m>
+      <style>
+        :host {
+          display: block;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          overflow: auto;
+        }
+      </style>
+      <link rel="stylesheet" href="../../css/page.css" />
+      <article class="markdown-body">
+        <h1>颜色系统</h1>
+        <p>Punch-UI 使用 Material Design 3 的颜色系统，提供了完整的调色板和主题支持。</p>
+        <blockquote>
+          <p>🎯 <strong>核心原则</strong>：<strong>始终优先使用语义化颜色变量（<code>--md-sys-color-*</code>）</strong>，避免直接使用调色板颜色（<code>--md-ref-palette-*</code>）。语义化颜色会自动适配主题切换，确保对比度和一致性。</p>
+        </blockquote>
+        <h2>引入样式</h2>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/css/pui-global.css"</span> /&gt;</span></code></pre>
+        <h2>主题切换</h2>
+        <p>Punch-UI 支持三种主题模式：</p>
+        <h3>1. 自动跟随系统（默认）</h3>
+        <p>默认情况下，主题会自动跟随系统设置：</p>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- 自动跟随系统主题 --&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
+        <h3>2. 强制浅色主题</h3>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"theme-light-mode"</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- 强制使用浅色主题 --&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
+        <h3>3. 强制深色主题</h3>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"theme-dark-mode"</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- 强制使用深色主题 --&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
+        <h3>使用主题切换组件</h3>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/tool/theme-switch/theme-switch.html"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p-theme-switch</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p-theme-switch</span>&gt;</span></code></pre>
+        <h2>语义化颜色变量</h2>
+        <p>Punch-UI 提供了一套语义化的颜色变量，可以在浅色和深色主题下自动适配：</p>
+        <h3>主要颜色</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>变量名</th>
+              <th>说明</th>
+              <th>浅色主题示例</th>
+              <th>深色主题示例</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>--md-sys-color-primary</code></td>
+              <td>主色</td>
+              <td>#0060a9</td>
+              <td>#a2c9ff</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-on-primary</code></td>
+              <td>主色上的文字</td>
+              <td>#ffffff</td>
+              <td>#00315b</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-primary-container</code></td>
+              <td>主色容器</td>
+              <td>#d3e4ff</td>
+              <td>#004881</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-on-primary-container</code></td>
+              <td>主色容器上的文字</td>
+              <td>#001c38</td>
+              <td>#d3e4ff</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>成功颜色</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>变量名</th>
+              <th>说明</th>
+              <th>浅色主题示例</th>
+              <th>深色主题示例</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>--md-sys-color-success</code></td>
+              <td>成功色</td>
+              <td>#3a6a24</td>
+              <td>#9fd582</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-on-success</code></td>
+              <td>成功色上的文字</td>
+              <td>#ffffff</td>
+              <td>#103900</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-success-container</code></td>
+              <td>成功色容器</td>
+              <td>#baf29c</td>
+              <td>#22510d</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-on-success-container</code></td>
+              <td>成功色容器上的文字</td>
+              <td>#062100</td>
+              <td>#baf29c</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>错误颜色</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>变量名</th>
+              <th>说明</th>
+              <th>浅色主题示例</th>
+              <th>深色主题示例</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>--md-sys-color-error</code></td>
+              <td>错误色</td>
+              <td>#bc1421</td>
+              <td>#ffb3ad</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-on-error</code></td>
+              <td>错误色上的文字</td>
+              <td>#ffffff</td>
+              <td>#68000a</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-error-container</code></td>
+              <td>错误色容器</td>
+              <td>#ffdad7</td>
+              <td>#930013</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-on-error-container</code></td>
+              <td>错误色容器上的文字</td>
+              <td>#410004</td>
+              <td>#ffdad7</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>中性颜色</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>变量名</th>
+              <th>说明</th>
+              <th>浅色主题示例</th>
+              <th>深色主题示例</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>--md-sys-color-neutral</code></td>
+              <td>中性色</td>
+              <td>#5e5e5e</td>
+              <td>#c7c6c6</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-on-neutral</code></td>
+              <td>中性色上的文字</td>
+              <td>#ffffff</td>
+              <td>#303031</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-neutral-container</code></td>
+              <td>中性色容器</td>
+              <td>#e3e2e2</td>
+              <td>#464747</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-on-neutral-container</code></td>
+              <td>中性色容器上的文字</td>
+              <td>#1b1c1c</td>
+              <td>#e3e2e2</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>表面颜色</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>变量名</th>
+              <th>说明</th>
+              <th>浅色主题示例</th>
+              <th>深色主题示例</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>--md-sys-color-surface</code></td>
+              <td>背景色</td>
+              <td>#faf9f9</td>
+              <td>#121414</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-on-surface</code></td>
+              <td>背景上的文字</td>
+              <td>#1b1c1c</td>
+              <td>#e3e2e2</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-surface-variant</code></td>
+              <td>变体背景色</td>
+              <td>#e3e2e2</td>
+              <td>#464747</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-on-surface-variant</code></td>
+              <td>变体背景上的文字</td>
+              <td>#464747</td>
+              <td>#c7c6c6</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-inverse-surface</code></td>
+              <td>反转背景色</td>
+              <td>#303031</td>
+              <td>#e3e2e2</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-inverse-on-surface</code></td>
+              <td>反转背景上的文字</td>
+              <td>#f2f0f0</td>
+              <td>#303031</td>
+            </tr>
+          </tbody>
+        </table>
+        <h2>使用示例</h2>
+        <h3>使用语义化颜色</h3>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css">
+  <span class="hljs-selector-class">.custom-button</span> {
+    <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--md-sys-color-primary);
+    <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--md-sys-color-on-primary);
+    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">8px</span>;
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span> <span class="hljs-number">20px</span>;
+  }
+  
+  <span class="hljs-selector-class">.custom-card</span> {
+    <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--md-sys-color-surface-variant);
+    <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--md-sys-color-on-surface-variant);
+    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">12px</span>;
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">16px</span>;
+  }
+  
+  <span class="hljs-selector-class">.success-message</span> {
+    <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--md-sys-color-success-container);
+    <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--md-sys-color-on-success-container);
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">12px</span>;
+  }
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"custom-button"</span>&gt;</span>自定义按钮<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"custom-card"</span>&gt;</span>自定义卡片<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"success-message"</span>&gt;</span>操作成功！<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+        <h3>实时示例</h3>
+        <o-playground name="颜色系统示例" style="--editor-height: 500px">
+          <code path="demo.html" preview="" active="">
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
+      <style>
+        .color-demo {
+          padding: 20px;
+          max-width: 600px;
+          margin: 0 auto;
+        }
+        .color-box {
+          padding: 16px;
+          margin: 8px 0;
+          border-radius: 8px;
+        }
+        .primary-demo {
+          background-color: var(--md-sys-color-primary);
+          color: var(--md-sys-color-on-primary);
+        }
+        .success-demo {
+          background-color: var(--md-sys-color-success);
+          color: var(--md-sys-color-on-success);
+        }
+        .error-demo {
+          background-color: var(--md-sys-color-error);
+          color: var(--md-sys-color-on-error);
+        }
+        .surface-demo {
+          background-color: var(--md-sys-color-surface-variant);
+          color: var(--md-sys-color-on-surface-variant);
+        }
+      </style>
+      <div class="color-demo">
+        <h2>语义化颜色示例</h2>
+        <div class="color-box primary-demo">
+          <strong>Primary 主色</strong>
+          <p>用于主要操作和重要元素</p>
+        </div>
+        <div class="color-box success-demo">
+          <strong>Success 成功色</strong>
+          <p>用于成功状态和正面反馈</p>
+        </div>
+        <div class="color-box error-demo">
+          <strong>Error 错误色</strong>
+          <p>用于错误状态和警告信息</p>
+        </div>
+        <div class="color-box surface-demo">
+          <strong>Surface 表面色</strong>
+          <p>用于背景和容器</p>
+        </div>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>最佳实践</h2>
+        <h3>1. 优先使用语义化颜色</h3>
+        <p>✅ <strong>推荐</strong>：</p>
+        <pre><code class="hljs language-css"><span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--md-sys-color-primary);
+<span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--md-sys-color-on-primary);</code></pre>
+        <p>❌ <strong>不推荐</strong>：</p>
+        <pre><code class="hljs language-css"><span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--md-ref-palette-primary40);
+<span class="hljs-attribute">color</span>: <span class="hljs-number">#ffffff</span>;</code></pre>
+        <h3>2. 确保对比度</h3>
+        <p>使用语义化颜色时，Punch-UI 已经确保了文字和背景之间的对比度符合无障碍标准。</p>
+        <h3>3. 主题适配</h3>
+        <p>语义化颜色会自动适配深色/浅色主题，无需手动处理。</p>
+        <h2>下一步</h2>
+        <ul>
+          <li><a href="./theming.html" olink="">主题定制</a> - 了解如何自定义主题和颜色</li>
+        </ul>
+      </article>
+      <div class="footer"></div>
+      <script>
+        export const parent = "../../layout.html";
+        export default async ({
+          load,
+          query
+        }) => {
+          const {
+            init,
+            revoke
+          } = await load("../../js/init.js");
+          return {
+            data: {},
+            attached() {
+              init(this, query);
+              setTimeout(() => {
+                this.style.transform = "";
+              }, 300);
+            },
+            detached() {
+              revoke(this);
+            },
+          };
+        };
+      </script>
+    </template>
+  </o-app>
+  <o-root-provider name="pui" theme="dark"></o-root-provider>
+</body>
+
+</html>

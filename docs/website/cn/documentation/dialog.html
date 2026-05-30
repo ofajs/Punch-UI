@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dialog 对话框</title>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/dist/ofa.mjs" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/libs/scsr/dist/scsr.min.mjs" type="module"></script>
+  <link rel="icon" href="../../img/logo.svg" />
+  <link rel="stylesheet" href="../../css/palette.css" pui-colors />
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/github-markdown.css" />
+  <link rel="stylesheet" href="../../css/hljs.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+    }
+
+    o-app {
+      height: 100%;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    o-app {
+      animation: fadein 0.1s ease-in-out;
+    }
+  </style>
+  <script type="module" src="../../js/util.js"></script>
+  <!--google analytics-->
+</head>
+
+<body>
+  <o-app src="../../js/app-config.js">
+    <template page>
+      <link rel="stylesheet" href="../../css/github-markdown.css" />
+      <link rel="stylesheet" href="../../css/hljs.css" />
+      <l-m src="../../comps/center-block.html"></l-m>
+      <l-m src="../../comps/article-code.html"></l-m>
+      <l-m src="https://playground.ofajs.com/comps/o-playground/o-playground.html"></l-m>
+      <style>
+        :host {
+          display: block;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          overflow: auto;
+        }
+      </style>
+      <link rel="stylesheet" href="../../css/page.css" />
+      <article class="markdown-body">
+        <h1>Dialog 对话框</h1>
+        <p>对话框组件提供优雅的模态交互体验，内置移动端自适应机制，支持丰富的自定义样式选项。</p>
+        <p>组件内置响应式设计，能够智能识别设备屏幕尺寸。在移动端小屏幕环境下，对话框会自动切换为从底部滑入的抽屉式交互，提供更符合移动端用户习惯的操作体验。</p>
+        <h2>引入组件</h2>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://punch-ui-v2.pages.dev/packages/dialog/dialog.html&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span></code></pre>
+        <h2>基本用法</h2>
+        <o-playground name="Dialog 基本用法" style="--editor-height: 500px">
+          <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/dialog/dialog.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button on:click="demoDialogOpen = true">
+          打开对话框
+        </p-button>
+        <p-dialog auto-close sync:open="demoDialogOpen">
+          <span slot="title">对话框标题</span>
+          <div>
+            <p>这是一个对话框示例。</p>
+            <p>点击遮罩层可以关闭对话框。</p>
+          </div>
+          <div slot="bottom">
+            <p-button color="primary" on:click="demoDialogOpen = false">确定</p-button>
+            <p-button variant="text" on:click="demoDialogOpen = false">取消</p-button>
+          </div>
+        </p-dialog>
+      </div>
+      <script>
+        export default {
+          data: {
+            demoDialogOpen: false
+          }
+        };
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h2>带表单的对话框</h2>
+        <p>在对话框中可以放置表单组件：</p>
+        <o-playground name="带表单的对话框" style="--editor-height: 500px">
+          <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/dialog/dialog.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button on:click="formOpen = true">打开表单对话框</p-button>
+        <p-dialog sync:open="formOpen">
+          <span slot="title">用户信息</span>
+          <div>
+            <p-input style="display: block; margin: 8px 0;">
+              <span slot="label">用户名</span>
+            </p-input>
+            <p-input style="display: block; margin: 8px 0;">
+              <span slot="label">邮箱</span>
+            </p-input>
+          </div>
+          <div slot="bottom">
+            <p-button color="primary" on:click="formOpen = false">提交</p-button>
+            <p-button variant="text" on:click="formOpen = false">关闭</p-button>
+          </div>
+        </p-dialog>
+      </div>
+      <script>
+        export default {
+          data: {
+            formOpen: false
+          }
+        };
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h2>自动聚焦</h2>
+        <p>对话框打开时可以自动聚焦到输入框：</p>
+        <o-playground name="自动聚焦" style="--editor-height: 500px">
+          <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/dialog/dialog.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button on:click="autofocusOpen = true">打开自动聚焦对话框</p-button>
+        <p-dialog sync:open="autofocusOpen" auto-close>
+          <span slot="title">快速输入</span>
+          <div>
+            <p-input autofocus style="display: block; margin: 8px 0;">
+              <span slot="label">输入内容</span>
+            </p-input>
+          </div>
+          <div slot="bottom">
+            <p-button color="primary" on:click="autofocusOpen = false">完成</p-button>
+          </div>
+        </p-dialog>
+      </div>
+      <script>
+        export default {
+          data: {
+            autofocusOpen: false
+          }
+        };
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h2>点击遮罩事件</h2>
+        <p>监听点击遮罩层的事件：</p>
+        <o-playground name="点击遮罩事件" style="--editor-height: 500px">
+          <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/dialog/dialog.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button on:click="maskDialogOpen = true">打开对话框</p-button>
+        <p style="margin-top: 8px; color: #666;">上次点击遮罩: {{maskClickMsg}}</p>
+        <p-dialog sync:open="maskDialogOpen" on:click-mask="handleMaskClick">
+          <span slot="title">点击遮罩演示</span>
+          <div>
+            <p>点击遮罩层（对话框外部）会触发 click-mask 事件。</p>
+          </div>
+          <div slot="bottom">
+            <p-button color="primary" on:click="maskDialogOpen = false">关闭</p-button>
+          </div>
+        </p-dialog>
+      </div>
+      <script>
+        export default {
+          data: {
+            maskDialogOpen: false,
+            maskClickMsg: "无"
+          },
+          proto: {
+            handleMaskClick() {
+              this.maskClickMsg = new Date().toLocaleTimeString();
+              this.maskDialogOpen = false;
+            }
+          }
+        };
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h2>颜色变体</h2>
+        <p>使用 <code>color</code> 属性设置对话框颜色：</p>
+        <o-playground name="颜色变体" style="--editor-height: 500px">
+          <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/dialog/dialog.html"></l-m>
+      <div style="padding: 20px;">
+        <p-button on:click="primaryOpen = true">Primary</p-button>
+        <p-button on:click="successOpen = true">Success</p-button>
+        <p-button on:click="errorOpen = true">Error</p-button>
+        <p-dialog sync:open="primaryOpen" color="primary" auto-close>
+          <span slot="title">Primary 颜色</span>
+          <div>
+            <p>这是一个 Primary 颜色的对话框。</p>
+          </div>
+          <div slot="bottom">
+            <p-button color="primary" on:click="primaryOpen = false">关闭</p-button>
+          </div>
+        </p-dialog>
+        <p-dialog sync:open="successOpen" color="success" auto-close>
+          <span slot="title">Success 颜色</span>
+          <div>
+            <p>这是一个 Success 颜色的对话框。</p>
+          </div>
+          <div slot="bottom">
+            <p-button color="success" on:click="successOpen = false">关闭</p-button>
+          </div>
+        </p-dialog>
+        <p-dialog sync:open="errorOpen" color="error" auto-close>
+          <span slot="title">Error 颜色</span>
+          <div>
+            <p>这是一个 Error 颜色的对话框。</p>
+          </div>
+          <div slot="bottom">
+            <p-button color="error" on:click="errorOpen = false">关闭</p-button>
+          </div>
+        </p-dialog>
+      </div>
+      <script>
+        export default {
+          data: {
+            primaryOpen: false,
+            successOpen: false,
+            errorOpen: false
+          }
+        };
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h2>API</h2>
+        <h3>属性</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>属性</th>
+              <th>说明</th>
+              <th>类型</th>
+              <th>默认值</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>variant</code></td>
+              <td>对话框样式</td>
+              <td><code>filled</code> | <code>outlined</code> | <code>tonal</code></td>
+              <td><code>tonal</code></td>
+            </tr>
+            <tr>
+              <td><code>color</code></td>
+              <td>对话框颜色</td>
+              <td><code>primary</code> | <code>error</code> | <code>success</code> | <code>neutral</code></td>
+              <td><code>neutral</code></td>
+            </tr>
+            <tr>
+              <td><code>open</code></td>
+              <td>是否打开</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>auto-close</code></td>
+              <td>点击遮罩是否自动关闭</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>auto-to-mobile-width</code></td>
+              <td>触发移动端样式的宽度阈值</td>
+              <td><code>string</code></td>
+              <td><code>540px</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>插槽</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>插槽名</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>title</code></td>
+              <td>对话框标题</td>
+            </tr>
+            <tr>
+              <td><code>header</code></td>
+              <td>头部内容（与 title 一起使用）</td>
+            </tr>
+            <tr>
+              <td><code>default</code></td>
+              <td>对话框内容</td>
+            </tr>
+            <tr>
+              <td><code>bottom</code></td>
+              <td>底部按钮区域</td>
+            </tr>
+            <tr>
+              <td><code>footer</code></td>
+              <td>底部内容（与 bottom 一起使用）</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>事件</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>事件名</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>click-mask</code></td>
+              <td>点击遮罩层时触发</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+      <div class="footer"></div>
+      <script>
+        export const parent = "../../layout.html";
+        export default async ({
+          load,
+          query
+        }) => {
+          const {
+            init,
+            revoke
+          } = await load("../../js/init.js");
+          return {
+            data: {},
+            attached() {
+              init(this, query);
+              setTimeout(() => {
+                this.style.transform = "";
+              }, 300);
+            },
+            detached() {
+              revoke(this);
+            },
+          };
+        };
+      </script>
+    </template>
+  </o-app>
+  <o-root-provider name="pui" theme="dark"></o-root-provider>
+</body>
+
+</html>

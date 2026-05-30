@@ -1,5 +1,7 @@
 import { escapeHtml, createDialog, loadInput } from "./dialog.js";
 
+const load = lm(import.meta);
+
 export default async function prompt(options) {
   let message = "";
   let title = "";
@@ -8,6 +10,8 @@ export default async function prompt(options) {
   let placeholder = "";
   let defaultValue = "";
   let label = "";
+
+  await load("../input/input.html");
 
   if (typeof options === "string") {
     message = options;

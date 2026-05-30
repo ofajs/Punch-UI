@@ -1,0 +1,58 @@
+<template component>
+  <style>
+    :host {
+      display: block;
+    }
+
+    .outer {
+      padding: 64px 16px;
+    }
+
+    .container {
+      max-width: var(--container-max-width, 1200px);
+      display: block;
+      /* display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center; */
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    ::slotted(p) {
+      font-size: 20px;
+    }
+
+    ::slotted(h2) {
+      font-size: 36px;
+    }
+  </style>
+  <match-var pui-real-theme="dark">
+    <style>
+      /* 因为 safari 的渲染bug，所以加上outer */
+      :host(:nth-of-type(2n)) .outer {
+        background-color: var(--md-ref-palette-primary20);
+      }
+    </style>
+  </match-var>
+  <match-var pui-real-theme="light">
+    <style>
+      :host(:nth-of-type(2n)) .outer {
+        background-color: var(--md-ref-palette-primary90);
+      }
+    </style>
+  </match-var>
+  <div class="outer">
+    <div class="container">
+      <slot></slot>
+    </div>
+  </div>
+  <script>
+    export default async ({ load }) => {
+      return {
+        tag: "center-block",
+        data: {},
+      };
+    };
+  </script>
+</template>

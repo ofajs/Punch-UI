@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Theme Customization</title>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/dist/ofa.mjs" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/libs/scsr/dist/scsr.min.mjs" type="module"></script>
+  <link rel="icon" href="../../img/logo.svg" />
+  <link rel="stylesheet" href="../../css/palette.css" pui-colors />
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/github-markdown.css" />
+  <link rel="stylesheet" href="../../css/hljs.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+    }
+
+    o-app {
+      height: 100%;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    o-app {
+      animation: fadein 0.1s ease-in-out;
+    }
+  </style>
+  <script type="module" src="../../js/util.js"></script>
+  <!--google analytics-->
+</head>
+
+<body>
+  <o-app src="../../js/app-config.js">
+    <template page>
+      <link rel="stylesheet" href="../../css/github-markdown.css" />
+      <link rel="stylesheet" href="../../css/hljs.css" />
+      <l-m src="../../comps/center-block.html"></l-m>
+      <l-m src="../../comps/article-code.html"></l-m>
+      <l-m src="https://playground.ofajs.com/comps/o-playground/o-playground.html"></l-m>
+      <style>
+        :host {
+          display: block;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          overflow: auto;
+        }
+      </style>
+      <link rel="stylesheet" href="../../css/page.css" />
+      <article class="markdown-body">
+        <h1>Theme Customization</h1>
+        <p>Punch-UI provides flexible theme customization capabilities, allowing you to customize theme colors through CSS variables.</p>
+        <h2>Theme Switching</h2>
+        <h3>Automatic Theme Switching</h3>
+        <p>By default, Punch-UI automatically follows the system theme:</p>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- Automatically follows system theme --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">link</span>
+      <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span>
+      <span class="hljs-attr">href</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/css/pui-global.css"</span>
+    /&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
+        <h3>Manual Theme Switching</h3>
+        <p>You can force a specific theme by adding a class to the <code>html</code> element:</p>
+        <pre><code class="hljs language-html"><span class="hljs-comment">&lt;!-- Force light theme --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"theme-light-mode"</span>&gt;</span>
+  ...
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Force dark theme --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"theme-dark-mode"</span>&gt;</span>
+  ...
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
+        <h3>Custom Theme Toggle Component</h3>
+        <o-playground name="Theme Switch Example" style="--editor-height: 400px">
+          <code path="demo.html" preview="" active="">
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
+      <l-m src="./theme-switch.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px; text-align: center;">
+        <h3>Theme Switch</h3>
+        <theme-switch></theme-switch>
+        <div style="margin-top: 20px;">
+          <p-button color="primary">Primary Button</p-button>
+          <p-button color="success">Success Button</p-button>
+          <p-button color="error">Error Button</p-button>
+        </div>
+      </div>
+    </template>
+  </code>
+          <code path="theme-switch.html">
+    <template component="">
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <p-switch sync:value="isDark" on:change="toggleTheme"> Dark Mode </p-switch>
+      <script>
+        export default async () => {
+          return {
+            tag: "theme-switch",
+            data: {
+              isDark: window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "on"
+                : "off",
+            },
+            proto: {
+              toggleTheme() {
+                if (this.isDark === "on") {
+                  $("html").classList.remove("theme-light-mode");
+                  $("html").classList.add("theme-dark-mode");
+                } else {
+                  $("html").classList.remove("theme-dark-mode");
+                  $("html").classList.add("theme-light-mode");
+                }
+              },
+            },
+          };
+        };
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Custom Theme Color</h2>
+        <h3>Overriding CSS Variables</h3>
+        <p>You can customize theme colors by overriding CSS variables:</p>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css">
+  <span class="hljs-selector-pseudo">:root</span> {
+    <span class="hljs-comment">/* Custom primary color */</span>
+    <span class="hljs-attr">--md-sys-color-primary</span>: <span class="hljs-number">#6750a4</span>;
+    <span class="hljs-attr">--md-sys-color-on-primary</span>: <span class="hljs-number">#ffffff</span>;
+    <span class="hljs-attr">--md-sys-color-primary-container</span>: <span class="hljs-number">#eaddff</span>;
+    <span class="hljs-attr">--md-sys-color-on-primary-container</span>: <span class="hljs-number">#21005d</span>;
+  }
+
+  <span class="hljs-comment">/* Custom colors under dark theme */</span>
+  <span class="hljs-selector-pseudo">:root</span><span class="hljs-selector-class">.theme-dark-mode</span> {
+    <span class="hljs-attr">--md-sys-color-primary</span>: <span class="hljs-number">#d0bcff</span>;
+    <span class="hljs-attr">--md-sys-color-on-primary</span>: <span class="hljs-number">#381e72</span>;
+    <span class="hljs-attr">--md-sys-color-primary-container</span>: <span class="hljs-number">#4f378b</span>;
+    <span class="hljs-attr">--md-sys-color-on-primary-container</span>: <span class="hljs-number">#eaddff</span>;
+  }
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
+        <h3>Complete Example</h3>
+        <o-playground name="Custom Theme Color" style="--editor-height: 600px">
+          <code path="demo.html" preview="" active="">
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <style>
+        :root {
+          /* Custom primary color set to purple */
+          --md-sys-color-primary: #6750a4;
+          --md-sys-color-on-primary: #ffffff;
+          --md-sys-color-primary-container: #eaddff;
+          --md-sys-color-on-primary-container: #21005d;
+        }
+        :root.theme-dark-mode {
+          --md-sys-color-primary: #d0bcff;
+          --md-sys-color-on-primary: #381e72;
+          --md-sys-color-primary-container: #4f378b;
+          --md-sys-color-on-primary-container: #eaddff;
+        }
+        .demo-container {
+          padding: 20px;
+          max-width: 400px;
+          margin: 0 auto;
+        }
+      </style>
+      <div class="demo-container">
+        <h3>Custom Purple Theme</h3>
+        <p-button color="primary">Custom Primary Button</p-button>
+        <p-button variant="outlined" color="primary">Outlined Button</p-button>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Create Custom Theme</h2>
+        <h3>Step 1: Define Color Variables</h3>
+        <p>Create a CSS file to define your theme colors:</p>
+        <pre><code class="hljs language-css"><span class="hljs-comment">/* custom-theme.css */</span>
+
+<span class="hljs-comment">/* Light theme */</span>
+<span class="hljs-selector-pseudo">:root</span> {
+  <span class="hljs-comment">/* Primary */</span>
+  <span class="hljs-attr">--md-sys-color-primary</span>: <span class="hljs-number">#0060a9</span>;
+  <span class="hljs-attr">--md-sys-color-on-primary</span>: <span class="hljs-number">#ffffff</span>;
+  <span class="hljs-attr">--md-sys-color-primary-container</span>: <span class="hljs-number">#d3e4ff</span>;
+  <span class="hljs-attr">--md-sys-color-on-primary-container</span>: <span class="hljs-number">#001c38</span>;
+
+  <span class="hljs-comment">/* Success */</span>
+  <span class="hljs-attr">--md-sys-color-success</span>: <span class="hljs-number">#3a6a24</span>;
+  <span class="hljs-attr">--md-sys-color-on-success</span>: <span class="hljs-number">#ffffff</span>;
+  <span class="hljs-attr">--md-sys-color-success-container</span>: <span class="hljs-number">#baf29c</span>;
+  <span class="hljs-attr">--md-sys-color-on-success-container</span>: <span class="hljs-number">#062100</span>;
+
+  <span class="hljs-comment">/* Error */</span>
+  <span class="hljs-attr">--md-sys-color-error</span>: <span class="hljs-number">#bc1421</span>;
+  <span class="hljs-attr">--md-sys-color-on-error</span>: <span class="hljs-number">#ffffff</span>;
+  <span class="hljs-attr">--md-sys-color-error-container</span>: <span class="hljs-number">#ffdad7</span>;
+  <span class="hljs-attr">--md-sys-color-on-error-container</span>: <span class="hljs-number">#410004</span>;
+
+  <span class="hljs-comment">/* Neutral */</span>
+  <span class="hljs-attr">--md-sys-color-neutral</span>: <span class="hljs-number">#5e5e5e</span>;
+  <span class="hljs-attr">--md-sys-color-on-neutral</span>: <span class="hljs-number">#ffffff</span>;
+  <span class="hljs-attr">--md-sys-color-neutral-container</span>: <span class="hljs-number">#e3e2e2</span>;
+  <span class="hljs-attr">--md-sys-color-on-neutral-container</span>: <span class="hljs-number">#1b1c1c</span>;
+}
+
+<span class="hljs-comment">/* Dark theme */</span>
+<span class="hljs-selector-pseudo">:root</span><span class="hljs-selector-class">.theme-dark-mode</span> {
+  <span class="hljs-comment">/* Primary */</span>
+  <span class="hljs-attr">--md-sys-color-primary</span>: <span class="hljs-number">#a2c9ff</span>;
+  <span class="hljs-attr">--md-sys-color-on-primary</span>: <span class="hljs-number">#00315b</span>;
+  <span class="hljs-attr">--md-sys-color-primary-container</span>: <span class="hljs-number">#004881</span>;
+  <span class="hljs-attr">--md-sys-color-on-primary-container</span>: <span class="hljs-number">#d3e4ff</span>;
+
+  <span class="hljs-comment">/* Success */</span>
+  <span class="hljs-attr">--md-sys-color-success</span>: <span class="hljs-number">#9fd582</span>;
+  <span class="hljs-attr">--md-sys-color-on-success</span>: <span class="hljs-number">#103900</span>;
+  <span class="hljs-attr">--md-sys-color-success-container</span>: <span class="hljs-number">#22510d</span>;
+  <span class="hljs-attr">--md-sys-color-on-success-container</span>: <span class="hljs-number">#baf29c</span>;
+
+  <span class="hljs-comment">/* Error */</span>
+  <span class="hljs-attr">--md-sys-color-error</span>: <span class="hljs-number">#ffb3ad</span>;
+  <span class="hljs-attr">--md-sys-color-on-error</span>: <span class="hljs-number">#68000a</span>;
+  <span class="hljs-attr">--md-sys-color-error-container</span>: <span class="hljs-number">#930013</span>;
+  <span class="hljs-attr">--md-sys-color-on-error-container</span>: <span class="hljs-number">#ffdad7</span>;
+
+  <span class="hljs-comment">/* Neutral */</span>
+  <span class="hljs-attr">--md-sys-color-neutral</span>: <span class="hljs-number">#c7c6c6</span>;
+  <span class="hljs-attr">--md-sys-color-on-neutral</span>: <span class="hljs-number">#303031</span>;
+  <span class="hljs-attr">--md-sys-color-neutral-container</span>: <span class="hljs-number">#464747</span>;
+  <span class="hljs-attr">--md-sys-color-on-neutral-container</span>: <span class="hljs-number">#e3e2e2</span>;
+}</code></pre>
+        <h3>Step 2: Introduce Custom Theme</h3>
+        <p>Import custom theme styles in your HTML file:</p>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">link</span>
+  <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span>
+  <span class="hljs-attr">href</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/css/pui-global.css"</span>
+/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"./custom-theme.css"</span> /&gt;</span></code></pre>
+        <h2>Component Style Customization</h2>
+        <h3>Using CSS Part</h3>
+        <p>Some components support customizing internal styles through the CSS Part selector:</p>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css">
+  <span class="hljs-selector-tag">p</span>-<span class="hljs-selector-tag">input</span><span class="hljs-selector-pseudo">::part</span>(<span class="hljs-selector-tag">input</span>) {
+    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">12px</span>;
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">16px</span>;
+  }
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">p-input</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Custom Input"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p-input</span>&gt;</span></code></pre>
+        <h3>Using Custom Classes</h3>
+        <p>You can also add custom classes to the component to override the styles:</p>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css">
+  <span class="hljs-selector-class">.custom-button</span> {
+    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">20px</span>;
+    <span class="hljs-attribute">font-weight</span>: bold;
+  }
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">p-button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"custom-button"</span> <span class="hljs-attr">color</span>=<span class="hljs-string">"primary"</span>&gt;</span>Custom Button<span class="hljs-tag">&lt;/<span class="hljs-name">p-button</span>&gt;</span></code></pre>
+        <h2>Best Practices</h2>
+        <h3>1. Maintain Contrast</h3>
+        <p>When customizing colors, ensure sufficient contrast between text and background to meet accessibility standards.</p>
+        <h3>2. Test dark theme</h3>
+        <p>After customizing colors, be sure to test under both dark and light themes to ensure good visual effects.</p>
+        <h3>3. Using Color Generation Tools</h3>
+        <p>It is recommended to use the <a href="https://m3.material.io/theme-builder" target="_blank">Material Design Color Tool</a> to generate a color scheme that meets the specifications.</p>
+        <h2>Next Step</h2>
+        <ul>
+          <li><a href="../components/button.html" olink="">Component Documentation</a> - View detailed usage of each component</li>
+        </ul>
+      </article>
+      <div class="footer"></div>
+      <script>
+        export const parent = "../../layout.html";
+        export default async ({
+          load,
+          query
+        }) => {
+          const {
+            init,
+            revoke
+          } = await load("../../js/init.js");
+          return {
+            data: {},
+            attached() {
+              init(this, query);
+              setTimeout(() => {
+                this.style.transform = "";
+              }, 300);
+            },
+            detached() {
+              revoke(this);
+            },
+          };
+        };
+      </script>
+    </template>
+  </o-app>
+  <o-root-provider name="pui" theme="dark"></o-root-provider>
+</body>
+
+</html>

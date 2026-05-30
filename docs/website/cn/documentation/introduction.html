@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Punch-UI 介绍</title>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/dist/ofa.mjs" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/libs/scsr/dist/scsr.min.mjs" type="module"></script>
+  <link rel="icon" href="../../img/logo.svg" />
+  <link rel="stylesheet" href="../../css/palette.css" pui-colors />
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/github-markdown.css" />
+  <link rel="stylesheet" href="../../css/hljs.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+    }
+
+    o-app {
+      height: 100%;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    o-app {
+      animation: fadein 0.1s ease-in-out;
+    }
+  </style>
+  <script type="module" src="../../js/util.js"></script>
+  <!--google analytics-->
+</head>
+
+<body>
+  <o-app src="../../js/app-config.js">
+    <template page>
+      <link rel="stylesheet" href="../../css/github-markdown.css" />
+      <link rel="stylesheet" href="../../css/hljs.css" />
+      <l-m src="../../comps/center-block.html"></l-m>
+      <l-m src="../../comps/article-code.html"></l-m>
+      <l-m src="https://playground.ofajs.com/comps/o-playground/o-playground.html"></l-m>
+      <style>
+        :host {
+          display: block;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          overflow: auto;
+        }
+      </style>
+      <link rel="stylesheet" href="../../css/page.css" />
+      <article class="markdown-body">
+        <h1>Punch-UI 介绍</h1>
+        <p>Punch-UI 是一个基于 <a href="https://github.com/ofajs/ofa.js" target="_blank">ofa.js</a> 构建的现代化 UI 组件库，提供了丰富的组件和完善的主题定制能力。</p>
+        <h2>特性</h2>
+        <ul>
+          <li>🎨 <strong>Material Design 3</strong> - 采用最新的 Material Design 3 设计规范，提供现代化的视觉体验</li>
+          <li>🌗 <strong>主题切换</strong> - 内置深色/浅色主题支持，可自动跟随系统或手动切换</li>
+          <li>📦 <strong>按需加载</strong> - 基于 ofa.js 的模块化设计，只加载需要的组件</li>
+          <li>🔧 <strong>高度可定制</strong> - 支持自定义主题、颜色和样式</li>
+          <li>📱 <strong>响应式设计</strong> - 所有组件都支持响应式布局，适配移动端和桌面端</li>
+        </ul>
+        <h2>组件列表</h2>
+        <p>Punch-UI 提供了丰富的组件库，涵盖以下类别：</p>
+        <h3>基础组件</h3>
+        <ul>
+          <li><strong>Button</strong> - 按钮，支持多种样式、尺寸和颜色</li>
+          <li><strong>Input</strong> - 输入框，支持多种样式和尺寸</li>
+          <li><strong>Textarea</strong> - 多行文本输入框</li>
+        </ul>
+        <h3>表单组件</h3>
+        <ul>
+          <li><strong>Checkbox</strong> - 复选框，支持单个和组合使用</li>
+          <li><strong>Radio</strong> - 单选框，支持单个和组合使用</li>
+          <li><strong>Select</strong> - 下拉选择器</li>
+          <li><strong>Switch</strong> - 开关切换</li>
+        </ul>
+        <h3>数据展示</h3>
+        <ul>
+          <li><strong>List</strong> - 列表项组件，支持前缀和后缀</li>
+          <li><strong>Tabs</strong> - 标签页组件</li>
+        </ul>
+        <h3>反馈组件</h3>
+        <ul>
+          <li><strong>Dialog</strong> - 模态对话框</li>
+          <li><strong>Snackbar</strong> - 轻提示</li>
+        </ul>
+        <h3>导航组件</h3>
+        <ul>
+          <li><strong>Navigation</strong> - 导航栏和导航布局</li>
+        </ul>
+        <h3>工具函数</h3>
+        <ul>
+          <li><strong>Toast</strong> - 轻量级提示</li>
+          <li><strong>Alert</strong> - 警告框</li>
+          <li><strong>Confirm</strong> - 确认框</li>
+          <li><strong>Prompt</strong> - 输入框</li>
+        </ul>
+        <h2>为什么选择 Punch-UI？</h2>
+        <h3>1. 无需构建工具</h3>
+        <p>Punch-UI 基于 ofa.js，可以直接在浏览器中使用，无需 Webpack、Vite 等构建工具。这使得开发更加简单快捷。</p>
+        <h3>2. 模块化设计</h3>
+        <p>每个组件都是独立的模块，可以按需加载，不会引入不必要的代码。</p>
+        <h3>3. 完善的主题系统</h3>
+        <p>基于 Material Design 3 的颜色系统，提供语义化的颜色变量，自动适配深色/浅色主题。</p>
+        <h3>4. 易于定制</h3>
+        <p>支持通过 CSS 变量自定义主题，也可以通过 CSS Part 选择器自定义组件样式。</p>
+        <h2>浏览器支持</h2>
+        <p>Punch-UI 支持所有现代浏览器：</p>
+        <ul>
+          <li>Chrome（最新版本）</li>
+          <li>Firefox（最新版本）</li>
+          <li>Safari（最新版本）</li>
+          <li>Edge（最新版本）</li>
+        </ul>
+        <h2>下一步</h2>
+        <ul>
+          <li><a href="./installation.html" olink="">安装</a> - 了解如何安装和配置 Punch-UI</li>
+          <li><a href="./first-example.html" olink="">第一个示例</a> - 创建你的第一个 Punch-UI 应用</li>
+        </ul>
+      </article>
+      <div class="footer"></div>
+      <script>
+        export const parent = "../../layout.html";
+        export default async ({
+          load,
+          query
+        }) => {
+          const {
+            init,
+            revoke
+          } = await load("../../js/init.js");
+          return {
+            data: {},
+            attached() {
+              init(this, query);
+              setTimeout(() => {
+                this.style.transform = "";
+              }, 300);
+            },
+            detached() {
+              revoke(this);
+            },
+          };
+        };
+      </script>
+    </template>
+  </o-app>
+  <o-root-provider name="pui" theme="dark"></o-root-provider>
+</body>
+
+</html>

@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Toast</title>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/dist/ofa.mjs" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/libs/scsr/dist/scsr.min.mjs" type="module"></script>
+  <link rel="icon" href="../../img/logo.svg" />
+  <link rel="stylesheet" href="../../css/palette.css" pui-colors />
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/github-markdown.css" />
+  <link rel="stylesheet" href="../../css/hljs.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+    }
+
+    o-app {
+      height: 100%;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    o-app {
+      animation: fadein 0.1s ease-in-out;
+    }
+  </style>
+  <script type="module" src="../../js/util.js"></script>
+  <!--google analytics-->
+</head>
+
+<body>
+  <o-app src="../../js/app-config.js">
+    <template page>
+      <link rel="stylesheet" href="../../css/github-markdown.css" />
+      <link rel="stylesheet" href="../../css/hljs.css" />
+      <l-m src="../../comps/center-block.html"></l-m>
+      <l-m src="../../comps/article-code.html"></l-m>
+      <l-m src="https://playground.ofajs.com/comps/o-playground/o-playground.html"></l-m>
+      <style>
+        :host {
+          display: block;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          overflow: auto;
+        }
+      </style>
+      <link rel="stylesheet" href="../../css/page.css" />
+      <article class="markdown-body">
+        <h1>Toast</h1>
+        <p>Toast is used to display brief notification messages that disappear automatically. Suitable for scenarios such as operation feedback, status prompts, etc.</p>
+        <h2>Introduction</h2>
+        <pre><code class="hljs language-javascript"><span class="hljs-keyword">import</span> toast <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;https://punch-ui-v2.pages.dev/packages/util/toast.js&#x27;</span>;</code></pre>
+        <h2>Basic Usage</h2>
+        <o-playground name="Toast Basic Usage" style="--editor-height: 400px">
+          <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px; text-align: center;">
+        <p-button color="primary" on:click="showToast">Show Toast</p-button>
+      </div>
+      <script type="module">
+        import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
+        export default async () => {
+          return {
+            proto: {
+              showToast() {
+                toast('Operation successful!');
+              }
+            }
+          };
+        };
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h2>With Configuration Options</h2>
+        <o-playground name="Toast Configuration Options" style="--editor-height: 500px">
+          <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <script type="module">
+        import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
+        export default async () => {
+          return {
+            proto: {
+              showSuccessToast() {
+                toast({
+                  message: 'Save successful!',
+                  duration: 3000,
+                  color: 'success'
+                });
+              },
+              showErrorToast() {
+                toast({
+                  message: 'Operation failed!',
+                  duration: 3000,
+                  color: 'error'
+                });
+              }
+            }
+          };
+        };
+      </script>
+      <div style="padding: 20px; text-align: center;">
+        <p-button color="success" on:click="showSuccessToast">Success Toast</p-button>
+        <p-button color="error" on:click="showErrorToast" style="margin-left: 10px;">Error Toast</p-button>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>API</h2>
+        <h3>Parameters</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Parameter</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>message</td>
+              <td><code>string</code></td>
+              <td>-</td>
+              <td>Prompt message content</td>
+            </tr>
+            <tr>
+              <td>duration</td>
+              <td><code>number</code></td>
+              <td><code>3000</code></td>
+              <td>Display duration (milliseconds), set to 0 to disable auto-close</td>
+            </tr>
+            <tr>
+              <td>color</td>
+              <td><code>string</code></td>
+              <td><code>&#39;primary&#39;</code></td>
+              <td>Prompt color: <code>primary</code>, <code>success</code>, <code>error</code>, <code>neutral</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <p>Return an object containing:- <code>close</code> - method to close the prompt</p>
+        <ul>
+          <li><code>el</code> - reference to the prompt element</li>
+        </ul>
+        <h3>Example</h3>
+        <pre><code class="hljs language-javascript"><span class="hljs-comment">// Basic usage</span>
+<span class="hljs-title function_">toast</span>(<span class="hljs-string">&#x27;Operation successful&#x27;</span>);
+
+<span class="hljs-comment">// With configuration</span>
+<span class="hljs-title function_">toast</span>({
+  <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;File uploaded successfully&#x27;</span>,
+  <span class="hljs-attr">duration</span>: <span class="hljs-number">5000</span>,
+  <span class="hljs-attr">color</span>: <span class="hljs-string">&#x27;success&#x27;</span>
+});
+
+<span class="hljs-comment">// Manual close</span>
+<span class="hljs-keyword">const</span> toastInstance = <span class="hljs-title function_">toast</span>(<span class="hljs-string">&#x27;Processing...&#x27;</span>);
+<span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> {
+  toastInstance.<span class="hljs-title function_">close</span>();
+}, <span class="hljs-number">2000</span>);</code></pre>
+      </article>
+      <div class="footer"></div>
+      <script>
+        export const parent = "../../layout.html";
+        export default async ({
+          load,
+          query
+        }) => {
+          const {
+            init,
+            revoke
+          } = await load("../../js/init.js");
+          return {
+            data: {},
+            attached() {
+              init(this, query);
+              setTimeout(() => {
+                this.style.transform = "";
+              }, 300);
+            },
+            detached() {
+              revoke(this);
+            },
+          };
+        };
+      </script>
+    </template>
+  </o-app>
+  <o-root-provider name="pui" theme="dark"></o-root-provider>
+</body>
+
+</html>

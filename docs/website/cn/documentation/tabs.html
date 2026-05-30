@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tabs 标签页</title>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/dist/ofa.mjs" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/libs/scsr/dist/scsr.min.mjs" type="module"></script>
+  <link rel="icon" href="../../img/logo.svg" />
+  <link rel="stylesheet" href="../../css/palette.css" pui-colors />
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/github-markdown.css" />
+  <link rel="stylesheet" href="../../css/hljs.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+    }
+
+    o-app {
+      height: 100%;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    o-app {
+      animation: fadein 0.1s ease-in-out;
+    }
+  </style>
+  <script type="module" src="../../js/util.js"></script>
+  <!--google analytics-->
+</head>
+
+<body>
+  <o-app src="../../js/app-config.js">
+    <template page>
+      <link rel="stylesheet" href="../../css/github-markdown.css" />
+      <link rel="stylesheet" href="../../css/hljs.css" />
+      <l-m src="../../comps/center-block.html"></l-m>
+      <l-m src="../../comps/article-code.html"></l-m>
+      <l-m src="https://playground.ofajs.com/comps/o-playground/o-playground.html"></l-m>
+      <style>
+        :host {
+          display: block;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          overflow: auto;
+        }
+      </style>
+      <link rel="stylesheet" href="../../css/page.css" />
+      <article class="markdown-body">
+        <h1>Tabs 标签页</h1>
+        <p>标签页组件，用于在不同内容之间切换。</p>
+        <h2>引入组件</h2>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://punch-ui-v2.pages.dev/packages/tabs/tab-bar.html&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span></code></pre>
+        <h2>基本用法</h2>
+        <o-playground name="Tabs 基本用法" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-tab-bar>
+          <p-tab-item active>标签 1</p-tab-item>
+          <p-tab-item>标签 2</p-tab-item>
+          <p-tab-item>标签 3</p-tab-item>
+        </p-tab-bar>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>带图标的标签</h2>
+        <p>使用 <code>icon</code> 插槽添加图标：</p>
+        <o-playground name="带图标的标签" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-tab-bar>
+          <p-tab-item active>
+            <span slot="icon">🏠</span>
+            <span>首页</span>
+          </p-tab-item>
+          <p-tab-item>
+            <span slot="icon">📑</span>
+            <span>书签</span>
+          </p-tab-item>
+          <p-tab-item>
+            <span slot="icon">👤</span>
+            <span>关于</span>
+          </p-tab-item>
+        </p-tab-bar>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>禁用状态</h2>
+        <p>添加 <code>disabled</code> 属性禁用标签项：</p>
+        <o-playground name="禁用状态" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-tab-bar>
+          <p-tab-item active>
+            <span slot="icon">🏠</span>
+            <span>首页</span>
+          </p-tab-item>
+          <p-tab-item disabled>
+            <span slot="icon">⚙️</span>
+            <span>设置</span>
+          </p-tab-item>
+          <p-tab-item>
+            <span slot="icon">👤</span>
+            <span>关于</span>
+          </p-tab-item>
+        </p-tab-bar>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>可滚动的标签栏</h2>
+        <p>当标签项过多时，可以设置滚动：</p>
+        <o-playground name="可滚动的标签栏" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-tab-bar style="overflow-x: auto">
+          <p-tab-item active>标签 One</p-tab-item>
+          <p-tab-item>标签 Two</p-tab-item>
+          <p-tab-item>标签 Three</p-tab-item>
+          <p-tab-item>标签 Four</p-tab-item>
+          <p-tab-item>标签 Five</p-tab-item>
+          <p-tab-item>标签 Six</p-tab-item>
+          <p-tab-item>标签 Seven</p-tab-item>
+        </p-tab-bar>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>在页面模块中使用</h2>
+        <p>在页面模块中，可以通过数据绑定实现标签的点击切换：</p>
+        <o-playground name="页面模块中的标签切换" style="--editor-height: 500px">
+          <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/tabs/tab-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-tab-bar>
+          <p-tab-item attr:active="active === 'home'" on:click="active = 'home'">
+            <span slot="icon">🏠</span>
+            <span>首页</span>
+          </p-tab-item>
+          <p-tab-item attr:active="active === 'bookmarks'" on:click="active = 'bookmarks'">
+            <span slot="icon">📑</span>
+            <span>书签</span>
+          </p-tab-item>
+          <p-tab-item attr:active="active === 'about'" on:click="active = 'about'">
+            <span slot="icon">👤</span>
+            <span>关于</span>
+          </p-tab-item>
+        </p-tab-bar>
+        <div style="margin-top: 20px; padding: 16px; background-color: var(--md-sys-color-surface-container);">
+          当前选中: {{ active }}
+        </div>
+      </div>
+      <script>
+        export default {
+          data: {
+            active: 'home'
+          }
+        };
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h2>API</h2>
+        <h3>属性 - p-tab-item</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>属性</th>
+              <th>说明</th>
+              <th>类型</th>
+              <th>默认值</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>active</code></td>
+              <td>是否激活</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>disabled</code></td>
+              <td>是否禁用</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>插槽 - p-tab-item</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>插槽名</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>default</code></td>
+              <td>标签文本内容</td>
+            </tr>
+            <tr>
+              <td><code>icon</code></td>
+              <td>图标内容</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>事件 - p-tab-item</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>事件名</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>change-active</code></td>
+              <td>当 active 状态改变时触发</td>
+            </tr>
+            <tr>
+              <td><code>click</code></td>
+              <td>点击标签项时触发（禁用状态下不会触发）</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+      <div class="footer"></div>
+      <script>
+        export const parent = "../../layout.html";
+        export default async ({
+          load,
+          query
+        }) => {
+          const {
+            init,
+            revoke
+          } = await load("../../js/init.js");
+          return {
+            data: {},
+            attached() {
+              init(this, query);
+              setTimeout(() => {
+                this.style.transform = "";
+              }, 300);
+            },
+            detached() {
+              revoke(this);
+            },
+          };
+        };
+      </script>
+    </template>
+  </o-app>
+  <o-root-provider name="pui" theme="dark"></o-root-provider>
+</body>
+
+</html>
