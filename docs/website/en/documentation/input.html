@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Input</title>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/dist/ofa.mjs" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/libs/scsr/dist/scsr.min.mjs" type="module"></script>
+  <link rel="icon" href="../../img/logo.svg" />
+  <link rel="stylesheet" href="../../css/palette.css" pui-colors />
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/github-markdown.css" />
+  <link rel="stylesheet" href="../../css/hljs.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+    }
+
+    o-app {
+      height: 100%;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    o-app {
+      animation: fadein 0.1s ease-in-out;
+    }
+  </style>
+  <script type="module" src="../../js/util.js"></script>
+  <!--google analytics-->
+</head>
+
+<body>
+  <o-app src="../../js/app-config.js">
+    <template page>
+      <link rel="stylesheet" href="../../css/github-markdown.css" />
+      <link rel="stylesheet" href="../../css/hljs.css" />
+      <l-m src="../../comps/center-block.html"></l-m>
+      <l-m src="../../comps/article-code.html"></l-m>
+      <l-m src="https://playground.ofajs.com/comps/o-playground/o-playground.html"></l-m>
+      <style>
+        :host {
+          display: block;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          overflow: auto;
+        }
+      </style>
+      <link rel="stylesheet" href="../../css/page.css" />
+      <article class="markdown-body">
+        <h1>Input</h1>
+        <p>The input box component is used to receive text information entered by the user, supporting various styles and sizes.</p>
+        <h2>Importing Components</h2>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://punch-ui-v2.pages.dev/packages/input/input.html&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span></code></pre>
+        <h2>Basic Usage</h2>
+        <o-playground name="Input Basic Usage" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input placeholder="Please enter content"></p-input>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>With Labels</h2>
+        <p>Use the <code>label</code> slot to add a label:</p>
+        <o-playground name="Input with Label" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input>
+          <span slot="label">Username</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Dimensions</h2>
+        <p>Set the input box size through the <code>size</code> attribute:</p>
+        <o-playground name="Input Size" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input size="xs">
+          <span slot="label">Extra Small</span>
+        </p-input>
+        <p-input size="s">
+          <span slot="label">Small</span>
+        </p-input>
+        <p-input>
+          <span slot="label">Default</span>
+        </p-input>
+        <p-input size="l">
+          <span slot="label">Large</span>
+        </p-input>
+        <p-input size="xl">
+          <span slot="label">Extra Large</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Colors</h2>
+        <p>Set the input box color through the <code>color</code> property:</p>
+        <o-playground name="Input Color" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input>
+          <span slot="label">Default</span>
+        </p-input>
+        <p-input color="primary">
+          <span slot="label">Primary</span>
+        </p-input>
+        <p-input color="success">
+          <span slot="label">Success</span>
+        </p-input>
+        <p-input color="error">
+          <span slot="label">Error</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Input Type</h2>
+        <h3>Password input</h3>
+        <o-playground name="Password Input" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input type="password">
+          <span slot="label">Password</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h3>Email Input</h3>
+        <o-playground name="Email Input" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input type="email">
+          <span slot="label">Email</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Prefix and Suffix</h2>
+        <p>Use the <code>prefix</code> and <code>suffix</code> slots to add a prefix or suffix:</p>
+        <o-playground name="Input with prefix/suffix" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input>
+          <span slot="prefix">+86</span>
+          <span slot="label">Phone Number</span>
+        </p-input>
+        <p-input style="margin-top: 16px;">
+          <span slot="suffix">.com</span>
+          <span slot="label">Website</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Variant Styles</h2>
+        <p>Set the input box style via the <code>variant</code> attribute:</p>
+        <o-playground name="Input Variants" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input>
+          <span slot="label">Outlined (Default)</span>
+        </p-input>
+        <p-input variant="filled" style="margin-top: 16px;">
+          <span slot="label">Filled</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Autofocus</h2>
+        <p>Use the <code>autofocus</code> attribute to make an input field automatically get focus when the page loads:</p>
+        <o-playground name="Auto Focus" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input autofocus>
+          <span slot="label">Autofocus</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Floating Label</h2>
+        <p>Use the <code>hang-label</code> attribute to keep the label always floating above the input box:</p>
+        <o-playground name="Floating Label" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input hang-label>
+          <span slot="label">Floating Label</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Default Values</h2>
+        <p>Use the <code>default-value</code> attribute to set the initial value of the input box:</p>
+        <o-playground name="Default Value" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input default-value="John Doe">
+          <span slot="label">Default Value</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Maximum Length</h2>
+        <p>Use the <code>maxlength</code> attribute to limit the maximum number of characters entered:</p>
+        <o-playground name="Max Length" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input maxlength="10">
+          <span slot="label">At most 10 characters</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Form Properties</h2>
+        <p>Use the <code>name</code> attribute to set the field name for form submission:</p>
+        <o-playground name="Form Properties" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input name="username">
+          <span slot="label">Username</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Custom Styles</h2>
+        <h3>Using Inline Styles</h3>
+        <o-playground name="Custom Style" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input style="border-radius: 30px">
+          <span slot="label">Custom Border Radius</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h3>Using CSS Part</h3>
+        <p>Use the <code>::part()</code> selector to customize the internal style of the input box:</p>
+        <o-playground name="CSS Part Custom" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <style>
+        .custom-input::part(input) {
+          color: red;
+        }
+      </style>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input class="custom-input" color="error">
+          <span slot="label" style="color: red">Custom Style</span>
+        </p-input>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Programmatic Control</h2>
+        <p>Controlling input focus via JavaScript:</p>
+        <o-playground name="Programmatic Control" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input id="my-input">
+          <span slot="label">Programmatic Control</span>
+        </p-input>
+        <p-button style="margin-top: 16px;" id="focus-btn">Focus Input</p-button>
+      </div>
+      <script>
+        $('#focus-btn').on('click', () => {
+          $('#my-input').focus();
+        });
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Get Value</h2>
+        <h3>Get via value attribute in HTML</h3>
+        <p>Use the <code>value</code> attribute to get the value of the input box:</p>
+        <o-playground name="Get Value" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input id="username-input">
+          <span slot="label">Username</span>
+        </p-input>
+        <p-button style="margin-top: 16px;" id="get-value-btn">Get Value</p-button>
+        <p style="margin-top: 16px;">Current Value: <span id="value-display"></span></p>
+      </div>
+      <script>
+        $('#get-value-btn').on('click', () => {
+          $('#value-display').text = $('#username-input').value;
+        });
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h3>Listening for Input Events</h3>
+        <p>By listening to the <code>input</code> event, get the input value in real time:</p>
+        <o-playground name="Monitor Input Events" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input id="realtime-input">
+          <span slot="label">Real-time Input</span>
+        </p-input>
+        <p style="margin-top: 16px;">Real-time Value: <span id="realtime-display"></span></p>
+      </div>
+      <script>
+        $('#realtime-input').on('input', () => {
+          $('#realtime-display').text = $('#realtime-input').value;
+        });
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h3>Two-way binding in components or page modules</h3>
+        <p>Use ofa.js&#39;s data binding feature：</p>
+        <o-playground name="Get Value" style="--editor-height: 400px">
+          <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/input/input.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-input sync:value="val">
+          <span slot="label">Username</span>
+        </p-input>
+        <p style="margin-top: 16px;">Current value: {{ val }}</p>
+      </div>
+      <script>
+        export default {
+          data: {
+            val: 'Default Value'
+          }
+        };
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h2>API</h2>
+        <h3>Attributes</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Attribute</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>type</code></td>
+              <td>Input type</td>
+              <td><code>text</code> | <code>password</code> | <code>email</code> | <code>number</code></td>
+              <td><code>text</code></td>
+            </tr>
+            <tr>
+              <td><code>variant</code></td>
+              <td>Input style</td>
+              <td><code>outlined</code> | <code>filled</code></td>
+              <td><code>outlined</code></td>
+            </tr>
+            <tr>
+              <td><code>size</code></td>
+              <td>Input size</td>
+              <td><code>xs</code> | <code>s</code> | <code>l</code> | <code>xl</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>color</code></td>
+              <td>Input color</td>
+              <td><code>primary</code> | <code>error</code> | <code>success</code> | <code>neutral</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>placeholder</code></td>
+              <td>Placeholder text</td>
+              <td><code>string</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>disabled</code></td>
+              <td>Disabled</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>value</code></td>
+              <td>Input value</td>
+              <td><code>string</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>default-value</code></td>
+              <td>Default value</td>
+              <td><code>string</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>hang-label</code></td>
+              <td>Floating label</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>maxlength</code></td>
+              <td>Maximum input length</td>
+              <td><code>number</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>name</code></td>
+              <td>Form field name</td>
+              <td><code>string</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>autofocus</code></td>
+              <td>Auto focus</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Slot Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>default</code></td>
+              <td>Input box content</td>
+            </tr>
+            <tr>
+              <td><code>label</code></td>
+              <td>Label text</td>
+            </tr>
+            <tr>
+              <td><code>prefix</code></td>
+              <td>Prefix content</td>
+            </tr>
+            <tr>
+              <td><code>suffix</code></td>
+              <td>Suffix content</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>input</code></td>
+              <td>Triggered when the input content changes</td>
+            </tr>
+            <tr>
+              <td><code>change</code></td>
+              <td>Triggered when the input loses focus and the content has changed</td>
+            </tr>
+            <tr>
+              <td><code>focus</code></td>
+              <td>Triggered when the input gains focus</td>
+            </tr>
+            <tr>
+              <td><code>blur</code></td>
+              <td>Triggered when the input loses focus</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Method Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>focus()</code></td>
+              <td>Make the input box gain focus</td>
+            </tr>
+            <tr>
+              <td><code>blur()</code></td>
+              <td>Make the input box lose focus</td>
+            </tr>
+            <tr>
+              <td><code>select()</code></td>
+              <td>Select the text in the input box</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+      <div class="footer"></div>
+      <script>
+        export const parent = "../../layout.html";
+        export default async ({
+          load,
+          query
+        }) => {
+          const {
+            init,
+            revoke
+          } = await load("../../js/init.js");
+          return {
+            data: {},
+            attached() {
+              init(this, query);
+              setTimeout(() => {
+                this.style.transform = "";
+              }, 300);
+            },
+            detached() {
+              revoke(this);
+            },
+          };
+        };
+      </script>
+    </template>
+  </o-app>
+  <o-root-provider name="pui" theme="dark"></o-root-provider>
+</body>
+
+</html>

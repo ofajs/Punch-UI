@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Punch-UI Introduction</title>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/dist/ofa.mjs" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/libs/scsr/dist/scsr.min.mjs" type="module"></script>
+  <link rel="icon" href="../../img/logo.svg" />
+  <link rel="stylesheet" href="../../css/palette.css" pui-colors />
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/github-markdown.css" />
+  <link rel="stylesheet" href="../../css/hljs.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+    }
+
+    o-app {
+      height: 100%;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    o-app {
+      animation: fadein 0.1s ease-in-out;
+    }
+  </style>
+  <script type="module" src="../../js/util.js"></script>
+  <!--google analytics-->
+</head>
+
+<body>
+  <o-app src="../../js/app-config.js">
+    <template page>
+      <link rel="stylesheet" href="../../css/github-markdown.css" />
+      <link rel="stylesheet" href="../../css/hljs.css" />
+      <l-m src="../../comps/center-block.html"></l-m>
+      <l-m src="../../comps/article-code.html"></l-m>
+      <l-m src="https://playground.ofajs.com/comps/o-playground/o-playground.html"></l-m>
+      <style>
+        :host {
+          display: block;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          overflow: auto;
+        }
+      </style>
+      <link rel="stylesheet" href="../../css/page.css" />
+      <article class="markdown-body">
+        <h1>Punch-UI Introduction</h1>
+        <p>Punch-UI is a modern UI component library built on <a href="https://github.com/ofajs/ofa.js" target="_blank">ofa.js</a>, providing a rich set of components and comprehensive theme customization capabilities.</p>
+        <h2>Features</h2>
+        <ul>
+          <li>🎨 <strong>Material Design 3</strong> - Adopts the latest Material Design 3 specification, providing a modern visual experience</li>
+          <li>🌗 <strong>Theme Switching</strong> - Built-in dark/light theme support, can automatically follow the system or be manually toggled</li>
+          <li>📦 <strong>On-Demand Loading</strong> - Based on the modular design of ofa.js, only loads the required components</li>
+          <li>🔧 <strong>Highly Customizable</strong> - Supports custom themes, colors and styles</li>
+          <li>📱 <strong>Responsive Design</strong> - All components support responsive layout, adaptable to both mobile and desktop</li>
+        </ul>
+        <h2>Component List</h2>
+        <p>Punch-UI provides a rich component library, covering the following categories：</p>
+        <h3>Basic Components</h3>
+        <ul>
+          <li><strong>Button</strong> - Button, supports multiple styles, sizes and colors</li>
+          <li><strong>Input</strong> - Input box, supports multiple styles and sizes</li>
+          <li><strong>Textarea</strong> - Multi-line text input box</li>
+        </ul>
+        <h3>Form Components</h3>
+        <ul>
+          <li><strong>Checkbox</strong> - Checkbox, supports single and combined use</li>
+          <li><strong>Radio</strong> - Radio button, supports single and combined use</li>
+          <li><strong>Select</strong> - Dropdown selector</li>
+          <li><strong>Switch</strong> - Toggle switch</li>
+        </ul>
+        <h3>Data Display</h3>
+        <ul>
+          <li><strong>List</strong> - List item component, supporting prefix and suffix</li>
+          <li><strong>Tabs</strong> - Tab component</li>
+        </ul>
+        <h3>Feedback Component</h3>
+        <ul>
+          <li><strong>Dialog</strong> - modal dialog</li>
+          <li><strong>Snackbar</strong> - snackbar</li>
+        </ul>
+        <h3>Navigation Component</h3>
+        <ul>
+          <li><strong>Navigation</strong> - Navigation bar and navigation layout</li>
+        </ul>
+        <h3>Utility Functions</h3>
+        <ul>
+          <li><strong>Toast</strong> - Lightweight notification</li>
+          <li><strong>Alert</strong> - Alert box</li>
+          <li><strong>Confirm</strong> - Confirm box</li>
+          <li><strong>Prompt</strong> - Prompt box</li>
+        </ul>
+        <h2>Why Choose Punch-UI?</h2>
+        <h3>1. No Build Tools Needed</h3>
+        <p>Punch-UI is based on ofa.js and can be used directly in the browser without build tools like Webpack or Vite. This makes development simpler and faster.</p>
+        <h3>2. Modular Design</h3>
+        <p>Each component is an independent module that can be loaded on demand, without introducing unnecessary code.</p>
+        <h3>3. Comprehensive Theme System</h3>
+        <p>Based on the Material Design 3 color system, it provides semantic color variables and automatically adapts to dark/light themes.</p>
+        <h3>4. Easy to Customize</h3>
+        <p>Support customizing themes via CSS variables, and also customizing component styles via CSS Part selectors.</p>
+        <h2>Browser Support</h2>
+        <p>Punch-UI supports all modern browsers:</p>
+        <ul>
+          <li>Chrome (latest version)</li>
+          <li>Firefox (latest version)</li>
+          <li>Safari (latest version)</li>
+          <li>Edge (latest version)</li>
+        </ul>
+        <h2>Next Step</h2>
+        <ul>
+          <li><a href="./installation.html" olink="">Installation</a> - Learn how to install and configure Punch-UI</li>
+          <li><a href="./first-example.html" olink="">First Example</a> - Create your first Punch-UI application</li>
+        </ul>
+      </article>
+      <div class="footer"></div>
+      <script>
+        export const parent = "../../layout.html";
+        export default async ({
+          load,
+          query
+        }) => {
+          const {
+            init,
+            revoke
+          } = await load("../../js/init.js");
+          return {
+            data: {},
+            attached() {
+              init(this, query);
+              setTimeout(() => {
+                this.style.transform = "";
+              }, 300);
+            },
+            detached() {
+              revoke(this);
+            },
+          };
+        };
+      </script>
+    </template>
+  </o-app>
+  <o-root-provider name="pui" theme="dark"></o-root-provider>
+</body>
+
+</html>

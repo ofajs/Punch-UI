@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Textarea Multi-line Text</title>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/dist/ofa.mjs" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/libs/scsr/dist/scsr.min.mjs" type="module"></script>
+  <link rel="icon" href="../../img/logo.svg" />
+  <link rel="stylesheet" href="../../css/palette.css" pui-colors />
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/github-markdown.css" />
+  <link rel="stylesheet" href="../../css/hljs.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+    }
+
+    o-app {
+      height: 100%;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    o-app {
+      animation: fadein 0.1s ease-in-out;
+    }
+  </style>
+  <script type="module" src="../../js/util.js"></script>
+  <!--google analytics-->
+</head>
+
+<body>
+  <o-app src="../../js/app-config.js">
+    <template page>
+      <link rel="stylesheet" href="../../css/github-markdown.css" />
+      <link rel="stylesheet" href="../../css/hljs.css" />
+      <l-m src="../../comps/center-block.html"></l-m>
+      <l-m src="../../comps/article-code.html"></l-m>
+      <l-m src="https://playground.ofajs.com/comps/o-playground/o-playground.html"></l-m>
+      <style>
+        :host {
+          display: block;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          overflow: auto;
+        }
+      </style>
+      <link rel="stylesheet" href="../../css/page.css" />
+      <article class="markdown-body">
+        <h1>Textarea Multi-line Text</h1>
+        <p>Multi-line text input box component, supports responsive height and form integration.</p>
+        <h2>Importing Components</h2>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://punch-ui-v2.pages.dev/packages/textarea/textarea.html&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span></code></pre>
+        <h2>Basic Usage</h2>
+        <o-playground name="Textarea Basic Usage" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea placeholder="Please enter content"></p-textarea>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>With Labels</h2>
+        <o-playground name="Textarea with Label" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea>
+          <span slot="label">Message</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Variant Styles</h2>
+        <p>Set the input box style via the <code>variant</code> attribute:</p>
+        <o-playground name="Textarea Variants" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea>
+          <span slot="label">Outlined (default)</span>
+        </p-textarea>
+        <p-textarea variant="filled" style="margin-top: 16px;">
+          <span slot="label">Filled</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Dimensions</h2>
+        <p>Set the input box size through the <code>size</code> attribute:</p>
+        <o-playground name="Textarea Sizes" style="--editor-height: 500px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea size="xs">
+          <span slot="label">Extra Small</span>
+        </p-textarea>
+        <p-textarea size="s" style="margin-top: 16px;">
+          <span slot="label">Small</span>
+        </p-textarea>
+        <p-textarea size="m" style="margin-top: 16px;">
+          <span slot="label">Medium (Default)</span>
+        </p-textarea>
+        <p-textarea size="l" style="margin-top: 16px;">
+          <span slot="label">Large</span>
+        </p-textarea>
+        <p-textarea size="xl" style="margin-top: 16px;">
+          <span slot="label">Extra Large</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Colors</h2>
+        <p>Set the input box color through the <code>color</code> property:</p>
+        <o-playground name="Textarea Color" style="--editor-height: 500px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea color="primary">
+          <span slot="label">Primary Color</span>
+        </p-textarea>
+        <p-textarea color="success" style="margin-top: 16px;">
+          <span slot="label">Success Color</span>
+        </p-textarea>
+        <p-textarea color="neutral" style="margin-top: 16px;">
+          <span slot="label">Neutral Color</span>
+        </p-textarea>
+        <p-textarea color="error" style="margin-top: 16px;">
+          <span slot="label">Error Color</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Prefix and Suffix</h2>
+        <p>Use the <code>prefix</code> and <code>suffix</code> slots to add prefix/suffix content:</p>
+        <o-playground name="Textarea with Prefix/Suffix" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea>
+          <span slot="label">Message</span>
+          <span slot="prefix">📝</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Placeholder</h2>
+        <p>Use the <code>placeholder</code> attribute to set placeholder text:</p>
+        <o-playground name="Placeholder" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea placeholder="Enter your message...">
+          <span slot="label">Message</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Autofocus</h2>
+        <p>Use the <code>autofocus</code> attribute to make an input field automatically get focus when the page loads:</p>
+        <o-playground name="Autofocus" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea autofocus>
+          <span slot="label">Autofocus</span>
+        </p-textarea>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Get Value</h2>
+        <h3>Get via value attribute in HTML</h3>
+        <p>Use the <code>value</code> attribute to get the value of the input box:</p>
+        <o-playground name="Get Value" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea id="message-textarea">
+          <span slot="label">Message Content</span>
+        </p-textarea>
+        <p-button style="margin-top: 16px;" id="get-value-btn">Get Value</p-button>
+        <p style="margin-top: 16px;">Current Value: <span id="value-display"></span></p>
+      </div>
+      <script>
+        $('#get-value-btn').on('click', () => {
+          $('#value-display').text = $('#message-textarea').value;
+        });
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h3>Listening for Input Events</h3>
+        <p>By listening to the <code>input</code> event, get the input value in real time:</p>
+        <o-playground name="Listening to input events" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea id="realtime-textarea">
+          <span slot="label">Real-time input</span>
+        </p-textarea>
+        <p style="margin-top: 16px;">Real-time value: <span id="realtime-display"></span></p>
+      </div>
+      <script>
+        $('#realtime-textarea').on('input', () => {
+          $('#realtime-display').text = $('#realtime-textarea').value;
+        });
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h3>Two-way binding in components or page modules</h3>
+        <p>Use ofa.js&#39;s data binding feature：</p>
+        <o-playground name="Get Value" style="--editor-height: 400px">
+          <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/textarea/textarea.html"></l-m>
+      <div style="padding: 20px; max-width: 400px;">
+        <p-textarea sync:value="message">
+          <span slot="label">Message Content</span>
+        </p-textarea>
+        <p style="margin-top: 16px;">Current value: {{ message }}</p>
+      </div>
+      <script>
+        export default {
+          data: {
+            message: 'Default message content'
+          }
+        };
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h2>API</h2>
+        <h3>Attributes</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Attribute</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>placeholder</code></td>
+              <td>Placeholder text</td>
+              <td><code>string</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>disabled</code></td>
+              <td>Whether disabled</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>value</code></td>
+              <td>Input value</td>
+              <td><code>string</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>default-value</code></td>
+              <td>Default value</td>
+              <td><code>string</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>rows</code></td>
+              <td>Number of rows</td>
+              <td><code>number</code></td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Slot Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>default</code></td>
+              <td>Text field content</td>
+            </tr>
+            <tr>
+              <td><code>label</code></td>
+              <td>Label text</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>input</code></td>
+              <td>Triggered when the input content changes</td>
+            </tr>
+            <tr>
+              <td><code>change</code></td>
+              <td>Triggered when the input loses focus and the content has changed</td>
+            </tr>
+            <tr>
+              <td><code>focus</code></td>
+              <td>Triggered when the input gains focus</td>
+            </tr>
+            <tr>
+              <td><code>blur</code></td>
+              <td>Triggered when the input loses focus</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Method Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>focus()</code></td>
+              <td>Make the input box gain focus</td>
+            </tr>
+            <tr>
+              <td><code>blur()</code></td>
+              <td>Make the input box lose focus</td>
+            </tr>
+            <tr>
+              <td><code>select()</code></td>
+              <td>Select the text in the input box</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+      <div class="footer"></div>
+      <script>
+        export const parent = "../../layout.html";
+        export default async ({
+          load,
+          query
+        }) => {
+          const {
+            init,
+            revoke
+          } = await load("../../js/init.js");
+          return {
+            data: {},
+            attached() {
+              init(this, query);
+              setTimeout(() => {
+                this.style.transform = "";
+              }, 300);
+            },
+            detached() {
+              revoke(this);
+            },
+          };
+        };
+      </script>
+    </template>
+  </o-app>
+  <o-root-provider name="pui" theme="dark"></o-root-provider>
+</body>
+
+</html>

@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Navigation</title>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/dist/ofa.mjs" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/libs/scsr/dist/scsr.min.mjs" type="module"></script>
+  <link rel="icon" href="../../img/logo.svg" />
+  <link rel="stylesheet" href="../../css/palette.css" pui-colors />
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/github-markdown.css" />
+  <link rel="stylesheet" href="../../css/hljs.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+    }
+
+    o-app {
+      height: 100%;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    o-app {
+      animation: fadein 0.1s ease-in-out;
+    }
+  </style>
+  <script type="module" src="../../js/util.js"></script>
+  <!--google analytics-->
+</head>
+
+<body>
+  <o-app src="../../js/app-config.js">
+    <template page>
+      <link rel="stylesheet" href="../../css/github-markdown.css" />
+      <link rel="stylesheet" href="../../css/hljs.css" />
+      <l-m src="../../comps/center-block.html"></l-m>
+      <l-m src="../../comps/article-code.html"></l-m>
+      <l-m src="https://playground.ofajs.com/comps/o-playground/o-playground.html"></l-m>
+      <style>
+        :host {
+          display: block;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          overflow: auto;
+        }
+      </style>
+      <link rel="stylesheet" href="../../css/page.css" />
+      <article class="markdown-body">
+        <h1>Navigation</h1>
+        <p>The navigation component package provides navigation bar, navigation item, and navigation layout components for building responsive application navigation systems.</p>
+        <h2>Importing Components</h2>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://punch-ui-v2.pages.dev/packages/navigation/nav-bar.html&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span></code></pre>
+        <h2>Basic Usage - Navigation Bar</h2>
+        <o-playground name="Navigation Basic Usage" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-nav-bar>
+          <p-nav-item active>
+            <span slot="icon">🏠</span>
+            <span>Home</span>
+          </p-nav-item>
+          <p-nav-item>
+            <span slot="icon">📑</span>
+            <span>Bookmarks</span>
+          </p-nav-item>
+          <p-nav-item>
+            <span slot="icon">👤</span>
+            <span>About</span>
+          </p-nav-item>
+        </p-nav-bar>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Vertical Navigation Bar</h2>
+        <o-playground name="Vertical Navigation Bar" style="--editor-height: 500px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-nav-bar style="height: 400px; display: inline-flex; flex-direction: column">
+          <p-nav-item active>
+            <span slot="icon">🏠</span>
+            <span>Home</span>
+          </p-nav-item>
+          <p-nav-item>
+            <span slot="icon">⚙️</span>
+            <span>Settings</span>
+          </p-nav-item>
+          <p-nav-item>
+            <span slot="icon">👤</span>
+            <span>About</span>
+          </p-nav-item>
+        </p-nav-bar>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Tag Parallel Mode</h2>
+        <o-playground name="Label Parallel Mode" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-nav-bar style="--label-parallel: true; padding: 8px 12px;">
+          <p-nav-item active>
+            <span slot="icon">🏠</span>
+            <span>Home</span>
+          </p-nav-item>
+          <p-nav-item>
+            <span slot="icon">👤</span>
+            <span>About</span>
+          </p-nav-item>
+        </p-nav-bar>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Disabled State</h2>
+        <o-playground name="Disabled State" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-item.html"></l-m>
+      <div style="padding: 20px;">
+        <p-nav-bar>
+          <p-nav-item active>
+            <span slot="icon">🏠</span>
+            <span>Home</span>
+          </p-nav-item>
+          <p-nav-item disabled>
+            <span slot="icon">⚙️</span>
+            <span>Settings</span>
+          </p-nav-item>
+          <p-nav-item>
+            <span slot="icon">👤</span>
+            <span>About</span>
+          </p-nav-item>
+        </p-nav-bar>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Nav Layout</h2>
+        <p><code>p-nav-layout</code> is a responsive navigation layout component that automatically adjusts the style and position of the navigation bar based on the container width.</p>
+        <h3>Auto-fit Window</h3>
+        <p>The component has a built-in container query mechanism, which intelligently adjusts the layout based on the container width:</p>
+        <ul>
+          <li><strong>Mobile (&lt; 768px)</strong>: The navigation bar is located at the bottom, using a vertical layout with icons and text arranged vertically.</li>
+          <li><strong>Tablet (768px - 1024px)</strong>: The navigation bar is at the bottom and automatically switches to a tab-inline mode, with icons and text arranged horizontally.</li>
+          <li><strong>Desktop (≥ 1024px)</strong>: The navigation bar automatically moves to the left, using a vertical layout to provide more spacious content display area.</li>
+        </ul>
+        <p>This adaptive design ensures an optimal user experience across different devices without the need to manually write responsive code.</p>
+        <h3>Import Components</h3>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://punch-ui-v2.pages.dev/packages/navigation/nav-layout.html&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span></code></pre>
+        <h3>Basic Usage</h3>
+        <o-playground name="Navigation Layout" style="--editor-height: 600px">
+          <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-layout.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-bar.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-item.html"></l-m>
+      <div style="height: 100%;">
+        <p-nav-layout>
+          <div style="padding: 20px;">
+            <o-if :value="active === 'home'">
+              <h1>Home</h1>
+              <p>This is the home content...</p>
+            </o-if>
+            <o-if :value="active === 'bookmarks'">
+              <h1>Bookmarks</h1>
+              <p>This is the bookmarks content...</p>
+            </o-if>
+            <o-if :value="active === 'about'">
+              <h1>About</h1>
+              <p>This is the about content...</p>
+            </o-if>
+          </div>
+          <p-nav-bar slot="nav">
+            <p-nav-item attr:active="active === 'home'" on:click="active = 'home'">
+              <span slot="icon">🏠</span>
+              <span>Home</span>
+            </p-nav-item>
+            <p-nav-item attr:active="active === 'bookmarks'" on:click="active = 'bookmarks'">
+              <span slot="icon">📑</span>
+              <span>Bookmarks</span>
+            </p-nav-item>
+            <p-nav-item attr:active="active === 'about'" on:click="active = 'about'">
+              <span slot="icon">👤</span>
+              <span>About</span>
+            </p-nav-item>
+          </p-nav-bar>
+        </p-nav-layout>
+      </div>
+      <script>
+        export default async () => {
+          return {
+            data: {
+              active: 'home'
+            }
+          };
+        };
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h2>API</h2>
+        <h3>Properties - p-nav-item</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>active</code></td>
+              <td>Whether it is active</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>disabled</code></td>
+              <td>Whether it is disabled</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Slot Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>default</code></td>
+              <td>Contains p-nav-item elements</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Slot Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>default</code></td>
+              <td>Navigation item text</td>
+            </tr>
+            <tr>
+              <td><code>icon</code></td>
+              <td>Navigation item icon</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+      <div class="footer"></div>
+      <script>
+        export const parent = "../../layout.html";
+        export default async ({
+          load,
+          query
+        }) => {
+          const {
+            init,
+            revoke
+          } = await load("../../js/init.js");
+          return {
+            data: {},
+            attached() {
+              init(this, query);
+              setTimeout(() => {
+                this.style.transform = "";
+              }, 300);
+            },
+            detached() {
+              revoke(this);
+            },
+          };
+        };
+      </script>
+    </template>
+  </o-app>
+  <o-root-provider name="pui" theme="dark"></o-root-provider>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+- name: Quick Start
+  content:
+    - name: Introduction
+      url: ./introduction.md
+    - name: Installation
+      url: ./installation.md
+    - name: First Example
+      url: ./first-example.md
+- name: Components
+  content:
+    - name: Button
+      url: ./button.md
+    - name: Input
+      url: ./input.md
+    - name: Textarea
+      url: ./textarea.md
+    - name: Radio
+      url: ./radio.md
+    - name: Checkbox
+      url: ./checkbox.md
+    - name: Switch
+      url: ./switch.md
+    - name: Select
+      url: ./select.md
+    - name: List
+      url: ./list.md
+    - name: Tabs
+      url: ./tabs.md
+    - name: Dialog
+      url: ./dialog.md
+    - name: Navigation
+      url: ./navigation.md
+- name: Basics
+  content:
+    - name: Color System
+      url: ./color.md
+    - name: Theming
+      url: ./theming.md
+- name: Utility Functions
+  content:
+    - name: Toast
+      url: ./toast.md
+    - name: Alert
+      url: ./alert.md
+    - name: Confirm
+      url: ./confirm.md
+    - name: Prompt
+      url: ./prompt.md

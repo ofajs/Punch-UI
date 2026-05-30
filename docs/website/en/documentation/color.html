@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Color System</title>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/dist/ofa.mjs" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/libs/scsr/dist/scsr.min.mjs" type="module"></script>
+  <link rel="icon" href="../../img/logo.svg" />
+  <link rel="stylesheet" href="../../css/palette.css" pui-colors />
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/github-markdown.css" />
+  <link rel="stylesheet" href="../../css/hljs.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+    }
+
+    o-app {
+      height: 100%;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    o-app {
+      animation: fadein 0.1s ease-in-out;
+    }
+  </style>
+  <script type="module" src="../../js/util.js"></script>
+  <!--google analytics-->
+</head>
+
+<body>
+  <o-app src="../../js/app-config.js">
+    <template page>
+      <link rel="stylesheet" href="../../css/github-markdown.css" />
+      <link rel="stylesheet" href="../../css/hljs.css" />
+      <l-m src="../../comps/center-block.html"></l-m>
+      <l-m src="../../comps/article-code.html"></l-m>
+      <l-m src="https://playground.ofajs.com/comps/o-playground/o-playground.html"></l-m>
+      <style>
+        :host {
+          display: block;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          overflow: auto;
+        }
+      </style>
+      <link rel="stylesheet" href="../../css/page.css" />
+      <article class="markdown-body">
+        <h1>Color System</h1>
+        <p>Punch-UI uses the color system of Material Design 3, providing a complete palette and theme support.</p>
+        <blockquote>
+          <p>🎯 <strong>Core Principle</strong>: <strong>Always prioritize using semantic color variables (<code>--md-sys-color-*</code>)</strong>, avoid directly using palette colors (<code>--md-ref-palette-*</code>). Semantic colors automatically adapt to theme switching, ensuring contrast and consistency.</p>
+        </blockquote>
+        <h2>Importing Styles</h2>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/css/pui-global.css"</span> /&gt;</span></code></pre>
+        <h2>Theme Switching</h2>
+        <p>Punch-UI supports three theme modes:</p>
+        <h3>1. Auto-Follow System (Default)</h3>
+        <p>By default, the theme automatically follows the system settings:</p>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- Automatically follow system theme --&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
+        <h3>2. Force Light Theme</h3>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"theme-light-mode"</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- Force light theme --&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
+        <h3>3. Force Dark Theme</h3>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"theme-dark-mode"</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- Force dark theme --&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
+        <h3>Using Theme Switch Component</h3>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/tool/theme-switch/theme-switch.html"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p-theme-switch</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p-theme-switch</span>&gt;</span></code></pre>
+        <h2>Semantic Color Variables</h2>
+        <p>Punch-UI provides a set of semantic color variables that automatically adapt to light and dark themes:</p>
+        <h3>Main Colors</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Variable Name</th>
+              <th>Description</th>
+              <th>Light Theme Example</th>
+              <th>Dark Theme Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>--md-sys-color-primary</code></td>
+              <td>Primary color</td>
+              <td>#0060a9</td>
+              <td>#a2c9ff</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-on-primary</code></td>
+              <td>Text on primary</td>
+              <td>#ffffff</td>
+              <td>#00315b</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-primary-container</code></td>
+              <td>Primary container</td>
+              <td>#d3e4ff</td>
+              <td>#004881</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-on-primary-container</code></td>
+              <td>Text on primary container</td>
+              <td>#001c38</td>
+              <td>#d3e4ff</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Variable Name</th>
+              <th>Description</th>
+              <th>Light Theme Example</th>
+              <th>Dark Theme Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>--md-sys-color-success</code></td>
+              <td>Success color</td>
+              <td>#3a6a24</td>
+              <td>#9fd582</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-on-success</code></td>
+              <td>Text on success color</td>
+              <td>#ffffff</td>
+              <td>#103900</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-success-container</code></td>
+              <td>Success color container</td>
+              <td>#baf29c</td>
+              <td>#22510d</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-on-success-container</code></td>
+              <td>Text on success color container</td>
+              <td>#062100</td>
+              <td>#baf29c</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Variable Name</th>
+              <th>Description</th>
+              <th>Light Theme Example</th>
+              <th>Dark Theme Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>--md-sys-color-error</code></td>
+              <td>Error</td>
+              <td>#bc1421</td>
+              <td>#ffb3ad</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-on-error</code></td>
+              <td>On error</td>
+              <td>#ffffff</td>
+              <td>#68000a</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-error-container</code></td>
+              <td>Error container</td>
+              <td>#ffdad7</td>
+              <td>#930013</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-on-error-container</code></td>
+              <td>On error container</td>
+              <td>#410004</td>
+              <td>#ffdad7</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Variable name</th>
+              <th>Description</th>
+              <th>Light theme example</th>
+              <th>Dark theme example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>--md-sys-color-neutral</code></td>
+              <td>Neutral</td>
+              <td>#5e5e5e</td>
+              <td>#c7c6c6</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-on-neutral</code></td>
+              <td>On neutral</td>
+              <td>#ffffff</td>
+              <td>#303031</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-neutral-container</code></td>
+              <td>Neutral container</td>
+              <td>#e3e2e2</td>
+              <td>#464747</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-on-neutral-container</code></td>
+              <td>On neutral container</td>
+              <td>#1b1c1c</td>
+              <td>#e3e2e2</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Variable Name</th>
+              <th>Description</th>
+              <th>Light Theme Example</th>
+              <th>Dark Theme Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>--md-sys-color-surface</code></td>
+              <td>Background color</td>
+              <td>#faf9f9</td>
+              <td>#121414</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-on-surface</code></td>
+              <td>Text on background</td>
+              <td>#1b1c1c</td>
+              <td>#e3e2e2</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-surface-variant</code></td>
+              <td>Variant background color</td>
+              <td>#e3e2e2</td>
+              <td>#464747</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-on-surface-variant</code></td>
+              <td>Text on variant background</td>
+              <td>#464747</td>
+              <td>#c7c6c6</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-inverse-surface</code></td>
+              <td>Inverse background color</td>
+              <td>#303031</td>
+              <td>#e3e2e2</td>
+            </tr>
+            <tr>
+              <td><code>--md-sys-color-inverse-on-surface</code></td>
+              <td>Text on inverse background</td>
+              <td>#f2f0f0</td>
+              <td>#303031</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>Use Semantic Colors</h3>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css">
+  <span class="hljs-selector-class">.custom-button</span> {
+    <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--md-sys-color-primary);
+    <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--md-sys-color-on-primary);
+    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">8px</span>;
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span> <span class="hljs-number">20px</span>;
+  }
+  
+  <span class="hljs-selector-class">.custom-card</span> {
+    <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--md-sys-color-surface-variant);
+    <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--md-sys-color-on-surface-variant);
+    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">12px</span>;
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">16px</span>;
+  }
+  
+  <span class="hljs-selector-class">.success-message</span> {
+    <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--md-sys-color-success-container);
+    <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--md-sys-color-on-success-container);
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">12px</span>;
+  }
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"custom-button"</span>&gt;</span>Custom Button<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"custom-card"</span>&gt;</span>Custom Card<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"success-message"</span>&gt;</span>Action successful!<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+        <h3>Real-time Example</h3>
+        <o-playground name="Color System Example" style="--editor-height: 500px">
+          <code path="demo.html" preview="" active="">
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
+      <style>
+        .color-demo {
+          padding: 20px;
+          max-width: 600px;
+          margin: 0 auto;
+        }
+        .color-box {
+          padding: 16px;
+          margin: 8px 0;
+          border-radius: 8px;
+        }
+        .primary-demo {
+          background-color: var(--md-sys-color-primary);
+          color: var(--md-sys-color-on-primary);
+        }
+        .success-demo {
+          background-color: var(--md-sys-color-success);
+          color: var(--md-sys-color-on-success);
+        }
+        .error-demo {
+          background-color: var(--md-sys-color-error);
+          color: var(--md-sys-color-on-error);
+        }
+        .surface-demo {
+          background-color: var(--md-sys-color-surface-variant);
+          color: var(--md-sys-color-on-surface-variant);
+        }
+      </style>
+      <div class="color-demo">
+        <h2>Semantic Color Examples</h2>
+        <div class="color-box primary-demo">
+          <strong>Primary Color</strong>
+          <p>Used for main actions and important elements</p>
+        </div>
+        <div class="color-box success-demo">
+          <strong>Success Color</strong>
+          <p>Used for success status and positive feedback</p>
+        </div>
+        <div class="color-box error-demo">
+          <strong>Error Color</strong>
+          <p>Used for error status and warning messages</p>
+        </div>
+        <div class="color-box surface-demo">
+          <strong>Surface Color</strong>
+          <p>Used for backgrounds and containers</p>
+        </div>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Best Practices</h2>
+        <h3>1. Prioritize the use of semantic colors</h3>
+        <p>✅ <strong>Recommended</strong>:```css background-color: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary);</p>
+        <pre><code class="hljs">
+❌ **Not recommended**:```css
+background-color: <span class="hljs-built_in">var</span>(--md-ref-palette-primary40);
+<span class="hljs-attribute">color</span>: <span class="hljs-number">#ffffff</span>;</code></pre>
+        <h3>2. Ensure contrast</h3>
+        <p>When using semantic colors, Punch-UI ensures that the contrast between text and background meets accessibility standards.</p>
+        <h3>3. Theme Adaptation</h3>
+        <p>Semantic colors automatically adapt to dark/light themes, no manual processing required.</p>
+        <h2>Next Step</h2>
+        <ul>
+          <li><a href="./theming.html" olink="">Theme Customization</a> - Learn how to customize themes and colors</li>
+        </ul>
+      </article>
+      <div class="footer"></div>
+      <script>
+        export const parent = "../../layout.html";
+        export default async ({
+          load,
+          query
+        }) => {
+          const {
+            init,
+            revoke
+          } = await load("../../js/init.js");
+          return {
+            data: {},
+            attached() {
+              init(this, query);
+              setTimeout(() => {
+                this.style.transform = "";
+              }, 300);
+            },
+            detached() {
+              revoke(this);
+            },
+          };
+        };
+      </script>
+    </template>
+  </o-app>
+  <o-root-provider name="pui" theme="dark"></o-root-provider>
+</body>
+
+</html>

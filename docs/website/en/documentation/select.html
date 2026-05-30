@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Select Selector</title>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/dist/ofa.mjs" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/libs/scsr/dist/scsr.min.mjs" type="module"></script>
+  <link rel="icon" href="../../img/logo.svg" />
+  <link rel="stylesheet" href="../../css/palette.css" pui-colors />
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/github-markdown.css" />
+  <link rel="stylesheet" href="../../css/hljs.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+    }
+
+    o-app {
+      height: 100%;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    o-app {
+      animation: fadein 0.1s ease-in-out;
+    }
+  </style>
+  <script type="module" src="../../js/util.js"></script>
+  <!--google analytics-->
+</head>
+
+<body>
+  <o-app src="../../js/app-config.js">
+    <template page>
+      <link rel="stylesheet" href="../../css/github-markdown.css" />
+      <link rel="stylesheet" href="../../css/hljs.css" />
+      <l-m src="../../comps/center-block.html"></l-m>
+      <l-m src="../../comps/article-code.html"></l-m>
+      <l-m src="https://playground.ofajs.com/comps/o-playground/o-playground.html"></l-m>
+      <style>
+        :host {
+          display: block;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          overflow: auto;
+        }
+      </style>
+      <link rel="stylesheet" href="../../css/page.css" />
+      <article class="markdown-body">
+        <h1>Select Selector</h1>
+        <p>Dropdown selector component, supports single and multiple selection.</p>
+        <h2>Importing Components</h2>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://punch-ui-v2.pages.dev/packages/select/select.html&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span></code></pre>
+        <h2>Basic Usage</h2>
+        <o-playground name="Select Basic Usage" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/option.html"></l-m>
+      <div style="padding: 20px;">
+        <p-select placeholder="Please select" style="width: 200px;">
+          <p-option value="1">Option 1</p-option>
+          <p-option value="2">Option 2</p-option>
+          <p-option value="3">Option 3</p-option>
+        </p-select>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Variant Styles</h2>
+        <p>Set the selector style via the <code>variant</code> attribute:</p>
+        <o-playground name="Select variants" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/option.html"></l-m>
+      <div style="padding: 20px;">
+        <p-select style="width: 150px;">
+          <span slot="label">Outlined (default)</span>
+          <p-option value="1">Option 1</p-option>
+          <p-option value="2">Option 2</p-option>
+        </p-select>
+        <p-select variant="filled" style="margin-top: 16px; width: 150px;">
+          <span slot="label">Filled</span>
+          <p-option value="1">Option 1</p-option>
+          <p-option value="2">Option 2</p-option>
+        </p-select>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Dimensions</h2>
+        <p>Set the selector size via the <code>size</code> attribute:</p>
+        <o-playground name="Select Size" style="--editor-height: 500px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/option.html"></l-m>
+      <div style="padding: 20px;">
+        <p-select size="xs" style="width: 150px;">
+          <span slot="label">Extra Small (xs)</span>
+          <p-option value="1">Option 1</p-option>
+        </p-select>
+        <p-select size="s" style="margin-top: 16px; width: 150px;">
+          <span slot="label">Small (s)</span>
+          <p-option value="1">Option 1</p-option>
+        </p-select>
+        <p-select style="margin-top: 16px; width: 150px;">
+          <span slot="label">Default</span>
+          <p-option value="1">Option 1</p-option>
+        </p-select>
+        <p-select size="l" style="margin-top: 16px; width: 150px;">
+          <span slot="label">Large (l)</span>
+          <p-option value="1">Option 1</p-option>
+        </p-select>
+        <p-select size="xl" style="margin-top: 16px; width: 150px;">
+          <span slot="label">Extra Large (xl)</span>
+          <p-option value="1">Option 1</p-option>
+        </p-select>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Colors</h2>
+        <p>Set the selector color through the <code>color</code> property:</p>
+        <o-playground name="Select Color" style="--editor-height: 500px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/option.html"></l-m>
+      <div style="padding: 20px;">
+        <p-select color="primary" style="width: 200px;">
+          <span slot="label">Primary Color</span>
+          <p-option value="1">Option 1</p-option>
+        </p-select>
+        <p-select color="success" style="margin-top: 16px; width: 200px;">
+          <span slot="label">Success Color</span>
+          <p-option value="1">Option 1</p-option>
+        </p-select>
+        <p-select color="neutral" style="margin-top: 16px; width: 200px;">
+          <span slot="label">Neutral Color</span>
+          <p-option value="1">Option 1</p-option>
+        </p-select>
+        <p-select color="error" style="margin-top: 16px; width: 200px;">
+          <span slot="label">Error Color</span>
+          <p-option value="1">Option 1</p-option>
+        </p-select>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Prefix and Suffix</h2>
+        <p>Use the <code>prefix</code> and <code>suffix</code> slots to add a prefix or suffix:</p>
+        <o-playground name="Select with Prefix/Suffix" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/option.html"></l-m>
+      <div style="padding: 20px;">
+        <p-select style="width: 200px;">
+          <span slot="prefix">🌐</span>
+          <span slot="label">Language</span>
+          <p-option value="en">English</p-option>
+          <p-option value="zh">Chinese</p-option>
+        </p-select>
+        <p-select style="margin-top: 16px; width: 200px;">
+          <span slot="label">Currency</span>
+          <span slot="suffix">💰</span>
+          <p-option value="usd">USD</p-option>
+          <p-option value="eur">EUR</p-option>
+        </p-select>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Disabled State</h2>
+        <p>Add the <code>disabled</code> attribute to disable the selector:</p>
+        <o-playground name="Disabled State" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/option.html"></l-m>
+      <div style="padding: 20px;">
+        <p-select disabled style="width: 200px;">
+          <span slot="label">Disabled Selector</span>
+          <p-option value="1">Option 1</p-option>
+          <p-option value="2">Option 2</p-option>
+        </p-select>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Get Value</h2>
+        <h3>Get via value attribute in HTML</h3>
+        <p>Use the <code>value</code> property to get the value of the selector:</p>
+        <o-playground name="Get Value" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/option.html"></l-m>
+      <div style="padding: 20px;">
+        <p-select id="city-select" style="width: 200px;">
+          <span slot="label">Select City</span>
+          <p-option value="beijing">Beijing</p-option>
+          <p-option value="shanghai">Shanghai</p-option>
+          <p-option value="guangzhou">Guangzhou</p-option>
+        </p-select>
+        <p-button style="margin-top: 16px;" id="get-value-btn">Get Value</p-button>
+        <p style="margin-top: 16px;">Current value: <span id="value-display"></span></p>
+      </div>
+      <script>
+        $('#get-value-btn').on('click', () => {
+          $('#value-display').text = $('#city-select').value;
+        });
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h3>Monitor change events</h3>
+        <p>Listen to the <code>change</code> event to get the selected value in real time:</p>
+        <o-playground name="Listening to change events" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/option.html"></l-m>
+      <div style="padding: 20px;">
+        <p-select id="realtime-select" style="width: 200px;">
+          <span slot="label">Real-time Selection</span>
+          <p-option value="apple">Apple</p-option>
+          <p-option value="banana">Banana</p-option>
+          <p-option value="orange">Orange</p-option>
+        </p-select>
+        <p style="margin-top: 16px;">Current value: <span id="realtime-display"></span></p>
+      </div>
+      <script>
+        $('#realtime-select').on('change', () => {
+          $('#realtime-display').text = $('#realtime-select').value;
+        });
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h3>Two-way binding in components or page modules</h3>
+        <p>Use ofa.js&#39;s data binding feature：</p>
+        <o-playground name="Get Value" style="--editor-height: 400px">
+          <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/select.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/select/option.html"></l-m>
+      <div style="padding: 20px;">
+        <p-select sync:value="selectedCity" style="width: 200px;">
+          <span slot="label">Select City</span>
+          <p-option value="beijing">Beijing</p-option>
+          <p-option value="shanghai">Shanghai</p-option>
+          <p-option value="guangzhou">Guangzhou</p-option>
+        </p-select>
+        <p style="margin-top: 16px;">Current value: {{ selectedCity }}</p>
+      </div>
+      <script>
+        export default {
+          data: {
+            selectedCity: 'shanghai'
+          }
+        };
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h2>API</h2>
+        <h3>Properties - p-select</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>placeholder</code></td>
+              <td>Placeholder text</td>
+              <td><code>string</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>disabled</code></td>
+              <td>Whether disabled</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>value</code></td>
+              <td>Selected value</td>
+              <td><code>string</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>variant</code></td>
+              <td>Selector style</td>
+              <td><code>outlined</code> | <code>filled</code></td>
+              <td><code>outlined</code></td>
+            </tr>
+            <tr>
+              <td><code>size</code></td>
+              <td>Selector size</td>
+              <td><code>xs</code> | <code>s</code> | <code>l</code> | <code>xl</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>color</code></td>
+              <td>Selector color</td>
+              <td><code>primary</code> | <code>error</code> | <code>success</code> | <code>neutral</code></td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>value</code></td>
+              <td>Value of the option</td>
+              <td><code>string</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>disabled</code></td>
+              <td>Whether disabled</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Slot Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>default</code></td>
+              <td>Option content (p-option component)</td>
+            </tr>
+            <tr>
+              <td><code>label</code></td>
+              <td>Label text</td>
+            </tr>
+            <tr>
+              <td><code>prefix</code></td>
+              <td>Prefix content</td>
+            </tr>
+            <tr>
+              <td><code>suffix</code></td>
+              <td>Suffix content</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Event Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>change</code></td>
+              <td>Triggered when the selected value changes</td>
+            </tr>
+            <tr>
+              <td><code>focus</code></td>
+              <td>Triggered when the selector gains focus</td>
+            </tr>
+            <tr>
+              <td><code>blur</code></td>
+              <td>Triggered when the selector loses focus</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Method Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>focus()</code></td>
+              <td>Makes the selector gain focus</td>
+            </tr>
+            <tr>
+              <td><code>blur()</code></td>
+              <td>Makes the selector lose focus</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+      <div class="footer"></div>
+      <script>
+        export const parent = "../../layout.html";
+        export default async ({
+          load,
+          query
+        }) => {
+          const {
+            init,
+            revoke
+          } = await load("../../js/init.js");
+          return {
+            data: {},
+            attached() {
+              init(this, query);
+              setTimeout(() => {
+                this.style.transform = "";
+              }, 300);
+            },
+            detached() {
+              revoke(this);
+            },
+          };
+        };
+      </script>
+    </template>
+  </o-app>
+  <o-root-provider name="pui" theme="dark"></o-root-provider>
+</body>
+
+</html>

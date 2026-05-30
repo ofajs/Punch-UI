@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Switch</title>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/dist/ofa.mjs" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/gh/kirakiray/ofa.js@4.7.0/libs/scsr/dist/scsr.min.mjs" type="module"></script>
+  <link rel="icon" href="../../img/logo.svg" />
+  <link rel="stylesheet" href="../../css/palette.css" pui-colors />
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/github-markdown.css" />
+  <link rel="stylesheet" href="../../css/hljs.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Microsoft Yahei,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
+    }
+
+    o-app {
+      height: 100%;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    o-app {
+      animation: fadein 0.1s ease-in-out;
+    }
+  </style>
+  <script type="module" src="../../js/util.js"></script>
+  <!--google analytics-->
+</head>
+
+<body>
+  <o-app src="../../js/app-config.js">
+    <template page>
+      <link rel="stylesheet" href="../../css/github-markdown.css" />
+      <link rel="stylesheet" href="../../css/hljs.css" />
+      <l-m src="../../comps/center-block.html"></l-m>
+      <l-m src="../../comps/article-code.html"></l-m>
+      <l-m src="https://playground.ofajs.com/comps/o-playground/o-playground.html"></l-m>
+      <style>
+        :host {
+          display: block;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          overflow: auto;
+        }
+      </style>
+      <link rel="stylesheet" href="../../css/page.css" />
+      <article class="markdown-body">
+        <h1>Switch</h1>
+        <p>The switch component is used to toggle between two states, supporting custom values and keyboard operations.</p>
+        <h2>Importing Components</h2>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://punch-ui-v2.pages.dev/packages/switch/switch.html&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span></code></pre>
+        <h2>Basic Usage</h2>
+        <o-playground name="Switch Basic Usage" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch>Default Switch</p-switch>
+        <p-switch checked>Checked</p-switch>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Dimensions</h2>
+        <p>Set the switch size using the <code>size</code> property:</p>
+        <o-playground name="Switch Sizes" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch size="xs">XS</p-switch>
+        <p-switch size="s">Small</p-switch>
+        <p-switch>Medium</p-switch>
+        <p-switch size="l">Large</p-switch>
+        <p-switch size="xl">XL</p-switch>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Colors</h2>
+        <p>Set switch color via the <code>color</code> property:</p>
+        <o-playground name="Switch Colors" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch color="primary" checked>Primary</p-switch>
+        <p-switch color="error" checked>Error</p-switch>
+        <p-switch color="success" checked>Success</p-switch>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Status</h2>
+        <o-playground name="Switch State" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch checked>Checked</p-switch>
+        <p-switch>Unchecked</p-switch>
+        <p-switch disabled>Disabled</p-switch>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Form Integration</h2>
+        <h3>Custom Value</h3>
+        <p>Use the <code>checked-value</code> and <code>unchecked-value</code> attributes to customize the checked/unchecked values:</p>
+        <o-playground name="Switch with Custom Values" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch 
+          name="status" 
+          checked-value="enabled" 
+          unchecked-value="disabled"
+          checked
+        >
+          Status Switch
+        </p-switch>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h3>Default Values</h3>
+        <p>Set the initial value using the <code>default-value</code> attribute:</p>
+        <o-playground name="Default value" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch 
+          name="theme" 
+          checked-value="dark" 
+          unchecked-value="light"
+          default-value="dark"
+        >
+          Dark mode
+        </p-switch>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Interactive Features</h2>
+        <h3>Auto Focus</h3>
+        <p>Use the <code>autofocus</code> attribute to automatically focus the switch on page load:</p>
+        <o-playground name="autofocus" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch autofocus>autofocus</p-switch>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h3>Keyboard Operation</h3>
+        <p>Switch supports keyboard operation:- <strong>Space</strong> - Toggle switch state</p>
+        <ul>
+          <li><strong>Enter</strong> - Toggle switch state</li>
+        </ul>
+        <o-playground name="Keyboard Operation" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch>Operate with keyboard</p-switch>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h3>Programmatic Control</h3>
+        <p>Control switch state via JavaScript:</p>
+        <o-playground name="Programmatic Control" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch id="my-switch">Programmatic Control</p-switch>
+        <p-button style="margin-top: 16px;" on:click="this.$('#my-switch').checked = !this.$('#my-switch').checked">Toggle State</p-button>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Variant Styles</h2>
+        <p>Use the <code>variant</code> attribute to set different styles:</p>
+        <o-playground name="Variant Styles" style="--editor-height: 350px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch variant="filled" checked>Filled</p-switch>
+        <p-switch variant="outlined" checked>Outlined</p-switch>
+        <p-switch variant="text" checked>Text</p-switch>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Method</h2>
+        <p>The switch component provides the following methods:</p>
+        <ul>
+          <li><code>focus()</code> - gives focus to the switch</li>
+        </ul>
+        <o-playground name="Method" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch id="focus-switch">Focus Switch</p-switch>
+        <p-button style="margin-top: 16px;" on:click="this.$('#focus-switch').focus()">Focus</p-button>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Animation Effects</h2>
+        <p>The switch component includes the following animation effects:- <strong>Slider Movement</strong> - Smooth sliding animation</p>
+        <ul>
+          <li><strong>Check Mark</strong> - Shows check animation when selected</li>
+          <li><strong>Border Fill</strong> - Border fill animation when selected</li>
+        </ul>
+        <o-playground name="Animation Effect" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch checked>Animation Effect</p-switch>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>Get Value</h2>
+        <h3>Get via checked attribute</h3>
+        <p>Use the <code>checked</code> attribute to get the toggle&#39;s selected state:</p>
+        <o-playground name="Get Value" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch id="theme-switch">Dark Mode</p-switch>
+        <p-button style="margin-top: 16px;" id="get-value-btn">Get Status</p-button>
+        <p style="margin-top: 16px;">Current Status: <span id="status-display"></span></p>
+      </div>
+      <script>
+        $('#get-value-btn').on('click', () => {
+          const isChecked = $('#theme-switch').checked;
+          $('#status-display').text = isChecked ? 'Enabled' : 'Disabled';
+        });
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h3>Get Custom Value</h3>
+        <p>When <code>checked-value</code> and <code>unchecked-value</code> are set, get the current value through the <code>value</code> attribute:</p>
+        <o-playground name="Get Custom Value" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch 
+          id="status-switch"
+          checked-value="enabled" 
+          unchecked-value="disabled"
+          checked
+        >
+          Status Switch
+        </p-switch>
+        <p-button style="margin-top: 16px;" id="get-custom-btn">Get Value</p-button>
+        <p style="margin-top: 16px;">Current value: <span id="custom-value-display"></span></p>
+      </div>
+      <script>
+        $('#get-custom-btn').on('click', () => {
+          const value = $('#status-switch').value;
+          $('#custom-value-display').text = value;
+        });
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h3>Monitor change events</h3>
+        <p>Get the switch state in real time by listening to the <code>change</code> event:</p>
+        <o-playground name="Listen to Change Events" style="--editor-height: 400px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch id="realtime-switch">Realtime listening</p-switch>
+        <p style="margin-top: 16px;">Current status: <span id="realtime-display"></span></p>
+      </div>
+      <script>
+        $('#realtime-switch').on('change', () => {
+          const isChecked = $('#realtime-switch').checked;
+          $('#realtime-display').text = isChecked ? 'Enabled' : 'Disabled';
+        });
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <h3>Two-way binding in components or page modules</h3>
+        <p>Use ofa.js&#39;s data binding feature：</p>
+        <o-playground name="Get Value" style="--editor-height: 400px">
+          <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch 
+          sync:value="status"
+          checked-value="on"
+          unchecked-value="off"
+        >
+          Dark Mode
+        </p-switch>
+        <p style="margin-top: 16px;">Current Status: {{ status }}</p>
+      </div>
+      <script>
+        export default {
+          data: {
+            status: 'on'
+          }
+        };
+      </script>
+    </template>
+  </code>
+        </o-playground>
+        <p>When using two-way binding in a component or page module, <strong>bind the <code>value</code> property instead of the <code>checked</code> property</strong>.</p>
+        <ul>
+          <li>✅ Correct: <code>sync:value=&quot;status&quot;</code> - Bind the value attribute, used with <code>checked-value</code> and <code>unchecked-value</code></li>
+          <li>❌ Incorrect: <code>sync:checked=&quot;darkMode&quot;</code> - Do not bind the checked attribute</li>
+        </ul>
+        <p>This allows for better integration with form data and provides clearer semantics.</p>
+        <h2>Accessibility Support</h2>
+        <p>The switch component provides the following accessibility support:- Supports keyboard navigation and operation</p>
+        <ul>
+          <li>Provides focus state indication</li>
+          <li>Supports screen readers</li>
+        </ul>
+        <o-playground name="Accessibility Support" style="--editor-height: 300px">
+          <code path="demo.html" preview active>
+    <template>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <div style="padding: 20px;">
+        <p-switch>Accessible Switch</p-switch>
+      </div>
+    </template>
+  </code>
+        </o-playground>
+        <h2>API</h2>
+        <h3>Attributes</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Attribute</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>checked</code></td>
+              <td>Whether selected</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>size</code></td>
+              <td>Switch size</td>
+              <td><code>xs</code> | <code>s</code> | <code>l</code> | <code>xl</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>color</code></td>
+              <td>Switch color</td>
+              <td><code>primary</code> | <code>error</code> | <code>success</code></td>
+              <td><code>primary</code></td>
+            </tr>
+            <tr>
+              <td><code>disabled</code></td>
+              <td>Whether disabled</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>name</code></td>
+              <td>Form name</td>
+              <td><code>string</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>value</code></td>
+              <td>Current value (returns checked-value or unchecked-value based on checked state)</td>
+              <td><code>string</code></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td><code>checked-value</code></td>
+              <td>Value when selected</td>
+              <td><code>string</code></td>
+              <td><code>true</code></td>
+            </tr>
+            <tr>
+              <td><code>unchecked-value</code></td>
+              <td>Value when not selected</td>
+              <td><code>string</code></td>
+              <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>default-value</code></td>
+              <td>Default value</td>
+              <td><code>string</code></td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Event Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>change</code></td>
+              <td>Triggered when the switch state changes</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Method Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>focus()</code></td>
+              <td>Makes the switch gain focus</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+      <div class="footer"></div>
+      <script>
+        export const parent = "../../layout.html";
+        export default async ({
+          load,
+          query
+        }) => {
+          const {
+            init,
+            revoke
+          } = await load("../../js/init.js");
+          return {
+            data: {},
+            attached() {
+              init(this, query);
+              setTimeout(() => {
+                this.style.transform = "";
+              }, 300);
+            },
+            detached() {
+              revoke(this);
+            },
+          };
+        };
+      </script>
+    </template>
+  </o-app>
+  <o-root-provider name="pui" theme="dark"></o-root-provider>
+</body>
+
+</html>
