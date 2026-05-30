@@ -178,40 +178,67 @@
         </o-playground>
         <h2>导航布局 (Nav Layout)</h2>
         <p><code>p-nav-layout</code> 是一个响应式导航布局组件，会根据容器宽度自动调整导航栏的样式和位置。</p>
+        <h3>自动适配窗口</h3>
+        <p>组件内置容器查询机制，能够根据容器宽度智能调整布局：</p>
+        <ul>
+          <li><strong>移动端（&lt; 768px）</strong>：导航栏位于底部，采用垂直布局，图标和文字上下排列</li>
+          <li><strong>平板端（768px - 1024px）</strong>：导航栏位于底部，自动切换为标签平行模式，图标和文字左右排列</li>
+          <li><strong>桌面端（≥ 1024px）</strong>：导航栏自动移至左侧，采用垂直布局，提供更宽敞的内容展示空间</li>
+        </ul>
+        <p>这种自适应设计确保了在不同设备上都能获得最佳的用户体验，无需手动编写响应式代码。</p>
         <h3>引入组件</h3>
         <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://punch-ui-v2.pages.dev/packages/navigation/nav-layout.html&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span></code></pre>
         <h3>基本用法</h3>
         <o-playground name="导航布局" style="--editor-height: 600px">
-          <code path="demo.html" preview active>
-    <template>
+          <code path="demo.html" active>
+    <template page>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-layout.html"></l-m>
       <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-bar.html"></l-m>
       <l-m src="https://punch-ui-v2.pages.dev/packages/navigation/nav-item.html"></l-m>
-      <div style="padding: 20px; height: 500px;">
+      <div style="height: 100%;">
         <p-nav-layout>
           <div style="padding: 20px;">
-            <h1>主内容区域</h1>
-            <p>这里是主要内容...</p>
+            <o-if :value="active === 'home'">
+              <h1>首页</h1>
+              <p>这里是首页内容...</p>
+            </o-if>
+            <o-if :value="active === 'bookmarks'">
+              <h1>书签</h1>
+              <p>这里是书签内容...</p>
+            </o-if>
+            <o-if :value="active === 'about'">
+              <h1>关于</h1>
+              <p>这里是关于内容...</p>
+            </o-if>
           </div>
-          
-<pre><code class="hljs">      <span class="hljs-tag">&lt;<span class="hljs-name">p-nav-bar</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">&quot;nav&quot;</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">p-nav-item</span> <span class="hljs-attr">active</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">&quot;icon&quot;</span>&gt;</span>🏠<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>首页<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">p-nav-item</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">p-nav-item</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">&quot;icon&quot;</span>&gt;</span>📑<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>书签<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">p-nav-item</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">p-nav-item</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">&quot;icon&quot;</span>&gt;</span>👤<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>关于<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">p-nav-item</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-name">p-nav-bar</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">p-nav-layout</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre> </code>
+          <p-nav-bar slot="nav">
+            <p-nav-item attr:active="active === 'home'" on:click="active = 'home'">
+              <span slot="icon">🏠</span>
+              <span>首页</span>
+            </p-nav-item>
+            <p-nav-item attr:active="active === 'bookmarks'" on:click="active = 'bookmarks'">
+              <span slot="icon">📑</span>
+              <span>书签</span>
+            </p-nav-item>
+            <p-nav-item attr:active="active === 'about'" on:click="active = 'about'">
+              <span slot="icon">👤</span>
+              <span>关于</span>
+            </p-nav-item>
+          </p-nav-bar>
+        </p-nav-layout>
+      </div>
+      <script>
+        export default async () => {
+          return {
+            data: {
+              active: 'home'
+            }
+          };
+        };
+      </script>
+    </template>
+  </code>
         </o-playground>
         <h2>API</h2>
         <h3>属性 - p-nav-item</h3>

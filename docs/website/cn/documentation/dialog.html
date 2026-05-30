@@ -73,7 +73,8 @@
       <link rel="stylesheet" href="../../css/page.css" />
       <article class="markdown-body">
         <h1>Dialog 对话框</h1>
-        <p>对话框组件用于显示模态对话框，支持移动端适配和自定义样式。</p>
+        <p>对话框组件提供优雅的模态交互体验，内置移动端自适应机制，支持丰富的自定义样式选项。</p>
+        <p>组件内置响应式设计，能够智能识别设备屏幕尺寸。在移动端小屏幕环境下，对话框会自动切换为从底部滑入的抽屉式交互，提供更符合移动端用户习惯的操作体验。</p>
         <h2>引入组件</h2>
         <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://punch-ui-v2.pages.dev/packages/dialog/dialog.html&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span></code></pre>
         <h2>基本用法</h2>
@@ -103,37 +104,6 @@
         export default {
           data: {
             demoDialogOpen: false
-          }
-        };
-      </script>
-    </template>
-  </code>
-        </o-playground>
-        <h2>移动端适配</h2>
-        <p>对话框组件会自动适配移动端，在小屏幕上会从底部滑入：</p>
-        <o-playground name="移动端适配" style="--editor-height: 500px">
-          <code path="demo.html" active>
-    <template page>
-      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
-      <l-m src="https://punch-ui-v2.pages.dev/packages/dialog/dialog.html"></l-m>
-      <div style="padding: 20px;">
-        <p-button on:click="mobileDialogOpen = true">打开响应式对话框</p-button>
-        <p-dialog auto-to-mobile-width="540px" sync:open="mobileDialogOpen">
-          <span slot="title">响应式对话框</span>
-          <div>
-            <p>这个对话框在移动设备上会从底部滑入。</p>
-            <p>在桌面设备上会居中显示。</p>
-          </div>
-          <div slot="bottom">
-            <p-button color="primary" on:click="mobileDialogOpen = false">确定</p-button>
-          </div>
-        </p-dialog>
-      </div>
-      <script>
-        export default {
-          data: {
-            mobileDialogOpen: false
           }
         };
       </script>
