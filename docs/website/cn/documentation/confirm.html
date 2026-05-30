@@ -78,8 +78,8 @@
         <pre><code class="hljs language-javascript"><span class="hljs-keyword">import</span> confirm <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;https://punch-ui-v2.pages.dev/packages/util/confirm.js&#x27;</span>;</code></pre>
         <h2>基本用法</h2>
         <o-playground name="Confirm 基本用法" style="--editor-height: 400px">
-          <code path="demo.html" preview active>
-    <template>
+          <code path="demo.html" active>
+    <template page>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <script type="module">
@@ -106,6 +106,41 @@
     </template>
   </code>
         </o-playground>
+        <h2>完整参数示例</h2>
+        <o-playground name="Confirm 完整参数" style="--editor-height: 500px">
+          <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <script type="module">
+        import confirm from 'https://punch-ui-v2.pages.dev/packages/util/confirm.js';
+        import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
+        export default async () => {
+          return {
+            proto: {
+              async showFullConfirm() {
+                const result = await confirm({
+                  title: '删除确认',
+                  message: '此操作将永久删除该文件，无法恢复。确定要继续吗？',
+                  yes: '确认删除',
+                  cancel: '再想想'
+                });
+                if (result) {
+                  toast('文件已删除');
+                } else {
+                  toast('已取消操作');
+                }
+              }
+            }
+          };
+        };
+      </script>
+      <div style="padding: 20px; text-align: center;">
+        <p-button color="error" on:click="showFullConfirm">删除文件</p-button>
+      </div>
+    </template>
+  </code>
+        </o-playground>
         <h2>API</h2>
         <h3>参数</h3>
         <table>
@@ -121,7 +156,7 @@
             <tr>
               <td>title</td>
               <td><code>string</code></td>
-              <td><code>&#39;提示&#39;</code></td>
+              <td><code>&#39;&#39;</code></td>
               <td>对话框标题</td>
             </tr>
             <tr>
@@ -131,15 +166,15 @@
               <td>提示消息内容</td>
             </tr>
             <tr>
-              <td>ok</td>
+              <td>yes</td>
               <td><code>string</code></td>
-              <td><code>&#39;确定&#39;</code></td>
+              <td><code>&#39;Yes&#39;</code></td>
               <td>确认按钮文本</td>
             </tr>
             <tr>
               <td>cancel</td>
               <td><code>string</code></td>
-              <td><code>&#39;取消&#39;</code></td>
+              <td><code>&#39;Cancel&#39;</code></td>
               <td>取消按钮文本</td>
             </tr>
           </tbody>
@@ -155,12 +190,12 @@
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;用户取消删除&#x27;</span>);
 }
 
-<span class="hljs-comment">// 带配置</span>
+<span class="hljs-comment">// 完整参数</span>
 <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title function_">confirm</span>({
-  <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;确认操作&#x27;</span>,
-  <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;此操作不可撤销，确定要继续吗？&#x27;</span>,
-  <span class="hljs-attr">ok</span>: <span class="hljs-string">&#x27;确定&#x27;</span>,
-  <span class="hljs-attr">cancel</span>: <span class="hljs-string">&#x27;取消&#x27;</span>
+  <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;删除确认&#x27;</span>,
+  <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;此操作将永久删除该文件，无法恢复。确定要继续吗？&#x27;</span>,
+  <span class="hljs-attr">yes</span>: <span class="hljs-string">&#x27;确认删除&#x27;</span>,
+  <span class="hljs-attr">cancel</span>: <span class="hljs-string">&#x27;再想想&#x27;</span>
 });</code></pre>
       </article>
       <div class="footer"></div>

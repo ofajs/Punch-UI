@@ -11,8 +11,8 @@ import alert from 'https://punch-ui-v2.pages.dev/packages/util/alert.js';
 ## 基本用法
 
 <o-playground name="Alert 基本用法" style="--editor-height: 400px">
-  <code path="demo.html" preview active>
-    <template>
+  <code path="demo.html" active>
+    <template page>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <script type="module">
@@ -37,8 +37,8 @@ import alert from 'https://punch-ui-v2.pages.dev/packages/util/alert.js';
 ## 带标题和自定义按钮
 
 <o-playground name="Alert 自定义" style="--editor-height: 500px">
-  <code path="demo.html" preview active>
-    <template>
+  <code path="demo.html" active>
+    <template page>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <script type="module">

@@ -11,8 +11,8 @@ import prompt from 'https://punch-ui-v2.pages.dev/packages/util/prompt.js';
 ## 基本用法
 
 <o-playground name="Prompt 基本用法" style="--editor-height: 400px">
-  <code path="demo.html" preview active>
-    <template>
+  <code path="demo.html" active>
+    <template page>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <script type="module">
@@ -38,17 +38,57 @@ import prompt from 'https://punch-ui-v2.pages.dev/packages/util/prompt.js';
   </code>
 </o-playground>
 
+## 完整参数示例
+
+<o-playground name="Prompt 完整参数" style="--editor-height: 500px">
+  <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <script type="module">
+        import prompt from 'https://punch-ui-v2.pages.dev/packages/util/prompt.js';
+        import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
+        export default async () => {
+          return {
+            proto: {
+              async showFullPrompt() {
+                const result = await prompt({
+                  title: '修改用户名',
+                  message: '请输入新的用户名：',
+                  label: '用户名',
+                  placeholder: '请输入用户名',
+                  value: '当前用户',
+                  yes: '保存',
+                  cancel: '取消'
+                });
+                if (result !== null) {
+                  toast(`用户名已修改为：${result}`);
+                }
+              }
+            }
+          };
+        };
+      </script>
+      <div style="padding: 20px; text-align: center;">
+        <p-button color="primary" on:click="showFullPrompt">修改用户名</p-button>
+      </div>
+    </template>
+  </code>
+</o-playground>
+
 ## API
 
 ### 参数
 
 | 参数 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
-| title | `string` | `'提示'` | 对话框标题 |
+| title | `string` | `''` | 对话框标题 |
 | message | `string` | - | 提示消息内容 |
-| defaultValue | `string` | `''` | 输入框默认值 |
-| ok | `string` | `'确定'` | 确认按钮文本 |
-| cancel | `string` | `'取消'` | 取消按钮文本 |
+| label | `string` | `''` | 输入框标签 |
+| placeholder | `string` | `''` | 输入框占位符 |
+| value | `string` | `''` | 输入框默认值 |
+| yes | `string` | `'Yes'` | 确认按钮文本 |
+| cancel | `string` | `'Cancel'` | 取消按钮文本 |
 
 ### 返回值
 
@@ -65,12 +105,14 @@ if (name !== null) {
   console.log('用户输入：', name);
 }
 
-// 带配置
+// 完整参数
 const result = await prompt({
   title: '修改用户名',
   message: '请输入新的用户名：',
-  defaultValue: '当前用户名',
-  ok: '保存',
+  label: '用户名',
+  placeholder: '请输入用户名',
+  value: '当前用户',
+  yes: '保存',
   cancel: '取消'
 });
 ```

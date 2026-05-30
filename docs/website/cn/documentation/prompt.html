@@ -78,8 +78,8 @@
         <pre><code class="hljs language-javascript"><span class="hljs-keyword">import</span> prompt <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;https://punch-ui-v2.pages.dev/packages/util/prompt.js&#x27;</span>;</code></pre>
         <h2>基本用法</h2>
         <o-playground name="Prompt 基本用法" style="--editor-height: 400px">
-          <code path="demo.html" preview active>
-    <template>
+          <code path="demo.html" active>
+    <template page>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <script type="module">
@@ -104,6 +104,42 @@
     </template>
   </code>
         </o-playground>
+        <h2>完整参数示例</h2>
+        <o-playground name="Prompt 完整参数" style="--editor-height: 500px">
+          <code path="demo.html" active>
+    <template page>
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <script type="module">
+        import prompt from 'https://punch-ui-v2.pages.dev/packages/util/prompt.js';
+        import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
+        export default async () => {
+          return {
+            proto: {
+              async showFullPrompt() {
+                const result = await prompt({
+                  title: '修改用户名',
+                  message: '请输入新的用户名：',
+                  label: '用户名',
+                  placeholder: '请输入用户名',
+                  value: '当前用户',
+                  yes: '保存',
+                  cancel: '取消'
+                });
+                if (result !== null) {
+                  toast(`用户名已修改为：${result}`);
+                }
+              }
+            }
+          };
+        };
+      </script>
+      <div style="padding: 20px; text-align: center;">
+        <p-button color="primary" on:click="showFullPrompt">修改用户名</p-button>
+      </div>
+    </template>
+  </code>
+        </o-playground>
         <h2>API</h2>
         <h3>参数</h3>
         <table>
@@ -119,7 +155,7 @@
             <tr>
               <td>title</td>
               <td><code>string</code></td>
-              <td><code>&#39;提示&#39;</code></td>
+              <td><code>&#39;&#39;</code></td>
               <td>对话框标题</td>
             </tr>
             <tr>
@@ -129,21 +165,33 @@
               <td>提示消息内容</td>
             </tr>
             <tr>
-              <td>defaultValue</td>
+              <td>label</td>
+              <td><code>string</code></td>
+              <td><code>&#39;&#39;</code></td>
+              <td>输入框标签</td>
+            </tr>
+            <tr>
+              <td>placeholder</td>
+              <td><code>string</code></td>
+              <td><code>&#39;&#39;</code></td>
+              <td>输入框占位符</td>
+            </tr>
+            <tr>
+              <td>value</td>
               <td><code>string</code></td>
               <td><code>&#39;&#39;</code></td>
               <td>输入框默认值</td>
             </tr>
             <tr>
-              <td>ok</td>
+              <td>yes</td>
               <td><code>string</code></td>
-              <td><code>&#39;确定&#39;</code></td>
+              <td><code>&#39;Yes&#39;</code></td>
               <td>确认按钮文本</td>
             </tr>
             <tr>
               <td>cancel</td>
               <td><code>string</code></td>
-              <td><code>&#39;取消&#39;</code></td>
+              <td><code>&#39;Cancel&#39;</code></td>
               <td>取消按钮文本</td>
             </tr>
           </tbody>
@@ -161,12 +209,14 @@
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;用户输入：&#x27;</span>, name);
 }
 
-<span class="hljs-comment">// 带配置</span>
+<span class="hljs-comment">// 完整参数</span>
 <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title function_">prompt</span>({
   <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;修改用户名&#x27;</span>,
   <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;请输入新的用户名：&#x27;</span>,
-  <span class="hljs-attr">defaultValue</span>: <span class="hljs-string">&#x27;当前用户名&#x27;</span>,
-  <span class="hljs-attr">ok</span>: <span class="hljs-string">&#x27;保存&#x27;</span>,
+  <span class="hljs-attr">label</span>: <span class="hljs-string">&#x27;用户名&#x27;</span>,
+  <span class="hljs-attr">placeholder</span>: <span class="hljs-string">&#x27;请输入用户名&#x27;</span>,
+  <span class="hljs-attr">value</span>: <span class="hljs-string">&#x27;当前用户&#x27;</span>,
+  <span class="hljs-attr">yes</span>: <span class="hljs-string">&#x27;保存&#x27;</span>,
   <span class="hljs-attr">cancel</span>: <span class="hljs-string">&#x27;取消&#x27;</span>
 });</code></pre>
       </article>

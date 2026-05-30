@@ -11,10 +11,13 @@ import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
 ## 基本用法
 
 <o-playground name="Toast 基本用法" style="--editor-height: 400px">
-  <code path="demo.html" preview active>
-    <template>
+  <code path="demo.html" active>
+    <template page>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <div style="padding: 20px; text-align: center;">
+        <p-button color="primary" on:click="showToast">显示 Toast</p-button>
+      </div>
       <script type="module">
         import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
         export default async () => {
@@ -27,9 +30,6 @@ import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
           };
         };
       </script>
-      <div style="padding: 20px; text-align: center;">
-        <p-button color="primary" on:click="showToast">显示 Toast</p-button>
-      </div>
     </template>
   </code>
 </o-playground>
@@ -37,8 +37,8 @@ import toast from 'https://punch-ui-v2.pages.dev/packages/util/toast.js';
 ## 带配置选项
 
 <o-playground name="Toast 配置选项" style="--editor-height: 500px">
-  <code path="demo.html" preview active>
-    <template>
+  <code path="demo.html" active>
+    <template page>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <script type="module">
