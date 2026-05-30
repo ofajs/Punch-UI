@@ -80,7 +80,10 @@
         <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
   <span class="hljs-comment">&lt;!-- 自动跟随系统主题 --&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/css/pui-global.css"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">link</span>
+      <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span>
+      <span class="hljs-attr">href</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/css/pui-global.css"</span>
+    /&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
         <h3>手动主题切换</h3>
@@ -94,24 +97,53 @@
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"theme-dark-mode"</span>&gt;</span>
   ...
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
-        <h3>主题切换组件</h3>
-        <p>Punch-UI 提供了一个主题切换组件，方便用户手动切换主题：</p>
-        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/tool/theme-switch/theme-switch.html"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">p-theme-switch</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p-theme-switch</span>&gt;</span></code></pre><o-playground name="主题切换示例" style="--editor-height: 400px">
+        <h3>自制主题切换组件</h3>
+        <o-playground name="主题切换示例" style="--editor-height: 400px">
           <code path="demo.html" preview="" active="">
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
-      <l-m src="https://punch-ui-v2.pages.dev/tool/theme-switch/theme-switch.html"></l-m>
+      <l-m src="./theme-switch.html"></l-m>
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <div style="padding: 20px; text-align: center;">
         <h3>主题切换</h3>
-        <p-theme-switch></p-theme-switch>
+        <theme-switch></theme-switch>
         <div style="margin-top: 20px;">
           <p-button color="primary">主要按钮</p-button>
           <p-button color="success">成功按钮</p-button>
           <p-button color="error">错误按钮</p-button>
         </div>
       </div>
+    </template>
+  </code>
+          <code path="theme-switch.html">
+    <template component="">
+      <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css">
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <p-switch sync:value="isDark" on:change="toggleTheme"> 深色模式 </p-switch>
+      <script>
+        export default async () => {
+          return {
+            tag: "theme-switch",
+            data: {
+              isDark: window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "on"
+                : "off",
+            },
+            proto: {
+              toggleTheme() {
+                if (this.isDark === "on") {
+                  $("html").classList.remove("theme-light-mode");
+                  $("html").classList.add("theme-dark-mode");
+                } else {
+                  $("html").classList.remove("theme-dark-mode");
+                  $("html").classList.add("theme-light-mode");
+                }
+              },
+            },
+          };
+        };
+      </script>
     </template>
   </code>
         </o-playground>
@@ -126,7 +158,7 @@
     <span class="hljs-attr">--md-sys-color-primary-container</span>: <span class="hljs-number">#eaddff</span>;
     <span class="hljs-attr">--md-sys-color-on-primary-container</span>: <span class="hljs-number">#21005d</span>;
   }
-  
+
   <span class="hljs-comment">/* 深色主题下的自定义颜色 */</span>
   <span class="hljs-selector-pseudo">:root</span><span class="hljs-selector-class">.theme-dark-mode</span> {
     <span class="hljs-attr">--md-sys-color-primary</span>: <span class="hljs-number">#d0bcff</span>;
@@ -181,19 +213,19 @@
   <span class="hljs-attr">--md-sys-color-on-primary</span>: <span class="hljs-number">#ffffff</span>;
   <span class="hljs-attr">--md-sys-color-primary-container</span>: <span class="hljs-number">#d3e4ff</span>;
   <span class="hljs-attr">--md-sys-color-on-primary-container</span>: <span class="hljs-number">#001c38</span>;
-  
+
   <span class="hljs-comment">/* 成功色 */</span>
   <span class="hljs-attr">--md-sys-color-success</span>: <span class="hljs-number">#3a6a24</span>;
   <span class="hljs-attr">--md-sys-color-on-success</span>: <span class="hljs-number">#ffffff</span>;
   <span class="hljs-attr">--md-sys-color-success-container</span>: <span class="hljs-number">#baf29c</span>;
   <span class="hljs-attr">--md-sys-color-on-success-container</span>: <span class="hljs-number">#062100</span>;
-  
+
   <span class="hljs-comment">/* 错误色 */</span>
   <span class="hljs-attr">--md-sys-color-error</span>: <span class="hljs-number">#bc1421</span>;
   <span class="hljs-attr">--md-sys-color-on-error</span>: <span class="hljs-number">#ffffff</span>;
   <span class="hljs-attr">--md-sys-color-error-container</span>: <span class="hljs-number">#ffdad7</span>;
   <span class="hljs-attr">--md-sys-color-on-error-container</span>: <span class="hljs-number">#410004</span>;
-  
+
   <span class="hljs-comment">/* 中性色 */</span>
   <span class="hljs-attr">--md-sys-color-neutral</span>: <span class="hljs-number">#5e5e5e</span>;
   <span class="hljs-attr">--md-sys-color-on-neutral</span>: <span class="hljs-number">#ffffff</span>;
@@ -208,19 +240,19 @@
   <span class="hljs-attr">--md-sys-color-on-primary</span>: <span class="hljs-number">#00315b</span>;
   <span class="hljs-attr">--md-sys-color-primary-container</span>: <span class="hljs-number">#004881</span>;
   <span class="hljs-attr">--md-sys-color-on-primary-container</span>: <span class="hljs-number">#d3e4ff</span>;
-  
+
   <span class="hljs-comment">/* 成功色 */</span>
   <span class="hljs-attr">--md-sys-color-success</span>: <span class="hljs-number">#9fd582</span>;
   <span class="hljs-attr">--md-sys-color-on-success</span>: <span class="hljs-number">#103900</span>;
   <span class="hljs-attr">--md-sys-color-success-container</span>: <span class="hljs-number">#22510d</span>;
   <span class="hljs-attr">--md-sys-color-on-success-container</span>: <span class="hljs-number">#baf29c</span>;
-  
+
   <span class="hljs-comment">/* 错误色 */</span>
   <span class="hljs-attr">--md-sys-color-error</span>: <span class="hljs-number">#ffb3ad</span>;
   <span class="hljs-attr">--md-sys-color-on-error</span>: <span class="hljs-number">#68000a</span>;
   <span class="hljs-attr">--md-sys-color-error-container</span>: <span class="hljs-number">#930013</span>;
   <span class="hljs-attr">--md-sys-color-on-error-container</span>: <span class="hljs-number">#ffdad7</span>;
-  
+
   <span class="hljs-comment">/* 中性色 */</span>
   <span class="hljs-attr">--md-sys-color-neutral</span>: <span class="hljs-number">#c7c6c6</span>;
   <span class="hljs-attr">--md-sys-color-on-neutral</span>: <span class="hljs-number">#303031</span>;
@@ -229,7 +261,10 @@
 }</code></pre>
         <h3>步骤 2：引入自定义主题</h3>
         <p>在你的 HTML 文件中引入自定义主题样式：</p>
-        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/css/pui-global.css"</span> /&gt;</span>
+        <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">link</span>
+  <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span>
+  <span class="hljs-attr">href</span>=<span class="hljs-string">"https://punch-ui-v2.pages.dev/packages/css/pui-global.css"</span>
+/&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"./custom-theme.css"</span> /&gt;</span></code></pre>
         <h2>组件样式定制</h2>
         <h3>使用 CSS Part</h3>

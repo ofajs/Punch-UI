@@ -12,7 +12,10 @@ Punch-UI 提供了灵活的主题定制能力，你可以通过 CSS 变量自定
 <html>
   <!-- 自动跟随系统主题 -->
   <head>
-    <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+    <link
+      rel="stylesheet"
+      href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css"
+    />
   </head>
 </html>
 ```
@@ -33,24 +36,17 @@ Punch-UI 提供了灵活的主题定制能力，你可以通过 CSS 变量自定
 </html>
 ```
 
-### 主题切换组件
-
-Punch-UI 提供了一个主题切换组件，方便用户手动切换主题：
-
-```html
-<l-m src="https://punch-ui-v2.pages.dev/tool/theme-switch/theme-switch.html"></l-m>
-<p-theme-switch></p-theme-switch>
-```
+### 自制主题切换组件
 
 <o-playground name="主题切换示例" style="--editor-height: 400px">
   <code path="demo.html" preview active>
     <template>
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
-      <l-m src="https://punch-ui-v2.pages.dev/tool/theme-switch/theme-switch.html"></l-m>
+      <l-m src="./theme-switch.html"></l-m>
       <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
       <div style="padding: 20px; text-align: center;">
         <h3>主题切换</h3>
-        <p-theme-switch></p-theme-switch>
+        <theme-switch></theme-switch>
         <div style="margin-top: 20px;">
           <p-button color="primary">主要按钮</p-button>
           <p-button color="success">成功按钮</p-button>
@@ -59,7 +55,42 @@ Punch-UI 提供了一个主题切换组件，方便用户手动切换主题：
       </div>
     </template>
   </code>
+  <code path="theme-switch.html">
+    <template component>
+      <link
+        rel="stylesheet"
+        href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css"
+      />
+      <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+      <l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>
+      <p-switch sync:value="isDark" on:change="toggleTheme"> 深色模式 </p-switch>
+      <script>
+        export default async () => {
+          return {
+            tag: "theme-switch",
+            data: {
+              isDark: window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "on"
+                : "off",
+            },
+            proto: {
+              toggleTheme() {
+                if (this.isDark === "on") {
+                  $("html").classList.remove("theme-light-mode");
+                  $("html").classList.add("theme-dark-mode");
+                } else {
+                  $("html").classList.remove("theme-dark-mode");
+                  $("html").classList.add("theme-light-mode");
+                }
+              },
+            },
+          };
+        };
+      </script>
+    </template>
+  </code>
 </o-playground>
+
 
 ## 自定义主题颜色
 
@@ -76,7 +107,7 @@ Punch-UI 提供了一个主题切换组件，方便用户手动切换主题：
     --md-sys-color-primary-container: #eaddff;
     --md-sys-color-on-primary-container: #21005d;
   }
-  
+
   /* 深色主题下的自定义颜色 */
   :root.theme-dark-mode {
     --md-sys-color-primary: #d0bcff;
@@ -139,19 +170,19 @@ Punch-UI 提供了一个主题切换组件，方便用户手动切换主题：
   --md-sys-color-on-primary: #ffffff;
   --md-sys-color-primary-container: #d3e4ff;
   --md-sys-color-on-primary-container: #001c38;
-  
+
   /* 成功色 */
   --md-sys-color-success: #3a6a24;
   --md-sys-color-on-success: #ffffff;
   --md-sys-color-success-container: #baf29c;
   --md-sys-color-on-success-container: #062100;
-  
+
   /* 错误色 */
   --md-sys-color-error: #bc1421;
   --md-sys-color-on-error: #ffffff;
   --md-sys-color-error-container: #ffdad7;
   --md-sys-color-on-error-container: #410004;
-  
+
   /* 中性色 */
   --md-sys-color-neutral: #5e5e5e;
   --md-sys-color-on-neutral: #ffffff;
@@ -166,19 +197,19 @@ Punch-UI 提供了一个主题切换组件，方便用户手动切换主题：
   --md-sys-color-on-primary: #00315b;
   --md-sys-color-primary-container: #004881;
   --md-sys-color-on-primary-container: #d3e4ff;
-  
+
   /* 成功色 */
   --md-sys-color-success: #9fd582;
   --md-sys-color-on-success: #103900;
   --md-sys-color-success-container: #22510d;
   --md-sys-color-on-success-container: #baf29c;
-  
+
   /* 错误色 */
   --md-sys-color-error: #ffb3ad;
   --md-sys-color-on-error: #68000a;
   --md-sys-color-error-container: #930013;
   --md-sys-color-on-error-container: #ffdad7;
-  
+
   /* 中性色 */
   --md-sys-color-neutral: #c7c6c6;
   --md-sys-color-on-neutral: #303031;
@@ -192,7 +223,10 @@ Punch-UI 提供了一个主题切换组件，方便用户手动切换主题：
 在你的 HTML 文件中引入自定义主题样式：
 
 ```html
-<link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
+<link
+  rel="stylesheet"
+  href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css"
+/>
 <link rel="stylesheet" href="./custom-theme.css" />
 ```
 
