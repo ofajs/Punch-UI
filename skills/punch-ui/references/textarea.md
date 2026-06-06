@@ -127,6 +127,20 @@
 </p-textarea>
 ```
 
+## 初始行数
+
+使用 `rows` 属性设置初始显示的行数：
+
+```html
+<p-textarea rows="3">
+  <span slot="label">3 Rows</span>
+</p-textarea>
+
+<p-textarea rows="5">
+  <span slot="label">5 Rows</span>
+</p-textarea>
+```
+
 ## 禁用状态
 
 使用 `disabled` 属性禁用文本框：
@@ -153,6 +167,7 @@
 | `default-value` | 默认值 | `string` | - |
 | `error` | 错误状态 | `boolean` | `false` |
 | `hang-label` | 标签悬挂模式 | `boolean` | `false` |
+| `rows` | 初始显示行数 | `number` | - |
 
 ## 插槽
 

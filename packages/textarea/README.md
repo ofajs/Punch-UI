@@ -148,6 +148,20 @@ Punch UI的多行文本输入框组件依赖于 ofa.js，请先加载 ofa.js，�
 </p-textarea>
 ```
 
+## 初始行数
+
+使用 `rows` 属性设置初始显示的行数：
+
+```html
+<p-textarea rows="3">
+  <span slot="label">3 Rows</span>
+</p-textarea>
+
+<p-textarea rows="5">
+  <span slot="label">5 Rows</span>
+</p-textarea>
+```
+
 ## 自动聚焦
 
 添加 `autofocus` 属性使输入框在页面加载时自动聚焦：
@@ -203,6 +217,7 @@ $("p-textarea").focus();
 | autofocus | boolean | - | 是否自动聚焦 |
 | maxlength | number | - | 最大输入长度 |
 | hang-label | boolean | - | 标签是否浮动 |
+| rows | number | - | 初始显示行数 |
 
 ## 插槽
 

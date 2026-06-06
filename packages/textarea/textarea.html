@@ -78,6 +78,19 @@
     :host([size="xl"]) .fake-input {
       height: 27px;
     }
+
+    :host([rows]) p-field-container::part(label) {
+      align-items: flex-start;
+      padding-top: 0.65em;
+    }
+
+    :host([rows]) p-field-container[hang-label]::part(label) {
+      padding-top: 0;
+    }
+
+    :host([rows]) p-field-container[focus]::part(label) {
+      padding-top: 0;
+    }
   </style>
   <p-field-container
     attr:disabled="disabled"
@@ -122,6 +135,7 @@
           maxlength: null,
           readonly: null,
           hangLabel: null,
+          rows: null,
         },
         data: {
           value: "",
@@ -171,7 +185,11 @@
               getComputedStyle(textarea).lineHeight,
             );
 
-            fakeInput.style.height = linesLength * lineHeight + 3 + "px";
+            // 考虑 rows 属性的最小值
+            const minRows = this.rows !== null ? (parseInt(this.rows) || 1) : 1;
+            const actualRows = Math.max(linesLength, minRows);
+
+            fakeInput.style.height = actualRows * lineHeight + 3 + "px";
           },
         },
         attached() {
@@ -182,6 +200,15 @@
           }
           if (this.defaultValue !== null) {
             this.value = this.defaultValue;
+          }
+          
+          // 设置初始行数
+          if (this.rows !== null) {
+            const textarea = this.shadow.$("textarea").ele;
+            const fakeInput = this.shadow.$(".fake-input");
+            const lineHeight = parseFloat(getComputedStyle(textarea).lineHeight);
+            const rows = parseInt(this.rows) || 1;
+            fakeInput.style.height = rows * lineHeight + 3 + "px";
           }
         },
       };
