@@ -162,21 +162,34 @@
           value: null,
           isFocus: false,
           hasEmptyOption: false,
+          _isSyncing: false,
         },
         watch: {
           value(val) {
-            // 删除默认空选项
-            if (val !== null && this.hasEmptyOption) {
+            if (this._isSyncing) {
+              return;
+            }
+
+            // 值被清空时取消选中并补回空选项
+            if (val === null || val === "") {
+              this._isSyncing = true;
+              const nativeSelect = this.shadow.$(".native-select");
+              nativeSelect.ele.selectedIndex = -1;
+              if (!this.hasEmptyOption) {
+                this.addEmptyOption();
+              }
+              this._isSyncing = false;
+              return;
+            }
+
+            // 有值时删除空选项
+            if (this.hasEmptyOption) {
               const nativeSelect = this.shadow.$(".native-select");
               const emptyOption = nativeSelect.$('[default-empty-option]');
               if (emptyOption) {
                 emptyOption.remove();
                 this.hasEmptyOption = false;
               }
-            }
-
-            if (val === null) {
-              return;
             }
 
             this.emit("change", {
@@ -237,58 +250,92 @@
             nativeSelect.unshift(emptyOption);
             this.hasEmptyOption = true;
           },
-          addOption(optionData) {
-            const nativeSelect = this.shadow.$(".native-select");
-
-            // 创建 option 元素
-            const optionEl = $({
-              tag: "option",
-              text: optionData.label
-            });
-            optionEl.attr("value", optionData.value);
-            
-            if (optionData.disabled) {
-              optionEl.attr("disabled", "");
-            }
-
-            // 添加到原生 select
-            nativeSelect.push(optionEl);
-
-            // 如果是默认选中
-            if (optionData.selected && !this.value) {
-              this.value = optionData.value;
-            }
-          },
           syncOptionsFromChildren() {
+            if (this._isSyncing) {
+              return;
+            }
+            this._isSyncing = true;
+
             const nativeSelect = this.shadow.$(".native-select");
+            const prevValue = this.value;
 
             // 清空原生 select
             nativeSelect.html = "";
+            this.hasEmptyOption = false;
 
             // 添加默认空选项
-            if (!this.value) {
+            if (!prevValue) {
               this.addEmptyOption();
             }
+
+            // 处理原生 option 元素
+            const nativeOptions = this.ele.querySelectorAll("option");
+            nativeOptions.forEach((opt) => {
+              const optionEl = $({
+                tag: "option",
+                text: opt.textContent,
+              });
+              optionEl.attr("value", opt.value || opt.textContent);
+
+              if (opt.disabled) {
+                optionEl.attr("disabled", "");
+              }
+
+              if (opt.selected) {
+                optionEl.attr("selected", "");
+              }
+
+              nativeSelect.push(optionEl);
+            });
 
             // 遍历所有 p-option 子元素
             const pOptions = this.all("p-option");
             pOptions.forEach((opt) => {
               const optionEl = $({
                 tag: "option",
-                text: opt.text
+                text: opt.text,
               });
               optionEl.attr("value", opt.attr("value") || opt.text);
-              
+
               if (opt.attr("disabled") !== null) {
                 optionEl.attr("disabled", "");
               }
 
-              nativeSelect.push(optionEl);
-
-              if (opt.attr("selected") !== null && !this.value) {
-                this.value = optionEl.attr("value");
+              if (opt.attr("selected") !== null) {
+                optionEl.attr("selected", "");
               }
+
+              nativeSelect.push(optionEl);
             });
+
+            // 恢复之前选中的值
+            if (prevValue) {
+              nativeSelect.ele.value = prevValue;
+            }
+
+            // 同步最终的原生 value 到组件 value
+            const nativeValue = nativeSelect.ele.value || null;
+            if (nativeValue !== this.value) {
+              this.value = nativeValue;
+            }
+
+            this._isSyncing = false;
+
+            // 同步完成后根据 value 状态管理空选项
+            if (this.value && this.hasEmptyOption) {
+              const emptyOption = nativeSelect.$('[default-empty-option]');
+              if (emptyOption) {
+                emptyOption.remove();
+                this.hasEmptyOption = false;
+              }
+            }
+
+            // 值确实变化且非空时触发 change
+            if (this.value !== prevValue && this.value !== null) {
+              this.emit("change", {
+                data: { value: this.value },
+              });
+            }
           },
         },
         ready() {
@@ -305,21 +352,7 @@
               .style.setProperty("--field-container-padding-top", "0");
           }
 
-          // 添加默认空选项
-          this.addEmptyOption();
-
-          // 处理原生 option 元素
-          const nativeOptions = this.ele.querySelectorAll("option");
-          nativeOptions.forEach((opt) => {
-            this.addOption({
-              value: opt.value || opt.textContent,
-              label: opt.textContent,
-              disabled: opt.disabled,
-              selected: opt.selected,
-            });
-          });
-
-          // 同步 p-option 元素
+          // 同步所有选项（原生 option 和 p-option）
           this.syncOptionsFromChildren();
         },
       };
