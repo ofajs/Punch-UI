@@ -98,13 +98,15 @@
       color: var(--neutral-color);
     }
 
-    :host([disabled]) p-stylization::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.06);
-      pointer-events: none;
-      border-radius: inherit;
+    :host([disabled]) p-stylization {
+      opacity: 0.5;
+    }
+
+    :host([disabled][focus]) .label,
+    :host([disabled][hang-label]) .label {
+      background-color: var(--md-sys-color-surface, #FEFEFE);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
     }
 
     .bottom-line {
