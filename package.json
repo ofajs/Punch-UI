@@ -3,7 +3,8 @@
   "version": "1.0.5",
   "description": "UI component library based on ofa.js development",
   "scripts": {
-    "static": "http-server -p 5002 -c-1 --cors"
+    "static": "http-server -p 5002 -c-1 --cors",
+    "build:skill": "node scripts/build-skill.js punch-ui"
   },
   "type": "module",
   "keywords": [
@@ -15,6 +16,7 @@
   "author": "Yao",
   "license": "Apache-2.0",
   "devDependencies": {
+    "archiver": "^8.0.0",
     "http-server": "^14.1.1"
   }
 }
