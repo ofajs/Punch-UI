@@ -98,8 +98,13 @@
       color: var(--neutral-color);
     }
 
-    :host([disabled]) p-stylization {
-      opacity: 0.5;
+    :host([disabled]) p-stylization::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.06);
+      pointer-events: none;
+      border-radius: inherit;
     }
 
     .bottom-line {
