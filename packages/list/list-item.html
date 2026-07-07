@@ -215,6 +215,7 @@
 
           if (this.collapsible !== null) {
             e.stopPropagation();
+
             this.toggleExpand();
             return;
           }
@@ -252,7 +253,7 @@
         },
       },
       attached() {
-        this._expanded = this.expanded !== false;
+        this._expanded = this.expanded !== null;
       },
     };
   </script>
