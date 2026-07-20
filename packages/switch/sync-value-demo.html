@@ -1,0 +1,76 @@
+<template page>
+  <l-m src="./switch.html"></l-m>
+  <style>
+    :host {
+      display: block;
+    }
+
+    .sync-demo {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 16px;
+      border: 1px solid var(--md-sys-color-outline-variant, #ccc);
+      border-radius: 8px;
+      background-color: var(--md-sys-color-surface-container, #fafafa);
+      max-width: 480px;
+    }
+
+    .sync-demo .row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .sync-demo code {
+      padding: 2px 6px;
+      border-radius: 4px;
+      background-color: var(--md-sys-color-surface-container-high, #eee);
+    }
+  </style>
+
+  <div class="sync-demo">
+    <div class="row">
+      <p-switch
+        sync:value="status"
+        checked-value="on"
+        unchecked-value="off"
+      >
+        深色模式
+      </p-switch>
+      <span>当前 status: {{ status }}</span>
+    </div>
+
+    <div class="row">
+      <p-switch
+        sync:value="lang"
+        checked-value="zh"
+        unchecked-value="en"
+        color="success"
+      >
+        中文 / English
+      </p-switch>
+      <span>当前 lang: {{ lang }}</span>
+    </div>
+
+    <div class="row">
+      <button on:click="status = status === 'on' ? 'off' : 'on'">
+        外部切换 status
+      </button>
+      <button on:click="lang = lang === 'zh' ? 'en' : 'zh'">
+        外部切换 lang
+      </button>
+    </div>
+  </div>
+
+  <script>
+    export default async () => {
+      return {
+        data: {
+          status: "on",
+          lang: "zh",
+        },
+      };
+    };
+  </script>
+</template>
