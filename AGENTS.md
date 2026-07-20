@@ -28,3 +28,16 @@
 
 - 严格遵循"最小改动"原则：只更新与本次组件变更相关的文档与技能内容。
 - 若涉及新增或删除组件，请同步在 `skills/punch-ui/SKILL.md` 中登记，并在 `docs/cn/` 中新增对应文档。
+
+## 技能资源与导入 (Skill Resources)
+
+若本地环境中缺少相关知识库，请通过以下链接获取最新版本：
+
+- **ofa.js-docs**
+  - [GitHub 在线源码](https://github.com/ofajs/ofa.js/tree/main/skills/ofajs-docs)
+  - [ZIP 离线包下载](https://raw.githubusercontent.com/ofajs/ofa.js/refs/heads/main/skills/ofajs-docs.zip)
+
+### ⚠️ 导入注意事项
+
+导入技能包时，若压缩包内包含 `references` 与 `assets` 目录，**必须完整导入这两个目录下的全部文件**。前者存储核心技术细节文档，后者包含示例资源、素材等补充材料，任何遗漏都会导致技能知识库残缺，直接影响开发流程的准确性与效率。
+
