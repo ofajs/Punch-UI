@@ -134,6 +134,33 @@
 </p-switch>
 ```
 
+在 page 模块中使用示例（可通过 `<o-page src="./xxx.html"></o-page>` 引用）：
+
+```html
+<template page>
+  <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
+
+  <p-switch
+    sync:value="status"
+    checked-value="on"
+    unchecked-value="off"
+  >
+    深色模式
+  </p-switch>
+  <p>当前 status: {{ status }}</p>
+
+  <script>
+    export default async () => {
+      return {
+        data: {
+          status: "on",
+        },
+      };
+    };
+  </script>
+</template>
+```
+
 ## 变体样式
 
 使用 `variant` 属性设置不同的样式：
