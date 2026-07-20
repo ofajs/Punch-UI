@@ -73,10 +73,11 @@
       <link rel="stylesheet" href="../../css/page.css" />
       <article class="markdown-body">
         <h1>Switch</h1>
-        <p>The switch component is used to toggle between two states, supporting custom values and keyboard operations.</p>
+        <p>The switch component is used to toggle between two states, exposing the current state via <code>value</code>.</p>
         <h2>Importing Components</h2>
         <pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">l-m</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://punch-ui-v2.pages.dev/packages/switch/switch.html&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">l-m</span>&gt;</span></code></pre>
         <h2>Basic Usage</h2>
+        <p>The switch component no longer uses a <code>checked</code> attribute. State is expressed through <code>value</code> together with <code>checked-value</code> / <code>unchecked-value</code>. Use <code>default-value</code> to set the initial value.</p>
         <o-playground name="Switch Basic Usage" style="--editor-height: 300px">
           <code path="demo.html" preview active>
     <template>
@@ -84,7 +85,7 @@
       <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
       <div style="padding: 20px;">
         <p-switch>Default Switch</p-switch>
-        <p-switch checked>Checked</p-switch>
+        <p-switch default-value="on">Checked</p-switch>
       </div>
     </template>
   </code>
@@ -114,9 +115,9 @@
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
       <div style="padding: 20px;">
-        <p-switch color="primary" checked>Primary</p-switch>
-        <p-switch color="error" checked>Error</p-switch>
-        <p-switch color="success" checked>Success</p-switch>
+        <p-switch color="primary" default-value="on">Primary</p-switch>
+        <p-switch color="error" default-value="on">Error</p-switch>
+        <p-switch color="success" default-value="on">Success</p-switch>
       </div>
     </template>
   </code>
@@ -128,7 +129,7 @@
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
       <div style="padding: 20px;">
-        <p-switch checked>Checked</p-switch>
+        <p-switch default-value="on">Checked</p-switch>
         <p-switch>Unchecked</p-switch>
         <p-switch disabled>Disabled</p-switch>
       </div>
@@ -148,7 +149,7 @@
           name="status" 
           checked-value="enabled" 
           unchecked-value="disabled"
-          checked
+          default-value="enabled"
         >
           Status Switch
         </p-switch>
@@ -157,7 +158,7 @@
   </code>
         </o-playground>
         <h3>Default Values</h3>
-        <p>Set the initial value using the <code>default-value</code> attribute:</p>
+        <p>Use the <code>default-value</code> attribute to set the initial value (the only entry point for the initial checked state):</p>
         <o-playground name="Default value" style="--editor-height: 350px">
           <code path="demo.html" preview active>
     <template>
@@ -191,8 +192,9 @@
   </code>
         </o-playground>
         <h3>Keyboard Operation</h3>
-        <p>Switch supports keyboard operation:- <strong>Space</strong> - Toggle switch state</p>
+        <p>Switch supports keyboard operation:</p>
         <ul>
+          <li><strong>Space</strong> - Toggle switch state</li>
           <li><strong>Enter</strong> - Toggle switch state</li>
         </ul>
         <o-playground name="Keyboard Operation" style="--editor-height: 300px">
@@ -207,7 +209,7 @@
   </code>
         </o-playground>
         <h3>Programmatic Control</h3>
-        <p>Control switch state via JavaScript:</p>
+        <p>Control switch state via JavaScript by writing to <code>value</code>:</p>
         <o-playground name="Programmatic Control" style="--editor-height: 400px">
           <code path="demo.html" preview active>
     <template>
@@ -216,7 +218,7 @@
       <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
       <div style="padding: 20px;">
         <p-switch id="my-switch">Programmatic Control</p-switch>
-        <p-button style="margin-top: 16px;" on:click="this.$('#my-switch').checked = !this.$('#my-switch').checked">Toggle State</p-button>
+        <p-button style="margin-top: 16px;" on:click="const sw = this.$('#my-switch'); sw.value = sw.value === 'on' ? 'off' : 'on';">Toggle State</p-button>
       </div>
     </template>
   </code>
@@ -229,9 +231,9 @@
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
       <div style="padding: 20px;">
-        <p-switch variant="filled" checked>Filled</p-switch>
-        <p-switch variant="outlined" checked>Outlined</p-switch>
-        <p-switch variant="text" checked>Text</p-switch>
+        <p-switch variant="filled" default-value="on">Filled</p-switch>
+        <p-switch variant="outlined" default-value="on">Outlined</p-switch>
+        <p-switch variant="text" default-value="on">Text</p-switch>
       </div>
     </template>
   </code>
@@ -255,8 +257,9 @@
   </code>
         </o-playground>
         <h2>Animation Effects</h2>
-        <p>The switch component includes the following animation effects:- <strong>Slider Movement</strong> - Smooth sliding animation</p>
+        <p>The switch component includes the following animation effects:</p>
         <ul>
+          <li><strong>Slider Movement</strong> - Smooth sliding animation</li>
           <li><strong>Check Mark</strong> - Shows check animation when selected</li>
           <li><strong>Border Fill</strong> - Border fill animation when selected</li>
         </ul>
@@ -266,14 +269,14 @@
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
       <div style="padding: 20px;">
-        <p-switch checked>Animation Effect</p-switch>
+        <p-switch default-value="on">Animation Effect</p-switch>
       </div>
     </template>
   </code>
         </o-playground>
         <h2>Get Value</h2>
-        <h3>Get via checked attribute</h3>
-        <p>Use the <code>checked</code> attribute to get the toggle&#39;s selected state:</p>
+        <h3>Get via value attribute</h3>
+        <p>Use the <code>value</code> attribute to get the switch&#39;s current value (equals <code>checked-value</code> or <code>unchecked-value</code>):</p>
         <o-playground name="Get Value" style="--editor-height: 400px">
           <code path="demo.html" preview active>
     <template>
@@ -287,8 +290,8 @@
       </div>
       <script>
         $('#get-value-btn').on('click', () => {
-          const isChecked = $('#theme-switch').checked;
-          $('#status-display').text = isChecked ? 'Enabled' : 'Disabled';
+          const value = $('#theme-switch').value;
+          $('#status-display').text = value === 'on' ? 'Enabled' : 'Disabled';
         });
       </script>
     </template>
@@ -307,7 +310,7 @@
           id="status-switch"
           checked-value="enabled" 
           unchecked-value="disabled"
-          checked
+          default-value="enabled"
         >
           Status Switch
         </p-switch>
@@ -336,15 +339,15 @@
       </div>
       <script>
         $('#realtime-switch').on('change', () => {
-          const isChecked = $('#realtime-switch').checked;
-          $('#realtime-display').text = isChecked ? 'Enabled' : 'Disabled';
+          const value = $('#realtime-switch').value;
+          $('#realtime-display').text = value === 'on' ? 'Enabled' : 'Disabled';
         });
       </script>
     </template>
   </code>
         </o-playground>
         <h3>Two-way binding in components or page modules</h3>
-        <p>Use ofa.js&#39;s data binding feature：</p>
+        <p>Use ofa.js&#39;s data binding feature:</p>
         <o-playground name="Get Value" style="--editor-height: 400px">
           <code path="demo.html" active>
     <template page>
@@ -370,15 +373,11 @@
     </template>
   </code>
         </o-playground>
-        <p>When using two-way binding in a component or page module, <strong>bind the <code>value</code> property instead of the <code>checked</code> property</strong>.</p>
-        <ul>
-          <li>✅ Correct: <code>sync:value=&quot;status&quot;</code> - Bind the value attribute, used with <code>checked-value</code> and <code>unchecked-value</code></li>
-          <li>❌ Incorrect: <code>sync:checked=&quot;darkMode&quot;</code> - Do not bind the checked attribute</li>
-        </ul>
-        <p>This allows for better integration with form data and provides clearer semantics.</p>
+        <p>When using two-way binding in a component or page module, <strong>bind the <code>value</code> attribute</strong> together with <code>checked-value</code> and <code>unchecked-value</code>.</p>
         <h2>Accessibility Support</h2>
-        <p>The switch component provides the following accessibility support:- Supports keyboard navigation and operation</p>
+        <p>The switch component provides the following accessibility support:</p>
         <ul>
+          <li>Supports keyboard navigation and operation</li>
           <li>Provides focus state indication</li>
           <li>Supports screen readers</li>
         </ul>
@@ -406,10 +405,10 @@
           </thead>
           <tbody>
             <tr>
-              <td><code>checked</code></td>
-              <td>Whether selected</td>
-              <td><code>boolean</code></td>
-              <td><code>false</code></td>
+              <td><code>value</code></td>
+              <td>Current value (equals <code>checked-value</code> or <code>unchecked-value</code>)</td>
+              <td><code>string</code></td>
+              <td>-</td>
             </tr>
             <tr>
               <td><code>size</code></td>
@@ -436,22 +435,16 @@
               <td>-</td>
             </tr>
             <tr>
-              <td><code>value</code></td>
-              <td>Current value (returns checked-value or unchecked-value based on checked state)</td>
-              <td><code>string</code></td>
-              <td>-</td>
-            </tr>
-            <tr>
               <td><code>checked-value</code></td>
               <td>Value when selected</td>
               <td><code>string</code></td>
-              <td><code>true</code></td>
+              <td><code>on</code></td>
             </tr>
             <tr>
               <td><code>unchecked-value</code></td>
               <td>Value when not selected</td>
               <td><code>string</code></td>
-              <td><code>false</code></td>
+              <td><code>off</code></td>
             </tr>
             <tr>
               <td><code>default-value</code></td>
@@ -461,6 +454,7 @@
             </tr>
           </tbody>
         </table>
+        <h3>Events</h3>
         <table>
           <thead>
             <tr>
@@ -475,6 +469,7 @@
             </tr>
           </tbody>
         </table>
+        <h3>Method</h3>
         <table>
           <thead>
             <tr>

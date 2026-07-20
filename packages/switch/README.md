@@ -19,9 +19,11 @@ Punch UI的开关组件依赖于 ofa.js，请先加载 ofa.js，然后通过 `l-
 
 ## 基本用法
 
+开关组件通过 `value` 反映当前状态，配合 `checked-value` / `unchecked-value` 定义两种状态的取值，默认分别为 `"on"` 与 `"off"`。使用 `default-value` 设置初始值。
+
 ```html
 <p-switch>Default</p-switch>
-<p-switch checked>Checked</p-switch>
+<p-switch default-value="on">已开启</p-switch>
 ```
 
 ## 变体
@@ -50,10 +52,10 @@ Punch UI的开关组件依赖于 ofa.js，请先加载 ofa.js，然后通过 `l-
 通过 `color` 属性设置开关颜色：
 
 ```html
-<p-switch color="primary" checked>Primary</p-switch>
-<p-switch color="success" checked>Success</p-switch>
-<p-switch color="error" checked>Error</p-switch>
-<p-switch color="neutral" checked>Neutral</p-switch>
+<p-switch color="primary" default-value="on">Primary</p-switch>
+<p-switch color="success" default-value="on">Success</p-switch>
+<p-switch color="error" default-value="on">Error</p-switch>
+<p-switch color="neutral" default-value="on">Neutral</p-switch>
 ```
 
 ## 禁用状态
@@ -62,7 +64,7 @@ Punch UI的开关组件依赖于 ofa.js，请先加载 ofa.js，然后通过 `l-
 
 ```html
 <p-switch disabled>Disabled</p-switch>
-<p-switch checked disabled>Disabled & Checked</p-switch>
+<p-switch default-value="on" disabled>Disabled & Checked</p-switch>
 ```
 
 ## 表单名称
@@ -71,7 +73,7 @@ Punch UI的开关组件依赖于 ofa.js，请先加载 ofa.js，然后通过 `l-
 
 ```html
 <p-switch name="darkmode">Enable Dark Mode</p-switch>
-<p-switch name="notifications" checked>Enable Notifications</p-switch>
+<p-switch name="notifications" default-value="on">Enable Notifications</p-switch>
 ```
 
 ## 自定义值
@@ -90,29 +92,29 @@ Punch UI的开关组件依赖于 ofa.js，请先加载 ofa.js，然后通过 `l-
 
 ## 默认值
 
-使用 `default-value` 属性设置默认值：
+使用 `default-value` 属性设置默认值（也是初始选中状态的唯一入口）：
 
 ```html
-<p-switch default-value="enabled">Default Value</p-switch>
+<p-switch default-value="on">默认选中</p-switch>
 ```
 
 ## 动态控制
 
-可以通过 JavaScript 动态控制开关状态：
+通过 JavaScript 修改 `value` 动态控制开关状态：
 
 ```javascript
 // 获取开关
 const sw = $("p-switch");
 
-// 设置选中状态
-sw.checked = true; // 或 false
+// 设置状态（对应 checked-value / unchecked-value）
+sw.value = "on";  // 或 "off"
 
 // 获取当前值
 console.log(sw.value);
 
 // 监听变化
-sw.on("change", (e) => {
-  console.log("Switch changed:", e.detail);
+sw.on("change", () => {
+  console.log("Switch changed:", sw.value);
 });
 ```
 
@@ -121,12 +123,12 @@ sw.on("change", (e) => {
 ```javascript
 // 启用所有开关
 $.all("p-switch").forEach((sw) => {
-  sw.checked = true;
+  sw.value = "on";
 });
 
 // 禁用所有开关
 $.all("p-switch").forEach((sw) => {
-  sw.checked = false;
+  sw.value = "off";
 });
 ```
 
@@ -154,9 +156,8 @@ $("p-switch").focus();
 
 ```javascript
 const sw = $("p-switch");
-sw.on("change", (e) => {
+sw.on("change", () => {
   console.log("Switch value:", sw.value);
-  console.log("Is checked:", sw.checked);
 });
 ```
 
@@ -164,7 +165,7 @@ sw.on("change", (e) => {
 
 | 属性 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
-| checked | boolean | - | 是否选中 |
+| value | string | - | 当前值，等于 `checked-value` 或 `unchecked-value` |
 | variant | `tonal` \| `outlined` | - | 开关样式 |
 | size | `xs` \| `s` \| `l` \| `xl` | - | 开关尺寸 |
 | color | `primary` \| `success` \| `error` \| `neutral` | - | 开关颜色 |

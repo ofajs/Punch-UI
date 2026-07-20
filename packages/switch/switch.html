@@ -246,13 +246,13 @@
   <div class="container" tabindex="0" on:keydown="handleKeydown">
     <p-stylization
       class="track"
-      class:checked="checked"
+      class:checked="value === checkedValue"
       :variant="variant"
-      :color="checked ? color : 'neutral'"
+      :color="value === checkedValue ? color : 'neutral'"
       style="border: none"
     >
       <div class="border-bg"></div>
-      <div class="thumb" class:checked="checked">
+      <div class="thumb" class:checked="value === checkedValue">
         <div class="mark">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -318,12 +318,6 @@
           },
         },
         proto: {
-          get checked() {
-            return this.value === this.checkedValue;
-          },
-          set checked(val) {
-            this.value = val ? this.checkedValue : this.uncheckedValue;
-          },
           focus() {
             this.shadow.$(".container").ele.focus();
           },
@@ -350,9 +344,7 @@
           });
         },
         attached() {
-          if (this.checked || this.attr("checked") !== null) {
-            this.value = this.checkedValue;
-          } else {
+          if (this.value === null) {
             this.value = this.uncheckedValue;
           }
         },

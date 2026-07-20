@@ -1,6 +1,6 @@
 # Switch
 
-The switch component is used to toggle between two states, supporting custom values and keyboard operations.
+The switch component is used to toggle between two states, exposing the current state via `value`.
 
 ## Importing Components
 
@@ -10,6 +10,8 @@ The switch component is used to toggle between two states, supporting custom val
 
 ## Basic Usage
 
+The switch component no longer uses a `checked` attribute. State is expressed through `value` together with `checked-value` / `unchecked-value`. Use `default-value` to set the initial value.
+
 <o-playground name="Switch Basic Usage" style="--editor-height: 300px">
   <code path="demo.html" preview active>
     <template>
@@ -17,7 +19,7 @@ The switch component is used to toggle between two states, supporting custom val
       <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
       <div style="padding: 20px;">
         <p-switch>Default Switch</p-switch>
-        <p-switch checked>Checked</p-switch>
+        <p-switch default-value="on">Checked</p-switch>
       </div>
     </template>
   </code>
@@ -53,9 +55,9 @@ Set switch color via the `color` property:
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
       <div style="padding: 20px;">
-        <p-switch color="primary" checked>Primary</p-switch>
-        <p-switch color="error" checked>Error</p-switch>
-        <p-switch color="success" checked>Success</p-switch>
+        <p-switch color="primary" default-value="on">Primary</p-switch>
+        <p-switch color="error" default-value="on">Error</p-switch>
+        <p-switch color="success" default-value="on">Success</p-switch>
       </div>
     </template>
   </code>
@@ -69,7 +71,7 @@ Set switch color via the `color` property:
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
       <div style="padding: 20px;">
-        <p-switch checked>Checked</p-switch>
+        <p-switch default-value="on">Checked</p-switch>
         <p-switch>Unchecked</p-switch>
         <p-switch disabled>Disabled</p-switch>
       </div>
@@ -93,7 +95,7 @@ Use the `checked-value` and `unchecked-value` attributes to customize the checke
           name="status" 
           checked-value="enabled" 
           unchecked-value="disabled"
-          checked
+          default-value="enabled"
         >
           Status Switch
         </p-switch>
@@ -104,7 +106,7 @@ Use the `checked-value` and `unchecked-value` attributes to customize the checke
 
 ### Default Values
 
-Set the initial value using the `default-value` attribute:
+Use the `default-value` attribute to set the initial value (the only entry point for the initial checked state):
 
 <o-playground name="Default value" style="--editor-height: 350px">
   <code path="demo.html" preview active>
@@ -145,7 +147,8 @@ Use the `autofocus` attribute to automatically focus the switch on page load:
 
 ### Keyboard Operation
 
-Switch supports keyboard operation:- **Space** - Toggle switch state
+Switch supports keyboard operation:
+- **Space** - Toggle switch state
 - **Enter** - Toggle switch state
 
 <o-playground name="Keyboard Operation" style="--editor-height: 300px">
@@ -162,7 +165,7 @@ Switch supports keyboard operation:- **Space** - Toggle switch state
 
 ### Programmatic Control
 
-Control switch state via JavaScript:
+Control switch state via JavaScript by writing to `value`:
 
 <o-playground name="Programmatic Control" style="--editor-height: 400px">
   <code path="demo.html" preview active>
@@ -172,7 +175,7 @@ Control switch state via JavaScript:
       <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
       <div style="padding: 20px;">
         <p-switch id="my-switch">Programmatic Control</p-switch>
-        <p-button style="margin-top: 16px;" on:click="this.$('#my-switch').checked = !this.$('#my-switch').checked">Toggle State</p-button>
+        <p-button style="margin-top: 16px;" on:click="const sw = this.$('#my-switch'); sw.value = sw.value === 'on' ? 'off' : 'on';">Toggle State</p-button>
       </div>
     </template>
   </code>
@@ -188,9 +191,9 @@ Use the `variant` attribute to set different styles:
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
       <div style="padding: 20px;">
-        <p-switch variant="filled" checked>Filled</p-switch>
-        <p-switch variant="outlined" checked>Outlined</p-switch>
-        <p-switch variant="text" checked>Text</p-switch>
+        <p-switch variant="filled" default-value="on">Filled</p-switch>
+        <p-switch variant="outlined" default-value="on">Outlined</p-switch>
+        <p-switch variant="text" default-value="on">Text</p-switch>
       </div>
     </template>
   </code>
@@ -218,7 +221,8 @@ The switch component provides the following methods:
 
 ## Animation Effects
 
-The switch component includes the following animation effects:- **Slider Movement** - Smooth sliding animation
+The switch component includes the following animation effects:
+- **Slider Movement** - Smooth sliding animation
 - **Check Mark** - Shows check animation when selected
 - **Border Fill** - Border fill animation when selected
 
@@ -228,7 +232,7 @@ The switch component includes the following animation effects:- **Slider Movemen
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
       <div style="padding: 20px;">
-        <p-switch checked>Animation Effect</p-switch>
+        <p-switch default-value="on">Animation Effect</p-switch>
       </div>
     </template>
   </code>
@@ -236,9 +240,9 @@ The switch component includes the following animation effects:- **Slider Movemen
 
 ## Get Value
 
-### Get via checked attribute
+### Get via value attribute
 
-Use the `checked` attribute to get the toggle's selected state:
+Use the `value` attribute to get the switch's current value (equals `checked-value` or `unchecked-value`):
 
 <o-playground name="Get Value" style="--editor-height: 400px">
   <code path="demo.html" preview active>
@@ -253,8 +257,8 @@ Use the `checked` attribute to get the toggle's selected state:
       </div>
       <script>
         $('#get-value-btn').on('click', () => {
-          const isChecked = $('#theme-switch').checked;
-          $('#status-display').text = isChecked ? 'Enabled' : 'Disabled';
+          const value = $('#theme-switch').value;
+          $('#status-display').text = value === 'on' ? 'Enabled' : 'Disabled';
         });
       </script>
     </template>
@@ -276,7 +280,7 @@ When `checked-value` and `unchecked-value` are set, get the current value throug
           id="status-switch"
           checked-value="enabled" 
           unchecked-value="disabled"
-          checked
+          default-value="enabled"
         >
           Status Switch
         </p-switch>
@@ -308,8 +312,8 @@ Get the switch state in real time by listening to the `change` event:
       </div>
       <script>
         $('#realtime-switch').on('change', () => {
-          const isChecked = $('#realtime-switch').checked;
-          $('#realtime-display').text = isChecked ? 'Enabled' : 'Disabled';
+          const value = $('#realtime-switch').value;
+          $('#realtime-display').text = value === 'on' ? 'Enabled' : 'Disabled';
         });
       </script>
     </template>
@@ -318,7 +322,7 @@ Get the switch state in real time by listening to the `change` event:
 
 ### Two-way binding in components or page modules
 
-Use ofa.js's data binding feature：
+Use ofa.js's data binding feature:
 
 <o-playground name="Get Value" style="--editor-height: 400px">
   <code path="demo.html" active>
@@ -346,16 +350,12 @@ Use ofa.js's data binding feature：
   </code>
 </o-playground>
 
-When using two-way binding in a component or page module, **bind the `value` property instead of the `checked` property**.
-
-- ✅ Correct: `sync:value="status"` - Bind the value attribute, used with `checked-value` and `unchecked-value`
-- ❌ Incorrect: `sync:checked="darkMode"` - Do not bind the checked attribute
-
-This allows for better integration with form data and provides clearer semantics.
+When using two-way binding in a component or page module, **bind the `value` attribute** together with `checked-value` and `unchecked-value`.
 
 ## Accessibility Support
 
-The switch component provides the following accessibility support:- Supports keyboard navigation and operation
+The switch component provides the following accessibility support:
+- Supports keyboard navigation and operation
 - Provides focus state indication
 - Supports screen readers
 
@@ -377,19 +377,22 @@ The switch component provides the following accessibility support:- Supports key
 
 | Attribute | Description | Type | Default |
 |------|------|------|--------|
-| `checked` | Whether selected | `boolean` | `false` |
+| `value` | Current value (equals `checked-value` or `unchecked-value`) | `string` | - |
 | `size` | Switch size | `xs` \| `s` \| `l` \| `xl` | - |
 | `color` | Switch color | `primary` \| `error` \| `success` | `primary` |
 | `disabled` | Whether disabled | `boolean` | `false` |
 | `name` | Form name | `string` | - |
-| `value` | Current value (returns checked-value or unchecked-value based on checked state) | `string` | - |
-| `checked-value` | Value when selected | `string` | `true` |
-| `unchecked-value` | Value when not selected | `string` | `false` |
-| `default-value` | Default value | `string` | - |### Events
+| `checked-value` | Value when selected | `string` | `on` |
+| `unchecked-value` | Value when not selected | `string` | `off` |
+| `default-value` | Default value | `string` | - |
+
+### Events
 
 | Event Name | Description |
 |--------|------|
-| `change` | Triggered when the switch state changes |### Method
+| `change` | Triggered when the switch state changes |
+
+### Method
 
 | Method Name | Description |
 |--------|------|

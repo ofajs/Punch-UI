@@ -61,9 +61,9 @@
       <div class="switch-row">
         <p-switch>Default</p-switch>
         <p-switch variant="tonal">Tonal</p-switch>
-        <p-switch checked>Checked</p-switch>
+        <p-switch default-value="on">Checked</p-switch>
         <p-switch disabled>Disabled</p-switch>
-        <p-switch checked disabled>Disabled & Checked</p-switch>
+        <p-switch default-value="on" disabled>Disabled & Checked</p-switch>
       </div>
     </div>
 
@@ -81,10 +81,10 @@
     <div class="demo-section">
       <h3>Color Variants</h3>
       <div class="switch-row">
-        <p-switch color="primary" checked>Primary</p-switch>
-        <p-switch color="success" checked>Success</p-switch>
-        <p-switch color="error" checked>Error</p-switch>
-        <p-switch color="neutral" checked>Neutral</p-switch>
+        <p-switch color="primary" default-value="on">Primary</p-switch>
+        <p-switch color="success" default-value="on">Success</p-switch>
+        <p-switch color="error" default-value="on">Error</p-switch>
+        <p-switch color="neutral" default-value="on">Neutral</p-switch>
       </div>
     </div>
 
@@ -92,7 +92,7 @@
       <h3>With Name Attribute</h3>
       <div class="switch-row">
         <p-switch name="darkmode">Enable Dark Mode</p-switch>
-        <p-switch name="notifications" checked>Enable Notifications</p-switch>
+        <p-switch name="notifications" default-value="on">Enable Notifications</p-switch>
       </div>
     </div>
 
@@ -148,13 +148,13 @@
 
       $("#enable-all-btn").on("click", () => {
         $.all("#dynamic-switches p-switch").forEach((sw) => {
-          sw.checked = true;
+          sw.value = "on";
         });
       });
 
       $("#disable-all-btn").on("click", () => {
         $.all("#dynamic-switches p-switch").forEach((sw) => {
-          sw.checked = false;
+          sw.value = "off";
         });
       });
 

@@ -1,6 +1,6 @@
 # Switch 开关
 
-开关组件用于在两种状态之间切换，支持自定义值和键盘操作。
+开关组件用于在两种状态之间切换，通过 `value` 反映当前状态。
 
 ## 引入组件
 
@@ -10,6 +10,8 @@
 
 ## 基本用法
 
+开关组件不再使用 `checked` 属性，而是统一通过 `value`（配合 `checked-value` / `unchecked-value`）表达状态。使用 `default-value` 设置初始值。
+
 <o-playground name="Switch 基本用法" style="--editor-height: 300px">
   <code path="demo.html" preview active>
     <template>
@@ -17,7 +19,7 @@
       <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
       <div style="padding: 20px;">
         <p-switch>默认开关</p-switch>
-        <p-switch checked>已选中</p-switch>
+        <p-switch default-value="on">已选中</p-switch>
       </div>
     </template>
   </code>
@@ -53,9 +55,9 @@
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
       <div style="padding: 20px;">
-        <p-switch color="primary" checked>Primary</p-switch>
-        <p-switch color="error" checked>Error</p-switch>
-        <p-switch color="success" checked>Success</p-switch>
+        <p-switch color="primary" default-value="on">Primary</p-switch>
+        <p-switch color="error" default-value="on">Error</p-switch>
+        <p-switch color="success" default-value="on">Success</p-switch>
       </div>
     </template>
   </code>
@@ -69,7 +71,7 @@
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
       <div style="padding: 20px;">
-        <p-switch checked>选中状态</p-switch>
+        <p-switch default-value="on">选中状态</p-switch>
         <p-switch>未选中状态</p-switch>
         <p-switch disabled>禁用状态</p-switch>
       </div>
@@ -93,7 +95,7 @@
           name="status" 
           checked-value="enabled" 
           unchecked-value="disabled"
-          checked
+          default-value="enabled"
         >
           状态开关
         </p-switch>
@@ -104,7 +106,7 @@
 
 ### 默认值
 
-使用 `default-value` 属性设置初始值：
+使用 `default-value` 属性设置初始值（初始选中状态的唯一入口）：
 
 <o-playground name="默认值" style="--editor-height: 350px">
   <code path="demo.html" preview active>
@@ -163,7 +165,7 @@
 
 ### 编程控制
 
-通过 JavaScript 控制开关状态：
+通过 JavaScript 修改 `value` 控制开关状态：
 
 <o-playground name="编程控制" style="--editor-height: 400px">
   <code path="demo.html" preview active>
@@ -173,7 +175,7 @@
       <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
       <div style="padding: 20px;">
         <p-switch id="my-switch">编程控制</p-switch>
-        <p-button style="margin-top: 16px;" on:click="this.$('#my-switch').checked = !this.$('#my-switch').checked">切换状态</p-button>
+        <p-button style="margin-top: 16px;" on:click="const sw = this.$('#my-switch'); sw.value = sw.value === 'on' ? 'off' : 'on';">切换状态</p-button>
       </div>
     </template>
   </code>
@@ -189,9 +191,9 @@
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
       <div style="padding: 20px;">
-        <p-switch variant="filled" checked>Filled</p-switch>
-        <p-switch variant="outlined" checked>Outlined</p-switch>
-        <p-switch variant="text" checked>Text</p-switch>
+        <p-switch variant="filled" default-value="on">Filled</p-switch>
+        <p-switch variant="outlined" default-value="on">Outlined</p-switch>
+        <p-switch variant="text" default-value="on">Text</p-switch>
       </div>
     </template>
   </code>
@@ -230,7 +232,7 @@
       <link rel="stylesheet" href="https://punch-ui-v2.pages.dev/packages/css/pui-global.css" />
       <l-m src="https://punch-ui-v2.pages.dev/packages/switch/switch.html"></l-m>
       <div style="padding: 20px;">
-        <p-switch checked>动画效果</p-switch>
+        <p-switch default-value="on">动画效果</p-switch>
       </div>
     </template>
   </code>
@@ -238,9 +240,9 @@
 
 ## 获取值
 
-### 通过 checked 属性获取
+### 通过 value 属性获取
 
-使用 `checked` 属性获取开关的选中状态：
+使用 `value` 属性获取开关当前值（等于 `checked-value` 或 `unchecked-value`）：
 
 <o-playground name="获取值" style="--editor-height: 400px">
   <code path="demo.html" preview active>
@@ -255,8 +257,8 @@
       </div>
       <script>
         $('#get-value-btn').on('click', () => {
-          const isChecked = $('#theme-switch').checked;
-          $('#status-display').text = isChecked ? '已开启' : '已关闭';
+          const value = $('#theme-switch').value;
+          $('#status-display').text = value === 'on' ? '已开启' : '已关闭';
         });
       </script>
     </template>
@@ -278,7 +280,7 @@
           id="status-switch"
           checked-value="enabled" 
           unchecked-value="disabled"
-          checked
+          default-value="enabled"
         >
           状态开关
         </p-switch>
@@ -310,8 +312,8 @@
       </div>
       <script>
         $('#realtime-switch').on('change', () => {
-          const isChecked = $('#realtime-switch').checked;
-          $('#realtime-display').text = isChecked ? '已开启' : '已关闭';
+          const value = $('#realtime-switch').value;
+          $('#realtime-display').text = value === 'on' ? '已开启' : '已关闭';
         });
       </script>
     </template>
@@ -348,12 +350,7 @@
   </code>
 </o-playground>
 
-在组件或页面模块中使用双向绑定时，**请绑定 `value` 属性而不是 `checked` 属性**。
-
-- ✅ 正确：`sync:value="status"` - 绑定 value 属性，配合 `checked-value` 和 `unchecked-value` 使用
-- ❌ 错误：`sync:checked="darkMode"` - 不要绑定 checked 属性
-
-这样可以更好地与表单数据集成，并且语义更加清晰。
+在组件或页面模块中使用双向绑定时，**只需绑定 `value` 属性**，配合 `checked-value` 和 `unchecked-value` 使用即可。
 
 ## 无障碍支持
 
@@ -380,14 +377,13 @@
 
 | 属性 | 说明 | 类型 | 默认值 |
 |------|------|------|--------|
-| `checked` | 是否选中 | `boolean` | `false` |
+| `value` | 当前值（等于 `checked-value` 或 `unchecked-value`） | `string` | - |
 | `size` | 开关尺寸 | `xs` \| `s` \| `l` \| `xl` | - |
 | `color` | 开关颜色 | `primary` \| `error` \| `success` | `primary` |
 | `disabled` | 是否禁用 | `boolean` | `false` |
 | `name` | 表单名称 | `string` | - |
-| `value` | 当前值（根据 checked 状态返回 checked-value 或 unchecked-value） | `string` | - |
-| `checked-value` | 选中时的值 | `string` | `true` |
-| `unchecked-value` | 未选中时的值 | `string` | `false` |
+| `checked-value` | 选中时的值 | `string` | `on` |
+| `unchecked-value` | 未选中时的值 | `string` | `off` |
 | `default-value` | 默认值 | `string` | - |
 
 ### 事件
