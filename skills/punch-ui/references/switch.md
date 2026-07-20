@@ -8,11 +8,23 @@
 
 ## 基本用法
 
-开关组件不使用 `checked` 属性，统一通过 `value` 表达状态（配合 `checked-value` / `unchecked-value`）。使用 `default-value` 设置初始值。
+开关组件不使用 `checked` 属性，统一通过 `value` 表达状态（配合 `checked-value` / `unchecked-value`）。
+
+### 选择合适的写法
+
+| 使用场景 | 推荐写法 | 说明 |
+|----------|----------|------|
+| 原生 HTML 页面（无 ofa 数据绑定上下文） | `default-value` | 仅用于设置初始值，之后可通过 `element.value = "on"` / 监听 `change` 事件交互 |
+| ofa.js 组件 / page 模块内 | `sync:value="xxx"` | 与页面 `data` 双向绑定，UI 与数据自动同步，无需手动读写 `value` |
 
 ```html
-<p-switch>Default</p-switch>
+<!-- 原生页面：使用 default-value 设置初始值 -->
 <p-switch default-value="on">Checked</p-switch>
+
+<!-- page 模块 / 组件内：使用 sync:value 双向绑定 -->
+<p-switch sync:value="status" checked-value="on" unchecked-value="off">
+  深色模式
+</p-switch>
 ```
 
 ## 尺寸

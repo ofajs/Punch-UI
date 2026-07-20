@@ -10,7 +10,14 @@
 
 ## 基本用法
 
-开关组件不再使用 `checked` 属性，而是统一通过 `value`（配合 `checked-value` / `unchecked-value`）表达状态。使用 `default-value` 设置初始值。
+开关组件不再使用 `checked` 属性，而是统一通过 `value`（配合 `checked-value` / `unchecked-value`）表达状态。
+
+### 选择合适的写法
+
+| 使用场景 | 推荐写法 | 说明 |
+|----------|----------|------|
+| 原生 HTML 页面（无 ofa 数据绑定上下文） | `default-value` | 仅用于设置初始值，之后通过 `element.value = "on"` / 监听 `change` 事件交互 |
+| ofa.js 组件 / page 模块内 | `sync:value="xxx"` | 与页面 `data` 双向绑定，UI 与数据自动同步，无需手动读写 `value` |
 
 <o-playground name="Switch 基本用法" style="--editor-height: 300px">
   <code path="demo.html" preview active>
