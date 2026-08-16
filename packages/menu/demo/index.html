@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu Demo</title>
+    <script
+      src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs"
+      type="module"
+    ></script>
+    <link rel="stylesheet" href="../../css/pui-global.css" />
+    <style>
+      body {
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          Segoe UI,
+          Microsoft Yahei,
+          Helvetica,
+          Arial,
+          sans-serif,
+          Apple Color Emoji,
+          Segoe UI Emoji;
+        padding-bottom: 400px;
+      }
+      section {
+        margin: 24px 0;
+      }
+      h3 {
+        margin-bottom: 12px;
+        font-size: 14px;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Menu</h2>
+    <l-m src="../menu.html"></l-m>
+    <l-m src="../menu-item.html"></l-m>
+    <l-m src="../../button/button.html"></l-m>
+    <l-m src="../../../tool/theme-switch/theme-switch.html"></l-m>
+
+    <div style="position: fixed; top: 20px; right: 20px">
+      <p-theme-switch></p-theme-switch>
+    </div>
+
+    <section>
+      <h3>Basic（trigger 插槽 + p-menu-item）</h3>
+      <p-menu>
+        <p-button slot="trigger">操作 ▾</p-button>
+        <p-menu-item>
+          <span slot="prefix">📝</span>
+          <span>编辑</span>
+        </p-menu-item>
+        <p-menu-item>
+          <span slot="prefix">📋</span>
+          <span>复制</span>
+        </p-menu-item>
+        <p-menu-item disabled>
+          <span slot="prefix">🗑️</span>
+          <span>删除（禁用）</span>
+        </p-menu-item>
+      </p-menu>
+    </section>
+
+    <section>
+      <h3>对齐方向：align="left" / align="right"（默认）</h3>
+      <p-menu align="left">
+        <p-button slot="trigger" variant="outlined">左对齐 ▾</p-button>
+        <p-menu-item>菜单项 A</p-menu-item>
+        <p-menu-item>菜单项 B</p-menu-item>
+        <p-menu-item>
+          <span slot="prefix">📁</span>
+          <span>带图标的较长菜单项</span>
+          <span slot="suffix">⌘D</span>
+        </p-menu-item>
+      </p-menu>
+      <p-menu align="right">
+        <p-button slot="trigger" variant="outlined">右对齐 ▾</p-button>
+        <p-menu-item>菜单项 A</p-menu-item>
+        <p-menu-item>菜单项 B</p-menu-item>
+        <p-menu-item>
+          <span slot="prefix">📁</span>
+          <span>带图标的较长菜单项</span>
+          <span slot="suffix">⌘D</span>
+        </p-menu-item>
+      </p-menu>
+    </section>
+
+    <section>
+      <h3>自由内容（非 p-menu-item 也可放入）</h3>
+      <p-menu>
+        <p-button slot="trigger" variant="text">自由内容 ▾</p-button>
+        <p-menu-item>普通菜单项</p-menu-item>
+        <div style="padding: 8px 12px; color: var(--md-sys-color-on-surface-variant); font-size: 12px">
+          任意分隔/说明内容
+        </div>
+        <p-menu-item>另一个菜单项</p-menu-item>
+      </p-menu>
+    </section>
+
+    <h2>Advanced</h2>
+    <o-page src="./advanced.html"></o-page>
+  </body>
+</html>

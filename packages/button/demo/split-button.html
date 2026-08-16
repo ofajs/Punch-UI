@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Split Button Demo</title>
+    <script
+      src="https://cdn.jsdelivr.net/gh/ofajs/ofa.js/dist/ofa.min.mjs"
+      type="module"
+    ></script>
+    <link rel="stylesheet" href="../../css/pui-global.css" />
+    <style>
+      body {
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          Segoe UI,
+          Microsoft Yahei,
+          Helvetica,
+          Arial,
+          sans-serif,
+          Apple Color Emoji,
+          Segoe UI Emoji;
+        padding-bottom: 400px;
+      }
+      section {
+        margin: 24px 0;
+      }
+      h3 {
+        margin-bottom: 12px;
+        font-size: 14px;
+        color: #666;
+      }
+      p-split-button {
+        margin: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Split Button</h2>
+    <l-m src="../split-button.html"></l-m>
+    <l-m src="../button.html"></l-m>
+    <l-m src="../../menu/menu-item.html"></l-m>
+    <l-m src="../../../tool/theme-switch/theme-switch.html"></l-m>
+
+    <div style="position: fixed; top: 20px; right: 20px">
+      <p-theme-switch></p-theme-switch>
+    </div>
+
+    <section>
+      <h3>基本用法（variant 默认 filled）</h3>
+      <p-split-button>
+        <span slot="prefix">✨</span>
+        <span>AI 导入</span>
+        <div slot="menu">
+          <p-menu-item>
+            <span slot="prefix">🗂️</span>
+            <span>AI 分组</span>
+          </p-menu-item>
+          <p-menu-item>
+            <span slot="prefix">🏷️</span>
+            <span>AI 打标签</span>
+          </p-menu-item>
+        </div>
+      </p-split-button>
+    </section>
+
+    <section>
+      <h3>尺寸：xs / s / 默认 / l / xl</h3>
+      <p-split-button size="xs">
+        <span>XS</span>
+        <div slot="menu">
+          <p-menu-item>菜单项 1</p-menu-item>
+          <p-menu-item>菜单项 2</p-menu-item>
+        </div>
+      </p-split-button>
+      <p-split-button size="s" variant="outlined">
+        <span>Small</span>
+        <div slot="menu">
+          <p-menu-item>菜单项 1</p-menu-item>
+          <p-menu-item>菜单项 2</p-menu-item>
+        </div>
+      </p-split-button>
+      <p-split-button variant="outlined">
+        <span>Medium</span>
+        <div slot="menu">
+          <p-menu-item>菜单项 1</p-menu-item>
+          <p-menu-item>菜单项 2</p-menu-item>
+        </div>
+      </p-split-button>
+      <p-split-button size="l" variant="text">
+        <span>Large</span>
+        <div slot="menu">
+          <p-menu-item>菜单项 1</p-menu-item>
+          <p-menu-item>菜单项 2</p-menu-item>
+        </div>
+      </p-split-button>
+      <p-split-button size="xl" variant="tonal">
+        <span>XL</span>
+        <div slot="menu">
+          <p-menu-item>菜单项 1</p-menu-item>
+          <p-menu-item>菜单项 2</p-menu-item>
+        </div>
+      </p-split-button>
+    </section>
+
+    <section>
+      <h3>变体 × 颜色</h3>
+      <p-split-button color="primary">
+        <span>Primary</span>
+        <div slot="menu">
+          <p-menu-item>菜单项</p-menu-item>
+        </div>
+      </p-split-button>
+      <p-split-button color="success">
+        <span>Success</span>
+        <div slot="menu">
+          <p-menu-item>菜单项</p-menu-item>
+        </div>
+      </p-split-button>
+      <p-split-button color="error">
+        <span>Error</span>
+        <div slot="menu">
+          <p-menu-item>菜单项</p-menu-item>
+        </div>
+      </p-split-button>
+      <p-split-button color="neutral">
+        <span>Neutral</span>
+        <div slot="menu">
+          <p-menu-item>菜单项</p-menu-item>
+        </div>
+      </p-split-button>
+      <p-split-button variant="outlined" color="success">
+        <span>Outlined Success</span>
+        <div slot="menu">
+          <p-menu-item>菜单项</p-menu-item>
+        </div>
+      </p-split-button>
+      <p-split-button variant="text" color="error">
+        <span>Text Error</span>
+        <div slot="menu">
+          <p-menu-item>菜单项</p-menu-item>
+        </div>
+      </p-split-button>
+      <p-split-button variant="tonal" color="neutral">
+        <span>Tonal Neutral</span>
+        <div slot="menu">
+          <p-menu-item>菜单项</p-menu-item>
+        </div>
+      </p-split-button>
+    </section>
+
+    <section>
+      <h3>禁用状态</h3>
+      <p-split-button disabled>
+        <span>Disabled Filled</span>
+        <div slot="menu">
+          <p-menu-item>菜单项</p-menu-item>
+        </div>
+      </p-split-button>
+      <p-split-button disabled variant="outlined">
+        <span>Disabled Outlined</span>
+        <div slot="menu">
+          <p-menu-item>菜单项</p-menu-item>
+        </div>
+      </p-split-button>
+    </section>
+
+    <section>
+      <h3>菜单对齐：menu-align="left"（默认 right）</h3>
+      <p-split-button menu-align="left" variant="outlined">
+        <span>左对齐菜单</span>
+        <div slot="menu">
+          <p-menu-item>
+            <span slot="prefix">📁</span>
+            <span>带图标的较长菜单项</span>
+          </p-menu-item>
+          <p-menu-item>菜单项 2</p-menu-item>
+        </div>
+      </p-split-button>
+    </section>
+
+    <section>
+      <h3>视口底部（自动向上翻转）</h3>
+      <p-split-button variant="outlined" size="s">
+        <span>靠近底部</span>
+        <div slot="menu">
+          <p-menu-item>菜单项 1</p-menu-item>
+          <p-menu-item>菜单项 2</p-menu-item>
+          <p-menu-item>菜单项 3</p-menu-item>
+        </div>
+      </p-split-button>
+    </section>
+
+    <h2>Advanced</h2>
+    <o-page src="./split-button-advanced.html"></o-page>
+  </body>
+</html>

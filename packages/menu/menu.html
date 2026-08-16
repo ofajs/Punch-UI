@@ -1,0 +1,294 @@
+<template component>
+  <style>
+    :host {
+      position: relative;
+      display: inline-flex;
+      vertical-align: middle;
+      font-size: 14px;
+      line-height: 1.2em;
+    }
+
+    /* 无 trigger 时作为锚点覆盖层使用（放在 relative 容器内，
+       面板相对容器定位，如 p-split-button 内部用法） */
+    :host([no-trigger]) {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .trigger {
+      display: flex;
+    }
+
+    .panel {
+      display: none;
+      position: fixed;
+      left: 0;
+      top: 0;
+      min-width: 112px;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-sizing: border-box;
+      padding: 4px;
+      border-radius: 12px;
+      background-color: var(
+        --md-sys-color-surface-container,
+        var(--md-sys-color-surface-variant)
+      );
+      color: var(--md-sys-color-on-surface);
+      box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.3),
+        0 2px 6px 2px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+      pointer-events: auto;
+      transform-origin: 50% 0;
+      animation: pui-menu-in ease 0.2s;
+    }
+
+    /* 关闭过渡 */
+    .panel.closing {
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(-6px) scale(0.98);
+      transition:
+        opacity ease 0.15s,
+        transform ease 0.15s;
+    }
+
+    @keyframes pui-menu-in {
+      0% {
+        opacity: 0;
+        transform: translateY(-6px) scale(0.98);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* 菜单项：打开级联滑入 / 关闭级联滑出 */
+    ::slotted(p-menu-item) {
+      animation: pui-menu-item-in ease 0.3s both;
+      animation-delay: 30ms;
+      transition: all ease 0.3s;
+    }
+
+    .panel.closing ::slotted(p-menu-item) {
+      opacity: 0;
+      transform: translateX(10px);
+    }
+
+    @keyframes pui-menu-item-in {
+      0% {
+        opacity: 0;
+        transform: translateX(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    ::slotted(p-menu-item:nth-child(1)) {
+      animation-delay: 30ms;
+    }
+
+    ::slotted(p-menu-item:nth-child(2)) {
+      animation-delay: 60ms;
+    }
+
+    ::slotted(p-menu-item:nth-child(3)) {
+      animation-delay: 90ms;
+    }
+
+    ::slotted(p-menu-item:nth-child(4)) {
+      animation-delay: 120ms;
+    }
+
+    ::slotted(p-menu-item:nth-child(5)) {
+      animation-delay: 150ms;
+    }
+
+    ::slotted(p-menu-item:nth-child(6)) {
+      animation-delay: 180ms;
+    }
+
+    ::slotted(p-menu-item:nth-child(7)) {
+      animation-delay: 210ms;
+    }
+
+    ::slotted(p-menu-item:nth-child(8)) {
+      animation-delay: 240ms;
+    }
+
+    ::slotted(p-menu-item:nth-child(n + 9)) {
+      animation-delay: 270ms;
+    }
+
+    ::slotted(hr) {
+      display: block;
+      width: 100%;
+      margin: 4px 0;
+      border: none;
+      border-top: 1px solid
+        rgb(from var(--md-sys-color-on-surface) r g b / 0.12);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .panel,
+      ::slotted(p-menu-item) {
+        animation: none;
+        transition: none;
+      }
+    }
+  </style>
+  <div class="trigger" on:click="handleTriggerClick"><slot name="trigger"></slot></div>
+  <div class="panel" part="panel" on:click="handlePanelClick"><slot></slot></div>
+  <script>
+    import "../common/init.js";
+
+    export default async () => {
+      return {
+        tag: "p-menu",
+        attrs: {
+          align: "right",
+        },
+        data: {
+          open: false,
+        },
+        watch: {
+          open(val) {
+            const panel = this.shadow.$(".panel");
+            if (val) {
+              // 先渲染再定位，避免闪烁；重新打开时重启进入动画
+              clearTimeout(this._closeTimer);
+              panel.ele.classList.remove("closing");
+              panel.ele.style.display = "block";
+              panel.ele.style.visibility = "hidden";
+              this.updatePosition();
+              panel.ele.style.visibility = "visible";
+              this.bindDocEvents();
+              this.emit("open");
+            } else {
+              // 关闭：先做退出过渡，再隐藏
+              panel.ele.classList.add("closing");
+              clearTimeout(this._closeTimer);
+              this._closeTimer = setTimeout(() => {
+                panel.ele.style.display = "none";
+                panel.ele.classList.remove("closing");
+              }, 200);
+              this.unbindDocEvents();
+              this.emit("close");
+            }
+          },
+        },
+        proto: {
+          handleTriggerClick() {
+            if (this._noTrigger) {
+              return;
+            }
+            this.open = !this.open;
+          },
+          handlePanelClick() {
+            // 菜单内任意点击后自动关闭；不阻止冒泡，item 自身的 click 正常传递
+            if (this.open) {
+              this.open = false;
+            }
+          },
+          updatePosition() {
+            if (!this.open) {
+              return;
+            }
+            const panelEle = this.shadow.$(".panel").ele;
+            const rect = this.ele.getBoundingClientRect();
+            const panelW = panelEle.offsetWidth;
+            const panelH = panelEle.offsetHeight;
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+            const margin = 8;
+            const gap = 4;
+
+            let left =
+              (this.align || "right") === "left"
+                ? rect.left
+                : rect.right - panelW;
+            left = Math.max(margin, Math.min(left, vw - panelW - margin));
+
+            let top = rect.bottom + gap;
+            if (top + panelH > vh - margin) {
+              // 下方空间不足时翻转到上方
+              const topAbove = rect.top - panelH - gap;
+              top =
+                topAbove >= margin
+                  ? topAbove
+                  : Math.max(margin, vh - panelH - margin);
+            }
+
+            const style = panelEle.style;
+            style.left = left + "px";
+            style.top = top + "px";
+            style.minWidth = Math.max(rect.width, 112) + "px";
+          },
+          handleDocPointerDown(e) {
+            const path = e.composedPath ? e.composedPath() : [];
+            if (path.includes(this.ele)) {
+              return;
+            }
+            // no-trigger 模式下，锚点宿主（如 p-split-button）内的点击
+            // 交给宿主自身的开关逻辑处理，不视为外部点击
+            const rootHost = this.ele.getRootNode().host;
+            if (rootHost && path.includes(rootHost)) {
+              return;
+            }
+            this.open = false;
+          },
+          handleDocKeydown(e) {
+            if (e.key === "Escape" && this.open) {
+              this.open = false;
+            }
+          },
+          bindDocEvents() {
+            if (this._docBound) {
+              return;
+            }
+            document.addEventListener("pointerdown", this._onDocPointerDown, true);
+            document.addEventListener("keydown", this._onDocKeydown, true);
+            window.addEventListener("resize", this._onReposition, true);
+            document.addEventListener("scroll", this._onReposition, true);
+            this._docBound = true;
+          },
+          unbindDocEvents() {
+            if (!this._docBound) {
+              return;
+            }
+            document.removeEventListener(
+              "pointerdown",
+              this._onDocPointerDown,
+              true,
+            );
+            document.removeEventListener("keydown", this._onDocKeydown, true);
+            window.removeEventListener("resize", this._onReposition, true);
+            document.removeEventListener("scroll", this._onReposition, true);
+            this._docBound = false;
+          },
+        },
+        ready() {
+          this._onDocPointerDown = (e) => this.handleDocPointerDown(e);
+          this._onDocKeydown = (e) => this.handleDocKeydown(e);
+          this._onReposition = () => this.updatePosition();
+        },
+        attached() {
+          this._noTrigger = !this.$('[slot="trigger"]');
+          if (this._noTrigger) {
+            // 没有 trigger 插槽时，宿主转为锚点覆盖层模式
+            this.attr("no-trigger", "");
+          }
+        },
+        detached() {
+          clearTimeout(this._closeTimer);
+          this.unbindDocEvents();
+        },
+      };
+    };
+  </script>
+</template>

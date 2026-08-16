@@ -346,6 +346,63 @@
   </code>
 </o-playground>
 
+## Split Button 分段按钮
+
+「主操作 + 次操作下拉」的组合按钮，外形与 p-button 一致（胶囊、尺寸/变体/颜色系统相同）：
+
+```html
+<l-m src="https://punch-ui-v2.pages.dev/packages/button/split-button.html"></l-m>
+<l-m src="https://punch-ui-v2.pages.dev/packages/menu/menu-item.html"></l-m>
+
+<p-split-button variant="outlined" size="s" on:click="openImport">
+  <span slot="prefix">✨</span>
+  <span>AI 导入</span>
+  <div slot="menu">
+    <p-menu-item on:click="openGroup">
+      <span slot="prefix">🗂️</span>
+      <span>AI 分组</span>
+    </p-menu-item>
+  </div>
+</p-split-button>
+```
+
+交互约定：
+
+- 主区域点击 → 正常冒泡组件 `click`（`on:click` 直接绑主操作）
+- caret 区域点击 → 开/关菜单，不会触发主操作
+- 菜单内任意点击 → 自动关闭，item 的 `on:click` 正常触发（light DOM，绑页面作用域）
+- 点击组件外部 / `Esc` → 关闭菜单；菜单打开时 caret 图标旋转 180°
+
+受控开合：
+
+```html
+<p-split-button sync:open="splitOpen" variant="tonal">
+  <span>受控菜单</span>
+  <div slot="menu">
+    <p-menu-item>菜单项 A</p-menu-item>
+  </div>
+</p-split-button>
+```
+
+### p-split-button 属性
+
+| 属性 | 说明 | 类型 | 默认值 |
+|------|------|------|--------|
+| `variant` | 按钮样式 | `filled` \| `outlined` \| `text` \| `tonal` | `filled` |
+| `size` | 按钮尺寸 | `xs` \| `s` \| `l` \| `xl` | - |
+| `color` | 按钮颜色 | `primary` \| `error` \| `success` \| `neutral` | `primary` |
+| `disabled` | 是否禁用（主区与 caret 区同时禁用） | `boolean` | `false` |
+| `open` | 菜单开合状态（支持 `sync:open`） | `boolean` | `false` |
+| `menu-align` | 菜单对齐方向 | `left` \| `right` | `right` |
+
+### p-split-button 插槽
+
+| 插槽名 | 说明 |
+|--------|------|
+| `default` | 主按钮文字 |
+| `prefix` | 主按钮前置图标 |
+| `menu` | 下拉菜单内容（推荐放 `p-menu-item`） |
+
 ## API
 
 ### 属性

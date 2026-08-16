@@ -1,0 +1,97 @@
+<template page>
+  <style>
+    section {
+      margin: 24px 0;
+    }
+    h3 {
+      margin-bottom: 12px;
+      font-size: 14px;
+      color: #666;
+    }
+    .state {
+      font-size: 13px;
+      color: var(--md-sys-color-on-surface-variant);
+      margin-left: 12px;
+    }
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      border-radius: 16px;
+      background-color: var(--md-sys-color-surface-variant);
+    }
+    .log {
+      font-size: 13px;
+      color: #666;
+      margin-top: 8px;
+    }
+  </style>
+
+  <section>
+    <h3>主操作 + 次操作（主区 click 冒泡给组件）</h3>
+    <div class="toolbar">
+      <p-split-button
+        variant="outlined"
+        size="s"
+        on:click="doImport"
+      >
+        <span slot="prefix">✨</span>
+        <span>AI 导入</span>
+        <div slot="menu">
+          <p-menu-item on:click="doAction('AI 分组')">
+            <span slot="prefix">🗂️</span>
+            <span>AI 分组</span>
+          </p-menu-item>
+          <p-menu-item on:click="doAction('AI 打标签')">
+            <span slot="prefix">🏷️</span>
+            <span>AI 打标签</span>
+          </p-menu-item>
+          <p-menu-item disabled>
+            <span slot="prefix">🔒</span>
+            <span>禁用项</span>
+          </p-menu-item>
+        </div>
+      </p-split-button>
+      <span class="state">open = {{ splitOpen }}</span>
+    </div>
+    <div class="log">最近动作：{{ lastAction || "无" }}</div>
+  </section>
+
+  <section>
+    <h3>受控开合（sync:open）</h3>
+    <p-split-button sync:open="splitOpen" variant="tonal">
+      <span>受控菜单</span>
+      <div slot="menu">
+        <p-menu-item>菜单项 A</p-menu-item>
+        <p-menu-item>菜单项 B</p-menu-item>
+      </div>
+    </p-split-button>
+    <p-button
+      size="s"
+      variant="outlined"
+      on:click="splitOpen = !splitOpen"
+    >
+      外部切换 open
+    </p-button>
+  </section>
+
+  <script>
+    export default async () => {
+      return {
+        data: {
+          splitOpen: false,
+          lastAction: "",
+        },
+        proto: {
+          doImport() {
+            this.lastAction = "主操作：AI 导入";
+          },
+          doAction(name) {
+            this.lastAction = "次操作：" + name;
+          },
+        },
+      };
+    };
+  </script>
+</template>

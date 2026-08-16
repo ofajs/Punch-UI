@@ -1,0 +1,444 @@
+<template component>
+  <l-m src="../stylization/stylization.html"></l-m>
+  <l-m src="../ripple/ripple.html"></l-m>
+  <style>
+    :host {
+      position: relative;
+      display: inline-flex;
+      vertical-align: middle;
+      user-select: none;
+      cursor: pointer;
+      height: 40px;
+      border-radius: 28px;
+      font-size: 16px;
+    }
+
+    :host([size="xs"]) {
+      height: 24px;
+      font-size: 12px;
+    }
+
+    :host([size="s"]),
+    :host([size="small"]) {
+      height: 32px;
+      font-size: 14px;
+    }
+
+    :host([size="l"]),
+    :host([size="large"]) {
+      height: 48px;
+      font-size: 18px;
+    }
+
+    :host([size="xl"]) {
+      height: 56px;
+      font-size: 20px;
+    }
+
+    :host([disabled]) {
+      cursor: not-allowed;
+    }
+
+    :host([disabled]) p-stylization {
+      opacity: 0.6;
+    }
+
+    :host([disabled]) p-ripple,
+    :host([disabled]) .main-zone,
+    :host([disabled]) .caret-zone {
+      pointer-events: none;
+    }
+  </style>
+  <style>
+    @media (hover: hover) {
+      p-stylization:not([disabled]):hover::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: rgb(from var(--main-color-container) r g b / 0.1);
+        border-radius: inherit;
+        pointer-events: none;
+      }
+    }
+
+    p-stylization {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      border-radius: inherit;
+      width: 100%;
+      height: 100%;
+      --pui-ripple-color: rgb(from var(--main-color-container) r g b / 0.3);
+    }
+
+    p-stylization:focus {
+      outline: none;
+    }
+
+    .main-zone {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex: 1;
+      min-width: 0;
+      padding: 0 1em;
+      border-radius: 28px 0 0 28px;
+    }
+
+    .caret-zone {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      aspect-ratio: 1 / 1;
+      height: 100%;
+      border-radius: 0 28px 28px 0;
+      /* 主区与 caret 区的分界线 */
+      border-left: 1px solid rgb(from var(--on-main-color) r g b / 0.4);
+    }
+
+    :host([variant="outlined"]) .caret-zone {
+      border-left-color: var(--main-color);
+    }
+
+    :host([variant="text"]) .caret-zone {
+      border-left-color: rgb(from var(--main-color) r g b / 0.4);
+    }
+
+    :host([variant="tonal"]) .caret-zone {
+      border-left-color: rgb(
+        from var(--on-main-color-container) r g b / 0.4
+      );
+    }
+
+    .main-zone:focus,
+    .caret-zone:focus {
+      outline: none;
+    }
+
+    .main-zone:focus-visible,
+    .caret-zone:focus-visible {
+      outline: 2px solid var(--main-color);
+      outline-offset: 2px;
+    }
+
+    .caret-icon {
+      width: 1.25em;
+      height: 1.25em;
+      transition: transform 0.2s ease;
+      pointer-events: none;
+    }
+
+    .caret-icon.open {
+      transform: rotate(180deg);
+    }
+
+    .panel {
+      display: none;
+      position: fixed;
+      left: 0;
+      top: 0;
+      min-width: 112px;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-sizing: border-box;
+      padding: 4px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.2em;
+      background-color: var(
+        --md-sys-color-surface-container,
+        var(--md-sys-color-surface-variant)
+      );
+      color: var(--md-sys-color-on-surface);
+      box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.3),
+        0 2px 6px 2px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+      transform-origin: 50% 0;
+      animation: pui-split-menu-in ease 0.2s;
+    }
+
+    /* 关闭过渡 */
+    .panel.closing {
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(-6px) scale(0.98);
+      transition:
+        opacity ease 0.15s,
+        transform ease 0.15s;
+    }
+
+    @keyframes pui-split-menu-in {
+      0% {
+        opacity: 0;
+        transform: translateY(-6px) scale(0.98);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* 菜单内容整体滑入（::slotted 无法穿透用户包裹元素，
+       级联动画由 p-menu-item 之外的容器级动画代替） */
+    .panel ::slotted([slot="menu"]) {
+      animation: pui-split-item-in ease 0.3s both;
+      animation-delay: 30ms;
+    }
+
+    @keyframes pui-split-item-in {
+      0% {
+        opacity: 0;
+        transform: translateX(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .panel,
+      .panel ::slotted([slot="menu"]) {
+        animation: none;
+        transition: none;
+      }
+    }
+  </style>
+  <p-stylization attr:variant="variant || 'filled'" :color="color">
+    <div
+      class="main-zone"
+      tabindex="0"
+      on:click="handleMainClick"
+      on:keydown="handleMainKeydown"
+    >
+      <slot name="prefix"></slot>
+      <slot></slot>
+      <p-ripple></p-ripple>
+    </div>
+    <div
+      class="caret-zone"
+      tabindex="0"
+      role="button"
+      aria-haspopup="menu"
+      attr:aria-expanded="open"
+      on:click="toggleMenu"
+      on:keydown="handleCaretKeydown"
+    >
+      <svg
+        class="caret-icon"
+        class:open="open"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="m6 9l6 6l6-6" />
+      </svg>
+      <p-ripple></p-ripple>
+    </div>
+  </p-stylization>
+  <div class="panel" part="panel" on:click="handlePanelClick">
+    <slot name="menu"></slot>
+  </div>
+  <script>
+    import "../common/init.js";
+
+    export default async ({ load }) => {
+      if (!customElements.get("p-stylization")) {
+        await load("../stylization/stylization.html");
+      }
+      if (!customElements.get("p-ripple")) {
+        await load("../ripple/ripple.html");
+      }
+
+      return {
+        tag: "p-split-button",
+        attrs: {
+          variant: null,
+          size: null,
+          color: "primary",
+          disabled: null,
+          menuAlign: "right",
+        },
+        data: {
+          open: false,
+        },
+        watch: {
+          open(val) {
+            const panel = this.shadow.$(".panel");
+            if (val) {
+              // 先渲染再定位，避免闪烁；重新打开时重启进入动画
+              clearTimeout(this._closeTimer);
+              panel.ele.classList.remove("closing");
+              panel.ele.style.display = "block";
+              panel.ele.style.visibility = "hidden";
+              this.updatePosition();
+              panel.ele.style.visibility = "visible";
+              this.bindDocEvents();
+              this.emit("open");
+            } else {
+              // 关闭：先做退出过渡，再隐藏
+              panel.ele.classList.add("closing");
+              clearTimeout(this._closeTimer);
+              this._closeTimer = setTimeout(() => {
+                panel.ele.style.display = "none";
+                panel.ele.classList.remove("closing");
+              }, 200);
+              this.unbindDocEvents();
+              this.emit("close");
+            }
+          },
+        },
+        proto: {
+          handleMainClick(e) {
+            // 主区点击正常冒泡给宿主的 click（用户绑主操作）；仅禁用时拦截
+            if (this.disabled !== null) {
+              e.stopPropagation();
+              e.preventDefault();
+            }
+          },
+          handleMainKeydown(e) {
+            if (this.disabled !== null) {
+              return;
+            }
+            if (e.code === "Space" || e.code === "Enter") {
+              e.preventDefault();
+              this.shadow.$(".main-zone").ele.click();
+
+              const ripple = this.shadow.$(".main-zone p-ripple");
+              const zone = this.shadow.$(".main-zone");
+              const rect = zone.ele.getBoundingClientRect();
+              ripple.createRipple(rect.width / 2, rect.height / 2);
+              setTimeout(() => {
+                ripple.cancelRipple();
+              }, 100);
+            }
+          },
+          handleCaretKeydown(e) {
+            if (this.disabled !== null) {
+              return;
+            }
+            if (e.code === "Space" || e.code === "Enter") {
+              e.preventDefault();
+              this.open = !this.open;
+            }
+          },
+          toggleMenu(e) {
+            // caret 区点击只负责开合菜单，绝不触发主操作
+            e.stopPropagation();
+            e.preventDefault();
+            if (this.disabled !== null) {
+              return;
+            }
+            this.open = !this.open;
+          },
+          handlePanelClick(e) {
+            // 菜单内任意点击后自动关闭；item 自身的 click 已先于这里触发，
+            // 再截断冒泡避免误触发宿主上绑定的主操作
+            e.stopPropagation();
+            if (this.open) {
+              this.open = false;
+            }
+          },
+          updatePosition() {
+            if (!this.open) {
+              return;
+            }
+            const panelEle = this.shadow.$(".panel").ele;
+            const rect = this.ele.getBoundingClientRect();
+            const panelW = panelEle.offsetWidth;
+            const panelH = panelEle.offsetHeight;
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+            const margin = 8;
+            const gap = 4;
+
+            let left =
+              (this.menuAlign || "right") === "left"
+                ? rect.left
+                : rect.right - panelW;
+            left = Math.max(margin, Math.min(left, vw - panelW - margin));
+
+            let top = rect.bottom + gap;
+            if (top + panelH > vh - margin) {
+              // 下方空间不足时翻转到上方
+              const topAbove = rect.top - panelH - gap;
+              top =
+                topAbove >= margin
+                  ? topAbove
+                  : Math.max(margin, vh - panelH - margin);
+            }
+
+            const style = panelEle.style;
+            style.left = left + "px";
+            style.top = top + "px";
+            style.minWidth = Math.max(rect.width, 112) + "px";
+          },
+          handleDocPointerDown(e) {
+            const path = e.composedPath ? e.composedPath() : [];
+            if (path.includes(this.ele)) {
+              return;
+            }
+            this.open = false;
+          },
+          handleDocKeydown(e) {
+            if (e.key === "Escape" && this.open) {
+              this.open = false;
+            }
+          },
+          bindDocEvents() {
+            if (this._docBound) {
+              return;
+            }
+            document.addEventListener(
+              "pointerdown",
+              this._onDocPointerDown,
+              true,
+            );
+            document.addEventListener("keydown", this._onDocKeydown, true);
+            window.addEventListener("resize", this._onReposition, true);
+            document.addEventListener("scroll", this._onReposition, true);
+            this._docBound = true;
+          },
+          unbindDocEvents() {
+            if (!this._docBound) {
+              return;
+            }
+            document.removeEventListener(
+              "pointerdown",
+              this._onDocPointerDown,
+              true,
+            );
+            document.removeEventListener("keydown", this._onDocKeydown, true);
+            window.removeEventListener("resize", this._onReposition, true);
+            document.removeEventListener("scroll", this._onReposition, true);
+            this._docBound = false;
+          },
+          focus() {
+            this.shadow.$(".main-zone").ele.focus();
+          },
+          blur() {
+            this.shadow.$(".main-zone").ele.blur();
+          },
+        },
+        ready() {
+          this._onDocPointerDown = (e) => this.handleDocPointerDown(e);
+          this._onDocKeydown = (e) => this.handleDocKeydown(e);
+          this._onReposition = () => this.updatePosition();
+        },
+        detached() {
+          clearTimeout(this._closeTimer);
+          this.unbindDocEvents();
+        },
+      };
+    };
+  </script>
+</template>

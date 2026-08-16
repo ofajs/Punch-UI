@@ -1,0 +1,68 @@
+<template page>
+  <style>
+    section {
+      margin: 24px 0;
+    }
+    h3 {
+      margin-bottom: 12px;
+      font-size: 14px;
+      color: #666;
+    }
+    .state {
+      font-size: 13px;
+      color: var(--md-sys-color-on-surface-variant);
+      margin-left: 12px;
+    }
+  </style>
+
+  <section>
+    <h3>受控开合（sync:open）</h3>
+    <p-menu sync:open="menuOpen" on:open="openedCount++" on:close="closedCount++">
+      <p-button slot="trigger">受控菜单 ▾</p-button>
+      <p-menu-item on:click="menuOpen = false">
+        <span slot="prefix">✅</span>
+        <span>点击后关闭</span>
+      </p-menu-item>
+      <p-menu-item on:click="lastAction = '第二条被点击'">
+        <span slot="prefix">📣</span>
+        <span>点击不关闭（演示自由控制）</span>
+      </p-menu-item>
+    </p-menu>
+    <span class="state">
+      open = {{ menuOpen }} | 打开 {{ openedCount }} 次 / 关闭 {{ closedCount }} 次
+    </span>
+    <div style="margin-top: 12px">
+      <p-button size="s" variant="outlined" on:click="menuOpen = !menuOpen">
+        外部切换 open
+      </p-button>
+    </div>
+  </section>
+
+  <section>
+    <h3>事件记录</h3>
+    <p-menu on:open="logs.push('open')" on:close="logs.push('close')">
+      <p-button slot="trigger" variant="tonal">记录事件 ▾</p-button>
+      <p-menu-item on:click="logs.push('item clicked')">
+        点击我记录日志
+      </p-menu-item>
+    </p-menu>
+    <div class="state">最近动作：{{ lastAction || '无' }}</div>
+    <div style="font-size: 13px; color: #666; margin-top: 8px">
+      {{ logs.slice().reverse().join(' → ') }}
+    </div>
+  </section>
+
+  <script>
+    export default async () => {
+      return {
+        data: {
+          menuOpen: false,
+          openedCount: 0,
+          closedCount: 0,
+          lastAction: "",
+          logs: [],
+        },
+      };
+    };
+  </script>
+</template>

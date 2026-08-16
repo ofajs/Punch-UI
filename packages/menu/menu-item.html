@@ -1,0 +1,118 @@
+<template component>
+  <l-m src="../ripple/ripple.html"></l-m>
+  <style>
+    :host {
+      display: block;
+      font-size: 14px;
+      line-height: 1.2em;
+      color: var(--md-sys-color-on-surface);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 8px;
+      box-sizing: border-box;
+      white-space: nowrap;
+      --pui-ripple-color: rgb(from var(--md-sys-color-on-surface) r g b / 0.12);
+    }
+
+    :host([disabled]) {
+      cursor: not-allowed;
+    }
+
+    :host([disabled]) .item {
+      opacity: 0.38;
+      pointer-events: none;
+    }
+
+    @media (hover: hover) {
+      .item:hover {
+        background-color: rgb(from var(--md-sys-color-on-surface) r g b / 0.08);
+      }
+    }
+
+    .item:focus {
+      outline: none;
+    }
+
+    .item:focus-visible {
+      outline: 2px solid var(--md-sys-color-primary);
+      border-radius: 8px;
+    }
+
+    .prefix,
+    .suffix {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .prefix {
+      margin-right: 12px;
+    }
+
+    .suffix {
+      margin-left: 12px;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .label {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  </style>
+  <div
+    class="item"
+    tabindex="0"
+    role="menuitem"
+    on:keydown="handleKeydown"
+  >
+    <div class="prefix"><slot name="prefix"></slot></div>
+    <div class="label"><slot></slot></div>
+    <div class="suffix"><slot name="suffix"></slot></div>
+    <p-ripple></p-ripple>
+  </div>
+  <script>
+    import "../common/init.js";
+
+    export default async ({ load }) => {
+      if (!customElements.get("p-ripple")) {
+        await load("../ripple/ripple.html");
+      }
+
+      return {
+        tag: "p-menu-item",
+        attrs: {
+          disabled: null,
+        },
+        proto: {
+          handleKeydown(e) {
+            if (this.disabled !== null) {
+              return;
+            }
+            if (e.code === "Space" || e.code === "Enter") {
+              e.preventDefault();
+              this.ele.click();
+            }
+          },
+        },
+        ready() {
+          this.on("click", (e) => {
+            if (this.disabled !== null) {
+              e.stopPropagation();
+              e.preventDefault();
+            }
+          });
+        },
+      };
+    };
+  </script>
+</template>

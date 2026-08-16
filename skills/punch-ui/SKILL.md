@@ -72,8 +72,17 @@ Punch-UI 提供了丰富的组件库，以下是可用组件的概览。详细�
 
 - **Button 按钮组件** - 提供多种样式、尺寸和颜色的按钮
   - 详细文档：[button.md](./references/button.md)
-  - 高级用法：分段控制器（单选）、筛选标签（多选）、自定义样式（CSS Part）
+  - 高级用法：分段控制器（单选）、筛选标签（多选）、自定义样式（CSS Part）、分段按钮（p-split-button）
   - 引入：`<l-m src="https://punch-ui-v2.pages.dev/packages/button/button.html"></l-m>`
+
+- **Split Button 分段按钮组件** - 「主操作 + 次操作下拉」组合按钮（位于 button 包）
+  - 详见 button.md 的 Split Button 章节；交互语义与 Menu 组件一致
+  - 引入：`<l-m src="https://punch-ui-v2.pages.dev/packages/button/split-button.html"></l-m>`
+
+- **Menu 菜单组件** - 弹出菜单原语（p-menu + p-menu-item）
+  - 详细文档：[menu.md](./references/menu.md)
+  - 特性：锚点定位、视口翻转、外点/Esc 关闭、开合动画、sync:open 受控
+  - 引入：`<l-m src="https://punch-ui-v2.pages.dev/packages/menu/menu.html"></l-m>`
 
 - **Input 输入框组件** - 支持多种样式和尺寸的输入框
   - 详细文档：[input.md](./references/input.md)
