@@ -1,5 +1,9 @@
 # Punch-UI
 
+> **重要提示：本库即将被放弃，已停止维护。**
+>
+> 请改用 [senti-ui](https://github.com/ofajs/senti-ui) 作为替代方案。
+
 基于 [ofa.js](https://github.com/ofajs/ofa.js) 的 UI 组件库。
 
 ## 快速开始
