@@ -1,5 +1,7 @@
 # Punch UI
 
+> ⚠️ **Deprecation Notice**: This library is no longer maintained. Please use [senti-ui](https://github.com/ofajs/senti-ui) instead.
+
 A modern UI component library built with [ofa.js](https://github.com/ofajs/ofa.js)
 
 [View Component Examples](https://ofajs.github.io/Punch-UI/cases/index.html)
